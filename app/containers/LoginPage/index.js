@@ -4,7 +4,6 @@ import backgroundImage from './images/head.png';
 
 export default function Login() {
   return (
-    // h
     <div>
       <div className="bg-white w-full">
         <div>
