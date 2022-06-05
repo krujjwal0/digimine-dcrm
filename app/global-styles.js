@@ -1,7 +1,29 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-  html,
+  *{
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+    font-family:'Nunito';    
+  }
+  body{
+    background-color: #E5E5E5;
+  }
+  .dashboard, .regulatory, .categories {
+    display:flex;
+    height: 89vh;
+    align-items: center;
+    justify-content: start;
+    font-size:3rem;
+    margin-left:250px;
+    border-radius: 70px 0px 0px 0px;
+    background-color: #F3F3F9;
+  }
+`;
+
+export default GlobalStyle;
+/**html,
   body {
     height: 100%;
     width: 100%;
@@ -26,7 +48,4 @@ const GlobalStyle = createGlobalStyle`
   label {
     font-family: Georgia, Times, 'Times New Roman', serif;
     line-height: 1.5em;
-  }
-`;
-
-export default GlobalStyle;
+  } */

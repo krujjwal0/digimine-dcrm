@@ -6,7 +6,7 @@
  * contain code that should be seen on all pages. (e.g. navigation bar)
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import styled from 'styled-components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -17,13 +17,12 @@ import LoginPage from 'containers/LoginPage/index';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import LoginPage2 from '../LoginPage/LoginPage';
 import OtpPage from '../LoginPage/OtpPage';
-import DashboardContent from './DashboardContent';
 import GlobalStyle from '../../global-styles';
 import { NavBar } from '../../components/NavBar/NavBar';
 import Dashboard from '../Dashboard/Loadable';
 import Regulatory from '../Regulatory';
 import Categories from '../Categories';
-
+import history from '../../utils/history'
 // const AppWrapper = styled.div`
 //   max-width: calc(768px + 16px * 2);
 //   margin: 0 auto;
@@ -33,17 +32,32 @@ import Categories from '../Categories';
 //   flex-direction: column;
 // `;
 
-export default function App() {
+export default function Dashboardcontents() {
+
+  // useEffect(()=>{
+  //   console.log("msg")
+  //   history.push({
+  //     pathname: '/dashboard'
+  //   })
+  // },[])
   return (
     <>
-      <Switch>
-        <Route path="/splash" component={LoginPage} />
-        <Route path="/login" component={LoginPage2} />
-        <Route path="/otp" component={OtpPage} /> 
-        <Route path="/DashboardContent" component={DashboardContent} />
-        {/* <Route path="" component={NotFoundPage} /> */}
-      </Switch>
-      
+      <div className="w-full h-full">
+        <Router>
+          <NavBar />
+          <Switch>
+            <Route exact path="/" component={Dashboard} />
+            <Route path="/categories" component={Categories} />
+            <Route path="/regulatory" component={Regulatory} />
+            <Route path="/features" component={FeaturePage} />
+            {/* <Route path="/LoginPage" component={LoginPage} />
+            <Route path="/LoginPage2" component={LoginPage2} />
+            <Route path="/OtpPage" component={OtpPage} /> */}
+            <Route path="" component={NotFoundPage} />
+          </Switch>
+        </Router>
+      </div>
+
       <GlobalStyle />
     </>
   );

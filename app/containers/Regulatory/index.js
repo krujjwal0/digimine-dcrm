@@ -1,13 +1,11 @@
 /*
- * HomePage
+ * Regulatory
  *
  * This is the first thing users see of our App, at the '/' route
  */
 
 import React, { useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -19,23 +17,15 @@ import {
   makeSelectLoading,
   makeSelectError,
 } from 'containers/App/selectors';
-import H2 from 'components/H2';
-import ReposList from 'components/ReposList';
-import AtPrefix from './AtPrefix';
-import CenteredSection from './CenteredSection';
-import Form from './Form';
-import Input from './Input';
-import Section from './Section';
-import messages from './messages';
 import { loadRepos } from '../App/actions';
 import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import Button from '@material-ui/core/Button';
-const key = 'home';
 
-export function HomePage({
+const key = 'regulatory';
+
+export function Regulatory({
   username,
   loading,
   error,
@@ -58,50 +48,27 @@ export function HomePage({
   };
 
   return (
-    <article>
-      <Helmet>
-        <title>Home Page</title>
-        <meta
-          name="description"
-          content="A React.js Boilerplate application homepage"
-        />
-      </Helmet>
-      <div>
-        <CenteredSection>
-          <H2>
-            <FormattedMessage {...messages.startProjectHeader} />
-          </H2>
-          <p>
-            <FormattedMessage {...messages.startProjectMessage} />
-          </p>
-        </CenteredSection>
-        <Section>
-          <H2>
-            <FormattedMessage {...messages.trymeHeader} />
-          </H2>
-          <Form onSubmit={onSubmitForm}>
-            <label htmlFor="username">
-              <FormattedMessage {...messages.trymeMessage} />
-              <AtPrefix>
-                <FormattedMessage {...messages.trymeAtPrefix} />
-              </AtPrefix>
-              <Input
-                id="username"
-                type="text"
-                placeholder="mxstbr"
-                value={username}
-                onChange={onChangeUsername}
-              />
-            </label>
-          </Form>
-          <ReposList {...reposListProps} />
-        </Section>
+
+    <div className='regulatory'>
+        <div className='w-1/2'> Regulatory</div>
+        {/* <div className='w-1/2'> Ruchi</div> */}
+      {/* <div className='w-1/5 h-screen bg-gray-500'>
+        <SideNavigation />
       </div>
-    </article>
+      <div className='w-4/5 h-full'>
+        <div className='w-full h-20'>
+          notification icon at corner
+        </div>
+        <div className='w-full' style={{ height: '673px' }}>
+          content show
+        </div>
+      </div> */}
+    </div>
+
   );
 }
 
-HomePage.propTypes = {
+Regulatory.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   repos: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
@@ -135,4 +102,4 @@ const withConnect = connect(
 export default compose(
   withConnect,
   memo,
-)(HomePage);
+)(Regulatory);
