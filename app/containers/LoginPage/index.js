@@ -8,12 +8,12 @@ export default function Login() {
       <div className="bg-white w-full">
         <div>
           <img
-className='w-full h-screen'
+            className='w-full h-screen'
             src={backgroundImage} />
         </div>
 
       </div>
-      </div>
-   
+    </div>
+
   );
 }
