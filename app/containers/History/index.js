@@ -55,7 +55,7 @@ export function History({
 
   return (
     <div className="myprofile">
-      Hello
+      Hello! sdhgd
     </div>
   );
 }
