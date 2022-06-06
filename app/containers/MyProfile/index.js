@@ -77,16 +77,16 @@ export function Categories({
         </div>
         <div className="flex justify-center">
           <Card
-            className='mt-12 w-2/6  flex justify-center '
+            className='mt-12 w-2/6 h-[65vh] flex justify-center '
           >
             <CardContent>
-              <div className="text-right font-bold font-sans mt-4">
+              <div className="text-right font-bold font-sans mt-2">
                 <EditIcon className="" /> Edit
               </div>
               <CardContent className="flex justify-center">
-                <img src={photo} />
+                <img className='h-24' src={photo} />
               </CardContent>
-              <CardContent flex justify-center>
+              <CardContent className='-mt-6'>
               <p className="flex justify-center  text-2xl font-sans font-bold">
                 Rajat Kapoor
               </p>
@@ -96,13 +96,13 @@ export function Categories({
                 </p>
               </div>
               </CardContent>
-              <p className="text-[#66737E] flex justify-center mt-8 font-sans text-xs font-bold">
+              <p className="text-[#66737E] flex justify-center mt-2 font-sans text-xs font-bold">
                 Phone
               </p>
               <p className="text-[#132B6B] flex justify-center font-sans text-xl font-bold">
                 +916532565889
               </p>
-              <p className="text-[#66737E] flex justify-center mt-8 font-sans text-xs font-bold">
+              <p className="text-[#66737E] flex justify-center mt-6 font-sans text-xs font-bold">
                 Email Address
               </p>
               <p className="text-[#132B6B] flex justify-center font-sans text-xl font-bold">

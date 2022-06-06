@@ -24,7 +24,8 @@ import Dashboard from '../Dashboard/Loadable';
 import Regulatory from '../Regulatory';
 import Categories from '../Categories';
 import MyProfile from '../MyProfile/Loadable';
-
+import Listadd2 from '../ListAdd2/index';
+import Listadd from '../ListAdd/index';
 // const AppWrapper = styled.div`
 //   max-width: calc(768px + 16px * 2);
 //   margin: 0 auto;
@@ -43,6 +44,14 @@ export default function App() {
         <Route path="/otp" component={OtpPage} /> 
         
         <Route path="/DashboardContent" component={DashboardContent} />
+
+
+
+
+
+
+        <Route path="/listadd" component={Listadd} />
+        <Route path="/listadd2" component={Listadd2} />
         {/* <Route path="" component={NotFoundPage} /> */}
       </Switch>
       

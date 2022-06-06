@@ -25,9 +25,17 @@ export const SidebarData = [
         cName: 'nav-text'
     },
     {
+        title:'History',
+        path: '/history',
+        icons: <img src={regulatory} style={{ width:'15px',height:'23px'}}/>,
+        cName: 'nav-text'
+    },
+    {
         title:'My Profile',
         path: '/myprofile',
         icons: <img src={regulatory} style={{ width:'15px',height:'23px'}}/>,
         cName: 'nav-text'
-    }
+    },
+    
+
 ]
