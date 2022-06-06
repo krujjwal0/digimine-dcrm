@@ -26,6 +26,7 @@ import Categories from '../Categories';
 import MyProfile from '../MyProfile/Loadable';
 import Listadd2 from '../ListAdd2/index';
 import Listadd from '../ListAdd/index';
+import Location from '../LoginPage/ChooseLocation';
 // const AppWrapper = styled.div`
 //   max-width: calc(768px + 16px * 2);
 //   margin: 0 auto;
@@ -42,6 +43,7 @@ export default function App() {
         <Route path="/splash" component={LoginPage} />
         <Route path="/login" component={LoginPage2} />
         <Route path="/otp" component={OtpPage} /> 
+        <Route path="/location" component={Location} /> 
         
         <Route path="/DashboardContent" component={DashboardContent} />
 
