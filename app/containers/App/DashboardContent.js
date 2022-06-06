@@ -22,6 +22,8 @@ import { NavBar } from '../../components/NavBar/NavBar';
 import Dashboard from '../Dashboard/Loadable';
 import Regulatory from '../Regulatory';
 import Categories from '../Categories';
+import MyProfile from '../MyProfile/index';
+import History from '../History';
 import history from '../../utils/history'
 // const AppWrapper = styled.div`
 //   max-width: calc(768px + 16px * 2);
@@ -50,6 +52,8 @@ export default function Dashboardcontents() {
             <Route path="/categories" component={Categories} />
             <Route path="/regulatory" component={Regulatory} />
             <Route path="/features" component={FeaturePage} />
+            <Route path="/myprofile" component={MyProfile} />
+            <Route path="/history" component={History} />
             {/* <Route path="/LoginPage" component={LoginPage} />
             <Route path="/LoginPage2" component={LoginPage2} />
             <Route path="/OtpPage" component={OtpPage} /> */}

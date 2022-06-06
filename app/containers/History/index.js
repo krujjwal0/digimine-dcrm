@@ -5,6 +5,10 @@
  */
 
 import React, { useEffect, memo } from 'react';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import EditIcon from '@material-ui/icons/Edit';
+
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -17,15 +21,17 @@ import {
   makeSelectLoading,
   makeSelectError,
 } from 'containers/App/selectors';
+import { Card } from '@material-ui/core';
 import { loadRepos } from '../App/actions';
 import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import photo from './image/profilepic.png';
 
-const key = 'categories';
+const key = 'history';
 
-export function Categories({
+export function History({
   username,
   loading,
   error,
@@ -48,27 +54,13 @@ export function Categories({
   };
 
   return (
-
-    <div className='maindash'>
-        <div className='w-1/2'> Categories</div>
-        {/* <div className='w-1/2'> Ruchi</div> */}
-      {/* <div className='w-1/5 h-screen bg-gray-500'>
-        <SideNavigation />
-      </div>
-      <div className='w-4/5 h-full'>
-        <div className='w-full h-20'>
-          notification icon at corner
-        </div>
-        <div className='w-full' style={{ height: '673px' }}>
-          content show
-        </div>
-      </div> */}
+    <div className="myprofile">
+      Hello! sdhgd
     </div>
-
   );
 }
 
-Categories.propTypes = {
+History.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   repos: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
@@ -102,4 +94,4 @@ const withConnect = connect(
 export default compose(
   withConnect,
   memo,
-)(Categories);
+)(History);
