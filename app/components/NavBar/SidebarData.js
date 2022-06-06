@@ -23,5 +23,11 @@ export const SidebarData = [
         path: '/regulatory',
         icons: <img src={regulatory} style={{ width:'15px',height:'23px'}}/>,
         cName: 'nav-text'
+    },
+    {
+        title:'My Profile',
+        path: '/myprofile',
+        icons: <img src={regulatory} style={{ width:'15px',height:'23px'}}/>,
+        cName: 'nav-text'
     }
 ]

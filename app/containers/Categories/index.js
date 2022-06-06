@@ -49,7 +49,7 @@ export function Categories({
 
   return (
 
-    <div className='categories'>
+    <div className='maindash'>
         <div className='w-1/2'> Categories</div>
         {/* <div className='w-1/2'> Ruchi</div> */}
       {/* <div className='w-1/5 h-screen bg-gray-500'>

@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
   body{
     background-color: #E5E5E5;
   }
-  .dashboard, .regulatory, .categories {
+  .dashboard, .regulatory, .categories{
     display:flex;
     height: 89vh;
     align-items: center;
@@ -20,6 +20,20 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 70px 0px 0px 0px;
     background-color: #F3F3F9;
   }
+  .maindash{
+    display:flex;
+    height: 89vh;
+    margin-left:250px;
+    border-radius: 70px 0px 0px 0px;
+    background-color: #F3F3F9;
+    
+  }
+  .myprofile{
+    display:flex;
+    height: 89vh;
+    margin-left:250px;
+    border-radius: 70px 0px 0px 0px;
+    background-color: #ffff;
 `;
 
 export default GlobalStyle;
