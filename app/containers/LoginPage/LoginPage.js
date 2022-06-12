@@ -130,7 +130,6 @@ import Button from '@material-ui/core/Button';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import React, { useEffect, useState } from 'react';
-import SplashScreen from '.';
 import LoginFirstImage from './images/image1.png';
 import LoginSecondImage from './images/Login2.svg';
 import LoginThirdImage from './images/Login3.svg';
@@ -138,19 +137,21 @@ import LoginImage from './images/loginpageLogo.svg';
 import Resend from './images/resendImage.svg';
 import smart from './images/Smart.svg';
 import './style.css';
-// import TextField from '@mui/material/TextField';
+import { Redirect } from "react-router-dom";
 
 export default function Login() {
-  const [a, setA] = useState(true);
-  useEffect(() => {
-    setTimeout(splash, 3000);
-  }, []);
-  const splash = () => {
-    setA(false);
+  const [redirectToReferrer, setRedirectToReferrer] = useState(false);
+
+  const login = () => {
+    // fakeAuth.authenticate(() => {
+      setRedirectToReferrer(true);
+    // });
   };
-  return a ? (
-    <SplashScreen />
-  ) : (
+
+  if (redirectToReferrer) {
+    return <Redirect to={{ pathname: "/otp"} }/>;
+  }
+  return (
     <div className="font-sans">
       <div className="body" />
       <div className="flex">
@@ -229,13 +230,15 @@ export default function Login() {
                         width: '320px',
                         height: '80px',
                       }}
+                      onClick={() => login()}
                     >
                       <p
                         className="font-sans font-bold"
                         style={{ fontSize: '28px' }}
+
                       >
                         Login
-                      </p>
+                      </p>                      
                     </Button>
                   </div>
                 </CardContent>
@@ -245,5 +248,5 @@ export default function Login() {
         </div>
       </div>
     </div>
-  );
+  )
 }
