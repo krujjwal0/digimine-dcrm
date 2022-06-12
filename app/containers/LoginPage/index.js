@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import logoIcon from './images/logo.svg';
 import backgroundImage from './images/head.png';
 
-export default function Login() {
+export default function SplashScreen() {
   const [showView, setShowView] = useState();
 
   return (
