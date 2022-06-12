@@ -28,10 +28,11 @@ import Listadd2 from '../ListAdd2/index';
 import Listadd from '../ListAdd/index';
 import Location from '../LoginPage/ChooseLocation';
 import Users from '../Regulatory/Users';
+import History from '../History';
 
 
 export default function App() {
-  const [nav, setNav] = useState(false);
+  const [nav, setNav] = useState(true);
   return (
     <>
       <div className="w-full h-full dis">
@@ -49,6 +50,8 @@ export default function App() {
             <Route path="/listadd2" component={Listadd2} />
             <Route path="/location" component={Location} />
             <Route path="/empLogin" component={EmpLogin} />
+            <Route path="/myprofile" component={MyProfile} />
+            <Route path="/history" component={History} />
 
             <Route component={NotFoundPage} />
           </Switch>
