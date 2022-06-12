@@ -8,6 +8,22 @@ import React from 'react';
 import './style.css';
 import { List, AutoSizer } from 'react-virtualized';
 import emp_image from '../../images/emp_image.png';
+import { alpha, styled } from '@material-ui/core/styles';
+import { green } from '@material-ui/core/colors';
+import Switch from '@material-ui/core/Switch';
+
+const GreenSwitch = styled(Switch)(({ theme }) => ({
+  '& .MuiSwitch-switchBase.Mui-checked': {
+    color: green[600],
+    '&:hover': {
+      backgroundColor: alpha(green[600], theme.palette.action.hoverOpacity),
+    },
+  },
+  '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+    backgroundColor: green[600],
+  },
+}));
+const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 // List data as an array of strings
 const list = [
@@ -61,7 +77,7 @@ function rowRenderer({
       <div className="content">
         <label>Active</label>
         <p>
-          Active
+        <GreenSwitch {...label} defaultChecked />
           {/* {list[index].id} */}
         </p>
       </div>
@@ -69,13 +85,17 @@ function rowRenderer({
   );
 }
 
+
 export default function Users() {
+
+
+  
   return (
     <>
       <div />
       <div className="list">
         <List
-          width={800}
+          width={900}
           height={600}
           rowCount={list.length}
           rowHeight={50}

@@ -13,7 +13,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
-import LoginPage from 'containers/LoginPage/LoginPage';
+import LoginPage from 'containers/LoginPage/index';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import OtpPage from '../LoginPage/OtpPage';
 import EmpLogin from '../LoginPage/EmpLogin';
