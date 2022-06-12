@@ -64,54 +64,52 @@ export default function Login() {
                       className="flex justify-center p-5 ml-2 text-4xl font-sans font-bold"
                       style={{ color: '#132B6B ' }}
                     >
-                      OTP
+                      Login
                     </p>
-                    <div
-                      className="mt-3 font-normal font-sans "
-                      style={{ fontSize: '16px' }}
-                    >
+                    <div className="mt-14">
+                      <p className=" text-xl text-red font-sans">
+                        <TextField
+                          id="standard-basic"
+                          placeholder="Enter your username"
+                          className="w-full text-lg"
+                        />
+                      </p>
+
                       <p
-                        className=" font-normal font-sans "
-                        style={{ fontSize: '23px', marginLeft: '7px' }}
+                        className="font-sans flex justify-end font-normal"
+                        style={{ fontSize: '24px', color: '#EB5757' }}
                       >
-                        Enter the 4 digit OTP code sent at your email
-                        <span>address jyoti@gmail.com</span>
+                        Error Message
                       </p>
                     </div>
-                    <div className="mt-14 flex">
-                      <div>
-                        <p className=" text-xl text-red font-sans">
-                          <TextField
-                            id="standard-basic"
-                            className="w-28 text-lg"
-                          />
-                        </p>
-                      </div>
-                      <div className="ml-8">
-                        <p className=" text-xl text-red font-sans">
-                          <TextField id="standard-basic" className="w-28 " />
-                        </p>
-                      </div>
-                      <div className="ml-8">
-                        <p className=" text-xl text-red font-sans">
-                          <TextField id="standard-basic" className="w-28 " />
-                        </p>
-                      </div>
-                      <div className="ml-8">
-                        <p className=" text-xl text-red font-sans">
-                          <TextField id="standard-basic" className="w-28 " />
-                        </p>
-                      </div>
+                    <div className="mt-12 ">
+                      <p className=" text-lg text-red font-sans ">
+                        <TextField
+                          id="standard-basic"
+                          placeholder="Password"
+                          className="w-full ml-3 font-bold"
+                        />
+                        <>
+                          {/* {!showPassword ? (
+                   <VisibilityOffIcon 
+                              className="-mt-2 z-0 -ml-10 font-bold"
+                              style={{ height: '46px', width: '35px' }}
+                            />
+                          ) : (
+                   <VisibilityIcon
+className='mt-5 z-0 -ml-10 font-bold' 
+                   />
+                 } */}
+                        </>
+                      </p>
                     </div>
                   </CardContent>
                   <div className="ml-14 mt-12">
                     <p
-                      className="font-sans font-semibold ml-28 mt-4 flex"
+                      className="font-sans font-semibold ml-16 mt-4"
                       style={{ fontSize: '24px', color: '#EB5757' }}
                     >
-                      <img src={Resend} className="ml-4" />
-
-                      <p className="ml-7 font-sans font-semibold">Resend OTP</p>
+                      Invalid username and password
                     </p>
                     <div className="font-sans ml-14 mt-9">
                       <Button

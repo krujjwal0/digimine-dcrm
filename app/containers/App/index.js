@@ -17,6 +17,7 @@ import LoginPage from 'containers/LoginPage/index';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import LoginPage2 from '../LoginPage/LoginPage';
 import OtpPage from '../LoginPage/OtpPage';
+import EmpLogin from '../LoginPage/EmpLogin';
 import DashboardContent from './DashboardContent';
 import GlobalStyle from '../../global-styles';
 import { NavBar } from '../../components/NavBar/NavBar';
@@ -42,21 +43,16 @@ export default function App() {
       <Switch>
         <Route path="/splash" component={LoginPage} />
         <Route path="/login" component={LoginPage2} />
-        <Route path="/otp" component={OtpPage} /> 
-        <Route path="/location" component={Location} /> 
-        
+        <Route path="/otp" component={OtpPage} />
+        <Route path="/location" component={Location} />
+        <Route path="/empLogin" component={EmpLogin} />
         <Route path="/DashboardContent" component={DashboardContent} />
-
-
-
-
-
 
         <Route path="/listadd" component={Listadd} />
         <Route path="/listadd2" component={Listadd2} />
         {/* <Route path="" component={NotFoundPage} /> */}
       </Switch>
-      
+
       <GlobalStyle />
     </>
   );
