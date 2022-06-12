@@ -30,7 +30,7 @@ function rowRenderer({
   return (
     <div key={key} style={style} className="row">
       <div>
-        <img src={emp_image} alt="user image" />
+        <img className='empImg' src={emp_image} alt="user image" />
       </div>
       <div className="content">
         <label>Employee</label>

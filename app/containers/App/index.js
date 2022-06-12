@@ -13,9 +13,9 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
-import LoginPage from 'containers/LoginPage/index';
+import LoginPage from 'containers/LoginPage/LoginPage';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import LoginPage2 from '../LoginPage/LoginPage';
+// import LoginPage2 from '../LoginPage/LoginPage';
 import OtpPage from '../LoginPage/OtpPage';
 import DashboardContent from './DashboardContent';
 import GlobalStyle from '../../global-styles';
@@ -47,7 +47,7 @@ export default function App() {
             <Route path="/categories" component={Categories} />
             <Route path="/regulatory" component={Regulatory} />
             <Route path="/features" component={FeaturePage} />
-            <Route path="/login" component={LoginPage2} />
+            {/* <Route path="/login" component={LoginPage2} /> */}
             <Route path="/otp" component={OtpPage} />
             <Route path="/users" component={Users} />
             <Route component={NotFoundPage} />
