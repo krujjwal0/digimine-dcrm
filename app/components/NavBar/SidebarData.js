@@ -6,22 +6,22 @@ import regulatory from '../../images/regulatory.svg';
 import categories from '../../images/categories.svg';
 
 export const SidebarData = [
-    {
-        title:'Dashboard',
-        path: '/',
-        icons: <AiIcons.AiOutlineHome />,
-        cName: 'nav-text'
-    },
-    {
-        title:'Categories',
-        path: '/categories',
-        icons: <img src={categories} style={{ width:'16px',height:'16px'}}/>,
-        cName: 'nav-text'
-    },
-    {
-        title:'Regulatory',
-        path: '/regulatory',
-        icons: <img src={regulatory} style={{ width:'15px',height:'23px'}}/>,
-        cName: 'nav-text'
-    }
-]
+  {
+    title: 'Dashboard',
+    path: '/dashboard',
+    icons: <AiIcons.AiOutlineHome />,
+    cName: 'nav-text',
+  },
+  {
+    title: 'Categories',
+    path: '/categories',
+    icons: <img src={categories} style={{ width: '16px', height: '16px' }} />,
+    cName: 'nav-text',
+  },
+  {
+    title: 'Regulatory',
+    path: '/regulatory',
+    icons: <img src={regulatory} style={{ width: '15px', height: '23px' }} />,
+    cName: 'nav-text',
+  },
+];

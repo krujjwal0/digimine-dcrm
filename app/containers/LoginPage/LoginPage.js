@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import SplashScreen from '.';
 import LoginFirstImage from './images/image1.png';
 import LoginSecondImage from './images/Login2.svg';
 import LoginThirdImage from './images/Login3.svg';
@@ -8,7 +9,16 @@ import './style.css';
 // import TextField from '@mui/material/TextField';
 
 export default function Login() {
-  return (
+  const [a, setA] = useState(true);
+  useEffect(() => {
+    setTimeout(splash, 3000);
+  }, []);
+  const splash = () => {
+    setA(false);
+  };
+  return a ? (
+    <SplashScreen />
+  ) : (
     <div className="font-sans">
       <div className="body1" />
       <div className="flex">

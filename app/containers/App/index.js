@@ -6,7 +6,7 @@
  * contain code that should be seen on all pages. (e.g. navigation bar)
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import styled from 'styled-components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -23,6 +23,7 @@ import { NavBar } from '../../components/NavBar/NavBar';
 import Dashboard from '../Dashboard/Loadable';
 import Regulatory from '../Regulatory';
 import Categories from '../Categories';
+import Users from '../Regulatory/Users';
 
 // const AppWrapper = styled.div`
 //   max-width: calc(768px + 16px * 2);
@@ -34,16 +35,32 @@ import Categories from '../Categories';
 // `;
 
 export default function App() {
+  const [nav, setNav] = useState(false);
   return (
     <>
-      <Switch>
+      <div className="w-full h-full dis">
+        <Router>
+          {nav ? <NavBar /> : null}
+          <Switch>
+            <Route exact path="/" component={LoginPage} />
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/categories" component={Categories} />
+            <Route path="/regulatory" component={Regulatory} />
+            <Route path="/features" component={FeaturePage} />
+            <Route path="/login" component={LoginPage2} />
+            <Route path="/otp" component={OtpPage} />
+            <Route path="/users" component={Users} />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </Router>
+      </div>
+      {/* <Switch>
         <Route path="/splash" component={LoginPage} />
         <Route path="/login" component={LoginPage2} />
         <Route path="/otp" component={OtpPage} /> 
         <Route path="/DashboardContent" component={DashboardContent} />
-        {/* <Route path="" component={NotFoundPage} /> */}
       </Switch>
-      
+       */}
       <GlobalStyle />
     </>
   );
