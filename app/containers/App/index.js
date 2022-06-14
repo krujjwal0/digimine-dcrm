@@ -28,6 +28,7 @@ import Listadd2 from '../ListAdd2/index';
 import Listadd from '../ListAdd/index';
 import Location from '../LoginPage/ChooseLocation';
 import Users from '../Regulatory/Users';
+import FeedbackForm from '../LoginPage/FeedbackForm';
 
 
 export default function App() {
@@ -49,6 +50,7 @@ export default function App() {
             <Route path="/listadd2" component={Listadd2} />
             <Route path="/location" component={Location} />
             <Route path="/empLogin" component={EmpLogin} />
+            <Route path="/form" component={FeedbackForm}/>
 
             <Route component={NotFoundPage} />
           </Switch>
