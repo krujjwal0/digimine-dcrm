@@ -28,13 +28,9 @@ import Listadd2 from '../ListAdd2/index';
 import Listadd from '../ListAdd/index';
 import Location from '../LoginPage/ChooseLocation';
 import Users from '../Regulatory/Users';
-<<<<<<< HEAD
 import FeedbackForm from '../LoginPage/FeedbackForm';
 import Employee from '../Employee';
-=======
 import History from '../History';
-
->>>>>>> ujjwal
 
 export default function App() {
   const [nav, setNav] = useState(true);
@@ -55,13 +51,10 @@ export default function App() {
             <Route path="/listadd2" component={Listadd2} />
             <Route path="/location" component={Location} />
             <Route path="/empLogin" component={EmpLogin} />
-<<<<<<< HEAD
             <Route path="/form" component={FeedbackForm} />
             <Route path="/admin/users" component={Employee} />
-=======
             <Route path="/myprofile" component={MyProfile} />
             <Route path="/history" component={History} />
->>>>>>> ujjwal
 
             <Route component={NotFoundPage} />
           </Switch>
