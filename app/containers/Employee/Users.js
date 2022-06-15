@@ -7,16 +7,16 @@ import React from 'react';
 
 import './style.css';
 import { List, AutoSizer } from 'react-virtualized';
-import { alpha, styled } from '@material-ui/core/styles';
+import { alpha, styled , withStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import { withStyles } from '@material-ui/core/styles';
-import MoreVert from '@material-ui/icons/MoreVert';
-import emp_image from '../../images/emp_image.png';
-import {Card, CardContent} from '@material-ui/core';
 
-const IOSSwitch = withStyles((theme) => ({
+import MoreVert from '@material-ui/icons/MoreVert';
+import {Card, CardContent} from '@material-ui/core';
+import emp_image from '../../images/emp_image.png';
+
+const IOSSwitch = withStyles(theme => ({
   root: {
     width: 42,
     height: 26,
@@ -52,8 +52,7 @@ const IOSSwitch = withStyles((theme) => ({
   },
   checked: {},
   focusVisible: {},
-}))(({ classes, ...props }) => {
-  return (
+}))(({ classes, ...props }) => (
     <Switch
       focusVisibleClassName={classes.focusVisible}
       disableRipple
@@ -66,8 +65,7 @@ const IOSSwitch = withStyles((theme) => ({
       }}
       {...props}
     />
-  );
-});
+  ));
 
 const GreenSwitch = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-switchBase.Mui-checked': {
@@ -144,19 +142,18 @@ function rowRenderer({
 }
 
 export default function Users() {
-
   const [state, setState] = React.useState({
     checkedA: true,
     checkedB: true,
     checkedC: true,
   });
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
   return (
-    <div className=''>
+    <div className="">
       {/* <div className="list">
         <List
           width={900}
@@ -166,70 +163,69 @@ export default function Users() {
           rowRenderer={rowRenderer}
         />
       </div> */}
-       <Card className='w-full  h-[72px]'>
-          <CardContent>
-          <div className='flex'>
-              <div className='rounded-full h-[41px] w-[41px] ml-3 bg-[#132B6B]'>
-                <p className='text-white ml-[11px] mt-[11px] font-sans'>
+      <Card className='w-full  h-[72px]'>
+        <CardContent>
+          <div className="flex">
+            <div className='rounded-full h-[41px] w-[41px] ml-3 bg-[#132B6B]'>
+              <p className='text-white ml-[11px] mt-[11px] font-sans'>
                   RK
-                </p>
-              </div>
-              
-              <div className='ml-10'>
-              <p className='text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]'>
+              </p>
+            </div>
+
+            <div className='ml-10'>
+              <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
                 Employee
-                </p>
-                <div className='flex'>
-                <p className='text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]'>
+              </p>
+              <div className='flex'>
+                <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
                   Rajat Kapoor
                 </p>
                 <div className="flex justify-center w-20 bg-[#F66B6B] ml-1 mt-[6px] rounded-md h-4">
-                <p className="text-center text-[11px] mt-[2px] text-white font-sans">
-                  #0123456789
-                </p>
-              </div>
+                  <p className="text-center text-[11px] mt-[2px] text-white font-sans">
+                    #0123456789
+                  </p>
                 </div>
               </div>
-              <div className='ml-10'>
-              <p className='text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]'>
+            </div>
+            <div className='ml-10'>
+              <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
                 Department
-                </p>
-                <p className='text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]'>
-                  Mining
-                </p>
-              </div>
-              <div className='ml-16'>
-              <p className='text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]'>
+              </p>
+              <p className='text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]'>
+                Mining
+              </p>
+            </div>
+            <div className='ml-16'>
+              <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
                 Phone
-                </p>
-                <p className='text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]'>
-                  97845 56895
-                </p>
-              </div>
-              <div className='ml-12'>
-              <p className='text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]'>
+              </p>
+              <p className='text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]'>
+                97845 56895
+              </p>
+            </div>
+            <div className='ml-12'>
+              <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
                 Email ID
-                </p>
-                <p className='text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]'>
-                  rkapoor@gmail.com
-                </p>
-              </div>
-              <div className='ml-12'>
-              <p className='text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]'>
-               Active
-                </p>
-                <FormControlLabel
-        control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="checkedB" />}
-        
-      />
-              </div>
-              <div className='mt-2 ml-8'>
+              </p>
+              <p className='text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]'>
+                rkapoor@gmail.com
+              </p>
+            </div>
+            <div className='ml-12'>
+              <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
+                Active
+              </p>
+              <FormControlLabel
+                control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="checkedB" />}
+                
+              />
+            </div>
+            <div className='mt-2 ml-8'>
               <MoreVert />
-              </div>
-              </div>
-          </CardContent>
-        </Card>
-
-        </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

@@ -62,8 +62,8 @@ export function Employee({
           <div className="">
             <UsersUtility />
           </div>
-          <div className=''>
-          <Users />
+          <div className="">
+            <Users />
           </div>
         </div>
       </div>
