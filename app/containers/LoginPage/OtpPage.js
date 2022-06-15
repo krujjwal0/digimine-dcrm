@@ -1,150 +1,70 @@
-import React, { useState } from 'react';
-import { Card } from '@material-ui/core';
-import CardContent from '@material-ui/core/CardContent';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import React from 'react';
 import LoginFirstImage from './images/image1.png';
 import LoginSecondImage from './images/Login2.svg';
 import LoginThirdImage from './images/Login3.svg';
-import LoginImage from './images/loginpageLogo.svg';
+import LoginImage from './images/Logo.svg';
 import Resend from './images/resendImage.svg';
-import smart from './images/Smart.svg';
 import './style.css';
-// import TextField from '@mui/material/TextField';
+import Link from '@material-ui/core/Link';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
 
 export default function Login() {
-  const [showPassword, setShowPassword] = useState(false);
   return (
-    <div className="font-sans">
-      <div className="body" />
-      <div className="flex">
-        <div className="-mt-40">
-          <img
-            className="absolute"
-            style={{
-              bottom: '-30%',
-              objectFit: 'cover',
-              width: '100%',
-              height: 'auto',
-            }}
-            src={LoginThirdImage}
-          />
-          <img
-            className="absolute"
-            style={{
-              bottom: '-30%',
-              objectFit: 'cover',
-              width: '100%',
-              height: 'auto',
-            }}
-            src={LoginSecondImage}
-          />
-          <p className="z-1 absolute ml-96 ">
-            <img src={smart} style={{ width: '399px', height: '96px' }} />
-          </p>
-          <div>
-            <div className="  ">
-              <Card
-                className="container absolute flex-wrap justify-end mt-20  w-1/4 h-4/6 p-4 font-sans  "
-                style={{
-                  borderRadius: '25px',
-                  boxShadow: ' 0px 4px 40px rgba(108, 108, 108, 0.3)',
-                  marginLeft: '1380px',
-                  marginTop: '-26%',
-                }}
-              >
-                <CardContent>
-                  <CardContent className="flex justify-center -mt-3">
-                    <img className="" src={LoginImage} />
-                  </CardContent>
-                  <CardContent className="-mt-4">
-                    <p
-                      className="flex justify-center p-5 ml-2 text-4xl font-sans font-bold"
-                      style={{ color: '#132B6B ' }}
-                    >
-                      OTP
-                    </p>
-                    <div
-                      className="mt-3 font-normal font-sans "
-                      style={{ fontSize: '16px' }}
-                    >
-                      <p
-                        className=" font-normal font-sans "
-                        style={{ fontSize: '23px', marginLeft: '7px' }}
-                      >
-                        Enter the 4 digit OTP code sent at your email
-                        <span>address jyoti@gmail.com</span>
-                      </p>
-                    </div>
-                    <div className="mt-14 flex">
-                      <div>
-                        <p className=" text-xl text-red font-sans">
-                          <TextField
-                            id="standard-basic"
-                            className="w-28 text-lg"
-                          />
-                        </p>
-                      </div>
-                      <div className="ml-8">
-                        <p className=" text-xl text-red font-sans">
-                          <TextField id="standard-basic" className="w-28 " />
-                        </p>
-                      </div>
-                      <div className="ml-8">
-                        <p className=" text-xl text-red font-sans">
-                          <TextField id="standard-basic" className="w-28 " />
-                        </p>
-                      </div>
-                      <div className="ml-8">
-                        <p className=" text-xl text-red font-sans">
-                          <TextField id="standard-basic" className="w-28 " />
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                  <div className="ml-14 mt-12">
-                    <p
-                      className="font-sans font-semibold ml-28 mt-4 flex"
-                      style={{ fontSize: '24px', color: '#EB5757' }}
-                    >
-                      <img src={Resend} className="ml-4" />
+    <div className="font-sans login_page  py-">
+      <div className="container h-full min-h-full relative z-10">
+        <div className="flex justify-end flex-wrap h-full  min-h-full items-center">
+          <div className="card bg-white shadow-lg rounded-3xl py-10 px-10 max-w-xl w-1/2">
+              <div className="logo text-center">
+              <img src={LoginImage} alt="LoginImage" className="w-72 mx-auto mb-4"/>
+              </div>
+              <h1 className="text-center font-bold font-sans text-3xl text_blue">OTP</h1>
+              <p className=" text-center font-sans font-medium mb-5" style={{color:"#6E7B8B",}}>Enter the 4 digit OTP code sent at your email<br/> address <b  className="font-sans text-sky-700">jyoti@gmail.com</b></p>   <div className="form_box w-full">
+              <div className="flex mt-20 justify-between">
+              <TextField
+                variant="standard" 
+                style={{width:'auto', color:'#6E7B8B', fontSize:'16px', borderBottom:'1px solid #EAEAEA', marginBottom:'20px', marginRight:'15px'}}
+              />
+              <TextField
+                variant="standard" 
+                style={{width:'auto', color:'#6E7B8B', fontSize:'16px',borderBottom:'1px solid #EAEAEA', marginBottom:'20px',marginRight:'15px'}}
+              />
+              <TextField
+                variant="standard" 
+                style={{width:'auto', color:'#6E7B8B', fontSize:'16px',borderBottom:'1px solid #EAEAEA', marginBottom:'20px',marginRight:'15px'}}
+              />
+              <TextField
+                variant="standard" 
+                style={{width:'auto', color:'#6E7B8B', fontSize:'16px',borderBottom:'1px solid #EAEAEA', marginBottom:'20px',marginRight:'15px'}}
+              />
+              <TextField
+                variant="standard" 
+                style={{width:'auto', color:'#6E7B8B', fontSize:'16px',borderBottom:'1px solid #EAEAEA', marginBottom:'20px',marginRight:'15px'}}
+              />
+              <TextField
+                variant="standard" 
+                style={{width:'auto', color:'#6E7B8B', fontSize:'16px',borderBottom:'1px solid #EAEAEA', marginBottom:'20px'}}
+              />
+              </div>
+              
+              <p className="text-gray-400 text-center flex mb-10 justify-center my-4 font-sans"  style={{ fontSize:'14px'}}><img className="mr-3" src={Resend}/> Resend OTP</p>
+              <Button className="bg_red otp_btn mx-auto   font-sans login_btn  w-60 rounded-3xl my-5">
+                Continue
+              </Button>
 
-                      <p className="ml-7 font-sans font-semibold">Resend OTP</p>
-                    </p>
-                    <div className="font-sans ml-14 mt-9">
-                      <Button
-                        variant="contained"
-                        style={{
-                          backgroundColor: '#F66B6B',
-                          color: '#FFFFFF',
-                          borderRadius: '60px',
-                          width: '320px',
-                          height: '70px',
-                        }}
-                      >
-                        <p
-                          className="font-sans font-bold"
-                          style={{ fontSize: '28px' }}
-                        >
-                          Login
-                        </p>
-                      </Button>
-                    </div>
-                    <p
-                      className="ml-24 mt-12 font-sans font-semibold"
-                      style={{ color: '#124D50', fontSize: '24px' }}
-                    >
-                      Forget your password?
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
+              <p className="text_blue text-center mt-7 font-sans"  style={{ fontSize:'14px'}}><Link href="#" className="font-sans">&#8592; 
+ <b className="font-sans"> Back To Login</b></Link></p>
             </div>
           </div>
         </div>
+        <div className="msg_box  flex flex-wrap pt-5">
+          <div className="w-1/2 lg:-mt-20 quote_box md:text-4xl text-2xl font-bold"><h3 className="text-white font-sans">Smart Platform for</h3><h3 className="text_blue  font-sans">
+Smart People</h3></div>
+<div className="copyright_text w-1/2 text-center text-xs font-sans text-white">© 2020 MineMagma. All Rights Reserved</div>
+        </div>
       </div>
+      
     </div>
   );
 }

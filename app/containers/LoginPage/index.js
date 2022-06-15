@@ -13,11 +13,11 @@ export default function SplashScreen() {
     setA(false);
   };
 
-  return (
-    a ? (
+  return a ? (
     <div>
       <div className="bg-white w-full">
         <div>
+          
           <img className="w-full h-screen" src={backgroundImage} />
         </div>
       </div>
@@ -107,8 +107,7 @@ export default function SplashScreen() {
       </div>
       ) : null} */}
     </div>
-    ) : (
-      <Login />
-    )
+  ) : (
+    <Login />
   );
 }

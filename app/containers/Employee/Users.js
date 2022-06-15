@@ -10,6 +10,7 @@ import { List, AutoSizer } from 'react-virtualized';
 import { alpha, styled } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import Switch from '@material-ui/core/Switch';
+import MoreVert from '@material-ui/icons/MoreVert';
 import emp_image from '../../images/emp_image.png';
 
 const GreenSwitch = styled(Switch)(({ theme }) => ({
@@ -27,8 +28,6 @@ const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 // List data as an array of strings
 const list = [
-  { name: 'Brian Vaughn', id: 1 },
-  { name: 'Brian Vaughn', id: 1 },
   { name: 'Brian Vaughn', id: 1 },
   // 'heena',
   // 'atulniya'
@@ -81,6 +80,9 @@ function rowRenderer({
           {/* {list[index].id} */}
         </p>
       </div>
+      <div className="content">
+        <MoreVert />
+      </div>
     </div>
   );
 }
@@ -88,7 +90,6 @@ function rowRenderer({
 export default function Users() {
   return (
     <>
-      <div />
       <div className="list">
         <List
           width={900}

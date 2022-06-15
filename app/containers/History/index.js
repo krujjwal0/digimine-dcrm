@@ -27,7 +27,11 @@ import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+<<<<<<< HEAD
 import photo from './image/profilepic.png';
+=======
+import HistoryCard from './HistoryCard';
+>>>>>>> ujjwal
 
 const key = 'history';
 
@@ -55,7 +59,58 @@ export function History({
 
   return (
     <div className="myprofile">
-      Hello! sdhgd
+      <div className="w-full">
+        <div className="ml-8 ">
+          <div className="ml-4 mt-3 text-xl ">
+            <p
+              style={{ color: '#151F63', fontSize: '18px' }}
+              className="font-sans font-semibold"
+            >
+              History
+            </p>
+            <p
+              style={{ color: '#F66B6B', fontSize: '11px' }}
+              className=" font-sans ml-18"
+            >
+              Dashboard | <span style={{ color: '#151F63' }}>History</span>
+            </p>
+            <hr />
+          </div>
+          <div className="flex ">
+            <form>
+              <select className="w-36 m-4 border-2 rounded-[20px] h-9">
+                <option>Department</option>
+              </select>
+            </form>
+            <button
+              className="w-28 h-9 m-4"
+              style={{
+                backgroundColor: '#C4C4C4',
+                color: 'white',
+                borderRadius: '50px',
+                width: '112px',
+              }}
+            >
+              SEARCH
+            </button>
+            <div className="mt-4 w-96 h-8 flex item-strech border-2 rounded-[20px]">
+              <InputBase
+                placeholder="Search by Report Name."
+                inputProps={{ 'aria-label': 'search' }}
+              />
+              <SearchIcon className="ml-72" />
+            </div>
+          </div>
+          <div className="flex">
+            <HistoryCard />
+            <HistoryCard />
+          </div>
+          <div className="flex">
+            <HistoryCard />
+            <HistoryCard />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
