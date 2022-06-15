@@ -9,6 +9,7 @@ export default function Login() {
     <div>
       <div className="bg-white w-full">
         <div>
+          
           <img className="w-full h-screen" src={backgroundImage} />
         </div>
       </div>
