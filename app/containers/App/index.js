@@ -33,7 +33,7 @@ import Employee from '../Employee';
 import History from '../History';
 
 export default function App() {
-  const [nav, setNav] = useState(false);
+  const [nav, setNav] = useState(true);
   return (
     <>
       <div className="w-full h-full dis">
