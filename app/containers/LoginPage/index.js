@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logoIcon from './images/logo.svg';
 import backgroundImage from './images/head.png';
+import Login from './LoginPage';
 
 export default function SplashScreen() {
   const [showView, setShowView] = useState();
+  const [a, setA] = useState(true);
+  useEffect(() => {
+    setTimeout(splash, 3000);
+  }, []);
+  const splash = () => {
+    setA(false);
+  };
 
-  return (
+  return a ? (
     <div>
       <div className="bg-white w-full">
         <div>
@@ -98,5 +106,7 @@ export default function SplashScreen() {
       </div>
       ) : null} */}
     </div>
+  ) : (
+    <Login />
   );
 }
