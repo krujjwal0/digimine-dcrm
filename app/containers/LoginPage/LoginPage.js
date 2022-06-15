@@ -3,9 +3,9 @@ import { Card } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { Redirect } from 'react-router-dom';
 import LoginImage from './images/Logo.svg';
 import Resend from './images/resendImage.svg';
-import { Redirect } from 'react-router-dom';
 import './style.css';
 
 export default function Login() {
@@ -43,7 +43,7 @@ export default function Login() {
                 type="email"
                 id="standard-error-helper-text"
                 placeholder="Enter Your Username"
-                //helperText="Error message."
+                // helperText="Error message."
                 variant="standard"
                 style={{ width: '100%', color: '#6E7B8B', fontSize: '16px' }}
               />
