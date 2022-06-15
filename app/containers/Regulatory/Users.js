@@ -88,7 +88,7 @@ function rowRenderer({
 export default function Users() {
   return (
     <>
-      <div />
+      {/* <div />
       <div className="list">
         <List
           width={900}
@@ -97,7 +97,79 @@ export default function Users() {
           rowHeight={50}
           rowRenderer={rowRenderer}
         />
-      </div>
+      </div> */}
+      {/* {list.map((emp, index) => {} )} */}
+      <Card className='w-full h-[72px] mt-[10px]'>
+          <CardContent>
+          <div className='flex'>
+              <div className='rounded-full h-[41px] w-[41px] ml-3 bg-[#132B6B]'>
+                <p className='text-white ml-[11px] mt-[11px] font-sans'>
+                  RK
+                </p>
+              </div>
+              <div className='ml-10'>
+              <p className='text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]'>
+                Department
+                </p>
+                <p className='text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]'>
+                  Mining
+                </p>
+              </div>
+              <div className='ml-10'>
+              <p className='text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]'>
+                Assign Person
+                </p>
+                <div className='flex'>
+                <p className='text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]'>
+                  Rajat Kapoor
+                </p>
+                <div className="flex justify-center w-20 bg-[#F66B6B] ml-1 mt-[6px] rounded-md h-4">
+                <p className="text-center text-[11px] mt-[2px] text-white font-sans">
+                  #0123456789
+                </p>
+              </div>
+                </div>
+              </div>
+              <div className='ml-16'>
+              <p className='text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]'>
+                Reviewer
+                </p>
+                <p className='text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]'>
+                  Abhinandan Banerjee
+                </p>
+              </div>
+              <div className='ml-12'>
+              <p className='text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]'>
+                Lead Reviewer
+                </p>
+                <p className='text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]'>
+                  Rupesh Bansal
+                </p>
+              </div>
+              <div className='ml-12'>
+              <p className='text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]'>
+                Category
+                </p>
+                <p className='text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]'>
+                  OTC
+                </p>
+              </div>
+              <div className='ml-12'>
+              <p className='text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]'>
+                Category
+                </p>
+                
+                <FormControlLabel
+                  control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="checkedB" />}
+                  
+                    />
+                    
+              </div>
+              </div>
+          </CardContent>
+        </Card>
+
+
     </>
   );
 }

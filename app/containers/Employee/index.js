@@ -58,7 +58,7 @@ export function Employee({
         <label className="users_heading">Users</label>
       </div>
       <div className="flex justify-center">
-        <div className="w-1/2 bg-white rounded-t-[50px] align-center">
+        <div className="w-[65%] bg-white rounded-t-[50px] align-center">
           <div className="">
             <UsersUtility />
           </div>

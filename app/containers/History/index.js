@@ -27,11 +27,8 @@ import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-<<<<<<< HEAD
 import photo from './image/profilepic.png';
-=======
 import HistoryCard from './HistoryCard';
->>>>>>> ujjwal
 
 const key = 'history';
 
