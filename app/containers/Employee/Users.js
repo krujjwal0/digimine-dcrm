@@ -9,10 +9,65 @@ import './style.css';
 import { List, AutoSizer } from 'react-virtualized';
 import { alpha, styled } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import { withStyles } from '@material-ui/core/styles';
 import MoreVert from '@material-ui/icons/MoreVert';
 import emp_image from '../../images/emp_image.png';
 import {Card, CardContent} from '@material-ui/core';
+
+const IOSSwitch = withStyles((theme) => ({
+  root: {
+    width: 42,
+    height: 26,
+    padding: 0,
+    margin: theme.spacing(1),
+  },
+  switchBase: {
+    padding: 1,
+    '&$checked': {
+      transform: 'translateX(16px)',
+      color: theme.palette.common.white,
+      '& + $track': {
+        backgroundColor: '#52d869',
+        opacity: 1,
+        border: 'none',
+      },
+    },
+    '&$focusVisible $thumb': {
+      color: '#52d869',
+      border: '6px solid #fff',
+    },
+  },
+  thumb: {
+    width: 24,
+    height: 24,
+  },
+  track: {
+    borderRadius: 26 / 2,
+    border: `1px solid ${theme.palette.grey[400]}`,
+    backgroundColor: theme.palette.grey[50],
+    opacity: 1,
+    transition: theme.transitions.create(['background-color', 'border']),
+  },
+  checked: {},
+  focusVisible: {},
+}))(({ classes, ...props }) => {
+  return (
+    <Switch
+      focusVisibleClassName={classes.focusVisible}
+      disableRipple
+      classes={{
+        root: classes.root,
+        switchBase: classes.switchBase,
+        thumb: classes.thumb,
+        track: classes.track,
+        checked: classes.checked,
+      }}
+      {...props}
+    />
+  );
+});
 
 const GreenSwitch = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-switchBase.Mui-checked': {
@@ -89,6 +144,17 @@ function rowRenderer({
 }
 
 export default function Users() {
+
+  const [state, setState] = React.useState({
+    checkedA: true,
+    checkedB: true,
+    checkedC: true,
+  });
+
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
+
   return (
     <div className=''>
       {/* <div className="list">
@@ -100,7 +166,7 @@ export default function Users() {
           rowRenderer={rowRenderer}
         />
       </div> */}
-       <Card className='w-full h-[72px] mt-20'>
+       <Card className='w-full  h-[72px]'>
           <CardContent>
           <div className='flex'>
               <div className='rounded-full h-[41px] w-[41px] ml-3 bg-[#132B6B]'>
@@ -108,17 +174,10 @@ export default function Users() {
                   RK
                 </p>
               </div>
+              
               <div className='ml-10'>
               <p className='text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]'>
-                Department
-                </p>
-                <p className='text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]'>
-                  Mining
-                </p>
-              </div>
-              <div className='ml-10'>
-              <p className='text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]'>
-                Assign Person
+                Employee
                 </p>
                 <div className='flex'>
                 <p className='text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]'>
@@ -131,40 +190,41 @@ export default function Users() {
               </div>
                 </div>
               </div>
+              <div className='ml-10'>
+              <p className='text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]'>
+                Department
+                </p>
+                <p className='text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]'>
+                  Mining
+                </p>
+              </div>
               <div className='ml-16'>
               <p className='text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]'>
-                Reviewer
+                Phone
                 </p>
                 <p className='text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]'>
-                  Abhinandan Banerjee
+                  97845 56895
                 </p>
               </div>
               <div className='ml-12'>
               <p className='text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]'>
-                Lead Reviewer
+                Email ID
                 </p>
                 <p className='text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]'>
-                  Rupesh Bansal
+                  rkapoor@gmail.com
                 </p>
               </div>
               <div className='ml-12'>
               <p className='text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]'>
-                Category
+               Active
                 </p>
-                <p className='text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]'>
-                  OTC
-                </p>
+                <FormControlLabel
+        control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="checkedB" />}
+        
+      />
               </div>
-              <div className='ml-12'>
-              <p className='text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]'>
-                Category
-                </p>
-                
-                {/* <FormControlLabel
-                  control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="checkedB" />}
-                  
-                    /> */}
-                    
+              <div className='mt-2 ml-8'>
+              <MoreVert />
               </div>
               </div>
           </CardContent>
