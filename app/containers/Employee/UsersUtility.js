@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { styled, alpha } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import { InputBase } from '@material-ui/core';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import EditIcon from '@material-ui/icons/Edit';
@@ -249,7 +250,51 @@ const UsersUtility = () => {
         }}
       >
         ACTION
-      </Button>
+      </Button> 
+      <div className="flex m-4 ">
+        <form>
+          <select className="w-24 m-4 border-2 rounded-[20px] h-9">
+            <option>Sort By</option>
+          </select>
+        </form>
+        <p className="mt-6">Search By</p>
+        <form>
+          <select className="w-30 m-4 border-2 rounded-[20px] h-9">
+            <option>Department</option>
+          </select>
+        </form>
+        <div className="mt-4 mr-4 h-9 flex item-strech border-2 rounded-[20px]">
+          <InputBase
+            placeholder="Search"
+            inputProps={{ 'aria-label': 'search' }}
+            className="w-96"
+          />
+          <SearchIcon className="" />
+        </div>
+        <button
+          className=" h-9 mt-4 border-2"
+          style={{
+            backgroundColor: 'white',
+            color: 'green',
+            borderRadius: '50px',
+            width: '80px',
+          }}
+        >
+          Clear
+        </button>
+        <button
+          className="w-28 h-9 m-4"
+          style={{
+            backgroundColor: '#C4C4C4',
+            color: 'white',
+            borderRadius: '50px',
+            width: '112px',
+          }}
+        >
+          ACTIONS
+          <MoreVertIcon />
+        </button>
+      </div>
     </div>
   );
 };

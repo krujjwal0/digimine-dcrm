@@ -17,7 +17,6 @@ export default function SplashScreen() {
     <div>
       <div className="bg-white w-full">
         <div>
-          
           <img className="w-full h-screen" src={backgroundImage} />
         </div>
       </div>

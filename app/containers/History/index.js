@@ -6,19 +6,15 @@
 
 import React, { useEffect, memo } from 'react';
 import CardContent from '@material-ui/core/CardContent';
-import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
-import { alpha, makeStyles } from '@material-ui/core/styles';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
+
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+// import 'date-fns';
+// import DateFnsUtils from '@date-io/date-fns';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import {
@@ -26,16 +22,13 @@ import {
   makeSelectLoading,
   makeSelectError,
 } from 'containers/App/selectors';
-
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
-import Grid from '@material-ui/core/Grid';
-import { Card, withWidth } from '@material-ui/core';
+import { Card } from '@material-ui/core';
 import { loadRepos } from '../App/actions';
 import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import photo from './image/profilepic.png';
 import HistoryCard from './HistoryCard';
 
 const key = 'history';
@@ -61,57 +54,6 @@ export function History({
     error,
     repos,
   };
-
-  const [selectedDate, setSelectedDate] = React.useState(
-    new Date('2014-08-18T21:11:54'),
-  );
-
-  const handleDateChange = date => {
-    setSelectedDate(date);
-  };
-
-  const useStyles = makeStyles(theme => ({
-    search: {
-      display: 'flex',
-      position: 'relative',
-      borderRadius: theme.shape.borderRadius,
-      backgroundColor: alpha(theme.palette.common.white, 0.15),
-      '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
-      },
-      marginLeft: 0,
-      width: '100%',
-      [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(1),
-        width: 'auto',
-      },
-    },
-    searchIcon: {
-      height: '30px',
-      position: 'absolute',
-      pointerEvents: 'none',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    inputRoot: {
-      color: 'inherit',
-    },
-    inputInput: {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('sm')]: {
-        width: '12ch',
-        '&:focus': {
-          width: '20ch',
-        },
-      },
-    },
-  }));
-
-  const classes = useStyles();
 
   return (
     <div className="myprofile">
