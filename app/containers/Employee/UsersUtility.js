@@ -187,37 +187,52 @@ const UsersUtility = () => {
     //     ACTION
     //   </Button>
     // </div>
-    <div className="md:flex  m-2" >
-
-      <select className="border-2 border-gray-200 bg-white h-8 px-3 pr-2 ml-6 rounded-lg text-sm focus:outline-none"
+    <div className="md:flex  m-2">
+      <select
+        className="border-2 border-gray-200 bg-white h-8 px-3 pr-2 ml-6 rounded-lg text-sm focus:outline-none"
         style={{ width: '10%', borderRadius: '8px' }}
-      // onChange={() => orderBy()}
+        // onChange={() => orderBy()}
       >
-        <option value="" disabled selected>Sort by</option>
-        <option value='ASC'>A-Z</option>
-        <option value='DESC'>Z-A</option>
+        <option value="" disabled selected>
+          Sort by
+        </option>
+        <option value="ASC">A-Z</option>
+        <option value="DESC">Z-A</option>
       </select>
 
-      <input className="border-0 border-gray-200 bg-white h-8 px-4 pr-4 ml-1 rounded text-sm focus:outline-none"
+      <input
+        className="border-0 border-gray-200 bg-white h-8 px-4 pr-4 ml-1 rounded text-sm focus:outline-none"
         style={{ width: '10%', borderRadius: '8px' }}
-        type="search" name="filter" placeholder="Filter By" />
+        type="search"
+        name="filter"
+        placeholder="Filter By"
+      />
 
-      <select className="border-2 border-gray-200 bg-white h-8 px-2 pr-6 ml-3 rounded-lg text-sm focus:outline-none"
+      <select
+        className="border-2 border-gray-200 bg-white h-8 px-2 pr-6 ml-3 rounded-lg text-sm focus:outline-none"
         style={{ width: '15%', borderRadius: '8px' }}
-      // onChange={() => orderBy()}
+        // onChange={() => orderBy()}
       >
-        <option value="" disabled selected>Department by</option>
-        <option value='ASC'>A-Z</option>
-        <option value='DESC'>Z-A</option>
+        <option value="" disabled selected>
+          Department by
+        </option>
+        <option value="ASC">A-Z</option>
+        <option value="DESC">Z-A</option>
       </select>
 
-      <input className="border-2 border-gray-300 bg-white w-72 h-8 px-8 pr-6 ml-3 rounded-full text-sm focus:outline-none"
+      <input
+        className="border-2 border-gray-300 bg-white w-72 h-8 px-8 pr-6 ml-3 rounded-full text-sm focus:outline-none"
         // value={name}
         // onChange={filterEmployeeList}
         style={{ borderRadius: '8px' }}
-        type="text" name="search" placeholder="Search by phone, email" />
+        type="text"
+        name="search"
+        placeholder="Search by phone, email"
+      />
 
-      <button className="text-green-500 border-2 rounded-full border-gray-300 mr-3 ml-3 pr-2 pl-1">Clear</button>
+      <button className="text-green-500 border-2 rounded-full border-gray-300 mr-3 ml-3 pr-2 pl-1">
+        Clear
+      </button>
       <Button
         id="demo-customized-button"
         aria-controls={open ? 'demo-customized-menu' : undefined}
