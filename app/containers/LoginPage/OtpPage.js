@@ -1,4 +1,4 @@
-import React,{useState,memo} from 'react';
+import React, { useState, memo } from 'react';
 import LoginFirstImage from './images/image1.png';
 import LoginSecondImage from './images/Login2.svg';
 import LoginThirdImage from './images/Login3.svg';
@@ -31,22 +31,22 @@ const key = 'loginReducer';
 export function OtpPage(props) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
-  console.log("type of",typeof props.otp)
+  console.log("type of", typeof props.otp)
 
-  const [optIndex0,setOpt0]=useState(props.otp===""?"":props.otp.charAt(0));
-  const [optIndex1,setOpt1]=useState(props.otp===""?"":props.otp.charAt(1));
-  const [optIndex2,setOpt2]=useState(props.otp===""?"":props.otp.charAt(2));
-  const [optIndex3,setOpt3]=useState(props.otp===""?"":props.otp.charAt(3));
-  const [optIndex4,setOpt4]=useState(props.otp===""?"":props.otp.charAt(4));
-  const [optIndex5,setOpt5]=useState(props.otp===""?"":props.otp.charAt(5));
+  const [optIndex0, setOpt0] = useState(props.otp === "" ? "" : props.otp.charAt(0));
+  const [optIndex1, setOpt1] = useState(props.otp === "" ? "" : props.otp.charAt(1));
+  const [optIndex2, setOpt2] = useState(props.otp === "" ? "" : props.otp.charAt(2));
+  const [optIndex3, setOpt3] = useState(props.otp === "" ? "" : props.otp.charAt(3));
+  const [optIndex4, setOpt4] = useState(props.otp === "" ? "" : props.otp.charAt(4));
+  const [optIndex5, setOpt5] = useState(props.otp === "" ? "" : props.otp.charAt(5));
   const [backToLogin, setBackToLogin] = useState(false);
 
-  const validateOtp =()=>{
+  const validateOtp = () => {
     console.log("VAlidating Otp");
     props.onValidateOtp(props.otp);
   }
 
-  const redirectToLoginPage = () =>{
+  const redirectToLoginPage = () => {
     setBackToLogin(true)
   }
   if (backToLogin) {
@@ -102,13 +102,15 @@ export function OtpPage(props) {
               </div>
 
               <p className="text-gray-400 text-center flex mb-10 justify-center my-4 font-sans" style={{ fontSize: '14px' }}><img className="mr-3" src={Resend} /> Resend OTP</p>
-              <Button className={props.otp?"bg_red otp_btn mx-auto   font-sans login_btn  w-60 rounded-3xl my-5":"bg-blue-600"}
-              onClick={validateOtp}>
+              <Button className={props.otp ? "bg_red otp_btn mx-auto   font-sans login_btn  w-60 rounded-3xl my-5" : "bg-blue-600"}
+                onClick={validateOtp}>
                 Continue
               </Button>
 
               <p className="text_blue text-center mt-7 font-sans" style={{ fontSize: '14px' }}><Link href="/login" className="font-sans">&#8592;
-                <b className="font-sans"> Back To Login</b></Link></p>
+                <b className="font-sans"> Back To Login</b></Link>
+              </p>
+
             </div>
           </div>
         </div>
@@ -116,10 +118,10 @@ export function OtpPage(props) {
           <div className="w-1/2 lg:-mt-20 quote_box md:text-4xl text-2xl font-bold"><h3 className="text-white font-sans">Smart Platform for</h3><h3 className="text_blue  font-sans">
             Smart People</h3></div>
           <div className="copyright_text w-1/2 text-center text-xs font-sans text-white">© 2020 MineMagma. All Rights Reserved</div>
-        </div>
-      </div>
+        </div >
+      </div >
 
-    </div>
+    </div >
   );
 }
 

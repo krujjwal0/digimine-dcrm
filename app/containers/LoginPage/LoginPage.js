@@ -3,9 +3,9 @@ import { Card } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { Redirect } from 'react-router-dom';
 import LoginImage from './images/Logo.svg';
 import Resend from './images/resendImage.svg';
-import { Redirect } from 'react-router-dom';
 import './style.css';
 
 import PropTypes from 'prop-types';
