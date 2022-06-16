@@ -78,7 +78,6 @@ export default function FeedbackForm() {
             marginLeft: '117px',
           }}
         />
-        />
         <div className="mt-24 ml-24">
           <label
             style={{
@@ -107,7 +106,7 @@ export default function FeedbackForm() {
               marginTop: '8px',
             }}
           >
-            > > Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
           <div className=" mt-10">
@@ -119,23 +118,46 @@ export default function FeedbackForm() {
                 name="row-radio-buttons-group"
               >
                 <FormControlLabel
-                  style={{ color: '#132B6B' }}
+                  style={{
+                    color: '#132B6B',
+                    fontFamily: 'Omnes',
+                    fontWeight: '400',
+                    fontSize: '12px',
+                  }}
                   value="female"
                   control={<Radio />}
                   label="Lorem ipsum dolor sit amet, consectetur"
                 />
                 <FormControlLabel
+                  style={{
+                    color: '#132B6B',
+                    fontFamily: 'Omnes',
+                    fontWeight: '400',
+                    fontSize: '12px',
+                  }}
                   value="male"
                   control={<Radio />}
                   label="Lorem ipsum dolor sit amet, consectetur"
                 />
                 <br />
                 <FormControlLabel
+                  style={{
+                    color: '#132B6B',
+                    fontFamily: 'Omnes',
+                    fontWeight: '400',
+                    fontSize: '12px',
+                  }}
                   value="other"
                   control={<Radio />}
                   label="Lorem ipsum dolor sit amet, consectetur"
                 />
                 <FormControlLabel
+                  style={{
+                    color: '#132B6B',
+                    fontFamily: 'Omnes',
+                    fontWeight: '400',
+                    fontSize: '12px',
+                  }}
                   value="disabled"
                   control={<Radio />}
                   label="Lorem ipsum dolor sit amet, consectetur"
@@ -144,7 +166,7 @@ export default function FeedbackForm() {
             </FormControl>
           </div>
         </div>
-        <div className=" ml-4 mt-24">
+        <div className=" ml-2 mt-24">
           <Box sx={{ maxWidth: 400 }}>
             <Stepper activeStep={activeStep} orientation="vertical">
               {steps.map((step, index) => (
@@ -191,6 +213,23 @@ export default function FeedbackForm() {
               </Paper>
             )}
           </Box>
+        </div>
+      </div>
+      <div className="flex mt-10 ml-32">
+        <button className="rounded-full border-2 border-gray-600">?</button>{' '}
+        Help
+        <div className="px-96 ml-80">
+          <button
+            style={{
+              background: '#132B6B',
+              borderRadius: '60px',
+              color: 'white',
+              width: '90px',
+              height: '25px',
+            }}
+          >
+            NEXT
+          </button>
         </div>
       </div>
     </div>
