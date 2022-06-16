@@ -251,7 +251,7 @@ const UsersUtility = () => {
       >
         ACTION
       </Button> 
-      <div className="flex m-4 ">
+       {/* <div className="flex m-4 ">
         <form>
           <select className="w-24 m-4 border-2 rounded-[20px] h-9">
             <option>Sort By</option>
@@ -263,7 +263,7 @@ const UsersUtility = () => {
             <option>Department</option>
           </select>
         </form>
-        <div className="mt-4 mr-4 h-9 flex item-strech border-2 rounded-[20px]">
+        {/* <div className="mt-4 mr-4 h-9 flex item-strech border-2 rounded-[20px]">
           <InputBase
             placeholder="Search"
             inputProps={{ 'aria-label': 'search' }}
@@ -293,8 +293,8 @@ const UsersUtility = () => {
         >
           ACTIONS
           <MoreVertIcon />
-        </button>
-      </div>
+        </button> */}
+        {/* </div> */}
     </div>
   );
 };
