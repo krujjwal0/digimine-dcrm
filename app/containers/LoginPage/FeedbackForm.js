@@ -14,20 +14,17 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import logo from '../../images/logo.svg';
 
+
 const steps = [
-  {
-    label: '',
-    description: ``,
-  },
-  {
-    label: '',
-    description: '',
-  },
-  {
-    label: '',
-    description: ``,
-  },
+  ' ',
+  ' ',
+  ' ',
+  ' ',
+  ' ',
+  ' ',
+  ' ',
 ];
+
 
 export default function FeedbackForm() {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -45,7 +42,7 @@ export default function FeedbackForm() {
   };
 
   return (
-    <div className="bg-white w-full">
+    <div className="bg-white h-screen w-full">
       <div className="ml-24 mt-1 mx-18 flex">
         <div className="mt-22">
           <img
@@ -139,7 +136,7 @@ export default function FeedbackForm() {
                   control={<Radio />}
                   label="Lorem ipsum dolor sit amet, consectetur"
                 />
-                <br />
+                <br/><br/>
                 <FormControlLabel
                   style={{
                     color: '#132B6B',
@@ -164,60 +161,30 @@ export default function FeedbackForm() {
                 />
               </RadioGroup>
             </FormControl>
-          </div>
+       </div>
         </div>
         <div className=" ml-2 mt-24">
-          <Box sx={{ maxWidth: 400 }}>
-            <Stepper activeStep={activeStep} orientation="vertical">
-              {steps.map((step, index) => (
-                <Step key={step.label}>
-                  <StepLabel
-                    optional={
-                      index === 2 ? <Typography variant="caption" /> : null
-                    }
-                  >
-                    {step.label}
-                  </StepLabel>
-                  <StepContent>
-                    <Typography>{step.description}</Typography>
-                    <Box sx={{ mb: 2 }}>
-                      {/* <div>
-                  <Button
-                    variant="contained"
-                    onClick={handleNext}
-                    sx={{ mt: 1, mr: 1 }}
-                  >
-                    {index === steps.length - 1 ? 'Finish' : 'Continue'}
-                  </Button>
-                  <Button
-                    disabled={index === 0}
-                    onClick={handleBack}
-                    sx={{ mt: 1, mr: 1 }}
-                  >
-                    Back
-                  </Button>
-                </div> */}
-                    </Box>
-                  </StepContent>
-                </Step>
-              ))}
-            </Stepper>
-            {activeStep === steps.length && (
-              <Paper square elevation={0} sx={{ p: 3 }}>
-                <Typography>
-                  All steps completed - you&apos;re finished
-                </Typography>
-                <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-                  Reset
-                </Button>
-              </Paper>
-            )}
-          </Box>
+        <Box sx={{ width: '100%' }}>
+      <Stepper activeStep={activeStep} alternativeLabel orientation="vertical">
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+    </Box>
         </div>
       </div>
       <div className="flex mt-10 ml-32">
-        <button className="rounded-full border-2 border-gray-600">?</button>{' '}
-        Help
+        <button className="rounded-full border-2 border-gray-600"
+         style={{
+              background: 'white',
+              borderRadius: '80px',
+              color: 'black',
+              width: '40px',
+              height: '40px',
+            }}>?</button>
+        <div className="ml-2">Help</div>
         <div className="px-96 ml-80">
           <button
             style={{

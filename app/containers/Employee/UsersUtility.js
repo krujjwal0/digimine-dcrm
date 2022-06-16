@@ -200,15 +200,13 @@ const UsersUtility = () => {
         <option value="ASC">A-Z</option>
         <option value="DESC">Z-A</option>
       </select>
-
       <input
         className="border-0 border-gray-200 bg-white h-8 px-4 pr-4 ml-1 rounded text-sm focus:outline-none"
         style={{ width: '10%', borderRadius: '8px' }}
         type="search"
         name="filter"
-        placeholder="Filter By"
+        placeholder="Filter"
       />
-
       <select
         className="border-2 border-gray-200 bg-white h-8 px-2 pr-6 ml-3 rounded-lg text-sm focus:outline-none"
         style={{ width: '15%', borderRadius: '8px' }}
@@ -230,7 +228,6 @@ const UsersUtility = () => {
         name="search"
         placeholder="Search by phone, email"
       />
-
       <button className="text-green-500 border-2 rounded-full border-gray-300 mr-3 ml-3 pr-2 pl-1">
         Clear
       </button>
@@ -251,50 +248,7 @@ const UsersUtility = () => {
       >
         ACTION
       </Button> 
-       {/* <div className="flex m-4 ">
-        <form>
-          <select className="w-24 m-4 border-2 rounded-[20px] h-9">
-            <option>Sort By</option>
-          </select>
-        </form>
-        <p className="mt-6">Search By</p>
-        <form>
-          <select className="w-30 m-4 border-2 rounded-[20px] h-9">
-            <option>Department</option>
-          </select>
-        </form>
-        {/* <div className="mt-4 mr-4 h-9 flex item-strech border-2 rounded-[20px]">
-          <InputBase
-            placeholder="Search"
-            inputProps={{ 'aria-label': 'search' }}
-            className="w-96"
-          />
-          <SearchIcon className="" />
-        </div>
-        <button
-          className=" h-9 mt-4 border-2"
-          style={{
-            backgroundColor: 'white',
-            color: 'green',
-            borderRadius: '50px',
-            width: '80px',
-          }}
-        >
-          Clear
-        </button>
-        <button
-          className="w-28 h-9 m-4"
-          style={{
-            backgroundColor: '#C4C4C4',
-            color: 'white',
-            borderRadius: '50px',
-            width: '112px',
-          }}
-        >
-          ACTIONS
-          <MoreVertIcon />
-        </button> */}
-        {/* </div> */}
+      
     </div>
   );
 };
