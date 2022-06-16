@@ -27,13 +27,14 @@ import MyProfile from '../MyProfile/Loadable';
 import Listadd2 from '../ListAdd2/index';
 import Listadd from '../ListAdd/index';
 import Location from '../LoginPage/ChooseLocation';
+import Success from '../LoginPage/SuccessPage';
 import Users from '../Regulatory/Users';
 import FeedbackForm from '../LoginPage/FeedbackForm';
 import Employee from '../Employee';
 import History from '../History';
 
 export default function App() {
-  const [nav, setNav] = useState(false);
+  const [nav, setNav] = useState(true);
   return (
     <>
       <div className="w-full h-full dis">
@@ -50,6 +51,7 @@ export default function App() {
             <Route path="/listadd" component={Listadd} />
             <Route path="/listadd2" component={Listadd2} />
             <Route path="/location" component={Location} />
+            <Route path= "/success" component={Success}/>
             <Route path="/empLogin" component={EmpLogin} />
             <Route path="/form" component={FeedbackForm} />
             <Route path="/admin/users" component={Employee} />
