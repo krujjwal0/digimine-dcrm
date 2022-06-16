@@ -1,7 +1,4 @@
 import React from 'react';
-import LoginFirstImage from './images/image1.png';
-import LoginSecondImage from './images/Login2.svg';
-import LoginThirdImage from './images/Login3.svg';
 import LoginImage from './images/Logo.svg';
 import Resend from './images/resendImage.svg';
 import './style.css';
@@ -10,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 
-export default function Login() {
+export default function Otp() {
   return (
     <div className="font-sans login_page  py-">
       <div className="container h-full min-h-full relative z-10">
