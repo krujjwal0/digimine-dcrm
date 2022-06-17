@@ -11,6 +11,8 @@ import { alpha, styled } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import Switch from '@material-ui/core/Switch';
 import emp_image from '../../images/emp_image.png';
+import {Card, CardContent} from '@material-ui/core';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const GreenSwitch = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-switchBase.Mui-checked': {
