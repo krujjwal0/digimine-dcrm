@@ -190,7 +190,7 @@ const UsersUtility = () => {
     // </div>
     <div className="md:flex  m-2">
       <select
-        className="border-2 border-gray-200 bg-white h-8 px-3 pr-2 ml-6 rounded-lg text-sm focus:outline-none"
+        className="border-2 border-gray-200 bg-white h-9 px-3 pr-2 ml-6 rounded-full text-sm focus:outline-none"
         style={{ width: '10%', borderRadius: '8px' }}
         // onChange={() => orderBy()}
       >
@@ -200,27 +200,31 @@ const UsersUtility = () => {
         <option value="ASC">A-Z</option>
         <option value="DESC">Z-A</option>
       </select>
-      <input
+      {/* <input
         className="border-0 border-gray-200 bg-white h-8 px-4 pr-4 ml-1 rounded text-sm focus:outline-none"
         style={{ width: '10%', borderRadius: '8px' }}
         type="search"
         name="filter"
         placeholder="Filter"
-      />
+      /> */}
+      <label className="border-0 border-gray-200 bg-white h-9 mt-2 px-2 ml-3 rounded-full text-sm"
+      style={{ width: '8%', borderRadius: '8px' }}>Filter</label>
       <select
-        className="border-2 border-gray-200 bg-white h-8 px-2 pr-6 ml-3 rounded-lg text-sm focus:outline-none"
-        style={{ width: '15%', borderRadius: '8px' }}
+        className="border-2 border-gray-200 bg-white h-9 px-2 pr-6 ml-1 rounded-full text-sm focus:outline-none"
+        style={{ width: '16%', borderRadius: '8px' }}
         // onChange={() => orderBy()}
       >
         <option value="" disabled selected>
           Department by
         </option>
-        <option value="ASC">A-Z</option>
-        <option value="DESC">Z-A</option>
+        <option value="1">Marketing</option>
+        <option value="2">Account</option>
+        <option value="3">IT</option>
+        <option value="4">HR</option>
       </select>
 
       <input
-        className="border-2 border-gray-300 bg-white w-72 h-8 px-8 pr-6 ml-3 rounded-full text-sm focus:outline-none"
+        className="border-2 border-gray-300 bg-white w-72 h-9 px-8 pr-6 ml-3 rounded-full text-sm focus:outline-none"
         // value={name}
         // onChange={filterEmployeeList}
         style={{ borderRadius: '8px' }}
