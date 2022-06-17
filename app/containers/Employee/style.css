@@ -43,3 +43,9 @@
   color: #132B6B;
 
 }
+
+.MuiSwitch-root span{
+
+    margin-left: 0px;
+  
+}
