@@ -39,3 +39,6 @@
 .userImage{position: relative; border-radius: 50%; width: 120px; height: 120px; margin: 10px auto;}
 .userImage img{border-radius: 50%;}
 .userImage:after{position: absolute; top: 9px; border-radius: 50%; z-index: 99; right:-10px ; content:'' ;background-image: url("./images/tick.png");  background-repeat: no-repeat; background-position: center center; background-size: 16px 12px; width: 34px; height: 34px; border: solid 3px #fff; color: #fff;  background-color: #98E91D;}
+
+.MuiSvgIcon-root{width:"23.77px"}
+span.MuiStepLabel-iconContainer{margin-left: '0px';}
