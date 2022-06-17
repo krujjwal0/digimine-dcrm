@@ -52,7 +52,7 @@ export default function App() {
             <Route path="/listadd" component={Listadd} />
             <Route path="/listadd2" component={Listadd2} />
             <Route path="/location" component={Location} />
-            <Route path= "/success" component={Success}/>
+            <Route path="/success" component={Success} />
             <Route path="/empLogin" component={EmpLogin} />
             <Route path="/form" component={FeedbackForm} />
             <Route path="/admin/users" component={Employee} />
