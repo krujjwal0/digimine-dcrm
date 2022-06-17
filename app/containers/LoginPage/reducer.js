@@ -14,7 +14,7 @@ import { SET_EMAIL_ID, SET_ROLE_TYPE, SET_OTP, SET_USERNAME, SET_SUCCESS_PAGE, S
 export const initialState = {
   ROLE_TYPE: '',
   otp: '',
-  emailId: 'sinharuchi678@gmail.com',
+  emailId: '',
   userName: '',
   showSuccessPage: false,
   adminLocations:["Mumbai","Delhi"]
