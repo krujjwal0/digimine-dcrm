@@ -4,13 +4,14 @@
 
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { LOAD_REPOS } from 'containers/App/constants';
-import { LOGIN, VALIDATE_OTP } from './constants';
+import { LOGIN, VALIDATE_OTP, GET_ADMIN_LOCATIONS } from './constants';
 import { reposLoaded, repoLoadingError } from 'containers/App/actions';
 import { HOST, BASE_PATH, SCHEMES, URL } from '../../containers/config.json';
 
 import request from 'utils/request';
 import { makeSelectUsername } from 'containers/HomePage/selectors';
-import { setOtpAction } from './actions';
+import { setAdminLocationsAction, setOtpAction, setUsername, showSuccessPageAction } from './actions';
+import { makeSelectEmailId } from './selectors';
 
 /**
  * Github repos request/response handler
@@ -18,8 +19,8 @@ import { setOtpAction } from './actions';
 
 function* generateOtpByEmailIdSaga(action) {
   // let emailId=action.payload;
-  let searchParams = new URLSearchParams({emailId:action.payload});
-  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/generateOtpByEmailId?${searchParams}`;
+  // let searchParams = new URLSearchParams({ emailId: action.payload });
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/generateOtpByEmailId?emailId=${action.payload}`;
   console.log('data in saga generateOtpByEmailIdSaga :', action.payload, requestURL);
   let result;
   try {
@@ -34,21 +35,24 @@ function* generateOtpByEmailIdSaga(action) {
 
     yield put(setOtpAction(result.data.otp))
   } catch (err) {
-      console.log('Error in saga', result,err);
+    console.log('Error in saga', result, err);
+    if (result) {
       alert(result.status.message)
+    } else
+      alert(err)
   }
 }
 
 // CHECK result method url and body and then yield put 
 function* validateOtpSaga(action) {
-  let otp = new URLSearchParams({otp : action.payload});
-
+  // let otp = new URLSearchParams({otp : action.payload});
+  let result;
   const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/validateOtp`;
-  console.log('data in saga validateOtpSaga :', action.payload, requestURL);
+  console.log('data in saga validateOtpSaga :', requestURL);
 
   try {
     console.log('generatorFunction validateOtpSaga ');
-    const result = yield call(request, requestURL, {
+    result = yield call(request, requestURL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -57,27 +61,39 @@ function* validateOtpSaga(action) {
     });
     console.log('success in saga', result, result.data);
 
-    // yield put(setOtpAction(result.data.otp))
+    yield put(setUsername(result.data.userName))
+    yield put(showSuccessPageAction(true))
   } catch (err) {
-    alert(err);
+    if (result) {
+      alert(result.status.message)
+    } else
+      alert(err);
   }
 }
 
+function* getAdminLocations(action) {
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/generateOtpByEmailId?emailId=${action.payload}`;
+  console.log('data in saga getAdminLocations :', action.payload, requestURL);
+  let result;
+  try {
+    console.log('generatorFunction getAdminLocations ');
+    result = yield call(request, requestURL, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+    console.log('success in saga', result);
 
-// export function* getRepos() {
-//   // Select username from store
-//   const username = yield select(makeSelectUsername());
-//   const requestURL = `https://api.github.com/users/${username}/repos?type=all&sort=updated`;
-
-//   try {
-//     // Call our request helper (see 'utils/request')
-//     const repos = yield call(request, requestURL);
-//     yield put(reposLoaded(repos, username));
-//   } catch (err) {
-//     yield put(repoLoadingError(err));
-//   }
-// }
-
+    // yield put(setAdminLocationsAction(result.data))
+  } catch (err) {
+    console.log('Error in saga', result, err);
+    if (result) {
+      alert(result.status.message)
+    } else
+      alert(err)
+  }
+}
 /**
  * Root saga manages watcher lifecycle
  */
@@ -88,5 +104,6 @@ export default function* loginData() {
   // It will be cancelled automatically on component unmount
   // yield takeLatest(LOAD_REPOS, getRepos);
   yield takeLatest(LOGIN, generateOtpByEmailIdSaga);
-  yield takeLatest(VALIDATE_OTP,validateOtpSaga);
+  yield takeLatest(VALIDATE_OTP, validateOtpSaga);
+  yield takeLatest(GET_ADMIN_LOCATIONS, getAdminLocations)
 }

@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useEffect } from 'react';
 import LoginFirstImage from './images/image1.png';
 import LoginSecondImage from './images/Login2.svg';
 import LoginThirdImage from './images/Login3.svg';
@@ -21,8 +21,8 @@ import {
   makeSelectError,
 } from 'containers/App/selectors';
 
-import { validateOtpAction } from './actions';
-import { makeSelectOtp } from './selectors';
+import { generateOtpByEmailIdAction, validateOtpAction } from './actions';
+import { makeSelectEmailId, makeSelectOtp } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -31,6 +31,17 @@ const key = 'loginReducer';
 export function OtpPage(props) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
+
+  useEffect(() => {
+    console.log("UseEffect")
+  }, [props.otp]);
+
+  useEffect(() => {
+    console.log("UseEffect user", props.emailId)
+  }, [props.emailId]);
+  useEffect(()=>{
+    console.log("success",props.showSuccessPage)
+  })
   console.log("type of", typeof props.otp)
 
   const [optIndex0, setOpt0] = useState(props.otp === "" ? "" : props.otp.charAt(0));
@@ -40,10 +51,25 @@ export function OtpPage(props) {
   const [optIndex4, setOpt4] = useState(props.otp === "" ? "" : props.otp.charAt(4));
   const [optIndex5, setOpt5] = useState(props.otp === "" ? "" : props.otp.charAt(5));
   const [backToLogin, setBackToLogin] = useState(false);
+  // const [success, setSuccess] = useState(props.showSuccessPage);
+  
+  
+  if (props.showSuccessPage) {
+    return <Redirect to={{ pathname: '/success' }} />;
+  }
 
   const validateOtp = () => {
     console.log("VAlidating Otp");
-    props.onValidateOtp(props.otp);
+    if(props.otp==''){
+      alert('Otp required..')
+    }else{
+      const data = {
+        emailId: props.emailId,
+        otp: props.otp
+      }
+      props.onValidateOtp(data);
+    }
+    
   }
 
   const redirectToLoginPage = () => {
@@ -52,6 +78,12 @@ export function OtpPage(props) {
   if (backToLogin) {
     return <Redirect to={{ pathname: '/otp' }} />;
   }
+
+  const resendOtp = () =>{
+    console.log("Resend Otp")
+    onGenerateOtpByEmailIdAction(props.emailId)
+  }
+
   return (
     <div className="font-sans login_page  py-">
       <div className="container h-full min-h-full relative z-10">
@@ -61,7 +93,7 @@ export function OtpPage(props) {
               <img src={LoginImage} alt="LoginImage" className="w-72 mx-auto mb-4" />
             </div>
             <h1 className="text-center font-bold font-sans text-3xl text_blue">OTP</h1>
-            <p className=" text-center font-sans font-medium mb-5" style={{ color: "#6E7B8B", }}>Enter the 4 digit OTP code sent at your email<br /> address <b className="font-sans text-sky-700">jyoti@gmail.com</b></p>   <div className="form_box w-full">
+            <p className=" text-center font-sans font-medium mb-5" style={{ color: "#6E7B8B", }}>Enter the 6 digit OTP code sent at your email<br /> address <b className="font-sans text-sky-700">{props.emailId}</b></p>   <div className="form_box w-full">
               <div className="flex mt-20 justify-between">
                 <TextField
                   variant="standard"
@@ -101,7 +133,9 @@ export function OtpPage(props) {
                 />
               </div>
 
-              <p className="text-gray-400 text-center flex mb-10 justify-center my-4 font-sans" style={{ fontSize: '14px' }}><img className="mr-3" src={Resend} /> Resend OTP</p>
+              <p className="text-gray-400 text-center flex mb-10 justify-center my-4 font-sans" style={{ fontSize: '14px' }} onClick={resendOtp}>
+                <img className="mr-3" src={Resend}  /> Resend OTP
+              </p>
               <Button className={props.otp ? "bg_red otp_btn mx-auto   font-sans login_btn  w-60 rounded-3xl my-5" : "bg-blue-600"}
                 onClick={validateOtp}>
                 Continue
@@ -127,24 +161,28 @@ export function OtpPage(props) {
 
 
 OtpPage.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  // loading: PropTypes.bool,
+  // error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   // repos: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
   // onSubmitForm: PropTypes.func,
   otp: PropTypes.string,
+  emailId: PropTypes.string,
   onValidateOtp: PropTypes.func,
+  onGenerateOtpByEmailIdAction:PropTypes.func
 };
 
-const mapStateToProps = createStructuredSelector({
-  // repos: makeSelectRepos(),
-  otp: makeSelectOtp(),
-  loading: makeSelectLoading(),
-  error: makeSelectError(),
-});
+const mapStateToProps = state => {
+  return {
+    otp: state.loginReducer.otp,
+    emailId: state.loginReducer.emailId,
+    showSuccessPage:state.loginReducer.showSuccessPage
+  }
+}
 
 export function mapDispatchToProps(dispatch) {
   return {
     onValidateOtp: data => dispatch(validateOtpAction(data)),
+    onGenerateOtpByEmailIdAction:data=>dispatch(generateOtpByEmailIdAction(data))
     // onSubmitForm: evt => {
     //   if (evt !== undefined && evt.preventDefault) evt.preventDefault();
     //   dispatch(loadRepos());

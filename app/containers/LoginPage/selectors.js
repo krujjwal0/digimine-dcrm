@@ -12,10 +12,15 @@ const makeSelectRoleType = () =>
     selectLogin,
     loginState => loginState.ROLE_TYPE,
   );
-  const makeSelectOtp = () =>
+const makeSelectOtp = () =>
   createSelector(
     selectLogin,
     loginState => loginState.otp,
   );
+const makeSelectEmailId = () =>
+  createSelector(
+    selectLogin,
+    loginState => loginState.emailId,
+  );
 
-export { selectLogin, makeSelectRoleType, makeSelectOtp };
+export { selectLogin, makeSelectRoleType, makeSelectOtp, makeSelectEmailId };

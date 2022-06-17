@@ -15,7 +15,7 @@
  *    }
  */
 
-import { LOGIN, SET_ROLE_TYPE, SET_OTP, VALIDATE_OTP, SIGN_IN } from './constants';
+import { SET_EMAIL_ID,LOGIN, SET_ROLE_TYPE, SET_OTP, VALIDATE_OTP, SIGN_IN, SET_USERNAME, SET_SUCCESS_PAGE,GET_ADMIN_LOCATIONS, SET_ADMIN_LOCATIONS } from './constants';
 
 export function generateOtpByEmailIdAction(email) {
   console.log("Action login")
@@ -49,6 +49,41 @@ export function signIn(data) {
   console.log("Action signIn", data)
   return {
     type: SIGN_IN,
+    payload: data
+  };
+}
+export function setEmailId(data) {
+  console.log("Action setEmailId", data)
+  return {
+    type: SET_EMAIL_ID,
+    payload: data
+  };
+}
+export function setUsername(data) {
+  console.log("Action setUsername", data)
+  return {
+    type: SET_USERNAME,
+    payload: data
+  };
+}
+export function showSuccessPageAction(data) {
+  console.log("Action showSuccessPageAction", data)
+  return {
+    type: SET_SUCCESS_PAGE,
+    payload: data
+  };
+}
+export function getAdminLocationsAction(data) {
+  console.log("Action getAdminLocationsAction",data)
+  return {
+    type: GET_ADMIN_LOCATIONS,
+    payload: data
+  };
+}
+export function setAdminLocationsAction(data) {
+  console.log("Action setAdminLocationsAction",data)
+  return {
+    type: SET_ADMIN_LOCATIONS,
     payload: data
   };
 }

@@ -13,4 +13,11 @@ export const LOGIN = 'digimine/LoginPage/LOGIN';
 export const SET_ROLE_TYPE = 'digimine/LoginPage/SET_ROLE_TYPE';
 export const SET_OTP = 'digimine/LoginPage/SET_OTP';
 export const VALIDATE_OTP = 'digimine/LoginPage/VALIDATE_OTP';
-export const SIGN_IN = 'digimine/LoginPage/SIGN_IN'
+export const SIGN_IN = 'digimine/LoginPage/SIGN_IN';
+export const SET_EMAIL_ID = 'digimine/LoginPage/SET_EMAIL_ID';
+export const SET_USERNAME = 'digimine/LoginPage/SET_USERNAME';
+export const SET_SUCCESS_PAGE = 'digimine/LoginPage/SET_SUCCESS_PAGE';
+export const GET_ADMIN_LOCATIONS = 'digimine/LoginPage/GET_ADMIN_LOCATIONS';
+export const SET_ADMIN_LOCATIONS = 'digimine/LoginPage/SET_ADMIN_LOCATIONS';
+
+

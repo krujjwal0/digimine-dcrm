@@ -20,26 +20,31 @@ import {
   makeSelectError,
 } from 'containers/App/selectors';
 
-import { generateOtpByEmailIdAction } from './actions';
+import { generateOtpByEmailIdAction, setEmailId } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
 const key = 'loginReducer';
 
-export function Login({loading, error, onGenerateOtpByEmailIdAction}) {  
+export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmailId }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
-  const [emailId,setEmailId]=useState('');
+  const [emailId, setEmailId] = useState('');
   const [redirectToReferrer, setRedirectToReferrer] = useState(false);
 
   const login = () => {
-    console.log("login for otp")
-    onGenerateOtpByEmailIdAction(emailId)
-    // fakeAuth.authenticate(() => {
-    setRedirectToReferrer(true);
-    // });
+    console.log("login for otp");
+    if (emailId == '') {
+      alert('Email required..')
+    } else {
+      onSetEmailId(emailId);
+      onGenerateOtpByEmailIdAction(emailId);
+      // fakeAuth.authenticate(() => {
+      setRedirectToReferrer(true);
+      // });
+    }
   };
 
   if (redirectToReferrer) {
@@ -87,7 +92,7 @@ export function Login({loading, error, onGenerateOtpByEmailIdAction}) {
               {/* <p className="text_red text-center my-4 font-sans font-medium"  style={{ fontSize:'14px'}}>Invalid username and password</p> */}
               <Button
                 className="bg_red mx-auto  font-bold login_btn  w-60 h-14 rounded-3xl my-5 "
-                onClick={(e)=>login(e)}
+                onClick={(e) => login(e)}
               >
                 Login
               </Button>
@@ -117,6 +122,7 @@ Login.propTypes = {
   // onSubmitForm: PropTypes.func,
   // username: PropTypes.string,
   onGenerateOtpByEmailIdAction: PropTypes.func,
+  onSetEmailId: PropTypes.func
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -129,6 +135,7 @@ const mapStateToProps = createStructuredSelector({
 export function mapDispatchToProps(dispatch) {
   return {
     onGenerateOtpByEmailIdAction: data => dispatch(generateOtpByEmailIdAction(data)),
+    onSetEmailId: data => dispatch(setEmailId(data))
     // onSubmitForm: evt => {
     //   if (evt !== undefined && evt.preventDefault) evt.preventDefault();
     //   dispatch(loadRepos());
