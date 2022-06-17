@@ -21,10 +21,11 @@ import {
   makeSelectError,
 } from 'containers/App/selectors';
 
-import { generateOtpByEmailIdAction, validateOtpAction } from './actions';
+import { generateOtpByEmailIdAction, setOtpAction, validateOtpAction } from './actions';
 import { makeSelectEmailId, makeSelectOtp } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import { Redirect } from 'react-router-dom';
 
 const key = 'loginReducer';
 
@@ -32,6 +33,7 @@ export function OtpPage(props) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
+  let [newOtp, setNewOtp] = useState('');
   useEffect(() => {
     console.log("UseEffect")
   }, [props.otp]);
@@ -39,49 +41,82 @@ export function OtpPage(props) {
   useEffect(() => {
     console.log("UseEffect user", props.emailId)
   }, [props.emailId]);
-  useEffect(()=>{
-    console.log("success",props.showSuccessPage)
-  })
+  useEffect(() => {
+    console.log("success", props.showSuccessPage)
+  }, [newOtp])
   console.log("type of", typeof props.otp)
 
-  const [optIndex0, setOpt0] = useState(props.otp === "" ? "" : props.otp.charAt(0));
-  const [optIndex1, setOpt1] = useState(props.otp === "" ? "" : props.otp.charAt(1));
-  const [optIndex2, setOpt2] = useState(props.otp === "" ? "" : props.otp.charAt(2));
-  const [optIndex3, setOpt3] = useState(props.otp === "" ? "" : props.otp.charAt(3));
-  const [optIndex4, setOpt4] = useState(props.otp === "" ? "" : props.otp.charAt(4));
-  const [optIndex5, setOpt5] = useState(props.otp === "" ? "" : props.otp.charAt(5));
+  const [otpIndex0, setOpt0] = useState(props.otp === "" ? "" : props.otp.charAt(0));
+  const [otpIndex1, setOpt1] = useState(props.otp === "" ? "" : props.otp.charAt(1));
+  const [otpIndex2, setOpt2] = useState(props.otp === "" ? "" : props.otp.charAt(2));
+  const [otpIndex3, setOpt3] = useState(props.otp === "" ? "" : props.otp.charAt(3));
+  const [otpIndex4, setOpt4] = useState(props.otp === "" ? "" : props.otp.charAt(4));
+  const [otpIndex5, setOpt5] = useState(props.otp === "" ? "" : props.otp.charAt(5));
   const [backToLogin, setBackToLogin] = useState(false);
+  const [editOtp, setEditOtp] = useState(false);
   // const [success, setSuccess] = useState(props.showSuccessPage);
-  
-  
+  console.log("otp", otpIndex0, otpIndex1, otpIndex2)
+
   if (props.showSuccessPage) {
     return <Redirect to={{ pathname: '/success' }} />;
+  }
+  const onChangeOtp = (e) => {
+
+    setEditOtp(true);
+    switch (e.target.name) {
+      case 'otpIndex0':
+        setOpt0(e.target.value)
+        break;
+      case 'otpIndex1':
+        setOpt1(e.target.value)
+        break;
+      case 'otpIndex2':
+        setOpt2(e.target.value)
+        break;
+      case 'otpIndex3':
+        setOpt3(e.target.value)
+        break;
+      case 'otpIndex4':
+        setOpt4(e.target.value)
+        break;
+      case 'otpIndex5':
+        setOpt5(e.target.value)
+        break;
+    }
+    setNewOtp(otpIndex0 + otpIndex1 + otpIndex2 + otpIndex3 + otpIndex4 + otpIndex5);
+    console.log("New Otp ==", newOtp)
+    props.onSetOtpAction(newOtp);
   }
 
   const validateOtp = () => {
     console.log("VAlidating Otp");
-    if(props.otp==''){
+    if (props.otp == '') {
       alert('Otp required..')
-    }else{
+    } else {
       const data = {
         emailId: props.emailId,
         otp: props.otp
       }
       props.onValidateOtp(data);
     }
-    
+
   }
 
   const redirectToLoginPage = () => {
     setBackToLogin(true)
   }
   if (backToLogin) {
+    setEditOtp(false);
     return <Redirect to={{ pathname: '/otp' }} />;
   }
 
-  const resendOtp = () =>{
+  const resendOtp = () => {
+    setEditOtp(false);
     console.log("Resend Otp")
-    onGenerateOtpByEmailIdAction(props.emailId)
+    if (props.emailId == '') {
+      alert("EmailID required..")
+    } else
+      props.onGenerateOtpByEmailIdAction(props.emailId)
   }
 
   return (
@@ -97,46 +132,64 @@ export function OtpPage(props) {
               <div className="flex mt-20 justify-between">
                 <TextField
                   variant="standard"
-                  disabled
-                  value={optIndex0}
+                  name='otpIndex0'
+                  value={otpIndex0}
+                  inputSize={1}
+                  type="number"
+                  onChange={e => onChangeOtp(e)}
                   style={{ width: 'auto', color: '#6E7B8B', fontSize: '16px', borderBottom: '1px solid #EAEAEA', marginBottom: '20px', marginRight: '15px' }}
                 />
                 <TextField
                   variant="standard"
-                  disabled
-                  value={optIndex1}
+                  name='otpIndex1'
+                  value={otpIndex1}
+                  inputSize={1}
+                  type="number"
+                  onChange={e => onChangeOtp(e)}
                   style={{ width: 'auto', color: '#6E7B8B', fontSize: '16px', borderBottom: '1px solid #EAEAEA', marginBottom: '20px', marginRight: '15px' }}
                 />
                 <TextField
                   variant="standard"
-                  disabled
-                  value={optIndex2}
+                  name='otpIndex2'
+                  value={otpIndex2}
+                  inputSize={1}
+                  type="number"
+                  onChange={e => onChangeOtp(e)}
                   style={{ width: 'auto', color: '#6E7B8B', fontSize: '16px', borderBottom: '1px solid #EAEAEA', marginBottom: '20px', marginRight: '15px' }}
                 />
                 <TextField
                   variant="standard"
-                  disabled
-                  value={optIndex3}
+                  name='otpIndex3'
+                  value={otpIndex3}
+                  inputSize={1}
+                  type="number"
+                  onChange={e => onChangeOtp(e)}
                   style={{ width: 'auto', color: '#6E7B8B', fontSize: '16px', borderBottom: '1px solid #EAEAEA', marginBottom: '20px', marginRight: '15px' }}
                 />
                 <TextField
                   variant="standard"
-                  disabled
-                  value={optIndex4}
+                  name='otpIndex4'
+                  value={otpIndex4}
+                  inputSize={1}
+                  type="number"
+                  onChange={e => onChangeOtp(e)}
                   style={{ width: 'auto', color: '#6E7B8B', fontSize: '16px', borderBottom: '1px solid #EAEAEA', marginBottom: '20px', marginRight: '15px' }}
                 />
                 <TextField
                   variant="standard"
-                  disabled
-                  value={optIndex5}
+                  name='otpIndex5'
+                  value={otpIndex5}
+                  inputSize={1}
+                  type="number"
+                  onChange={e => onChangeOtp(e)}
                   style={{ width: 'auto', color: '#6E7B8B', fontSize: '16px', borderBottom: '1px solid #EAEAEA', marginBottom: '20px' }}
                 />
               </div>
 
               <p className="text-gray-400 text-center flex mb-10 justify-center my-4 font-sans" style={{ fontSize: '14px' }} onClick={resendOtp}>
-                <img className="mr-3" src={Resend}  /> Resend OTP
+                <img className="mr-3" src={Resend} /> Resend OTP
               </p>
-              <Button className={props.otp ? "bg_red otp_btn mx-auto   font-sans login_btn  w-60 rounded-3xl my-5" : "bg-blue-600"}
+              <Button className={props.otp == '' ?  "bg-blue-600": "bg_red otp_btn mx-auto   font-sans login_btn  w-60 rounded-3xl my-5"}
                 onClick={validateOtp}>
                 Continue
               </Button>
@@ -168,21 +221,23 @@ OtpPage.propTypes = {
   otp: PropTypes.string,
   emailId: PropTypes.string,
   onValidateOtp: PropTypes.func,
-  onGenerateOtpByEmailIdAction:PropTypes.func
+  onGenerateOtpByEmailIdAction: PropTypes.func,
+  onSetOtpAction: PropTypes.func
 };
 
 const mapStateToProps = state => {
   return {
     otp: state.loginReducer.otp,
     emailId: state.loginReducer.emailId,
-    showSuccessPage:state.loginReducer.showSuccessPage
+    showSuccessPage: state.loginReducer.showSuccessPage
   }
 }
 
 export function mapDispatchToProps(dispatch) {
   return {
     onValidateOtp: data => dispatch(validateOtpAction(data)),
-    onGenerateOtpByEmailIdAction:data=>dispatch(generateOtpByEmailIdAction(data))
+    onGenerateOtpByEmailIdAction: data => dispatch(generateOtpByEmailIdAction(data)),
+    onSetOtpAction: data => dispatch(setOtpAction(data))
     // onSubmitForm: evt => {
     //   if (evt !== undefined && evt.preventDefault) evt.preventDefault();
     //   dispatch(loadRepos());
@@ -199,4 +254,3 @@ export default compose(
   withConnect,
   memo,
 )(OtpPage);
-

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Box from '@material-ui/core/Box';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -18,6 +18,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import FormImg from './images/formImage.png';
 import './style.css'
+import { Redirect } from 'react-router-dom';
 
 // const steps = [
 //   {
@@ -53,7 +54,11 @@ export default function FeedbackForm() {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
+    setRedirectToUserManagementPage(true)
+
+    // active when we have feedback form API
+    // setActiveStep(prevActiveStep => prevActiveStep + 1);
+
   };
 
   const handleBack = () => {
@@ -63,6 +68,13 @@ export default function FeedbackForm() {
   const handleReset = () => {
     setActiveStep(0);
   };
+
+  const [redirectToUserManagementPage, setRedirectToUserManagementPage] = useState(false);
+  
+  
+  if (redirectToUserManagementPage) {
+    return <Redirect to={{ pathname: '/admin/users' }} />;
+  }
 
   return (
     <div className="bg-white w-full min-h-screen font-sans">
@@ -274,6 +286,7 @@ export default function FeedbackForm() {
               height: '40px',
             }}
             className="font-sans absolute"
+            onClick={handleNext}
           >
             NEXT
           </button>
