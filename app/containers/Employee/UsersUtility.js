@@ -225,8 +225,7 @@ const UsersUtility = () => {
 
       <input
         className="border-2 border-gray-300 bg-white w-72 h-9 px-8 pr-6 ml-3 rounded-full text-sm focus:outline-none"
-        // value={name}
-        // onChange={filterEmployeeList}
+  
         style={{ borderRadius: '8px' }}
         type="text"
         name="search"
