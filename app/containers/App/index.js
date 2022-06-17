@@ -13,7 +13,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
-import LoginPage from 'containers/LoginPage/index';
+import SplashScreen from 'containers/LoginPage/index';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import OtpPage from '../LoginPage/OtpPage';
 import EmpLogin from '../LoginPage/EmpLogin';
@@ -32,6 +32,7 @@ import Users from '../Regulatory/Users';
 import FeedbackForm from '../LoginPage/FeedbackForm';
 import Employee from '../Employee';
 import History from '../History';
+import LoginPage from '../LoginPage/LoginPage';
 
 export default function App() {
   const [nav, setNav] = useState(false);
@@ -41,7 +42,7 @@ export default function App() {
         <Router>
           {nav ? <NavBar /> : null}
           <Switch>
-            <Route exact path="/" component={LoginPage} />
+            <Route exact path="/" component={SplashScreen} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/categories" component={Categories} />
             <Route path="/regulatory" component={Regulatory} />
@@ -57,6 +58,7 @@ export default function App() {
             <Route path="/admin/users" component={Employee} />
             <Route path="/myprofile" component={MyProfile} />
             <Route path="/history" component={History} />
+            <Route path="/login" component={LoginPage} />
 
             <Route component={NotFoundPage} />
           </Switch>
