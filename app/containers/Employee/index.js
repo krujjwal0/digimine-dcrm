@@ -53,18 +53,21 @@ export function Employee({
 
   return (
     <div className="employee">
-      <div className="navbar w-full">
+      <div className="navbar w-full" style={{background: '#E8E8F3'}}>
         <ArrowBackIosIcon />
         <label className="users_heading">Users</label>
       </div>
-      <div className="flex justify-center">
+      <div className="flex mt-4 justify-center">
         <div className="w-[65%] h-screen bg-white rounded-t-[50px] align-center">
           <div className="mt-8">
             <UsersUtility />
           </div>
           <div className="">
             <Users />
+            <Users />
+            <Users />
           </div>
+          
         </div>
       </div>
     </div>

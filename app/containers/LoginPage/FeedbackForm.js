@@ -34,6 +34,7 @@ import './style.css'
 //   },
 // ];
 
+
 const steps = [
   '',
   '',
@@ -46,6 +47,7 @@ const steps = [
   '',
   '',
 ];
+
 
 export default function FeedbackForm() {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -163,7 +165,7 @@ export default function FeedbackForm() {
                   control={<Radio />}
                   label="Lorem ipsum dolor sit amet, consectetur"
                 />
-                <br />
+                <br/><br/>
                 <FormControlLabel
                   className="font-sans"
                   style={{
@@ -191,7 +193,7 @@ export default function FeedbackForm() {
                 />
               </RadioGroup>
             </FormControl>
-          </div>
+       </div>
         </div>
         <div className=" ml-36 -mt-12">
         <Box sx={{ maxWidth: 400 }}>
