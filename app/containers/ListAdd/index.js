@@ -1,21 +1,61 @@
-import React from 'react';
-import arrow from './images/Vector.svg';
-import date from './images/Date.png'
+import React, { useEffect, memo } from 'react';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import EditIcon from '@material-ui/icons/Edit';
 
-export default function Add() {
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+
+import { useInjectReducer } from 'utils/injectReducer';
+import { useInjectSaga } from 'utils/injectSaga';
+import {
+  makeSelectRepos,
+  makeSelectLoading,
+  makeSelectError,
+} from 'containers/App/selectors';
+import { Card } from '@material-ui/core';
+import { loadRepos } from '../App/actions';
+import { changeUsername } from './actions';
+import { makeSelectUsername } from './selectors';
+import reducer from './reducer';
+import saga from './saga';
+
+
+const key = 'categories';
+
+export function Categories({
+  username,
+  loading,
+  error,
+  repos,
+  onSubmitForm,
+  onChangeUsername,
+}) {
+  useInjectReducer({ key, reducer });
+  useInjectSaga({ key, saga });
+
+  useEffect(() => {
+    // When initial state username is not null, submit the form to load repos
+    if (username && username.trim().length > 0) onSubmitForm();
+  }, []);
+
+  const reposListProps = {
+    loading,
+    error,
+    repos,
+  };
 
   return (
-    <div
-      style={{ backgroundColor: '#E5E5E5' }}
-      className=" w-full h-screen -mt-8"
-    >
-      <div className=" ml-72 pt-28">
-        <div className="rounded-tl-[50px] bg-white h-20 border-2 border-b-slate-1000 flex">
-        <div className='mt-5 ml-10 text-xl text-[#151F63]'>
+    <div className="myprofile">
+      <div className="w-full">
+      <div className="ml-8 pt-1">
+         <div className='mt-5 ml-10 text-xl text-[#151F63]'>
         <i class="fa-solid fa-chevron-left"></i>
-        </div>
-          <div className="ml-4 mt-4 text-xl ">
-            <p
+         </div>
+           <div className="ml-4 mt-4 text-xl ">
+             <p
               style={{ color: '#151F63', fontSize: '18px' }}
               className="font-sans font-semibold"
             >
@@ -95,7 +135,43 @@ export default function Add() {
             </button>
           </div>
         </div>
-      </div>
+    </div>
     </div>
   );
 }
+
+Categories.propTypes = {
+  loading: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  repos: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
+  onSubmitForm: PropTypes.func,
+  username: PropTypes.string,
+  onChangeUsername: PropTypes.func,
+};
+
+const mapStateToProps = createStructuredSelector({
+  repos: makeSelectRepos(),
+  username: makeSelectUsername(),
+  loading: makeSelectLoading(),
+  error: makeSelectError(),
+});
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),
+    onSubmitForm: evt => {
+      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+      dispatch(loadRepos());
+    },
+  };
+}
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(
+  withConnect,
+  memo,
+)(Categories);
