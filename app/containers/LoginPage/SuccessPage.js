@@ -50,7 +50,7 @@ export function SuccessPage(props) {
             <p className=" text-center font-sans font-medium mb-5 text_blue" style={{ fontSize: '18px' }}>You have successfully signed into <br />your account</p>
             <div className="form_box w-full">
 
-              <Button className="bg_red otp_btn mx-auto   font-sans login_btn  w-60 rounded-3xl my-5" onClick={()=>callGetLocationAction()}>
+              <Button className="bg_red  mx-auto   font-sans login_btn  w-60 rounded-3xl my-5" onClick={()=>callGetLocationAction()}>
                 Continue
               </Button>
 

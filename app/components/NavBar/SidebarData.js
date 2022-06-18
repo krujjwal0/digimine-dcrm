@@ -4,6 +4,7 @@ import * as AiIcons from 'react-icons/ai';
 // import * as IoIcons from 'react-icons/io'
 import regulatory from '../../images/regulatory.svg';
 import categories from '../../images/categories.svg';
+import help from '../../images/help.svg'
 
 export const SidebarData = [
   {
@@ -35,5 +36,11 @@ export const SidebarData = [
     path: '/myprofile',
     icons: <img src={regulatory} style={{ width:'15px',height:'23px'}}/>,
     cName: 'nav-text'
+},
+{
+  title: 'Help',
+  path: '/help',
+  icon: <img src={help} style={{ width:'15px',height:'23px'}}/>,
+  cName: 'nav-text'
 },
 ];

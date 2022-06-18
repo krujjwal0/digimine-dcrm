@@ -15,7 +15,13 @@
  *    }
  */
 
-import { SET_EMAIL_ID,LOGIN, SET_ROLE_TYPE, SET_OTP, VALIDATE_OTP, SIGN_IN, SET_USERNAME, SET_SUCCESS_PAGE,GET_ADMIN_LOCATIONS, SET_ADMIN_LOCATIONS } from './constants';
+import { SET_EMAIL_ID,LOGIN,
+   SET_ROLE_TYPE, SET_OTP, 
+   VALIDATE_OTP, SIGN_IN,
+    SET_USERNAME,
+     SET_SUCCESS_PAGE,GET_ADMIN_LOCATIONS, SET_ADMIN_LOCATIONS, 
+     GET_FEEDBACK_FORM,SET_FEEDBACK_FORM,
+     SAVE_FEEDBACK_FORM_DATA,SET_SHOW_FEEDBACK_FORM_DATA  } from './constants';
 
 export function generateOtpByEmailIdAction(email) {
   console.log("Action login")
@@ -84,6 +90,35 @@ export function setAdminLocationsAction(data) {
   console.log("Action setAdminLocationsAction",data)
   return {
     type: SET_ADMIN_LOCATIONS,
+    payload: data
+  };
+}
+
+export function getFeedbackFormData(data) {
+  console.log("Action getFeedbackFormData",data)
+  return {
+    type: GET_FEEDBACK_FORM,
+    payload: data
+  };
+}
+export function setFeedbackFormData(data) {
+  console.log("Action setFeedbackFormData",data)
+  return {
+    type: SET_FEEDBACK_FORM,
+    payload: data
+  };
+}
+export function saveDataFeedbackForm(data) {
+  console.log("Action save FeedbackForm Data",data)
+  return {
+    type: SAVE_FEEDBACK_FORM_DATA,
+    payload: data
+  };
+}
+export function setShowToFeedBackPage(data) {
+  console.log("Action save FeedbackForm Data",data)
+  return {
+    type: SET_SHOW_FEEDBACK_FORM_DATA,
     payload: data
   };
 }

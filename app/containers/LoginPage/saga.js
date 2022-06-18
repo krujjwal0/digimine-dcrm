@@ -4,13 +4,13 @@
 
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { LOAD_REPOS } from 'containers/App/constants';
-import { LOGIN, VALIDATE_OTP, GET_ADMIN_LOCATIONS } from './constants';
+import { LOGIN, VALIDATE_OTP, GET_ADMIN_LOCATIONS,GET_FEEDBACK_FORM } from './constants';
 import { reposLoaded, repoLoadingError } from 'containers/App/actions';
 import { HOST, BASE_PATH, SCHEMES, URL } from '../../containers/config.json';
 
 import request from 'utils/request';
 import { makeSelectUsername } from 'containers/HomePage/selectors';
-import { setAdminLocationsAction, setOtpAction, setUsername, showSuccessPageAction } from './actions';
+import { setAdminLocationsAction, setOtpAction, setUsername, showSuccessPageAction, setFeedbackFormData} from './actions';
 import { makeSelectEmailId } from './selectors';
 
 /**
@@ -94,6 +94,27 @@ function* getAdminLocations(action) {
       alert(err)
   }
 }
+
+function* getFeedbackFormSaga() {
+  console.log('feedback form Data saga call');
+
+  // const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/generateOtpByEmailId?emailId=${action.payload}`;
+  // http://13.127.152.251:15000/api/getallQuestions
+  try {
+    const result = yield call(request, requestURL, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log('sucess in feedbackform saga', result);
+
+    yield put(setFeedbackFormData(result));
+    console.log('result saga call', result, err);
+  } catch (err) {
+    console.log('this is error=', err);
+  }
+}
 /**
  * Root saga manages watcher lifecycle
  */
@@ -105,5 +126,6 @@ export default function* loginData() {
   // yield takeLatest(LOAD_REPOS, getRepos);
   yield takeLatest(LOGIN, generateOtpByEmailIdSaga);
   yield takeLatest(VALIDATE_OTP, validateOtpSaga);
-  yield takeLatest(GET_ADMIN_LOCATIONS, getAdminLocations)
+  yield takeLatest(GET_ADMIN_LOCATIONS, getAdminLocations);
+  yield takeLatest(GET_FEEDBACK_FORM, getFeedbackFormSaga );
 }

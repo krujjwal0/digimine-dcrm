@@ -8,7 +8,8 @@
  */
 
 import produce from 'immer';
-import { SET_EMAIL_ID, SET_ROLE_TYPE, SET_OTP, SET_USERNAME, SET_SUCCESS_PAGE, SET_ADMIN_LOCATIONS } from './constants';
+import { SET_EMAIL_ID, SET_ROLE_TYPE, SET_OTP, SET_USERNAME, 
+  SET_SUCCESS_PAGE, SET_ADMIN_LOCATIONS, SET_FEEDBACK_FORM, SET_SHOW_FEEDBACK_FORM_DATA  } from './constants';
 
 // The initial state of the App
 export const initialState = {
@@ -17,7 +18,8 @@ export const initialState = {
   emailId: '',
   userName: '',
   showSuccessPage: false,
-  adminLocations:["Mumbai","Delhi"]
+  adminLocations:["Mumbai","Delhi"],
+  feedbackFormData: [],
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -58,6 +60,24 @@ const loginReducer = (state = initialState, action) =>
           ...state,
           userName: action.payload
         }
+
+        case SET_FEEDBACK_FORM:
+         console.log('inside reducer of feedback form data ===', state.feedbackFormData)
+                return {
+                    ...state,
+                    feedbackFormData: action.payload,
+                }
+
+                case SET_SHOW_FEEDBACK_FORM_DATA :
+                  console.log('on saving data feedback form  Data data ===', state.feedbackFormData)
+                  return {
+                    ...state,
+                    //showTableMain: true,
+                    feedbackFormData: [
+                      ...state.feedbackFormData,
+                      action.payload
+                    ],
+                  };
       // case SEARCH_FILTER:
       //   console.log('inside reducer Employee data list ===', state.EmployeeData)
       //   return {

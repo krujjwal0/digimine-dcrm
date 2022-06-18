@@ -19,5 +19,9 @@ export const SET_USERNAME = 'digimine/LoginPage/SET_USERNAME';
 export const SET_SUCCESS_PAGE = 'digimine/LoginPage/SET_SUCCESS_PAGE';
 export const GET_ADMIN_LOCATIONS = 'digimine/LoginPage/GET_ADMIN_LOCATIONS';
 export const SET_ADMIN_LOCATIONS = 'digimine/LoginPage/SET_ADMIN_LOCATIONS';
+export const GET_FEEDBACK_FORM = 'GET_FEEDBACK_FORM';
+export const SET_FEEDBACK_FORM = 'SET_FEEDBACK_FORM';
+export const SAVE_FEEDBACK_FORM_DATA = 'SAVE_FEEDBACK_FORM_DATA';
+export const SET_SHOW_FEEDBACK_FORM_DATA = 'SET_SHOW_FEEDBACK_FORM_DATA';
 
 

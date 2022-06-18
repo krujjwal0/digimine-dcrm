@@ -122,8 +122,8 @@ function Dashboard({
 
     <div className='maindash'>
       <div  className='mx-20 mt-6  w-[95%]'>
-        <div className='flex'>
-          <Card className='w-[55%] mr-6 min-h-60'>
+        <div className='flex mt-7'>
+          <Card className='w-[45%] mr-6 ml-6 min-h-68 ' style={{borderRadius: '20px'}}>
      <CardContent className='flex'>
        <img className='mt-3 h-[30%] w-[25%]' src={icon1} />
        <div className='ml-6'>
@@ -159,20 +159,20 @@ function Dashboard({
             </button>
      </div>
           </Card>
-          <Card className='w-[45%] h-60'>
+          <Card className='w-[36%] h-60' style={{borderRadius: '20px'}}>
            
             </Card>
         </div>
         <div className='flex mt-3'>
-        <Card className='w-[45%] h-60'>
+        <Card className='w-[39%] h-60 ml-6' style={{borderRadius: '20px'}}>
             <img className='m-6' src={map} />
             </Card>
-          <Card className='w-[55%] ml-6 h-60'>
+          <Card className='w-[50%] ml-6 h-60' style={{borderRadius: '20px'}}>
           <img className='m-6' src={graph} />
           </Card>
           
         </div>
-        <Card className='w-full h-[72px] mt-[41px]'>
+        <Card className='w-full h-[72px] mt-[41px]' style={{borderRadius: '20px'}}>
           <CardContent>
           <div className='flex'>
               <div className='rounded-full h-[41px] w-[41px] ml-3 bg-[#132B6B]'>
@@ -241,7 +241,7 @@ function Dashboard({
               </div>
           </CardContent>
         </Card>
-        <Card className='w-full h-[72px] mt-[10px]'>
+        <Card className='w-full h-[72px] mt-[10px]' >
           <CardContent>
           <div className='flex'>
               <div className='rounded-full h-[41px] w-[41px] ml-3 bg-[#132B6B]'>

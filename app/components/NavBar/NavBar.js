@@ -4,6 +4,9 @@ import { SidebarData } from './SidebarData';
 import './NavBar.css';
 import { IconContext } from 'react-icons';
 import logo from '../../images/logo.svg';
+import navImage from './Image/navImage.png';
+import Button from '@material-ui/core/Button';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 
 export const NavBar = () => {
   const [sidebar, setSidebar] = useState(false);
@@ -11,7 +14,7 @@ export const NavBar = () => {
   return (
     <>
       <IconContext.Provider value={{ color: '#F66B6B' }}>
-        <div className="navbar w-full">
+        <div className="navbar w-full font-sans">
           {/* <Link to="#" className='menu-bars'> */}
           {/* <p onClick={showSidebar} >
 
@@ -26,30 +29,65 @@ export const NavBar = () => {
                             <img src={logo} style={{ width: '180px', height: '60px' }} />
                         </Link>
                     </div> */}
-          <ul className="nav-menu-items ">
-            <li className="navbar-toggle">
-              <Link to="#" className="menu-bars">
+          <ul className="nav-menu-items font-sans ">
+            <li className="navbar-toggle font-sans mb-6 mt-3">
+              <Link to="#" className="menu-bars font-sans">
                 <img src={logo} style={{ width: '180px', height: '60px' }} />
               </Link>
             </li>
             {SidebarData.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
-                  <Link to={item.path}>
+                  <Link className="font-sans" to={item.path}>
                     {item.icons}
-                    <span>{item.title}</span>
+                    <span className="font-sans">{item.title}</span>
                   </Link>
                 </li>
-                
               );
             })}
-
           </ul>
+
+          <div
+            className="absolute font-sans "
+            style={{
+              top: '519px',
+              height: '220px',
+              width: '240px',
+              right: '10px',
+              backgroundColor: '#EDEDF3',
+            }}
+          >
+            <img src={navImage} />
           
+           
+            <div className=" absolute -mt-36 bg-white rounded-full w-44  h-12 font-sans " style={{marginLeft: '10px',alignSelf: 'center', alignContent: 'center', justifyItems: 'center'}}>
+            <div className='flex'>
+              <div className=' mt-1 h-[36px] w-[39px] ml-3 bg-[#132B6B]' style={{borderRadius: '40px'}}>
+                <p className='text-white ml-[11px] mt-[9px] font-sans'>
+                  RK
+                </p>
+                
+              </div>
+              <Button className=' font-sans ' style={{color: '#132B6B', alignContent: 'center', justifyItems: 'center'}}  >
+              <p className='font-sans font-bold text-md ' style={{marginTop: '0.9px',}}>My Profile</p>
+            </Button>
+              </div>
+          <div className='-mt-10 rounded-full h-[45px] w-[49px] ml-48 bg-[#fff]'>
+            <PowerSettingsNewIcon className='mt-2 ml-3' />
+          </div>
+          <div className='mt-4 font-sans '>
+
+         <p className='font-sans font-semibold text-lg' style={{color: '#fff'}}>© minemagma 2020.
+          <br />
+          <span className='font-sans font-normal ' style={{color: '#fff'}}> All Rights Reserved</span>
+          </p> 
+          
+          </div>
+            </div>
+          </div>
+         
         </nav>
       </IconContext.Provider>
-
-      
     </>
   );
 };
