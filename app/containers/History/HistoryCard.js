@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent } from '@material-ui/core';
-
+import photo from './image/Vector.png'
 export default function HistoryCard() {
   return (
     <Card className="border-2 rounded-[20px] m-6 w-[424px] h-[202px]">

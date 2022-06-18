@@ -33,8 +33,9 @@ import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import photo from './image/profilepic.png';
 import HistoryCard from './HistoryCard';
+import InputBase from '@material-ui/core';
+import SearchIcon from '@material-ui/core';
 
 const key = 'history';
 
