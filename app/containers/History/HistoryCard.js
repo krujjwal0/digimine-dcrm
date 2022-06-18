@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent } from '@material-ui/core';
-import photo from './image/profilepic.png';
+import photo from './image/Vector.png';
 
 export default function HistoryCard() {
   return (
