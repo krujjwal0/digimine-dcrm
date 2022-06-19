@@ -25,7 +25,7 @@ import { generateOtpByEmailIdAction, setOtpAction, validateOtpAction } from './a
 import { makeSelectEmailId, makeSelectOtp } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 
 const key = 'loginReducer';
 
@@ -33,18 +33,25 @@ export function OtpPage(props) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
+  const history = useHistory();
+
   let [newOtp, setNewOtp] = useState('');
   useEffect(() => {
     console.log("UseEffect")
   }, [props.otp]);
 
   useEffect(() => {
-    console.log("UseEffect user", props.emailId)
+    console.log("UseEffect user ==", props.emailId)
   }, [props.emailId]);
   useEffect(() => {
-    console.log("success", props.showSuccessPage)
+    console.log("new otp==", newOtp)
   }, [newOtp])
-  console.log("type of", typeof props.otp)
+  useEffect(() => {
+    console.log("props.showSuccessPage ==", props.showSuccessPage)
+    if (props.showSuccessPage) {
+      history.push('/success')
+    }
+  }, [props.showSuccessPage])
 
   const [otpIndex0, setOpt0] = useState(props.otp === "" ? "" : props.otp.charAt(0));
   const [otpIndex1, setOpt1] = useState(props.otp === "" ? "" : props.otp.charAt(1));
@@ -57,9 +64,9 @@ export function OtpPage(props) {
   // const [success, setSuccess] = useState(props.showSuccessPage);
   console.log("otp", otpIndex0, otpIndex1, otpIndex2)
 
-  if (props.showSuccessPage) {
-    return <Redirect to={{ pathname: '/success' }} />;
-  }
+  // if (props.showSuccessPage) {
+  //   return <Redirect to={{ pathname: '/success' }} />;
+  // }
   const onChangeOtp = (e) => {
 
     setEditOtp(true);
@@ -95,7 +102,10 @@ export function OtpPage(props) {
     } else {
       const data = {
         emailId: props.emailId,
-        otp: props.otp
+        otp: props.otp,
+        password: props.otp,
+        deviceType: "",
+        deviceToken: ""
       }
       props.onValidateOtp(data);
     }

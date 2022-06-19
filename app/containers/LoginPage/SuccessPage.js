@@ -12,7 +12,7 @@ import { useInjectSaga } from 'utils/injectSaga';
 import { getAdminLocationsAction, validateOtpAction } from './actions';
 import reducer from './reducer';
 import saga from './saga';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const key = 'loginReducer';
 
@@ -20,20 +20,20 @@ const key = 'loginReducer';
 export function SuccessPage(props) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
+
+  const history= useHistory();
   useEffect(()=>{
 
   },[props.userName])
-  const [redirectToChooseLocationPage, setRedirectToChooseLocationPage] = useState(false);
+  // const [redirectToChooseLocationPage, setRedirectToChooseLocationPage] = useState(false);
   
   
-  if (redirectToChooseLocationPage) {
-    return <Redirect to={{ pathname: '/location' }} />;
-  }
+  // if (redirectToChooseLocationPage) {
+  //   return <Redirect to={{ pathname: '/location' }} />;
+  // }
   const callGetLocationAction = ()=>{
-    console.log("callGetLocationAction Send data in Action")
-    const data='';
-    props.getAdminLocationsAction(data);
-    setRedirectToChooseLocationPage(true);
+    history.push('/location');
+    // setRedirectToChooseLocationPage(true);
   }
 
   return (
@@ -82,7 +82,6 @@ const mapStateToProps = state => {
 export function mapDispatchToProps(dispatch) {
   return {
     onValidateOtp: data => dispatch(validateOtpAction(data)),
-    getAdminLocationsAction:data => dispatch(getAdminLocationsAction(data))
   };
 }
 

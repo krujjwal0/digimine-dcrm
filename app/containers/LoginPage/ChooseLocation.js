@@ -12,7 +12,7 @@ import { compose } from 'redux';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 
-import { validateOtpAction } from './actions';
+import { validateOtpAction, getAdminLocationsAction } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import { Redirect } from 'react-router-dom';
@@ -24,21 +24,26 @@ export function ChooseLocation(props) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
-  const [choosedLocation,setChoosedLocation]=useState(props.adminLocations[0]);
+  const [choosedLocation, setChoosedLocation] = useState(props.adminLocations[0]);
   useEffect(() => {
     console.log("admin Locations", props.adminLocations)
-  }, [props.adminLocations])
-  const [redirectToFeedbackPage, setRedirectToFeedbackPage] = useState(false);
+  }, [props.adminLocations,props.showFeedback])
+  const [redirectToFeedbackPage, setRedirectToFeedbackPage] = useState(props.showFeedback);
 
+  useEffect(() => {
+    console.log("callGetLocationAction Send data in Action")
+    // const data='';
+    props.getAdminLocationsAction();
+  }, [])
 
   if (redirectToFeedbackPage) {
     return <Redirect to={{ pathname: '/form' }} />;
   }
-  
-  const selectLocation = (value)=>{
+
+  const selectLocation = (value) => {
     console.log(value)
     //Call api to show users list of particular Location
-    
+
   }
 
   return (
@@ -53,14 +58,14 @@ export function ChooseLocation(props) {
 
               <div className="w-24 h-5 ml-4 ">
                 <select className=" font-sans  text-gray-150 w-60  text-black h-10 pl-4 pr-8 -mt-12 bg-white hover:border-gray-400"
-                    onClick={selectLocation}
-                    value={choosedLocation}
+                  onClick={selectLocation}
+                  value={choosedLocation}
                 >
                   {/* {props.adminLocations ? */}
                   {props.adminLocations.map((data, index) => {
                     console.log(data);
-                      return (<option key={index} name={data}
-                        value={data}>{data}</option>);
+                    return (<option key={index} name={data}
+                      value={data.id}>{data.name}</option>);
                   })}
                   {/* : <option>No data Available</option>} */}
 
@@ -103,13 +108,15 @@ ChooseLocation.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    adminLocations: state.loginReducer.adminLocations.length > 0 ? state.loginReducer.adminLocations : []
+    adminLocations: state.loginReducer.adminLocations.length > 0 ? state.loginReducer.adminLocations : [],
+    showFeedback: state.loginReducer.showFeedback
   }
 }
 
 export function mapDispatchToProps(dispatch) {
   return {
     onValidateOtp: data => dispatch(validateOtpAction(data)),
+    getAdminLocationsAction: data => dispatch(getAdminLocationsAction(data))
   };
 }
 

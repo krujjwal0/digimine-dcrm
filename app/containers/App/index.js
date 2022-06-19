@@ -33,13 +33,16 @@ import FeedbackForm from '../LoginPage/FeedbackForm';
 import Employee from '../Employee';
 import History from '../History';
 import LoginPage from '../LoginPage/LoginPage';
+import { createBrowserHistory } from 'history';
 
 export default function App() {
+  const history = createBrowserHistory();
   const [nav, setNav] = useState(false);
+  
   return (
     <>
       <div className="w-full h-full dis">
-        <Router>
+        <Router history={history} >
           {nav ? <NavBar /> : null}
           <Switch>
             <Route exact path="/" component={SplashScreen} />

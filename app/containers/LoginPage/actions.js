@@ -15,12 +15,14 @@
  *    }
  */
 
-import { SET_EMAIL_ID,LOGIN, SET_ROLE_TYPE, SET_OTP, VALIDATE_OTP, SIGN_IN, SET_USERNAME, SET_SUCCESS_PAGE,GET_ADMIN_LOCATIONS, SET_ADMIN_LOCATIONS } from './constants';
+import { SET_EMAIL_ID, GENERATE_OTP, SET_ROLE_TYPE, SET_OTP, VALIDATE_OTP, SIGN_IN, SET_USERNAME, 
+  GET_ADMIN_LOCATIONS, SET_ADMIN_LOCATIONS, 
+  SET_SHOW_OTP_PAGE, SET_USER_DATA, USER_LOGOUT } from './constants';
 
 export function generateOtpByEmailIdAction(email) {
   console.log("Action login")
   return {
-    type: LOGIN,
+    type: GENERATE_OTP,
     payload: email
   };
 }
@@ -66,24 +68,34 @@ export function setUsername(data) {
     payload: data
   };
 }
-export function showSuccessPageAction(data) {
-  console.log("Action showSuccessPageAction", data)
-  return {
-    type: SET_SUCCESS_PAGE,
-    payload: data
-  };
-}
 export function getAdminLocationsAction(data) {
-  console.log("Action getAdminLocationsAction",data)
+  console.log("Action getAdminLocationsAction", data)
   return {
     type: GET_ADMIN_LOCATIONS,
     payload: data
   };
 }
 export function setAdminLocationsAction(data) {
-  console.log("Action setAdminLocationsAction",data)
+  console.log("Action setAdminLocationsAction", data)
   return {
     type: SET_ADMIN_LOCATIONS,
     payload: data
   };
+}
+export function setShowOtpPage(data) {
+  return {
+    type: SET_SHOW_OTP_PAGE,
+    payload: data
+  }
+}
+export function setUserData(data){
+  return {
+    type: SET_USER_DATA,
+    payload: data
+  }
+}
+export function getUserLogout(){
+  return {
+    type: USER_LOGOUT
+  }
 }
