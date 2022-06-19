@@ -11,61 +11,62 @@ import { alpha, styled , withStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-
 import MoreVert from '@material-ui/icons/MoreVert';
 import {Card, CardContent} from '@material-ui/core';
 import emp_image from '../../images/emp_image.png';
 
-const IOSSwitch = withStyles(theme => ({
-  root: {
-    width: 42,
-    height: 26,
-    padding: 0,
-    margin: theme.spacing(1),
-  },
-  switchBase: {
-    padding: 1,
-    '&$checked': {
-      transform: 'translateX(16px)',
-      color: theme.palette.common.white,
-      '& + $track': {
-        backgroundColor: '#52d869',
-        opacity: 1,
-        border: 'none',
-      },
-    },
-    '&$focusVisible $thumb': {
-      color: '#52d869',
-      border: '6px solid #fff',
-    },
-  },
-  thumb: {
-    width: 24,
-    height: 24,
-  },
-  track: {
-    borderRadius: 26 / 2,
-    border: `1px solid ${theme.palette.grey[400]}`,
-    backgroundColor: theme.palette.grey[50],
-    opacity: 1,
-    transition: theme.transitions.create(['background-color', 'border']),
-  },
-  checked: {},
-  focusVisible: {},
-}))(({ classes, ...props }) => (
-    <Switch
-      focusVisibleClassName={classes.focusVisible}
-      disableRipple
-      classes={{
-        root: classes.root,
-        switchBase: classes.switchBase,
-        thumb: classes.thumb,
-        track: classes.track,
-        checked: classes.checked,
-      }}
-      {...props}
-    />
-  ));
+
+// const IOSSwitch = withStyles(theme => ({
+//   root: {
+//     width: 42,
+//     height: 26,
+//     padding: 0,
+//     margin: theme.spacing(1),
+//   },
+//   switchBase: {
+//     padding: 1,
+//     '&$checked': {
+//       transform: 'translateX(16px)',
+//       color: theme.palette.common.white,
+//       '& + $track': {
+//         backgroundColor: '#52d869',
+//         opacity: 1,
+//         border: 'none',
+//       },
+//     },
+//     '&$focusVisible $thumb': {
+//       color: '#52d869',
+//       border: '6px solid #fff',
+//     },
+//   },
+//   thumb: {
+//     width: 24,
+//     height: 24,
+//   },
+//   track: {
+//     borderRadius: 26 / 2,
+//     border: `1px solid ${theme.palette.grey[400]}`,
+//     backgroundColor: theme.palette.grey[50],
+//     opacity: 1,
+//     transition: theme.transitions.create(['background-color', 'border']),
+//   },
+//   checked: {},
+//   focusVisible: {},
+// }))(({ classes, ...props }) => (
+//     <Switch
+//       focusVisibleClassName={classes.focusVisible}
+//       disableRipple
+//       classes={{
+//         root: classes.root,
+//         switchBase: classes.switchBase,
+//         thumb: classes.thumb,
+//         track: classes.track,
+//         checked: classes.checked,
+//       }}
+//       {...props}
+//     />
+//   ));
+  
 
 const GreenSwitch = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-switchBase.Mui-checked': {
@@ -97,7 +98,7 @@ function rowRenderer({
 }) {
   console.log('List ::::', list, key, index);
   return (
-    <div key={key} style={style} className="row">
+    <div key={key} className="row rounded-full">
       <div>
         <img className="empImg" src={emp_image} alt="user image" />
       </div>
@@ -130,7 +131,6 @@ function rowRenderer({
       <div className="content">
         <label>Active</label>
         <p>
-          <GreenSwitch {...label} defaultChecked />
           {/* {list[index].id} */}
         </p>
       </div>
@@ -163,13 +163,16 @@ export default function Users() {
           rowRenderer={rowRenderer}
         />
       </div> */}
-      <Card className='w-full  h-[72px]'>
+      <Card className='w-full rounded-full h-[72px]' style={{borderRadius: '50px', marginTop: '10px'}}>
         <CardContent>
-          <div className="flex">
-            <div className='rounded-full h-[41px] w-[41px] ml-3 bg-[#132B6B]'>
-              <p className='text-white ml-[11px] mt-[11px] font-sans'>
-                  RK
-              </p>
+          <div className="flex rounded-full">
+            <div className=''>
+              
+              <img className='rounded-full ml-3 w-[41px] h-[41px]'
+            src={emp_image}
+
+          />
+              
             </div>
 
             <div className='ml-10'>
@@ -195,7 +198,7 @@ export default function Users() {
                 Mining
               </p>
             </div>
-            <div className='ml-16'>
+            <div className='ml-12'>
               <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
                 Phone
               </p>
@@ -215,10 +218,11 @@ export default function Users() {
               <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
                 Active
               </p>
-              <FormControlLabel
+              {/* <FormControlLabel
                 control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="checkedB" />}
                 
-              />
+              /> */}
+              <GreenSwitch {...label} defaultChecked />
             </div>
             <div className='mt-2 ml-8'>
               <MoreVert />

@@ -199,7 +199,7 @@ export function OtpPage(props) {
               <p className="text-gray-400 text-center flex mb-10 justify-center my-4 font-sans" style={{ fontSize: '14px' }} onClick={resendOtp}>
                 <img className="mr-3" src={Resend} /> Resend OTP
               </p>
-              <Button className={props.otp ? "bg_red otp_btn mx-auto   font-sans login_btn  w-60 rounded-3xl my-5" : "bg-blue-600"}
+              <Button className={props.otp == '' ?  "bg-blue-600": "bg_red otp_btn mx-auto   font-sans login_btn  w-60 rounded-3xl my-5"}
                 onClick={validateOtp}>
                 Continue
               </Button>
@@ -264,4 +264,3 @@ export default compose(
   withConnect,
   memo,
 )(OtpPage);
-

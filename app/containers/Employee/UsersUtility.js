@@ -74,123 +74,9 @@ const UsersUtility = () => {
   };
 
   return (
-    // <div>
-    //   <Button
-    //     id="demo-customized-button"
-    //     aria-controls={open ? 'demo-customized-menu' : undefined}
-    //     aria-haspopup="true"
-    //     aria-expanded={open ? 'true' : undefined}
-    //     variant="contained"
-    //     className="bg-white"
-    //     disableElevation
-    //     onClick={handleClick}
-    //     endIcon={<KeyboardArrowDownIcon />}
-    //   >
-    //     Sort by
-    //   </Button>
-    //   <StyledMenu
-    //     id="demo-customized-menu"
-    //     MenuListProps={{
-    //       'aria-labelledby': 'demo-customized-button',
-    //     }}
-    //     anchorEl={anchorEl}
-    //     open={open}
-    //     onClose={handleClose}
-    //   >
-    //     <MenuItem onClick={handleClose} disableRipple>
-    //       <EditIcon />
-    //       Edit
-    //     </MenuItem>
-    //     <MenuItem onClick={handleClose} disableRipple>
-    //       <FileCopyIcon />
-    //       Duplicate
-    //     </MenuItem>
-    //     <Divider sx={{ my: 0.5 }} />
-    //     <MenuItem onClick={handleClose} disableRipple>
-    //       <ArchiveIcon />
-    //       Archive
-    //     </MenuItem>
-    //     <MenuItem onClick={handleClose} disableRipple>
-    //       <MoreHorizIcon />
-    //       More
-    //     </MenuItem>
-    //   </StyledMenu>
-    //   <span>Filter By</span>
-
-    //   <Button
-    //     id="demo-customized-button"
-    //     aria-controls={open ? 'demo-customized-menu' : undefined}
-    //     aria-haspopup="true"
-    //     aria-expanded={open ? 'true' : undefined}
-    //     variant="contained"
-    //     disableElevation
-    //     onClick={handleClick}
-    //     endIcon={<KeyboardArrowDownIcon />}
-    //   >
-    //     Department
-    //   </Button>
-    //   <StyledMenu
-    //     id="demo-customized-menu"
-    //     MenuListProps={{
-    //       'aria-labelledby': 'demo-customized-button',
-    //     }}
-    //     anchorEl={anchorEl}
-    //     open={open}
-    //     onClose={handleClose}
-    //   >
-    //     <MenuItem onClick={handleClose} disableRipple>
-    //       <EditIcon />
-    //       Edit
-    //     </MenuItem>
-    //     <MenuItem onClick={handleClose} disableRipple>
-    //       <FileCopyIcon />
-    //       Duplicate
-    //     </MenuItem>
-    //     <Divider sx={{ my: 0.5 }} />
-    //     <MenuItem onClick={handleClose} disableRipple>
-    //       <ArchiveIcon />
-    //       Archive
-    //     </MenuItem>
-    //     <MenuItem onClick={handleClose} disableRipple>
-    //       <MoreHorizIcon />
-    //       More
-    //     </MenuItem>
-    //   </StyledMenu>
-    //   <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-    //     <InputLabel>Search</InputLabel>
-    //     <OutlinedInput
-    //       // id="outlined-adornment-password"
-    //       // type={values.showPassword ? 'text' : 'password'}
-    //       // value={values.password}
-    //       // type='text'
-    //       // onChange={handleChange('password')}
-    //       endAdornment={
-    //         <InputAdornment position="end">
-    //           <SearchIcon />
-    //         </InputAdornment>
-    //       }
-    //       inputProps={{
-    //         'aria-label': 'weight',
-    //       }}
-    //     />
-    //   </FormControl>
-    //   <Button>Clear</Button>
-    //   <Button
-    //     id="demo-customized-button"
-    //     aria-controls={open ? 'demo-customized-menu' : undefined}
-    //     aria-haspopup="true"
-    //     aria-expanded={open ? 'true' : undefined}
-    //     variant="contained"
-    //     disableElevation
-    //     // onClick={handleClick}
-    //     endIcon={<MoreVertIcon />}
-    //   >
-    //     ACTION
-    //   </Button>
-    // </div>
-    <div className="md:flex  m-2">
+       <div className="md:flex  m-2">
       <select
-        className="border-2 border-gray-200 bg-white h-8 px-3 pr-2 ml-6 rounded-lg text-sm focus:outline-none"
+        className="border-2 border-gray-200 bg-white h-9 px-3 pr-2 ml-6 rounded-full text-sm focus:outline-none"
         style={{ width: '10%', borderRadius: '8px' }}
         // onChange={() => orderBy()}
       >
@@ -200,37 +86,37 @@ const UsersUtility = () => {
         <option value="ASC">A-Z</option>
         <option value="DESC">Z-A</option>
       </select>
-
-      <input
+      {/* <input
         className="border-0 border-gray-200 bg-white h-8 px-4 pr-4 ml-1 rounded text-sm focus:outline-none"
         style={{ width: '10%', borderRadius: '8px' }}
         type="search"
         name="filter"
-        placeholder="Filter By"
-      />
-
+        placeholder="Filter"
+      /> */}
+      <label className="border-0 border-gray-200 bg-white h-9 mt-2 px-2 ml-3 rounded-full text-sm"
+      style={{ width: '12%', borderRadius: '8px' }}>Search By</label>
       <select
-        className="border-2 border-gray-200 bg-white h-8 px-2 pr-6 ml-3 rounded-lg text-sm focus:outline-none"
-        style={{ width: '15%', borderRadius: '8px' }}
+        className="border-2 border-gray-200 bg-white h-9 px-2 pr-6 ml-1 rounded-full text-sm focus:outline-none"
+        style={{ width: '16%', borderRadius: '8px' }}
         // onChange={() => orderBy()}
       >
         <option value="" disabled selected>
-          Department by
+          Department 
         </option>
-        <option value="ASC">A-Z</option>
-        <option value="DESC">Z-A</option>
+        <option value="1">Marketing</option>
+        <option value="2">Account</option>
+        <option value="3">IT</option>
+        <option value="4">HR</option>
       </select>
 
       <input
-        className="border-2 border-gray-300 bg-white w-72 h-8 px-8 pr-6 ml-3 rounded-full text-sm focus:outline-none"
-        // value={name}
-        // onChange={filterEmployeeList}
+        className="border-2 border-gray-300 bg-white w-72 h-9 px-8 pr-6 ml-3 rounded-full text-sm focus:outline-none"
+  
         style={{ borderRadius: '8px' }}
         type="text"
         name="search"
         placeholder="Search by phone, email"
       />
-
       <button className="text-green-500 border-2 rounded-full border-gray-300 mr-3 ml-3 pr-2 pl-1">
         Clear
       </button>
@@ -251,50 +137,7 @@ const UsersUtility = () => {
       >
         ACTION
       </Button> 
-       {/* <div className="flex m-4 ">
-        <form>
-          <select className="w-24 m-4 border-2 rounded-[20px] h-9">
-            <option>Sort By</option>
-          </select>
-        </form>
-        <p className="mt-6">Search By</p>
-        <form>
-          <select className="w-30 m-4 border-2 rounded-[20px] h-9">
-            <option>Department</option>
-          </select>
-        </form>
-        {/* <div className="mt-4 mr-4 h-9 flex item-strech border-2 rounded-[20px]">
-          <InputBase
-            placeholder="Search"
-            inputProps={{ 'aria-label': 'search' }}
-            className="w-96"
-          />
-          <SearchIcon className="" />
-        </div>
-        <button
-          className=" h-9 mt-4 border-2"
-          style={{
-            backgroundColor: 'white',
-            color: 'green',
-            borderRadius: '50px',
-            width: '80px',
-          }}
-        >
-          Clear
-        </button>
-        <button
-          className="w-28 h-9 m-4"
-          style={{
-            backgroundColor: '#C4C4C4',
-            color: 'white',
-            borderRadius: '50px',
-            width: '112px',
-          }}
-        >
-          ACTIONS
-          <MoreVertIcon />
-        </button> */}
-        {/* </div> */}
+      
     </div>
   );
 };
