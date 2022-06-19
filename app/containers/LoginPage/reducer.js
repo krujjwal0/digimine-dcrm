@@ -19,7 +19,7 @@ export const initialState = {
   userName: '',
   showSuccessPage: false,
   adminLocations:["Mumbai","Delhi"],
-  feedbackFormData: [],
+  feedbackFormData: [''],
 };
 
 /* eslint-disable default-case, no-param-reassign */

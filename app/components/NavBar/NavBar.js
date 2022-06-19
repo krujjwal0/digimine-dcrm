@@ -30,7 +30,7 @@ export const NavBar = () => {
                         </Link>
                     </div> */}
           <ul className="nav-menu-items font-sans ">
-            <li className="navbar-toggle font-sans mb-6 mt-3">
+            <li className="navbar-toggle font-sans mb-6">
               <Link to="#" className="menu-bars font-sans">
                 <img src={logo} style={{ width: '180px', height: '60px' }} />
               </Link>
@@ -50,34 +50,34 @@ export const NavBar = () => {
           <div
             className="absolute font-sans "
             style={{
-              top: '519px',
+              top: '425px',
               height: '220px',
               width: '240px',
-              right: '10px',
+              right: '13px',
               backgroundColor: '#EDEDF3',
             }}
           >
             <img src={navImage} />
           
            
-            <div className=" absolute -mt-36 bg-white rounded-full w-44  h-12 font-sans " style={{marginLeft: '10px',alignSelf: 'center', alignContent: 'center', justifyItems: 'center'}}>
+            <div className=" absolute -mt-48 bg-white rounded-full w-36  h-12 font-sans " style={{marginLeft: '10px',alignSelf: 'center', alignContent: 'center', justifyItems: 'center'}}>
             <div className='flex'>
-              <div className=' mt-1 h-[36px] w-[39px] ml-3 bg-[#132B6B]' style={{borderRadius: '40px'}}>
-                <p className='text-white ml-[11px] mt-[9px] font-sans'>
+              <div className=' mt-3 h-[30px] w-[30px] ml-3 bg-[#132B6B]' style={{borderRadius: '40px'}}>
+                <p className='text-white ml-[6px] mt-[7px] font-sans'>
                   RK
                 </p>
                 
               </div>
               <Button className=' font-sans ' style={{color: '#132B6B', alignContent: 'center', justifyItems: 'center'}}  >
-              <p className='font-sans font-bold text-md ' style={{marginTop: '0.9px',}}>My Profile</p>
+              <p className='font-sans font-normal text-sm -ml-4 ' style={{marginTop: '5px',}}>My Profile</p>
             </Button>
               </div>
-          <div className='-mt-10 rounded-full h-[45px] w-[49px] ml-48 bg-[#fff]'>
+          <div className='-mt-10 rounded-full h-[45px] w-[49px] ml-44 bg-[#fff]'>
             <PowerSettingsNewIcon className='mt-2 ml-3' />
           </div>
-          <div className='mt-4 font-sans '>
+          <div className=' font-sans '>
 
-         <p className='font-sans font-semibold text-lg' style={{color: '#fff'}}>© minemagma 2020.
+         <p className='font-sans font-semibold text-sm ml-2  mt-1' style={{color: '#fff'}}>© minemagma 2020.
           <br />
           <span className='font-sans font-normal ' style={{color: '#fff'}}> All Rights Reserved</span>
           </p> 

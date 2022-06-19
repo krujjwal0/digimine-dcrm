@@ -26,6 +26,24 @@ export const SidebarData = [
     cName: 'nav-text',
   },
   {
+    title: 'Non-Regulatory',
+    path: '/non_regulatory',
+    icons: <img src={regulatory} style={{ width: '15px', height: '23px' }} />,
+    cName: 'nav-text',
+  },
+  {
+    title: 'Miscellaneous',
+    path: '/miscellaneous',
+    icons: <img src={regulatory} style={{ width: '15px', height: '23px' }} />,
+    cName: 'nav-text',
+  },
+  {
+    title: 'Users',
+    path: '/users',
+    icons: <img src={regulatory} style={{ width: '15px', height: '23px' }} />,
+    cName: 'nav-text',
+  },
+  {
     title:'History',
     path: '/history',
     icons: <img src={regulatory} style={{ width:'15px',height:'23px'}}/>,

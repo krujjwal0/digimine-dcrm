@@ -411,11 +411,11 @@ const mapStateToProps = state => {
     state.loginReducer.feedbackFormData,
   );
   return {
-    feedbackFormData: state.loginReducer.feedbackFormData
-      ? state.loginReducer.feedbackFormData
-      : [],
-
     // feedbackFormData: state.loginReducer.feedbackFormData
+    //   ? state.loginReducer.feedbackFormData
+    //   : [],
+
+    feedbackFormData: state.loginReducer.feedbackFormData
   };
 };
 
