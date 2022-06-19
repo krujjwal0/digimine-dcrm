@@ -95,10 +95,10 @@ function* getAdminLocations(action) {
   }
 }
 
-function* getFeedbackFormSaga() {
+function* getFeedbackFormSaga(action) {
   console.log('feedback form Data saga call');
 
-  // const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/generateOtpByEmailId?emailId=${action.payload}`;
+  //  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/getallQuestions=${action.payload}`;
   // http://13.127.152.251:15000/api/getallQuestions
   try {
     const result = yield call(request, requestURL, {
@@ -107,7 +107,7 @@ function* getFeedbackFormSaga() {
         'Content-Type': 'application/json',
       },
     });
-    console.log('sucess in feedbackform saga', result);
+    console.log('sucess in feedbackform saga', action.payload);
 
     yield put(setFeedbackFormData(result));
     console.log('result saga call', result, err);

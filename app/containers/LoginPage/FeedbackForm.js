@@ -28,6 +28,7 @@ import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import {
   getFeedbackFormData,
+  setFeedbackFormData,
   saveDataFeedbackForm,
   setShowToFeedBackPage,
 } from './actions';
@@ -52,7 +53,7 @@ const steps = ['', '', '', '', '', '', '', '', '', ''];
 const key = 'loginReducer';
 
 function FeedbackForm(
- { feedbackFormData,}
+ { feedbackFormData, getFeedbackFormData,setFeedbackFormData}
   
 ) {
   useInjectReducer({ key, reducer });
@@ -422,6 +423,7 @@ const mapStateToProps = state => {
 export function mapDispatchToProps(dispatch) {
   return {
     getFeedbackFormData: data => dispatch(getFeedbackFormData(data)),
+    setFeedbackFormData: data => dispatch(setFeedbackFormData(data)),
     saveDataFeedbackForm: data => dispatch(saveDataFeedbackForm(data)),
     setShowToFeedBackPage: data => dispatch(setShowToFeedBackPage(data)),
   };
