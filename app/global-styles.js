@@ -22,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
   }
   .maindash{
     display:flex;
-    height: 89vh;
+  
     margin-left:250px;
     border-radius: 70px 0px 0px 0px;
     background-color: #F3F3F9;
@@ -63,3 +63,5 @@ export default GlobalStyle;
     font-family: Georgia, Times, 'Times New Roman', serif;
     line-height: 1.5em;
   } */
+
+    // height: 89vh;

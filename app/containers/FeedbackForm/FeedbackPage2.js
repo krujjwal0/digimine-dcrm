@@ -16,8 +16,8 @@ import logo from '../../images/logo.svg';
 // import QuestionMarkIcon from '@material-ui/icons/QuestionMark';
 import HelpIcon from '@material-ui/icons/Help';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import FormImg from './images/formImage.png';
-import './style.css';
+import FormImg from '../LoginPage/images/formimage.png';
+import '../LoginPage/style.css';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -25,14 +25,13 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import reducer from './reducer';
 import { useInjectReducer } from 'utils/injectReducer';
-import { useInjectSaga } from 'utils/injectSaga';
+// import { useInjectSaga } from 'utils/injectSaga';
 import {
-  getFeedbackFormData,
-  setFeedbackFormData,
-  saveDataFeedbackForm,
-  setShowToFeedBackPage,
-} from './actions';
-import saga from './saga';
+    getSecondFeedbackFormData,
+    saveDataSecondFeedbackForm,
+    setShowToSecondFeedBackPage,
+} from './action';
+// import saga from './saga';
 
 // const steps = [
 //   {
@@ -52,18 +51,18 @@ import saga from './saga';
 const steps = ['', '', '', '', '', '', '', '', '', ''];
 const key = 'loginReducer';
 
-function FeedbackForm(
- { feedbackFormData, getFeedbackFormData,setFeedbackFormData}
+function FeedbackFormSecondPage(
+  secondFeedbackFormData,
   
 ) {
   useInjectReducer({ key, reducer });
-  useInjectSaga({ key, saga });
+//   useInjectSaga({ key, saga });
 
   useEffect(() => {
-    console.log('inside useeffect', feedbackFormData);
-    getFeedbackFormData();
-    saveDataFeedbackForm();
-    setShowToFeedBackPage();
+    console.log('inside useeffect', secondFeedbackFormData);
+    getSecondFeedbackFormData();
+    saveDataSecondFeedbackForm();
+  setShowToSecondFeedBackPage();
   }, []);
 
   const [activeStep, setActiveStep] = React.useState(0);
@@ -84,21 +83,14 @@ function FeedbackForm(
     setActiveStep(0);
   };
 
-  const [
-    redirectToUserManagementPage,
-    setRedirectToUserManagementPage,
-  ] = useState(false);
-
-  if (redirectToUserManagementPage) {
-    return <Redirect to={{ pathname: '/formsecond' }} />;
-  }
+ 
 
   const [
-    redirectToFeedbackPageTwo,
-    setRedirectToFeedbackPageTwo,
+    redirectToThirdFeedbackPageTwo,
+    setRedirectToThirdFeedbackPageTwo,
   ] = useState(false);
 
-  if (redirectToFeedbackPageTwo) {
+  if (redirectToThirdFeedbackPageTwo) {
     return <Redirect to={{ pathname: '/admin/users' }} />;
   }
 
@@ -111,14 +103,17 @@ function FeedbackForm(
     var data;
     data = {
       feedbackRadioCheck: feedbackRadioCheck,
-    
+      // client_id: localStorage.getItem('client_id'),
+      // organisationID: localStorage.getItem('organisationID'),
     };
-    saveDataFeedbackForm(data);
-    setRedirectToFeedbackPageTwo(true);
-   
+    saveDataSecondFeedbackForm(data);
+    setRedirectToThirdFeedbackPageTwo(true);
+    // history.push({
+    //   pathname: '/admin/users',
+    // });
     const addFeedBackData = e => {
       handleSave();
-      setShowToFeedBackPage(true);
+      setShowToSecondFeedBackPage(true);
     };
   };
 
@@ -378,54 +373,40 @@ function FeedbackForm(
               height: '40px',
             }}
             className="font-sans absolute"
-            onClick={handleNext}
+            onClick={handleSave}
           >
             NEXT
           </button>
-          <button
-            style={{
-              background: '#132B6B',
-              borderRadius: '60px',
-              color: 'white',
-              width: '115px',
-              height: '40px',
-              marginTop: '42px'
-            }}
-            className="font-sans absolute"
-            onClick={handleSave}
-          >
-            SAVE
-          </button>
+         
         </div>
       </div>
     </div>
   );
 }
 
-FeedbackForm.propTypes = {
+FeedbackFormSecondPage.propTypes = {
   dispatch: PropTypes.func,
 };
 
 const mapStateToProps = state => {
   console.log(
     'checking data of feedbackform state to props',
-    state.loginReducer.feedbackFormData,
+    state.loginReducer.secondFeedbackFormData,
   );
   return {
-    // feedbackFormData: state.loginReducer.feedbackFormData
-    //   ? state.loginReducer.feedbackFormData
-    //   : [],
+    secondFeedbackFormData: state.loginReducer.secondFeedbackFormData
+      ? state.loginReducer.secondFeedbackFormData
+      : [],
 
-    feedbackFormData: state.loginReducer.feedbackFormData
+    // feedbackFormData: state.loginReducer.feedbackFormData
   };
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
-    getFeedbackFormData: data => dispatch(getFeedbackFormData(data)),
-    setFeedbackFormData: data => dispatch(setFeedbackFormData(data)),
-    saveDataFeedbackForm: data => dispatch(saveDataFeedbackForm(data)),
-    setShowToFeedBackPage: data => dispatch(setShowToFeedBackPage(data)),
+    getSecondFeedbackFormData: data => dispatch(getSecondFeedbackFormData(data)),
+    saveDataSecondFeedbackForm: data => dispatch(saveDataSecondFeedbackForm(data)),
+    setShowToSecondFeedBackPage: data => dispatch(setShowToSecondFeedBackPage(data)),
   };
 }
 
@@ -437,4 +418,4 @@ const withConnect = connect(
 export default compose(
   withConnect,
   memo,
-)(FeedbackForm);
+)(FeedbackFormSecondPage);

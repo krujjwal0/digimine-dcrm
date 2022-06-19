@@ -86,6 +86,12 @@ export function ChooseLocation(props) {
 
           </div>
 
+          <div className="form_box w-full ml-96 mt-32 ">
+        <Button className="bg_red  mx-auto   font-sans login_btn  w-60 h-14 rounded-4xl my-5" onClick={() => setRedirectToFeedbackPage(true)}>
+          <p className='font-sans ' style={{color:'#fff'}}>Continue</p>
+        </Button>
+      </div>
+
         </div>
 
         {/* <div className="msg_box  flex flex-wrap pt-5">
@@ -93,11 +99,7 @@ export function ChooseLocation(props) {
 <div className="copyright_text w-1/2 text-center text-xs font-sans text-white">© 2020 MineMagma. All Rights Reserved</div>
         </div> */}
       </div>
-      <div className="form_box w-full">
-        <Button className=" otp_btn mx-auto   font-sans login_btn  w-60 rounded-3xl my-5" onClick={() => setRedirectToFeedbackPage(true)}>
-          Continue
-        </Button>
-      </div>
+     
     </div>
   );
 }

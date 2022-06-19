@@ -10,7 +10,7 @@
 import produce from 'immer';
 import {
   SET_EMAIL_ID, SET_ROLE_TYPE, SET_OTP, SET_USERNAME, SET_ADMIN_LOCATIONS,
-  SET_SHOW_OTP_PAGE, SET_USER_DATA
+  SET_SHOW_OTP_PAGE, SET_USER_DATA, SET_FEEDBACK_FORM, SET_SHOW_FEEDBACK_FORM_DATA
 } from './constants';
 
 // The initial state of the App
@@ -23,7 +23,8 @@ export const initialState = {
   showOtpPage: false,
   showSuccessPage: false,
   showFeedback: false,
-  adminLocations: []
+  adminLocations: [],
+  feedbackFormData: ['check question'],
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -74,6 +75,24 @@ const loginReducer = (state = initialState, action) =>
           showFeedback: action.payload.feedbackCompleted,
           showSuccessPage: true
         }
+
+      case SET_FEEDBACK_FORM:
+        console.log('inside reducer of feedback form data ===', state.feedbackFormData)
+        return {
+          ...state,
+          feedbackFormData: action.payload,
+        }
+
+      case SET_SHOW_FEEDBACK_FORM_DATA:
+        console.log('on saving data feedback form  Data data ===', state.feedbackFormData)
+        return {
+          ...state,
+          //showTableMain: true,
+          feedbackFormData: [
+            ...state.feedbackFormData,
+            action.payload
+          ],
+        };
       // case SEARCH_FILTER:
       //   console.log('inside reducer Employee data list ===', state.EmployeeData)
       //   return {

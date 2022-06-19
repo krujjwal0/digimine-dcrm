@@ -24,12 +24,14 @@ import Dashboard from '../Dashboard/Loadable';
 import Regulatory from '../Regulatory';
 import Categories from '../Categories';
 import MyProfile from '../MyProfile/Loadable';
+import HelpPage from '../Help';
 import Listadd2 from '../ListAdd2/index';
 import Listadd from '../ListAdd/index';
 import Location from '../LoginPage/ChooseLocation';
 import Success from '../LoginPage/SuccessPage';
 import Users from '../Regulatory/Users';
 import FeedbackForm from '../LoginPage/FeedbackForm';
+import SecondFeedbackForm from '../FeedbackForm/FeedbackPage2';
 import Employee from '../Employee';
 import History from '../History';
 import LoginPage from '../LoginPage/LoginPage';
@@ -49,6 +51,7 @@ export default function App() {
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/categories" component={Categories} />
             <Route path="/regulatory" component={Regulatory} />
+            <Route path= '/help' component={HelpPage}/>
             <Route path="/features" component={FeaturePage} />
             <Route path="/otp" component={OtpPage} />
             <Route path="/users" component={Users} />
@@ -58,6 +61,7 @@ export default function App() {
             <Route path="/success" component={Success} />
             <Route path="/empLogin" component={EmpLogin} />
             <Route path="/form" component={FeedbackForm} />
+            <Route path="/formsecond" component={SecondFeedbackForm} />
             <Route path="/admin/users" component={Employee} />
             <Route path="/myprofile" component={MyProfile} />
             <Route path="/history" component={History} />
