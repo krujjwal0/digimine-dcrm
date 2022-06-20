@@ -25,8 +25,6 @@ function* getQ_A_Saga() {
       },
     });
     console.log('success in Help saga', result);
-    let newAwt = localStorage.setItem('awtToken', '');
-    console.log("newAwt ===", newAwt);
     yield put(setQ_A(result.data));
   } catch (err) {
     console.log('Error in Help saga', result, err);

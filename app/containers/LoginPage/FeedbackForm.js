@@ -17,7 +17,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import FormImg from './images/formImage.png';
 import './style.css';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -53,10 +53,13 @@ const steps = ['', '', '', '', '', '', '', '', '', ''];
 const key = 'loginReducer';
 
 function FeedbackForm(
-  { feedbackFormData, getFeedbackFormData,setFeedbackFormData}
+  { feedbackFormData, getFeedbackFormData, setFeedbackFormData }
 ) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
+
+
+  const history = useHistory();
 
   useEffect(() => {
     console.log('inside useeffect', feedbackFormData);
@@ -69,10 +72,11 @@ function FeedbackForm(
   const [feedbackRadioCheck, setFeedbackRadioCheck] = useState();
 
   const handleNext = () => {
+    history.push('/admin/users')
     // setRedirectToUserManagementPage(true);
 
     // active when we have feedback form API
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
+    // setActiveStep(prevActiveStep => prevActiveStep + 1);
   };
 
   const handleBack = () => {
@@ -83,10 +87,7 @@ function FeedbackForm(
     setActiveStep(0);
   };
 
-  const [
-    redirectToUserManagementPage,
-    setRedirectToUserManagementPage,
-  ] = useState(false);
+  const [redirectToUserManagementPage, setRedirectToUserManagementPage] = useState(false);
 
   if (redirectToUserManagementPage) {
     return <Redirect to={{ pathname: '/formsecond' }} />;
@@ -209,7 +210,7 @@ function FeedbackForm(
                       value="Enable"
                       name="Disable"
                       checked={feedbackRadioCheck === 'Enable'}
-                  />
+                    />
                   }
                   label="Lorem ipsum dolor sit amet, consectetur"
                   className="font-sans"
@@ -229,7 +230,7 @@ function FeedbackForm(
                       value="Disable"
                       name="Disable"
                       checked={feedbackRadioCheck === 'Disable'}
-                  />
+                    />
                   }
                   label="Lorem ipsum dolor sit amet, consectetur"
                 />
@@ -249,7 +250,7 @@ function FeedbackForm(
                       value="ThirdOption"
                       name="Disable"
                       checked={feedbackRadioCheck === 'ThirdOption'}
-                  />
+                    />
                   }
                   label="Lorem ipsum dolor sit amet, consectetur"
                 />
@@ -268,7 +269,7 @@ function FeedbackForm(
                       value="OptionFour"
                       name="Disable"
                       checked={feedbackRadioCheck === 'OptionFour'}
-                  />
+                    />
                   }
                   label="Lorem ipsum dolor sit amet, consectetur"
                 />
@@ -342,6 +343,7 @@ function FeedbackForm(
         <div className="flex w-full ml-32 ">
           <HelpOutlineIcon
             className="mb-6 "
+            onClick={()=>{history.push('/help')}}
             style={{
               backgroundColor: '#FFFFFF',
               width: '55px',
