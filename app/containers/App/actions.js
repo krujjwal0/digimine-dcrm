@@ -15,7 +15,7 @@
  *    }
  */
 
-import { LOAD_REPOS, LOAD_REPOS_SUCCESS, LOAD_REPOS_ERROR } from './constants';
+import { LOAD_REPOS, LOAD_REPOS_SUCCESS, LOAD_REPOS_ERROR, SET_NAV_BAR } from './constants';
 
 /**
  * Load the repositories, this action starts the request saga
@@ -26,6 +26,12 @@ export function loadRepos() {
   return {
     type: LOAD_REPOS,
   };
+}
+export function setNavBar(data){
+return {
+  type: SET_NAV_BAR,
+  payload: data
+}
 }
 
 /**

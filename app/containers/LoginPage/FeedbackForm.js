@@ -33,6 +33,7 @@ import {
   setShowToFeedBackPage,
 } from './actions';
 import saga from './saga';
+import { setNavBar } from '../App/actions';
 
 // const steps = [
 //   {
@@ -53,7 +54,7 @@ const steps = ['', '', '', '', '', '', '', '', '', ''];
 const key = 'loginReducer';
 
 function FeedbackForm(
-  { feedbackFormData, getFeedbackFormData, setFeedbackFormData }
+  { feedbackFormData, getFeedbackFormData, setFeedbackFormData, setNavBar }
 ) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -73,6 +74,7 @@ function FeedbackForm(
 
   const handleNext = () => {
     history.push('/admin/users')
+    setNavBar(true)
     // setRedirectToUserManagementPage(true);
 
     // active when we have feedback form API
@@ -433,6 +435,7 @@ export function mapDispatchToProps(dispatch) {
     setFeedbackFormData: data => dispatch(setFeedbackFormData(data)),
     saveDataFeedbackForm: data => dispatch(saveDataFeedbackForm(data)),
     setShowToFeedBackPage: data => dispatch(setShowToFeedBackPage(data)),
+    setNavBar: data => dispatch(setNavBar(data))
   };
 }
 
