@@ -10,6 +10,8 @@ import globalReducer from 'containers/App/reducer';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import loginReducer from 'containers/LoginPage/reducer';
 import empReducer from './containers/Employee/reducer';
+import navReducer from 'components/NavBar/reducer';
+import helpReducer from 'containers/Help/reducer';
 
 /**
  * Merges the main reducer with the router state and dynamically injected reducers
@@ -20,6 +22,8 @@ export default function createReducer(injectedReducers = {}) {
     language: languageProviderReducer,
     loginReducer: loginReducer,
     emp: empReducer,
+    navReducer: navReducer,
+    helpReducer:helpReducer,
     router: connectRouter(history),
     ...injectedReducers,
   });
