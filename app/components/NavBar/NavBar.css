@@ -10,6 +10,8 @@
     margin-left: 1.5rem;
     font-size: 2rem;
     background: none;
+    margin-top: 28px;
+
 }
 
 .nav-menu {
@@ -22,6 +24,7 @@
     top: 0; 
     /* left: -100%;for sliding sidebar */
     transition: 850ms;
+   
 
 }
 
@@ -37,6 +40,7 @@
     padding: 6px 0px 6px 10px;
     list-style: none;
     height: 40px;
+    
 }
 
 .nav-text a {

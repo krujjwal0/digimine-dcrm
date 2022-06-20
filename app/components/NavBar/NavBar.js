@@ -43,14 +43,14 @@ export function NavBar({ getUserLogout }) {
                     </Link> */}
           <p style={{ float: 'right' }}>Notification icon at corner</p>
         </div>
-        <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
+        <nav style={{}} className={sidebar ? 'nav-menu active' : 'nav-menu'}>
           {/* <div className='nav-menu-items '>
                         <Link to="#" >
                             <img src={logo} style={{ width: '180px', height: '60px' }} />
                         </Link>
                     </div> */}
           <ul className="nav-menu-items font-sans ">
-            <li className="navbar-toggle font-sans mb-6">
+            <li className="navbar-toggle font-sans mb-6 mt-10">
               <Link to="#" className="menu-bars font-sans">
                 <img src={logo} style={{ width: '180px', height: '60px' }} />
               </Link>
@@ -68,13 +68,15 @@ export function NavBar({ getUserLogout }) {
           </ul>
 
           <div
-            className="absolute font-sans "
+            className="fixed font-sans "
             style={{
-              top: '425px',
+              // top: '425px',
               height: '220px',
               width: '240px',
-              right: '13px',
+              // right: '13px',
               backgroundColor: '#EDEDF3',
+              bottom: '0',
+              left: '0'
             }}
           >
             <img src={navImage} />
