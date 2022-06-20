@@ -1,72 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState,memo } from 'react';
 // import 'react-virtualized/styles.css';
 // import {Column, Table} from 'react-virtualized';
 // import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 // import List from 'react-virtualized/dist/commonjs/List';
 // import { List } from "react-virtualized";
-
+import Popover from '@material-ui/core/Popover';
 import './style.css';
 import { List, AutoSizer } from 'react-virtualized';
-import { alpha, styled , withStyles } from '@material-ui/core/styles';
+import { alpha, styled, withStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import MoreVert from '@material-ui/icons/MoreVert';
-import {Card, CardContent} from '@material-ui/core';
+import { Card, CardContent } from '@material-ui/core';
 import emp_image from '../../images/emp_image.png';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+
+import { useInjectReducer } from 'utils/injectReducer';
+import { useInjectSaga } from 'utils/injectSaga';
 
 
-// const IOSSwitch = withStyles(theme => ({
-//   root: {
-//     width: 42,
-//     height: 26,
-//     padding: 0,
-//     margin: theme.spacing(1),
-//   },
-//   switchBase: {
-//     padding: 1,
-//     '&$checked': {
-//       transform: 'translateX(16px)',
-//       color: theme.palette.common.white,
-//       '& + $track': {
-//         backgroundColor: '#52d869',
-//         opacity: 1,
-//         border: 'none',
-//       },
-//     },
-//     '&$focusVisible $thumb': {
-//       color: '#52d869',
-//       border: '6px solid #fff',
-//     },
-//   },
-//   thumb: {
-//     width: 24,
-//     height: 24,
-//   },
-//   track: {
-//     borderRadius: 26 / 2,
-//     border: `1px solid ${theme.palette.grey[400]}`,
-//     backgroundColor: theme.palette.grey[50],
-//     opacity: 1,
-//     transition: theme.transitions.create(['background-color', 'border']),
-//   },
-//   checked: {},
-//   focusVisible: {},
-// }))(({ classes, ...props }) => (
-//     <Switch
-//       focusVisibleClassName={classes.focusVisible}
-//       disableRipple
-//       classes={{
-//         root: classes.root,
-//         switchBase: classes.switchBase,
-//         thumb: classes.thumb,
-//         track: classes.track,
-//         checked: classes.checked,
-//       }}
-//       {...props}
-//     />
-//   ));
-  
+import reducer from './reducer';
+import saga from './saga';
+import { showEmployee } from './actions';
+
+const key = 'users';
+
+
 
 const GreenSwitch = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-switchBase.Mui-checked': {
@@ -89,69 +54,88 @@ const list = [
   // And so on...
 ];
 
-function rowRenderer({
-  key, // Unique key within array of rows
-  index, // Index of row within collection
-  isScrolling, // The List is currently being scrolled
-  isVisible, // This row is visible within the List (eg it is not an overscanned row)
-  style, // Style object to be applied to row (to position it)
-}) {
-  console.log('List ::::', list, key, index);
-  return (
-    <div key={key} className="row rounded-full">
-      <div>
-        <img className="empImg" src={emp_image} alt="user image" />
-      </div>
-      <div className="content">
-        <label>Employee</label>
-        <p>{list[index].name}</p>
-      </div>
-      <div className="content">
-        <label> {/*  Id */} </label>
-        <p>{/* {list[index].id} */}</p>
-      </div>
-      <div className="content">
-        <label> Department </label>
-        <p>{/* {list[index].department} */}hr</p>
-      </div>
-      <div className="content">
-        <label> Phone </label>
-        <p>
-          9876543210
-          {/* {list[index].id} */}
-        </p>
-      </div>
-      <div className="content">
-        <label> Phone </label>
-        <p>
-          9876543210
-          {/* {list[index].id} */}
-        </p>
-      </div>
-      <div className="content">
-        <label>Active</label>
-        <p>
-          {/* {list[index].id} */}
-        </p>
-      </div>
-      <div className="content">
-        <MoreVert />
-      </div>
-    </div>
-  );
-}
+// function rowRenderer({
+//   key, // Unique key within array of rows
+//   index, // Index of row within collection
+//   isScrolling, // The List is currently being scrolled
+//   isVisible, // This row is visible within the List (eg it is not an overscanned row)
+//   style, // Style object to be applied to row (to position it)
+// }) {
+//   console.log('List ::::', list, key, index);
+//   return (
+//     <div key={key} className="row rounded-full">
+//       <div>
+//         <img className="empImg" src={emp_image} alt="user image" />
+//       </div>
+//       <div className="content">
+//         <label>Employee</label>
+//         <p>{list[index].name}</p>
+//       </div>
+//       <div className="content">
+//         <label> {/*  Id */} </label>
+//         <p>{/* {list[index].id} */}</p>
+//       </div>
+//       <div className="content">
+//         <label> Department </label>
+//         <p>{/* {list[index].department} */}hr</p>
+//       </div>
+//       <div className="content">
+//         <label> Phone </label>
+//         <p>
+//           9876543210
+//           {/* {list[index].id} */}
+//         </p>
+//       </div>
+//       <div className="content">
+//         <label> Phone </label>
+//         <p>
+//           9876543210
+//           {/* {list[index].id} */}
+//         </p>
+//       </div>
+//       <div className="content">
+//         <label>Active</label>
+//         <p>
+//           {/* {list[index].id} */}
+//         </p>
+//       </div>
+//       <div className="content">
+//         <MoreVert />
+//       </div>
+//     </div>
+//   );
+// }
 
-export default function Users() {
+export function Users(props) {
   const [state, setState] = React.useState({
     checkedA: true,
     checkedB: true,
     checkedC: true,
   });
 
+  useInjectReducer({ key, reducer });
+  useInjectSaga({ key, saga });
+
   const handleChange = event => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
+  useEffect(() => {
+    props.showEmployee();
+  }, [])
   return (
     <div className="">
       {/* <div className="list">
@@ -163,16 +147,16 @@ export default function Users() {
           rowRenderer={rowRenderer}
         />
       </div> */}
-      <Card className='w-full rounded-full h-[72px]' style={{borderRadius: '50px', marginTop: '10px'}}>
+      <Card className='w-full rounded-full h-[72px]' style={{ borderRadius: '50px', marginTop: '10px' }}>
         <CardContent>
           <div className="flex rounded-full">
             <div className=''>
-              
-              <img className='rounded-full ml-3 w-[41px] h-[41px]'
-            src={emp_image}
 
-          />
-              
+              <img className='rounded-full ml-3 w-[41px] h-[41px]'
+                src={emp_image}
+
+              />
+
             </div>
 
             <div className='ml-10'>
@@ -225,11 +209,55 @@ export default function Users() {
               <GreenSwitch {...label} defaultChecked />
             </div>
             <div className='mt-2 ml-8'>
-              <MoreVert />
+              <MoreVert onClick={handleClick} />
             </div>
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              style={{
+                borderRadius: '15px',
+                // background: '#FFFFFF',
+                // boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)'
+              }}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+            >
+              <div className="p-2 m-2">
+                <div><button className="my-1 mx-4" disable>Edit</button></div>
+                <div><button className="my-1 mx-4" disable>Delete</button></div>
+              </div>
+            </Popover>
           </div>
         </CardContent>
       </Card>
     </div>
   );
 }
+
+Users.propTypes = {
+  showEmployee: PropTypes.func,
+};
+
+const mapStateToProps = state => ({
+  usersList: state.users.EmployeeCardList > 0 ? state.users.EmployeeCardList : []
+});
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    showEmployee: data => dispatch(showEmployee(data)),
+  };
+}
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(
+  withConnect,
+  memo,
+)(Users);

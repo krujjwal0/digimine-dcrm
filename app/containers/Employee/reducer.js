@@ -1,29 +1,39 @@
-/*
- * HomeReducer
- *
- * The reducer takes care of our data. Using actions, we can
- * update our application state. To add a new action,
- * add it to the switch statement in the reducer function
- *
- */
-
 import produce from 'immer';
-import { CHANGE_USERNAME } from './constants';
+import { SET_EMPLOYEE} from './constants';
+import { v4 as uuidv4 } from 'uuid';
 
-// The initial state of the App
 export const initialState = {
-  username: '',
+  EmployeeCardList: [],
+  EmployeeCardListreplica: [],
+
 };
 
 /* eslint-disable default-case, no-param-reassign */
-const homeReducer = (state = initialState, action) =>
+const empReducer = (state = initialState, action) =>
   produce(state, draft => {
+    const { type } = action;
+    //console.log('in orgchart reducer ==',action.type,action.payload.Users.map)
     switch (action.type) {
-      case CHANGE_USERNAME:
-        // Delete prefixed '@' from the github username
-        draft.username = action.username.replace(/@/gi, '');
-        break;
+      case SET_EMPLOYEE:
+        // if(action.payload.fromSaga === true){
+        //   console.log('in side if ==',action.payload.fromSaga)
+        //   return {
+        //     ...state,
+        //     EmployeeCardList: action.payload.users,
+        //     EmployeeCardListreplica: action.payload.users
+        //   };
+        // } else{
+          // console.log('in side else ==',action.payload.fromSaga)
+          return {
+            ...state,
+            EmployeeCardList: action.payload.users,
+          };
+        // }
+       
+
+      default:
+        return state;
     }
   });
 
-export default homeReducer;
+export default empReducer;
