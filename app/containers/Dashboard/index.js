@@ -31,6 +31,11 @@ import saga from './saga';
 import icon1 from './images/card1.png';
 import map from './images/map.png';
 import graph from './images/graph.png';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import HomeIcon from '@material-ui/icons/Home';
+import ClearAllIcon from '@material-ui/icons/ClearAll';
+import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
+import Link from '@material-ui/core/Link';
 const key = 'dashboard';
 
 function Dashboard({
@@ -118,7 +123,34 @@ function Dashboard({
 
   return (
     <div className="maindash">
+     
       <div className="mx-20 mt-6  w-[95%]">
+      <Breadcrumbs aria-label="breadcrumb" className='font-sans font-bold text-xl' 
+      style={{marginLeft: '30px', fontWeight: '800', fontSize: '30px'}}>
+       
+      
+        <Typography
+          sx={{ display: 'flex', alignItems: 'center' }}
+          color="text.primary"
+          className='font-sans font-bold text-xl' 
+          style={{marginLeft: '30px',fontWeight: '800', fontSize: '30px', color: '#132B6B'}}
+        >
+          <ClearAllIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+          Dashboard
+        </Typography>
+       
+      </Breadcrumbs>
+      <p
+            style={{ color: '#F66B6B', fontSize: '11px' }}
+            className=" font-sans ml-24"
+          >
+            Dashboard | <span style={{ color: '#151F63' }}>Dashboard </span>
+          </p>
+
+          <div className='-mt-4 flex justify-end' >
+        <div>
+          <NotificationsNoneIcon />
+          </div></div>
         <div className="flex mt-7">
           <Card
             className="w-[45%] mr-6 ml-6 min-h-68 "
@@ -313,7 +345,7 @@ function Dashboard({
                       />
                     }
                   />
-                  />
+                 
                 </FormGroup>
               </div>
             </div>

@@ -31,6 +31,10 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import HomeIcon from '@material-ui/icons/Home';
+import ClearAllIcon from '@material-ui/icons/ClearAll';
+import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import { getQ_A } from './action';
 
 const key = 'helpReducer';
@@ -48,8 +52,17 @@ function Help(props) {
   return (
     <div className="maindash">
       <div className="mx-20 mt-6  w-[95%] h-full">
+      <Typography
+          sx={{ display: 'flex', alignItems: 'center' }}
+          color="text.primary"
+          className='font-sans font-bold text-xl' 
+          style={{marginLeft: '30px',fontWeight: '800', fontSize: '30px', color: '#132B6B'}}
+        >Help
+        {/* <ClearAllIcon sx={{ mr: 0.5 }} fontSize="inherit" /> */}
+        </Typography>
+         
         <p
-          className=" font- sans font-bold ml-20 text-xl"
+          className=" font- sans font-bold ml-20 text-xl mt-5"
           style={{ color: '#F66B6B' }}
         >
           <p className="font-sans">

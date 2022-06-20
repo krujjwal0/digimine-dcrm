@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
-
+import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import { Redirect, useHistory } from 'react-router-dom';
 import reducer from './reducer';
 import saga from './saga';
@@ -36,6 +36,7 @@ export function NavBar({ getUserLogout }) {
     <>
       <IconContext.Provider value={{ color: '#F66B6B' }}>
         <div className="navbar w-full font-sans">
+       
           {/* <Link to="#" className='menu-bars'> */}
           {/* <p onClick={showSidebar} >
                     </p> */}
@@ -49,6 +50,7 @@ export function NavBar({ getUserLogout }) {
                             <img src={logo} style={{ width: '180px', height: '60px' }} />
                         </Link>
                     </div> */}
+                     
           <ul className="nav-menu-items font-sans ">
             <li className="navbar-toggle font-sans mb-6 mt-10">
               <Link to="#" className="menu-bars font-sans">
@@ -66,6 +68,11 @@ export function NavBar({ getUserLogout }) {
               );
             })}
           </ul>
+
+          {/* <div className='mt-12  flex justify-end' style={{float: "right"}}>
+        <div>
+          <NotificationsNoneIcon />
+          </div></div> */}
 
           <div
             className="fixed font-sans "

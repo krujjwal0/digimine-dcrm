@@ -389,7 +389,7 @@ function FeedbackForm(
           >
             NEXT
           </button>
-          <button
+          {/* <button
             style={{
               background: '#132B6B',
               borderRadius: '60px',
@@ -402,7 +402,7 @@ function FeedbackForm(
             onClick={handleSave}
           >
             SAVE
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

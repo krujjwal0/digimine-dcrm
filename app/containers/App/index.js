@@ -39,7 +39,7 @@ import LoginPage from '../LoginPage/LoginPage';
 
 export default function App() {
   const history = createBrowserHistory();
-  const [nav, setNav] = useState(false);
+  const [nav, setNav] = useState(true);
 
   return (
     <>
