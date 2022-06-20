@@ -27,7 +27,7 @@ import saga from './saga';
 import Users from './Users';
 import UsersUtility from './UsersUtility';
 
-const key = 'employee';
+const key = 'users';
 
 export function Employee({
   username,
@@ -36,6 +36,7 @@ export function Employee({
   repos,
   onSubmitForm,
   onChangeUsername,
+  showEmployee
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -60,7 +61,7 @@ export function Employee({
       <div className="flex mt-4 justify-center">
         <div className="w-[65%] h-screen bg-white rounded-t-[50px] align-center">
           <div className="mt-8">
-            <UsersUtility />
+            <UsersUtility showEmployee={showEmployee}/>
           </div>
           <div className="">
             <Users />
@@ -93,6 +94,7 @@ const mapStateToProps = createStructuredSelector({
 export function mapDispatchToProps(dispatch) {
   return {
     onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),
+    showEmployee: data => dispatch(showEmployee(data)),
     onSubmitForm: evt => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(loadRepos());

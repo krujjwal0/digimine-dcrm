@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState,memo } from 'react';
 // import 'react-virtualized/styles.css';
 // import {Column, Table} from 'react-virtualized';
 // import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
@@ -7,13 +7,30 @@ import React, {useState} from 'react';
 import Popover from '@material-ui/core/Popover';
 import './style.css';
 import { List, AutoSizer } from 'react-virtualized';
-import { alpha, styled , withStyles } from '@material-ui/core/styles';
+import { alpha, styled, withStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import MoreVert from '@material-ui/icons/MoreVert';
-import {Card, CardContent} from '@material-ui/core';
+import { Card, CardContent } from '@material-ui/core';
 import emp_image from '../../images/emp_image.png';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+
+import { useInjectReducer } from 'utils/injectReducer';
+import { useInjectSaga } from 'utils/injectSaga';
+
+
+import reducer from './reducer';
+import saga from './saga';
+import { showEmployee } from './actions';
+
+const key = 'users';
+
 
 
 const GreenSwitch = styled(Switch)(({ theme }) => ({
@@ -89,12 +106,15 @@ const list = [
 //   );
 // }
 
-export default function Users() {
+export function Users(props) {
   const [state, setState] = React.useState({
     checkedA: true,
     checkedB: true,
     checkedC: true,
   });
+
+  useInjectReducer({ key, reducer });
+  useInjectSaga({ key, saga });
 
   const handleChange = event => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -102,17 +122,20 @@ export default function Users() {
 
   const [anchorEl, setAnchorEl] = useState(null);
 
-const handleClick = (event) => {
-  setAnchorEl(event.currentTarget);
-};
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-const handleClose = () => {
-  setAnchorEl(null);
-};
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
-const open = Boolean(anchorEl);
-const id = open ? 'simple-popover' : undefined;
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
+  useEffect(() => {
+    props.showEmployee();
+  }, [])
   return (
     <div className="">
       {/* <div className="list">
@@ -124,16 +147,16 @@ const id = open ? 'simple-popover' : undefined;
           rowRenderer={rowRenderer}
         />
       </div> */}
-      <Card className='w-full rounded-full h-[72px]' style={{borderRadius: '50px', marginTop: '10px'}}>
+      <Card className='w-full rounded-full h-[72px]' style={{ borderRadius: '50px', marginTop: '10px' }}>
         <CardContent>
           <div className="flex rounded-full">
             <div className=''>
-              
-              <img className='rounded-full ml-3 w-[41px] h-[41px]'
-            src={emp_image}
 
-          />
-              
+              <img className='rounded-full ml-3 w-[41px] h-[41px]'
+                src={emp_image}
+
+              />
+
             </div>
 
             <div className='ml-10'>
@@ -194,19 +217,19 @@ const id = open ? 'simple-popover' : undefined;
               anchorEl={anchorEl}
               onClose={handleClose}
               style={{
-            borderRadius: '15px',
-            // background: '#FFFFFF',
-            // boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)'
-          }}
+                borderRadius: '15px',
+                // background: '#FFFFFF',
+                // boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)'
+              }}
               anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'left',
               }}
             >
-              <div className="p-2 m-2">            
-              <div><button className="my-1 mx-4" disable>Edit</button></div>
-              <div><button className="my-1 mx-4" disable>Delete</button></div>        
-          </div>
+              <div className="p-2 m-2">
+                <div><button className="my-1 mx-4" disable>Edit</button></div>
+                <div><button className="my-1 mx-4" disable>Delete</button></div>
+              </div>
             </Popover>
           </div>
         </CardContent>
@@ -214,3 +237,27 @@ const id = open ? 'simple-popover' : undefined;
     </div>
   );
 }
+
+Users.propTypes = {
+  showEmployee: PropTypes.func,
+};
+
+const mapStateToProps = state => ({
+  usersList: state.users.EmployeeCardList > 0 ? state.users.EmployeeCardList : []
+});
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    showEmployee: data => dispatch(showEmployee(data)),
+  };
+}
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(
+  withConnect,
+  memo,
+)(Users);

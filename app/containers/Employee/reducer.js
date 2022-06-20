@@ -15,20 +15,20 @@ const empReducer = (state = initialState, action) =>
     //console.log('in orgchart reducer ==',action.type,action.payload.Users.map)
     switch (action.type) {
       case SET_EMPLOYEE:
-        if(action.payload.fromSaga === true){
-          console.log('in side if ==',action.payload.fromSaga)
+        // if(action.payload.fromSaga === true){
+        //   console.log('in side if ==',action.payload.fromSaga)
+        //   return {
+        //     ...state,
+        //     EmployeeCardList: action.payload.users,
+        //     EmployeeCardListreplica: action.payload.users
+        //   };
+        // } else{
+          // console.log('in side else ==',action.payload.fromSaga)
           return {
             ...state,
-            EmployeeCardList: action.payload.results,
-            EmployeeCardListreplica: action.payload.results
+            EmployeeCardList: action.payload.users,
           };
-        } else{
-          console.log('in side else ==',action.payload.fromSaga)
-          return {
-            ...state,
-            EmployeeCardList: action.payload.results,
-          };
-        }
+        // }
        
 
       default:

@@ -2,7 +2,7 @@
 import {
   SHOW_EMPLOYEE,
   SET_EMPLOYEE,
-     
+  ADD_USER
 } from './constants';
 
 export function showEmployee(obj) {
@@ -20,6 +20,14 @@ export function showEmployee(obj) {
       payload : obj,
     };
 }
+export function addUser(obj) {
+  console.log("Add User:-", obj)
+  return {
+    type: ADD_USER,
+    payload : obj,
+  };
+}
+
 
 
 

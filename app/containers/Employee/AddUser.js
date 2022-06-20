@@ -1,12 +1,54 @@
-import React from 'react'
 import { TextField, Box, Button } from '@material-ui/core';
+import React, { useState,memo } from 'react'
+import { TextField, Box } from '@material-ui/core';
 import close from '../History/image/close.png';
 import camera from '../History/image/camera.png';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
-export default function AddUser() {
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+
+import { useInjectReducer } from 'utils/injectReducer';
+import { useInjectSaga } from 'utils/injectSaga';
+
+
+import reducer from './reducer';
+import saga from './saga';
+import { addUser } from './actions';
+
+const key = 'users';
+
+
+
+export function AddUser(props) {
+  
+  useInjectReducer({ key, reducer });
+  useInjectSaga({ key, saga });
+
+
+  const [name,setName]=useState("");
+  const [mobileNumber,setMobileNumber]=useState("");
+  const [employeeId,setEmployeeId]= useState("");
+  const [emailId,setEmailId]= useState("");
+  const [departmentId,setDepartmentId]= useState("");
+  const insertUser =() =>{
+    //Add condition for blank
+    let data={
+      // roleId:roleId,//backend
+      name:name,
+      mobileNumber:mobileNumber,
+      emailId:emailId,
+      departmentId:departmentId,
+      employeeId:employeeId
+    }
+    props.addUser(data);
+  }
   return (
     <div className="">
       <div className="flex">
+        <button onClick={()=>insertUser()}>Add user</button>
         <label style={{
           fontFamily: 'Nunito',
           marginTop: '18px',
@@ -41,6 +83,8 @@ export default function AddUser() {
             <TextField
               label="Name"
               name="name"
+              value={name}
+              onChange={(e)=>setName(e.target.value)}
               autoComplete="off"
               placeholder="Enter Here"
               id="outlined-basic"
@@ -51,7 +95,9 @@ export default function AddUser() {
           <div>
             <TextField
               label="Employee ID"
-              name="employee id"
+              name="employeeId"
+              value={employeeId}
+              onChange={(e)=>setEmployeeId(e.target.value)}
               autoComplete="off"
               placeholder="Enter Here"
               id="outlined-basic"
@@ -62,7 +108,9 @@ export default function AddUser() {
           <div>
             <TextField
               label="Phone No"
-              name="phone no"
+              name="mobileNumber"
+              value={mobileNumber}
+              onChange={(e)=>setMobileNumber(e.target.value)}
               autoComplete="off"
               placeholder="Enter Here"
               id="outlined-basic"
@@ -73,7 +121,9 @@ export default function AddUser() {
           <div>
             <TextField
               label="Email Address"
-              name="email address"
+              name="emailId"              
+              value={emailId}
+              onChange={(e)=>setEmailId(e.target.value)}
               autoComplete="off"
               placeholder="Enter Here"
               id="outlined-basic"
@@ -84,7 +134,9 @@ export default function AddUser() {
           <div>
             <TextField
               label="Select Department"
-              name="select department"
+              name="departmentId"              
+              value={departmentId}
+              onChange={(e)=>setDepartmentId(e.target.value)}
               autoComplete="off"
               placeholder="Enter Here"
               id="outlined-basic"
@@ -105,3 +157,27 @@ export default function AddUser() {
     </div>
   )
 }
+
+AddUser.propTypes = {
+  addUser: PropTypes.func,
+};
+
+const mapStateToProps = state => ({
+  // usersList: state.users.EmployeeCardList > 0 ? state.users.EmployeeCardList : []
+});
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    addUser: data => dispatch(addUser(data)),
+  };
+}
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(
+  withConnect,
+  memo,
+)(AddUser);
