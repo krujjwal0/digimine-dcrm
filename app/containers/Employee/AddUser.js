@@ -1,4 +1,4 @@
-import React, { useState,memo } from 'react'
+import React, { useState, memo } from 'react'
 import { TextField, Box } from '@material-ui/core';
 import close from '../History/image/close.png';
 import camera from '../History/image/camera.png';
@@ -22,32 +22,33 @@ const key = 'users';
 
 
 export function AddUser(props) {
-  
+
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
 
-  const [name,setName]=useState("");
-  const [mobileNumber,setMobileNumber]=useState("");
-  const [employeeId,setEmployeeId]= useState("");
-  const [emailId,setEmailId]= useState("");
-  const [departmentId,setDepartmentId]= useState("");
-  const insertUser =() =>{
+  const [name, setName] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [employeeId, setEmployeeId] = useState("");
+  const [emailId, setEmailId] = useState("");
+  const [departmentId, setDepartmentId] = useState(0);
+  const [roleId, setRoleId] = useState(0);
+  const insertUser = () => {
     //Add condition for blank
-    let data={
-      // roleId:roleId,//backend
-      name:name,
-      mobileNumber:mobileNumber,
-      emailId:emailId,
-      departmentId:departmentId,
-      employeeId:employeeId
+    let data = {
+      roleId: roleId, //backend
+      name: name,
+      mobileNumber: mobileNumber,
+      emailId: emailId,
+      departmentId: departmentId,
+      employeeId: employeeId
     }
     props.addUser(data);
   }
   return (
     <div className="">
       <div className="flex">
-        <button onClick={()=>insertUser()}>Add user</button>
+        <button onClick={() => insertUser()}>Add user</button>
         <label style={{
           fontFamily: 'Nunito',
           marginTop: '18px',
@@ -83,7 +84,7 @@ export function AddUser(props) {
               label="Name"
               name="name"
               value={name}
-              onChange={(e)=>setName(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
               autoComplete="off"
               placeholder="Enter Here"
               id="outlined-basic"
@@ -96,7 +97,7 @@ export function AddUser(props) {
               label="Employee ID"
               name="employeeId"
               value={employeeId}
-              onChange={(e)=>setEmployeeId(e.target.value)}
+              onChange={(e) => setEmployeeId(e.target.value)}
               autoComplete="off"
               placeholder="Enter Here"
               id="outlined-basic"
@@ -109,7 +110,7 @@ export function AddUser(props) {
               label="Phone No"
               name="mobileNumber"
               value={mobileNumber}
-              onChange={(e)=>setMobileNumber(e.target.value)}
+              onChange={(e) => setMobileNumber(e.target.value)}
               autoComplete="off"
               placeholder="Enter Here"
               id="outlined-basic"
@@ -120,9 +121,9 @@ export function AddUser(props) {
           <div>
             <TextField
               label="Email Address"
-              name="emailId"              
+              name="emailId"
               value={emailId}
-              onChange={(e)=>setEmailId(e.target.value)}
+              onChange={(e) => setEmailId(e.target.value)}
               autoComplete="off"
               placeholder="Enter Here"
               id="outlined-basic"
@@ -133,9 +134,9 @@ export function AddUser(props) {
           <div>
             <TextField
               label="Select Department"
-              name="departmentId"              
+              name="departmentId"
               value={departmentId}
-              onChange={(e)=>setDepartmentId(e.target.value)}
+              onChange={(e) => setDepartmentId(e.target.value)}
               autoComplete="off"
               placeholder="Enter Here"
               id="outlined-basic"
