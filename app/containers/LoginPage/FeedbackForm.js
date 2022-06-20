@@ -12,7 +12,6 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import logo from '../../images/logo.svg';
 // import QuestionMarkIcon from '@material-ui/icons/QuestionMark';
 import HelpIcon from '@material-ui/icons/Help';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
@@ -26,6 +25,7 @@ import { createStructuredSelector } from 'reselect';
 import reducer from './reducer';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
+import logo from '../../images/logo.svg';
 import {
   getFeedbackFormData,
   setFeedbackFormData,
@@ -53,8 +53,7 @@ const steps = ['', '', '', '', '', '', '', '', '', ''];
 const key = 'loginReducer';
 
 function FeedbackForm(
- { feedbackFormData, getFeedbackFormData,setFeedbackFormData}
-  
+  { feedbackFormData, getFeedbackFormData,setFeedbackFormData}
 ) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -70,10 +69,10 @@ function FeedbackForm(
   const [feedbackRadioCheck, setFeedbackRadioCheck] = useState();
 
   const handleNext = () => {
-    setRedirectToUserManagementPage(true);
+    // setRedirectToUserManagementPage(true);
 
     // active when we have feedback form API
-    // setActiveStep(prevActiveStep => prevActiveStep + 1);
+    setActiveStep(prevActiveStep => prevActiveStep + 1);
   };
 
   const handleBack = () => {
@@ -93,10 +92,9 @@ function FeedbackForm(
     return <Redirect to={{ pathname: '/formsecond' }} />;
   }
 
-  const [
-    redirectToFeedbackPageTwo,
-    setRedirectToFeedbackPageTwo,
-  ] = useState(false);
+  const [redirectToFeedbackPageTwo, setRedirectToFeedbackPageTwo] = useState(
+    false,
+  );
 
   if (redirectToFeedbackPageTwo) {
     return <Redirect to={{ pathname: '/admin/users' }} />;
@@ -108,14 +106,13 @@ function FeedbackForm(
   };
 
   const handleSave = e => {
-    var data;
+    let data;
     data = {
-      feedbackRadioCheck: feedbackRadioCheck,
-    
+      feedbackRadioCheck,
     };
     saveDataFeedbackForm(data);
     setRedirectToFeedbackPageTwo(true);
-   
+
     const addFeedBackData = e => {
       handleSave();
       setShowToFeedBackPage(true);
@@ -171,7 +168,7 @@ function FeedbackForm(
             }}
             className="font-sans"
           >
-            Question 7
+            Question 1
           </label>
           <p
             style={{
@@ -207,11 +204,13 @@ function FeedbackForm(
                     fontSize: '12px',
                   }}
                   value="OptionOne"
-                  control={<Radio 
-                    value="Enable"
-                    name="Disable"
-                    checked={feedbackRadioCheck === 'Enable'}
-                    />}
+                  control={
+                    <Radio
+                      value="Enable"
+                      name="Disable"
+                      checked={feedbackRadioCheck === 'Enable'}
+                  />
+                  }
                   label="Lorem ipsum dolor sit amet, consectetur"
                   className="font-sans"
                 />
@@ -225,11 +224,13 @@ function FeedbackForm(
                     marginLeft: '38px',
                   }}
                   value="OptionTwo"
-                  control={<Radio 
-                    value="Disable"
-                    name="Disable"
-                    checked={feedbackRadioCheck === 'Disable'}
-                    />}
+                  control={
+                    <Radio
+                      value="Disable"
+                      name="Disable"
+                      checked={feedbackRadioCheck === 'Disable'}
+                  />
+                  }
                   label="Lorem ipsum dolor sit amet, consectetur"
                 />
                 <br />
@@ -243,11 +244,13 @@ function FeedbackForm(
                     fontSize: '12px',
                   }}
                   value="OptionThree"
-                  control={<Radio 
-                    value="ThirdOption"
-                    name="Disable"
-                    checked={feedbackRadioCheck === 'ThirdOption'}
-                    />}
+                  control={
+                    <Radio
+                      value="ThirdOption"
+                      name="Disable"
+                      checked={feedbackRadioCheck === 'ThirdOption'}
+                  />
+                  }
                   label="Lorem ipsum dolor sit amet, consectetur"
                 />
                 <FormControlLabel
@@ -260,11 +263,13 @@ function FeedbackForm(
                     marginLeft: '38px',
                   }}
                   value="optionFour"
-                  control={<Radio 
-                    value="OptionFour"
-                    name="Disable"
-                    checked={feedbackRadioCheck === 'OptionFour'}
-                    />}
+                  control={
+                    <Radio
+                      value="OptionFour"
+                      name="Disable"
+                      checked={feedbackRadioCheck === 'OptionFour'}
+                  />
+                  }
                   label="Lorem ipsum dolor sit amet, consectetur"
                 />
               </RadioGroup>
@@ -389,7 +394,7 @@ function FeedbackForm(
               color: 'white',
               width: '115px',
               height: '40px',
-              marginTop: '42px'
+              marginTop: '42px',
             }}
             className="font-sans absolute"
             onClick={handleSave}
@@ -416,7 +421,7 @@ const mapStateToProps = state => {
     //   ? state.loginReducer.feedbackFormData
     //   : [],
 
-    feedbackFormData: state.loginReducer.feedbackFormData
+    feedbackFormData: state.loginReducer.feedbackFormData,
   };
 };
 

@@ -1,5 +1,5 @@
 /*
- * Dashboard
+ * Help
  *
  * This is the first thing users see of our App, at the '/' route
  */
@@ -22,8 +22,8 @@ import {
   makeSelectError,
 } from 'containers/App/selectors';
 
-// import reducer from './reducer';
-// import saga from './saga';
+import reducer from './reducer';
+import saga from './saga';
 import { Card, CardContent, FormGroup, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import Accordion from '@material-ui/core/Accordion';
@@ -32,13 +32,17 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-const key = 'dashboard';
+const key = 'helpReducer';
 
-function Help() {
-  //   useInjectReducer({ key, reducer });
-  //   useInjectSaga({ key, saga });
+function Help(props) {
+    useInjectReducer({ key, reducer });
+    useInjectSaga({ key, saga });
 
-  //   useEffect(() => {}, []);
+    
+    useEffect(() => {
+      props.getQ_A()
+      console.log("Help Questions and Answers ", props.help_Q_A)
+    }, [props.help_Q_A]);
 
   return (
     <div className="maindash">
@@ -142,8 +146,7 @@ function Help() {
               style={{ border: '1px solid #DCE1EA', borderRadius: '10px' }}
             >
               <AccordionSummary
-             
-                expandIcon={<ExpandMoreIcon  />}
+                expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel2a-content"
                 id="panel2a-header"
               >
@@ -162,54 +165,49 @@ function Help() {
           </div>
         </div>
 
-       <div className='mt-9 flex pl-80 mb-12'>
-       <Button
-          className="bg_red mx-auto  font-bold login_btn  w-60 h-14 rounded-full my-5 "
-          style={{borderRadius: '50px'}}
-          onClick={e => login(e)}
-        >
-          <p className='font-sans font-bold text-lg' style={{color: '#fff'}}>Contact Us</p>
-        </Button>
-       </div>
+        <div className="mt-9 flex pl-80 mb-12">
+          <Button
+            className="bg_red mx-auto  font-bold login_btn  w-60 h-14 rounded-full my-5 "
+            style={{ borderRadius: '50px' }}
+            onClick={e => login(e)}
+          >
+            <p
+              className="font-sans font-bold text-lg"
+              style={{ color: '#fff' }}
+            >
+              Contact Us
+            </p>
+          </Button>
+        </div>
       </div>
     </div>
   );
 }
 
-// Dashboard.propTypes = {
-//   loading: PropTypes.bool,
-//   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-//   repos: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
-//   onSubmitForm: PropTypes.func,
-//   username: PropTypes.string,
-//   onChangeUsername: PropTypes.func,
-// };
+Help.propTypes = {
+  help_Q_A: PropTypes.string,
+  getQ_A:PropTypes.func
+};
 
-// const mapStateToProps = createStructuredSelector({
-//   repos: makeSelectRepos(),
-//   username: makeSelectUsername(),
-//   loading: makeSelectLoading(),
-//   error: makeSelectError(),
-// });
+const mapStateToProps = state => ({
+    help_Q_A: state.helpReducer.help
+  
+})
 
-// export function mapDispatchToProps(dispatch) {
-//   return {
-//     onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),
-//     onSubmitForm: evt => {
-//       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-//       dispatch(loadRepos());
-//     },
-//   };
-// }
+export function mapDispatchToProps(dispatch) {
+  return {
+    getQ_A: () => dispatch(getQ_A()),
+    
+  };
+}
 
-// const withConnect = connect(
-//   mapStateToProps,
-//   mapDispatchToProps,
-// );
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
 
-// export default compose(
-//   withConnect,
-//   memo,
-// )(Dashboard);
+export default compose(
+  withConnect,
+  memo,
+)(Help);
 
-export default Help;

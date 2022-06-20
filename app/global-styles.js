@@ -37,7 +37,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export default GlobalStyle;
-/**html,
+/** html,
   body {
     height: 100%;
     width: 100%;
@@ -64,4 +64,4 @@ export default GlobalStyle;
     line-height: 1.5em;
   } */
 
-    // height: 89vh;
+// height: 89vh;

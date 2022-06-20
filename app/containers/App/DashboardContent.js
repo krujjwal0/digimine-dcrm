@@ -25,7 +25,7 @@ import Categories from '../Categories';
 import MyProfile from '../MyProfile/index';
 import History from '../History';
 import Help from '../Help';
-import history from '../../utils/history'
+import history from '../../utils/history';
 // const AppWrapper = styled.div`
 //   max-width: calc(768px + 16px * 2);
 //   margin: 0 auto;
@@ -36,7 +36,6 @@ import history from '../../utils/history'
 // `;
 
 export default function Dashboardcontents() {
-
   // useEffect(()=>{
   //   console.log("msg")
   //   history.push({
@@ -55,7 +54,7 @@ export default function Dashboardcontents() {
             <Route path="/features" component={FeaturePage} />
             <Route path="/myprofile" component={MyProfile} />
             <Route path="/history" component={History} />
-            <Route path ="/help" component={Help} />
+            <Route path="/help" component={Help} />
             {/* <Route path="/LoginPage" component={LoginPage} />
             <Route path="/LoginPage2" component={LoginPage2} />
             <Route path="/OtpPage" component={OtpPage} /> */}

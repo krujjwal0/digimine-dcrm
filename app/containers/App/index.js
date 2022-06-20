@@ -15,6 +15,7 @@ import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import SplashScreen from 'containers/LoginPage/index';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import { createBrowserHistory } from 'history';
 import OtpPage from '../LoginPage/OtpPage';
 import EmpLogin from '../LoginPage/EmpLogin';
 import DashboardContent from './DashboardContent';
@@ -35,23 +36,22 @@ import SecondFeedbackForm from '../FeedbackForm/FeedbackPage2';
 import Employee from '../Employee';
 import History from '../History';
 import LoginPage from '../LoginPage/LoginPage';
-import { createBrowserHistory } from 'history';
 
 export default function App() {
   const history = createBrowserHistory();
   const [nav, setNav] = useState(false);
-  
+
   return (
     <>
       <div className="w-full h-full dis">
-        <Router history={history} >
+        <Router history={history}>
           {nav ? <NavBar /> : null}
           <Switch>
             <Route exact path="/" component={SplashScreen} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/categories" component={Categories} />
             <Route path="/regulatory" component={Regulatory} />
-            <Route path= '/help' component={HelpPage}/>
+            <Route path="/help" component={HelpPage} />
             <Route path="/features" component={FeaturePage} />
             <Route path="/otp" component={OtpPage} />
             <Route path="/users" component={Users} />

@@ -20,10 +20,7 @@ export const GET_ADMIN_LOCATIONS = 'digimine/LoginPage/GET_ADMIN_LOCATIONS';
 export const SET_ADMIN_LOCATIONS = 'digimine/LoginPage/SET_ADMIN_LOCATIONS';
 export const SET_SHOW_OTP_PAGE = 'digimine/LoginPage/SET_SHOW_OTP_PAGE';
 export const SET_USER_DATA = 'digimine/LoginPage/SET_USER_DATA';
-export const USER_LOGOUT = 'digimine/LoginPage/USER_LOGOUT';
 export const GET_FEEDBACK_FORM = 'GET_FEEDBACK_FORM';
 export const SET_FEEDBACK_FORM = 'SET_FEEDBACK_FORM';
 export const SAVE_FEEDBACK_FORM_DATA = 'SAVE_FEEDBACK_FORM_DATA';
 export const SET_SHOW_FEEDBACK_FORM_DATA = 'SET_SHOW_FEEDBACK_FORM_DATA';
-
-

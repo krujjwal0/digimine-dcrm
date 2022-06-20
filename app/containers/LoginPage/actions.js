@@ -15,130 +15,124 @@
  *    }
  */
 
-import { 
+import {
   SET_EMAIL_ID,
-   GENERATE_OTP, 
-   SET_ROLE_TYPE, 
-   SET_OTP, 
-   VALIDATE_OTP, 
-   SIGN_IN, 
-   SET_USERNAME, 
-  GET_ADMIN_LOCATIONS, 
-  SET_ADMIN_LOCATIONS, 
-  SET_SHOW_OTP_PAGE, 
-  SET_USER_DATA, 
-  USER_LOGOUT,
+  GENERATE_OTP,
+  SET_ROLE_TYPE,
+  SET_OTP,
+  VALIDATE_OTP,
+  SIGN_IN,
+  SET_USERNAME,
+  GET_ADMIN_LOCATIONS,
+  SET_ADMIN_LOCATIONS,
+  SET_SHOW_OTP_PAGE,
+  SET_USER_DATA,
   GET_FEEDBACK_FORM,
   SET_FEEDBACK_FORM,
   SAVE_FEEDBACK_FORM_DATA,
-  SET_SHOW_FEEDBACK_FORM_DATA
+  SET_SHOW_FEEDBACK_FORM_DATA,
 } from './constants';
 
 export function generateOtpByEmailIdAction(email) {
-  console.log("Action login")
+  console.log('Action login');
   return {
     type: GENERATE_OTP,
-    payload: email
+    payload: email,
   };
 }
 export function setRoleTypeAction(roleType) {
-  console.log("setRoleTypeAction", roleType)
+  console.log('setRoleTypeAction', roleType);
   return {
     type: SET_ROLE_TYPE,
-    payload: roleType
-  }
+    payload: roleType,
+  };
 }
 export function setOtpAction(otp) {
-  console.log("setOtpAction", otp)
+  console.log('setOtpAction', otp);
   return {
     type: SET_OTP,
-    payload: otp
-  }
+    payload: otp,
+  };
 }
 export function validateOtpAction(otp) {
-  console.log("Action validateOtpAction")
+  console.log('Action validateOtpAction');
   return {
     type: VALIDATE_OTP,
-    payload: otp
+    payload: otp,
   };
 }
 export function signIn(data) {
-  console.log("Action signIn", data)
+  console.log('Action signIn', data);
   return {
     type: SIGN_IN,
-    payload: data
+    payload: data,
   };
 }
 export function setEmailId(data) {
-  console.log("Action setEmailId", data)
+  console.log('Action setEmailId', data);
   return {
     type: SET_EMAIL_ID,
-    payload: data
+    payload: data,
   };
 }
 export function setUsername(data) {
-  console.log("Action setUsername", data)
+  console.log('Action setUsername', data);
   return {
     type: SET_USERNAME,
-    payload: data
+    payload: data,
   };
 }
 export function getAdminLocationsAction(data) {
-  console.log("Action getAdminLocationsAction", data)
+  console.log('Action getAdminLocationsAction', data);
   return {
     type: GET_ADMIN_LOCATIONS,
-    payload: data
+    payload: data,
   };
 }
 export function setAdminLocationsAction(data) {
-  console.log("Action setAdminLocationsAction", data)
+  console.log('Action setAdminLocationsAction', data);
   return {
     type: SET_ADMIN_LOCATIONS,
-    payload: data
+    payload: data,
   };
 }
 export function setShowOtpPage(data) {
   return {
     type: SET_SHOW_OTP_PAGE,
-    payload: data
-  }
+    payload: data,
+  };
 }
-export function setUserData(data){
+export function setUserData(data) {
   return {
     type: SET_USER_DATA,
-    payload: data
-  }
-}
-export function getUserLogout(){
-  return {
-    type: USER_LOGOUT
-  }
+    payload: data,
+  };
 }
 export function getFeedbackFormData(data) {
-  console.log("Action getFeedbackFormData",data)
+  console.log('Action getFeedbackFormData', data);
   return {
     type: GET_FEEDBACK_FORM,
-    payload: data
+    payload: data,
   };
 }
 export function setFeedbackFormData(data) {
-  console.log("Action setFeedbackFormData",data)
+  console.log('Action setFeedbackFormData', data);
   return {
     type: SET_FEEDBACK_FORM,
-    payload: data
+    payload: data,
   };
 }
 export function saveDataFeedbackForm(data) {
-  console.log("Action save FeedbackForm Data",data)
+  console.log('Action save FeedbackForm Data', data);
   return {
     type: SAVE_FEEDBACK_FORM_DATA,
-    payload: data
+    payload: data,
   };
 }
 export function setShowToFeedBackPage(data) {
-  console.log("Action save FeedbackForm Data",data)
+  console.log('Action save FeedbackForm Data', data);
   return {
     type: SET_SHOW_FEEDBACK_FORM_DATA,
-    payload: data
+    payload: data,
   };
 }

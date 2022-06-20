@@ -4,7 +4,7 @@ import * as AiIcons from 'react-icons/ai';
 // import * as IoIcons from 'react-icons/io'
 import regulatory from '../../images/regulatory.svg';
 import categories from '../../images/categories.svg';
-import help from '../../images/help.svg'
+import help from '../../images/help.svg';
 
 export const SidebarData = [
   {
@@ -44,21 +44,21 @@ export const SidebarData = [
     cName: 'nav-text',
   },
   {
-    title:'History',
+    title: 'History',
     path: '/history',
-    icons: <img src={regulatory} style={{ width:'15px',height:'23px'}}/>,
-    cName: 'nav-text'
-},
-{
-    title:'My Profile',
+    icons: <img src={regulatory} style={{ width: '15px', height: '23px' }} />,
+    cName: 'nav-text',
+  },
+  {
+    title: 'My Profile',
     path: '/myprofile',
-    icons: <img src={regulatory} style={{ width:'15px',height:'23px'}}/>,
-    cName: 'nav-text'
-},
-{
-  title: 'Help',
-  path: '/help',
-  icon: <img src={help} style={{ width:'15px',height:'23px'}}/>,
-  cName: 'nav-text'
-},
+    icons: <img src={regulatory} style={{ width: '15px', height: '23px' }} />,
+    cName: 'nav-text',
+  },
+  {
+    title: 'Help',
+    path: '/help',
+    icon: <img src={help} style={{ width: '15px', height: '23px' }} />,
+    cName: 'nav-text',
+  },
 ];

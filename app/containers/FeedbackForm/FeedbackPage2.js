@@ -12,24 +12,24 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import logo from '../../images/logo.svg';
 // import QuestionMarkIcon from '@material-ui/icons/QuestionMark';
 import HelpIcon from '@material-ui/icons/Help';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import FormImg from '../LoginPage/images/formimage.png';
 import '../LoginPage/style.css';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import reducer from './reducer';
 import { useInjectReducer } from 'utils/injectReducer';
+import reducer from './reducer';
+import FormImg from '../LoginPage/images/formimage.png';
+import logo from '../../images/logo.svg';
 // import { useInjectSaga } from 'utils/injectSaga';
 import {
-    getSecondFeedbackFormData,
-    saveDataSecondFeedbackForm,
-    setShowToSecondFeedBackPage,
+  getSecondFeedbackFormData,
+  saveDataSecondFeedbackForm,
+  setShowToSecondFeedBackPage,
 } from './action';
 // import saga from './saga';
 
@@ -51,18 +51,15 @@ import {
 const steps = ['', '', '', '', '', '', '', '', '', ''];
 const key = 'loginReducer';
 
-function FeedbackFormSecondPage(
-  secondFeedbackFormData,
-  
-) {
+function FeedbackFormSecondPage(secondFeedbackFormData) {
   useInjectReducer({ key, reducer });
-//   useInjectSaga({ key, saga });
+  //   useInjectSaga({ key, saga });
 
   useEffect(() => {
     console.log('inside useeffect', secondFeedbackFormData);
     getSecondFeedbackFormData();
     saveDataSecondFeedbackForm();
-  setShowToSecondFeedBackPage();
+    setShowToSecondFeedBackPage();
   }, []);
 
   const [activeStep, setActiveStep] = React.useState(0);
@@ -83,8 +80,6 @@ function FeedbackFormSecondPage(
     setActiveStep(0);
   };
 
- 
-
   const [
     redirectToThirdFeedbackPageTwo,
     setRedirectToThirdFeedbackPageTwo,
@@ -100,9 +95,9 @@ function FeedbackFormSecondPage(
   };
 
   const handleSave = e => {
-    var data;
+    let data;
     data = {
-      feedbackRadioCheck: feedbackRadioCheck,
+      feedbackRadioCheck,
       // client_id: localStorage.getItem('client_id'),
       // organisationID: localStorage.getItem('organisationID'),
     };
@@ -202,11 +197,13 @@ function FeedbackFormSecondPage(
                     fontSize: '12px',
                   }}
                   value="OptionOne"
-                  control={<Radio 
-                    value="Enable"
-                    name="Disable"
-                    checked={feedbackRadioCheck === 'Enable'}
-                    />}
+                  control={
+                    <Radio
+                      value="Enable"
+                      name="Disable"
+                      checked={feedbackRadioCheck === 'Enable'}
+                    />
+                  }
                   label="Lorem ipsum dolor sit amet, consectetur"
                   className="font-sans"
                 />
@@ -220,11 +217,13 @@ function FeedbackFormSecondPage(
                     marginLeft: '38px',
                   }}
                   value="OptionTwo"
-                  control={<Radio 
-                    value="Disable"
-                    name="Disable"
-                    checked={feedbackRadioCheck === 'Disable'}
-                    />}
+                  control={
+                    <Radio
+                      value="Disable"
+                      name="Disable"
+                      checked={feedbackRadioCheck === 'Disable'}
+                    />
+                  }
                   label="Lorem ipsum dolor sit amet, consectetur"
                 />
                 <br />
@@ -238,11 +237,13 @@ function FeedbackFormSecondPage(
                     fontSize: '12px',
                   }}
                   value="OptionThree"
-                  control={<Radio 
-                    value="ThirdOption"
-                    name="Disable"
-                    checked={feedbackRadioCheck === 'ThirdOption'}
-                    />}
+                  control={
+                    <Radio
+                      value="ThirdOption"
+                      name="Disable"
+                      checked={feedbackRadioCheck === 'ThirdOption'}
+                    />
+                  }
                   label="Lorem ipsum dolor sit amet, consectetur"
                 />
                 <FormControlLabel
@@ -255,11 +256,13 @@ function FeedbackFormSecondPage(
                     marginLeft: '38px',
                   }}
                   value="optionFour"
-                  control={<Radio 
-                    value="OptionFour"
-                    name="Disable"
-                    checked={feedbackRadioCheck === 'OptionFour'}
-                    />}
+                  control={
+                    <Radio
+                      value="OptionFour"
+                      name="Disable"
+                      checked={feedbackRadioCheck === 'OptionFour'}
+                    />
+                  }
                   label="Lorem ipsum dolor sit amet, consectetur"
                 />
               </RadioGroup>
@@ -377,7 +380,6 @@ function FeedbackFormSecondPage(
           >
             NEXT
           </button>
-         
         </div>
       </div>
     </div>
@@ -404,9 +406,12 @@ const mapStateToProps = state => {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    getSecondFeedbackFormData: data => dispatch(getSecondFeedbackFormData(data)),
-    saveDataSecondFeedbackForm: data => dispatch(saveDataSecondFeedbackForm(data)),
-    setShowToSecondFeedBackPage: data => dispatch(setShowToSecondFeedBackPage(data)),
+    getSecondFeedbackFormData: data =>
+      dispatch(getSecondFeedbackFormData(data)),
+    saveDataSecondFeedbackForm: data =>
+      dispatch(saveDataSecondFeedbackForm(data)),
+    setShowToSecondFeedBackPage: data =>
+      dispatch(setShowToSecondFeedBackPage(data)),
   };
 }
 
