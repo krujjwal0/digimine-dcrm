@@ -58,7 +58,7 @@ export const SidebarData = [
   {
     title: 'Help',
     path: '/help',
-    icon: <img src={help} style={{ width: '15px', height: '23px' }} />,
+    icons: <img src={help} style={{ width: '15px', height: '23px' }} />,
     cName: 'nav-text',
   },
 ];
