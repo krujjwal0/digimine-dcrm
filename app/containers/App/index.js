@@ -6,7 +6,7 @@
  * contain code that should be seen on all pages. (e.g. navigation bar)
  */
 
-import React, { useState } from 'react';
+import React, { useState,memo, useEffect } from 'react';
 
 import styled from 'styled-components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -36,10 +36,30 @@ import SecondFeedbackForm from '../FeedbackForm/FeedbackPage2';
 import Employee from '../Employee';
 import History from '../History';
 import LoginPage from '../LoginPage/LoginPage';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
-export default function App() {
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+
+import { useInjectReducer } from 'utils/injectReducer';
+import { useInjectSaga } from 'utils/injectSaga';
+
+
+import reducer from './reducer';
+
+const key = 'main';
+
+export function App(props) {
+  useInjectReducer({ key, reducer });
+
   const history = createBrowserHistory();
-  const [nav, setNav] = useState(true);
+  const [nav, setNav] = useState(props.navBar);
+  useEffect(()=>{
+    console.log("Nav bar ===",props.navBar)
+    setNav(props.navBar)
+  },[props.navBar])
 
   return (
     <>
@@ -76,3 +96,27 @@ export default function App() {
     </>
   );
 }
+
+App.propTypes = {
+  // addUser: PropTypes.func,
+};
+
+const mapStateToProps = state => ({
+  navBar: state.main.navBar
+});
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    // addUser: data => dispatch(addUser(data)),
+  };
+}
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(
+  withConnect,
+  memo,
+)(App);
