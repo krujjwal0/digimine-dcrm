@@ -44,7 +44,7 @@ function* addUserSaga(action) {
   try {
     console.log('addUserSaga get ');
     result = yield call(request, requestURL, {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         Authorization: `Bearer ${awtToken}`,
         'Content-Type': 'application/json',
