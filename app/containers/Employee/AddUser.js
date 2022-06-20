@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextField, Box } from '@material-ui/core';
+import { TextField, Box, Button } from '@material-ui/core';
 import close from '../History/image/close.png';
 import camera from '../History/image/camera.png';
 
@@ -16,7 +16,7 @@ export default function AddUser() {
         }}>Add User</label>
 
         <div>
-          <button className="ml-40"> <img className='rounded-full ml-3 w-[41px] h-[41px]'
+          <button className="ml-40"> <img className='rounded-full ml-3 w-[40px] h-[40px]'
             src={close}
           /></button>
         </div>
@@ -32,7 +32,7 @@ export default function AddUser() {
             transform: 'matrix(1, 0, 0, -1, 0, 0)',
           }}
         >
-          <img className='rounded-full ml-3 w-[41px] h-[41px]'
+          <img className='ml-8 w-[41px] h-[41px] rotate-180'
             src={camera} />
         </Box>
         </div>
@@ -92,8 +92,15 @@ export default function AddUser() {
                 width: '200px',
               }}
             /></div>
+                 <div className="mt-10"><Button style={{
+          position: 'absolute',
+          width: '155px',
+          height: '40px',
+          background: '#98E91D',
+          borderRadius: '60px'
+        }}>Save</Button></div>
         </div>
-
+   
       </div>
     </div>
   )
