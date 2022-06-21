@@ -6,7 +6,7 @@
  * contain code that should be seen on all pages. (e.g. navigation bar)
  */
 
-import React, { useState,memo, useEffect } from 'react';
+import React, { useState, memo, useEffect } from 'react';
 
 import styled from 'styled-components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -16,6 +16,13 @@ import FeaturePage from 'containers/FeaturePage/Loadable';
 import SplashScreen from 'containers/LoginPage/index';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import { createBrowserHistory } from 'history';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import { useInjectReducer } from 'utils/injectReducer';
+import { useInjectSaga } from 'utils/injectSaga';
 import OtpPage from '../LoginPage/OtpPage';
 import EmpLogin from '../LoginPage/EmpLogin';
 import DashboardContent from './DashboardContent';
@@ -36,16 +43,6 @@ import SecondFeedbackForm from '../FeedbackForm/FeedbackPage2';
 import Employee from '../Employee';
 import History from '../History';
 import LoginPage from '../LoginPage/LoginPage';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { createStructuredSelector } from 'reselect';
-
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-
-import { useInjectReducer } from 'utils/injectReducer';
-import { useInjectSaga } from 'utils/injectSaga';
-
 
 import reducer from './reducer';
 import { setNavBar } from './actions';
@@ -58,16 +55,21 @@ export function App(props) {
 
   const history = createBrowserHistory();
   const [nav, setNav] = useState(props.navBar);
-  useEffect(()=>{
-    console.log("Nav bar ===",props.navBar)
-    setNav(props.navBar)
-  },[props.navBar])
+  useEffect(() => {
+    console.log('Nav bar ===', props.navBar);
+    setNav(props.navBar);
+  }, [props.navBar]);
 
   return (
     <>
       <div className="w-full h-full dis">
         <Router history={history}>
-          {nav ? <NavBar setNavBar={props.setNavBar} setOtpAction={props.setOtpAction} /> : null}
+          {nav ? (
+            <NavBar
+              setNavBar={props.setNavBar}
+              setOtpAction={props.setOtpAction}
+            />
+          ) : null}
           <Switch>
             <Route exact path="/" component={SplashScreen} />
             <Route path="/dashboard" component={Dashboard} />
@@ -104,7 +106,7 @@ App.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  navBar: state.main.navBar
+  navBar: state.main.navBar,
 });
 
 export function mapDispatchToProps(dispatch) {

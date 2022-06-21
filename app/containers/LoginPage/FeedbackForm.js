@@ -15,16 +15,16 @@ import FormLabel from '@material-ui/core/FormLabel';
 // import QuestionMarkIcon from '@material-ui/icons/QuestionMark';
 import HelpIcon from '@material-ui/icons/Help';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import FormImg from './images/formImage.png';
 import './style.css';
 import { Redirect, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import reducer from './reducer';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
+import reducer from './reducer';
+import FormImg from './images/formImage.png';
 import logo from '../../images/logo.svg';
 import {
   getFeedbackFormData,
@@ -53,12 +53,14 @@ import { setNavBar } from '../App/actions';
 const steps = ['', '', '', '', '', '', '', '', '', ''];
 const key = 'loginReducer';
 
-function FeedbackForm(
-  { feedbackFormData, getFeedbackFormData, setFeedbackFormData, setNavBar }
-) {
+function FeedbackForm({
+  feedbackFormData,
+  getFeedbackFormData,
+  setFeedbackFormData,
+  setNavBar,
+}) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
-
 
   const history = useHistory();
 
@@ -73,8 +75,8 @@ function FeedbackForm(
   const [feedbackRadioCheck, setFeedbackRadioCheck] = useState();
 
   const handleNext = () => {
-    history.push('/dashboard')
-    setNavBar(true)
+    history.push('/dashboard');
+    setNavBar(true);
     // setRedirectToUserManagementPage(true);
 
     // active when we have feedback form API
@@ -89,7 +91,10 @@ function FeedbackForm(
     setActiveStep(0);
   };
 
-  const [redirectToUserManagementPage, setRedirectToUserManagementPage] = useState(false);
+  const [
+    redirectToUserManagementPage,
+    setRedirectToUserManagementPage,
+  ] = useState(false);
 
   if (redirectToUserManagementPage) {
     return <Redirect to={{ pathname: '/formsecond' }} />;
@@ -123,8 +128,8 @@ function FeedbackForm(
   };
 
   function helpPageCall() {
-    history.push({pathname: '/help'})
-    setNavBar(true)
+    history.push({ pathname: '/help' });
+    setNavBar(true);
   }
 
   return (
@@ -347,7 +352,12 @@ function FeedbackForm(
         </div>
       </div>
       <div className="flex flex justify-between  ">
-        <div className="flex w-full ml-32 " onClick={()=>{helpPageCall()}}>
+        <div
+          className="flex w-full ml-32 "
+          onClick={() => {
+            helpPageCall();
+          }}
+        >
           <HelpOutlineIcon
             className="mb-6 "
             // onClick={()=>{history.push({pathname: '/help'})}}
@@ -440,7 +450,7 @@ export function mapDispatchToProps(dispatch) {
     setFeedbackFormData: data => dispatch(setFeedbackFormData(data)),
     saveDataFeedbackForm: data => dispatch(saveDataFeedbackForm(data)),
     setShowToFeedBackPage: data => dispatch(setShowToFeedBackPage(data)),
-    setNavBar: data => dispatch(setNavBar(data))
+    setNavBar: data => dispatch(setNavBar(data)),
   };
 }
 
