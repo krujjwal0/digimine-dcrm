@@ -1,6 +1,5 @@
 import { TextField, Box, Button } from '@material-ui/core';
-import React, { useState,memo } from 'react'
-import { TextField, Box } from '@material-ui/core';
+import React, { useState,memo } from 'react';
 import close from '../History/image/close.png';
 import camera from '../History/image/camera.png';
 import PropTypes from 'prop-types';

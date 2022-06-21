@@ -7,7 +7,7 @@ import logo from '../../images/logo.svg';
 import navImage from './Image/navImage.png';
 import Button from '@material-ui/core/Button';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
-import { getUserLogout } from 'containers/LoginPage/actions';
+import { getUserLogout } from './action';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
