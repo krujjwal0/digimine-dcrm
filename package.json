@@ -1,6 +1,6 @@
 {
-  "name": "react-boilerplate",
-  "version": "4.0.0",
+  "name": "Digimine",
+  "version": "1.0.0",
   "description": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
   "repository": {
     "type": "git",
@@ -88,7 +88,7 @@
     "react-icons": "^4.4.0",
     "react-intl": "2.8.0",
     "react-redux": "7.0.2",
-    "react-router-dom": "5.0.0",
+    "react-router-dom": "^5.3.3",
     "react-virtualized": "^9.22.3",
     "redux": "4.0.1",
     "redux-saga": "1.0.2",

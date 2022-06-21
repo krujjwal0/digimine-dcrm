@@ -23,6 +23,7 @@ import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import Users from './Users';
+import { Card, CardContent } from '@material-ui/core';
 
 const key = 'regulatory';
 

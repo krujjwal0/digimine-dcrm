@@ -3,7 +3,7 @@ import { Card } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import LoginImage from './images/Logo.svg';
 import Resend from './images/resendImage.svg';
 import './style.css';
@@ -27,29 +27,31 @@ import saga from './saga';
 
 const key = 'loginReducer';
 
-export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmailId }) {
+export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmailId, showOtpPage }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
+  const history = useHistory();
+  console.log("History ==", history)
 
   const [emailId, setEmailId] = useState('');
-  const [redirectToReferrer, setRedirectToReferrer] = useState(false);
 
   const login = () => {
+    showOtpPage = true;
     console.log("login for otp");
     if (emailId == '') {
       alert('Email required..')
     } else {
       onSetEmailId(emailId);
       onGenerateOtpByEmailIdAction(emailId);
-      // fakeAuth.authenticate(() => {
-      setRedirectToReferrer(true);
-      // });
     }
   };
 
-  if (redirectToReferrer) {
-    return <Redirect to={{ pathname: '/otp' }} />;
-  }
+  useEffect(() => {
+    console.log("showOtpPage", showOtpPage)
+    if (showOtpPage) {
+      history.push('/otp')
+    }
+  }, [showOtpPage])
 
   return (
     <div className="font-sans login_page  py-">
@@ -125,12 +127,11 @@ Login.propTypes = {
   onSetEmailId: PropTypes.func
 };
 
-const mapStateToProps = createStructuredSelector({
-  // repos: makeSelectRepos(),
-  // username: makeSelectUsername(),
-  loading: makeSelectLoading(),
-  error: makeSelectError(),
-});
+const mapStateToProps = state => {
+  return {
+    showOtpPage: state.loginReducer.showOtpPage
+  }
+}
 
 export function mapDispatchToProps(dispatch) {
   return {

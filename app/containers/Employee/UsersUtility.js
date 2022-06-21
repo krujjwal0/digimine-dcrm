@@ -1,24 +1,17 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { styled, alpha } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core';
 import { InputBase } from '@material-ui/core';
 import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import EditIcon from '@material-ui/icons/Edit';
-import Divider from '@material-ui/core/Divider';
-import ArchiveIcon from '@material-ui/icons/Archive';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import IconButton from '@material-ui/core/IconButton';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputLabel from '@material-ui/core/InputLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import FormControl from '@material-ui/core/FormControl';
-import SearchIcon from '@material-ui/icons/Search';
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Popover from '@material-ui/core/Popover';
+import {setEmployee} from './actions';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import AddUser from './AddUser';
 
 const StyledMenu = styled(props => (
   <Menu
@@ -63,22 +56,60 @@ const StyledMenu = styled(props => (
   },
 }));
 
-const UsersUtility = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = event => {
+export function UsersUtility() {
+
+  const [showExport, setShowExport] = useState(false);
+  const openExport = () => {
+    setShowExport(true)
+  }
+  const handleExit = () => {
+    setShowExport(false)
+  }
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
 
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
+  const[name, setName] = useState("");
+  const filterEmployee = (e) => {
+    const keyword = e.target.value;
+    let obj = {
+      fromSaga: false,
+      results:[],
+    }
+
+    if (keyword !== '') {
+      const results = EmployeeCardListreplica.filter((list) => {
+        return list.name.toLowerCase().startsWith(keyword.toLowerCase());
+      });
+      //setFoundUsers(results);
+      console.log('show result inside filter', results)
+      obj.results = results;
+      setEmployee(obj);
+    }
+    else {
+      obj.results = EmployeeCardListreplica;
+      // setFoundUsers(employeeCardList);
+      setEmployee(obj);
+    }
+
+    setName(keyword);
+  };
   return (
-       <div className="md:flex  m-2">
+    <div className="md:flex  m-2">
       <select
         className="border-2 border-gray-200 bg-white h-9 px-3 pr-2 ml-6 rounded-full text-sm focus:outline-none"
         style={{ width: '10%', borderRadius: '8px' }}
-        // onChange={() => orderBy()}
+      // onChange={() => orderBy()}
       >
         <option value="" disabled selected>
           Sort by
@@ -93,15 +124,15 @@ const UsersUtility = () => {
         name="filter"
         placeholder="Filter"
       /> */}
-      <label className="border-0 border-gray-200 bg-white h-9 mt-2 px-2 ml-3 rounded-full text-sm"
-      style={{ width: '12%', borderRadius: '8px' }}>Search By</label>
+      <label className="border-0 border-gray-200 bg-white h-9 mt-2 px-2 ml-2 rounded-full text-sm"
+        style={{ width: '12%', borderRadius: '8px' }}>Search By</label>
       <select
-        className="border-2 border-gray-200 bg-white h-9 px-2 pr-6 ml-1 rounded-full text-sm focus:outline-none"
-        style={{ width: '16%', borderRadius: '8px' }}
-        // onChange={() => orderBy()}
+        className="border-2 border-gray-200 bg-white h-9 px-2 pr-2 ml-1 rounded-full text-sm focus:outline-none"
+        style={{ width: '14%', borderRadius: '8px' }}
+      // onChange={() => orderBy()}
       >
         <option value="" disabled selected>
-          Department 
+          Department
         </option>
         <option value="1">Marketing</option>
         <option value="2">Account</option>
@@ -111,7 +142,8 @@ const UsersUtility = () => {
 
       <input
         className="border-2 border-gray-300 bg-white w-72 h-9 px-8 pr-6 ml-3 rounded-full text-sm focus:outline-none"
-  
+        value={name}
+        onChange={filterEmployee}
         style={{ borderRadius: '8px' }}
         type="text"
         name="search"
@@ -127,7 +159,7 @@ const UsersUtility = () => {
         aria-expanded={open ? 'true' : undefined}
         variant="contained"
         disableElevation
-        // onClick={handleClick}
+        onClick={handleClick}
         endIcon={<MoreVertIcon />}
         style={{
           color: 'white',
@@ -136,10 +168,59 @@ const UsersUtility = () => {
         }}
       >
         ACTION
-      </Button> 
-      
+      </Button>
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        style={{
+          borderRadius: '15px',
+          // background: '#FFFFFF',
+          // boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)'
+        }}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+      >
+        <div className="p-2 m-2">
+          <div><button className="text-slate-200 mx-3" disable>Import Excel</button></div>
+          <div><button className="text-slate-200 mx-3 my-2" disable>Import SAP</button></div>
+          <div><button className="mx-3" onClick={openExport}>Add User</button></div>
+        </div>
+      </Popover>
+      <Dialog open={showExport} onClose={handleExit} className="w-30 h-25">
+        <DialogContent style={{
+          borderRadius: '15px',
+          background: '#FFFFFF',
+          boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
+          Width: '604px',
+          Height: '494px',
+        }}>
+         <AddUser/>
+          
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
+const mapDispatchToProps = dispatch => ({
+  showEmployee: obj => dispatch(showEmployee(obj)),
+  setEmployee: obj => dispatch(setEmployee(obj)),
+ 
+});
+
+const mapStateToProps = state => {
+  console.log('index of EmployeeList', state.emp.EmployeeCardList);
+  return {
+    EmployeeCardList: state.emp.EmployeeCardList,
+    EmployeeCardListreplica: state.emp.EmployeeCardListreplica,
+  };
+};
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
 
 export default UsersUtility;

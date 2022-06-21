@@ -8,16 +8,30 @@
  */
 
 import produce from 'immer';
-import { SET_EMAIL_ID, SET_ROLE_TYPE, SET_OTP, SET_USERNAME, SET_SUCCESS_PAGE, SET_ADMIN_LOCATIONS } from './constants';
+import {
+  SET_EMAIL_ID,
+  SET_ROLE_TYPE,
+  SET_OTP,
+  SET_USERNAME,
+  SET_ADMIN_LOCATIONS,
+  SET_SHOW_OTP_PAGE,
+  SET_USER_DATA,
+  SET_FEEDBACK_FORM,
+  SET_SHOW_FEEDBACK_FORM_DATA,
+} from './constants';
 
 // The initial state of the App
 export const initialState = {
   ROLE_TYPE: '',
+  userData: {},
   otp: '',
   emailId: '',
   userName: '',
+  showOtpPage: false,
   showSuccessPage: false,
-  adminLocations:["Mumbai","Delhi"]
+  showFeedback: false,
+  adminLocations: [],
+  feedbackFormData: ['check question'],
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -25,39 +39,67 @@ const loginReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
       case SET_ADMIN_LOCATIONS:
-        console.log(action.payload)
+        console.log(action.payload);
         return {
           ...state,
-          adminLocations: action.payload
-        }
-      case SET_SUCCESS_PAGE:
-        console.log(action.payload)
-        return {
-          ...state,
-          showSuccessPage: action.payload
-        }
+          adminLocations: action.payload.locations,
+        };
       case SET_EMAIL_ID:
-        console.log(action.payload)
+        // console.log(action.payload);
+
+        // state.loginReducer.showOtpPage=true;
         return {
           ...state,
-          emailId: action.payload
-        }
+          emailId: action.payload,
+        };
       case SET_ROLE_TYPE:
         // Delete prefixed '@' from the github username
         return {
           ...state,
-          ROLE_TYPE: action.payload
-        }
+          ROLE_TYPE: action.payload,
+        };
       case SET_OTP:
         return {
           ...state,
-          otp: action.payload
-        }
+          otp: action.payload,
+          showOtpPage: true,
+        };
+
+      case SET_SHOW_OTP_PAGE:
+        return {
+          ...state,
+          showOtpPage: action.payload,
+        };
       case SET_USERNAME:
         return {
           ...state,
-          userName: action.payload
-        }
+          userName: action.payload,
+        };
+      case SET_USER_DATA:
+        return {
+          ...state,
+          userData: action.payload,
+          showFeedback: action.payload.feedbackCompleted,
+          showSuccessPage: true,
+        };
+
+      case SET_FEEDBACK_FORM:
+        console.log('inside reducer of feedback form data ===', action.payload);
+        return {
+          ...state,
+          feedbackFormData: action.payload.qNo
+        };
+
+      case SET_SHOW_FEEDBACK_FORM_DATA:
+        console.log(
+          'on saving data feedback form  Data data ===',
+          state.feedbackFormData,
+        );
+        return {
+          ...state,
+          // showTableMain: true,
+          feedbackFormData: [...state.feedbackFormData, action.payload],
+        };
       // case SEARCH_FILTER:
       //   console.log('inside reducer Employee data list ===', state.EmployeeData)
       //   return {

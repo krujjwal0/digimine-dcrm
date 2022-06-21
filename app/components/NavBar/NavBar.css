@@ -1,5 +1,5 @@
 .navbar {
-    background-color: #E5E5E5;
+    background-color: #EDEDF3;
     height: 80px;
     display: flex;
     justify-content: start;
@@ -10,10 +10,12 @@
     margin-left: 1.5rem;
     font-size: 2rem;
     background: none;
+    margin-top: 28px;
+
 }
 
 .nav-menu {
-    background-color: #E5E5E5;
+    background-color: #EDEDF3;
     width: 250px;
     height: 100vh;
     display: flex;
@@ -22,6 +24,7 @@
     top: 0; 
     /* left: -100%;for sliding sidebar */
     transition: 850ms;
+   
 
 }
 
@@ -34,20 +37,21 @@
     display: flex;
     justify-content: start;
     align-items: center;
-    padding: 8px 0px 8px 16px;
+    padding: 6px 0px 6px 10px;
     list-style: none;
-    height: 60px;
+    height: 40px;
+    
 }
 
 .nav-text a {
     text-decoration: none;
     color: #151F63;
-    font-size: 18px;
+    font-size: 17px;
     line-height: 19px;
     width: 95%;
-    height: 100%;
+    height: 80%;
     display: flex;
-    font-weight: 700;
+    font-weight: 650;
     font-family: 'Nunito';
     font-style: normal;
     border-radius: 4px;
@@ -55,7 +59,8 @@
     padding: 0 16px;
 }
 .nav-text a:hover {
-    background-color: #1a83ff;
+    background-color: #c6cfe7;
+    
 }
 
 .nav-menu-items{
@@ -64,9 +69,9 @@
     display: block;
 }
 .navbar-toggle{
-    background-color: #E5E5E5;
+    background-color: #EDEDF3;
     width:100%;
-    height: 80px;
+    height: 30px;
     align-items: center;
     display: flex;
     justify-content: start;
@@ -74,3 +79,7 @@
 span{
     margin-left: 16px;
 }
+
+.bg_white{background: #fff !important;}
+.navbar_page .login_btn{border-radius: 25px !important; display: block; padding: 12px 20px; margin: 0 auto; color: #132B6B; font-weight: bold; }
+.navbar_page .login_btn .MuiButton-label{margin: 0; font-family: 'Roboto', sans-serif;  font-weight: bold;}
