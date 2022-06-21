@@ -10,9 +10,9 @@ import globalReducer from 'containers/App/reducer';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import loginReducer from 'containers/LoginPage/reducer';
 import helpReducer from 'containers/Help/reducer';
-import empReducer from './containers/Employee/reducer';
 import appReducer from 'containers/App/reducer';
 import navReducer from 'components/NavBar/reducer';
+import empReducer from './containers/Employee/reducer';
 
 /**
  * Merges the main reducer with the router state and dynamically injected reducers
@@ -21,9 +21,9 @@ export default function createReducer(injectedReducers = {}) {
   const rootReducer = combineReducers({
     global: globalReducer,
     language: languageProviderReducer,
-    loginReducer: loginReducer,
-    navReducer: navReducer,
-    helpReducer: helpReducer,
+    loginReducer,
+    navReducer,
+    helpReducer,
     main: appReducer,
     users: empReducer,
     router: connectRouter(history),

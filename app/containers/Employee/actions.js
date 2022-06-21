@@ -1,4 +1,3 @@
-
 import {
   SHOW_EMPLOYEE,
   SET_EMPLOYEE,
@@ -8,11 +7,11 @@ import {
   GET_ALL_ROLES,
   GET_ALL_DEPARTMENTS,
   SET_ALL_ROLES,
-  SET_ALL_DEPARTMENTS
+  SET_ALL_DEPARTMENTS,
 } from './constants';
 
 export function showEmployee(obj) {
-  console.log("employeeList added:-", obj)
+  console.log('employeeList added:-', obj);
   return {
     type: SHOW_EMPLOYEE,
     payload: obj,
@@ -20,14 +19,14 @@ export function showEmployee(obj) {
 }
 
 export function setEmployee(obj) {
-  console.log("employeeList added:-", obj)
+  console.log('employeeList added:-', obj);
   return {
     type: SET_EMPLOYEE,
     payload: obj,
   };
 }
 export function addUser(obj) {
-  console.log("Add User:-", obj)
+  console.log('Add User:-', obj);
   return {
     type: ADD_USER,
     payload: obj,
@@ -35,7 +34,7 @@ export function addUser(obj) {
 }
 
 export function editUser(obj) {
-  console.log("EDIT User:-", obj)
+  console.log('EDIT User:-', obj);
   return {
     type: EDIT_USER,
     payload: obj,
@@ -43,42 +42,38 @@ export function editUser(obj) {
 }
 
 export function deleteUser(data) {
-  console.log("DELETE User:-", data)
+  console.log('DELETE User:-', data);
   return {
     type: DELETE_USER,
     payload: data,
   };
 }
 
-
 export function getAllRoles() {
-  console.log("GET ROLES ALL:-")
+  console.log('GET ROLES ALL:-');
   return {
-    type: GET_ALL_ROLES
+    type: GET_ALL_ROLES,
   };
 }
 
 export function getAllDepartment() {
-  console.log("Get all depts:-")
+  console.log('Get all depts:-');
   return {
-    type: GET_ALL_DEPARTMENTS
+    type: GET_ALL_DEPARTMENTS,
   };
 }
 export function setAllRoles(data) {
-  console.log("SET ROLES ALL:-")
+  console.log('SET ROLES ALL:-');
   return {
     type: SET_ALL_ROLES,
-    payload: data
+    payload: data,
   };
 }
 
 export function setAllDepartment(data) {
-  console.log("Set all depts:-")
+  console.log('Set all depts:-');
   return {
     type: SET_ALL_DEPARTMENTS,
-    payload: data
+    payload: data,
   };
 }
-
-
-

@@ -18,15 +18,15 @@ import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import { alpha, styled, withStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import { EditUser } from './EditUser';
-import { deleteUser, editUser, showEmployee, changeUsername } from './actions';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 import {
   makeSelectRepos,
   makeSelectLoading,
   makeSelectError,
 } from 'containers/App/selectors';
+import { EditUser } from './EditUser';
+import { deleteUser, editUser, showEmployee, changeUsername } from './actions';
 import { loadRepos } from '../App/actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
@@ -59,7 +59,7 @@ export function Employee({
   repos,
   onSubmitForm,
   onChangeUsername,
-  showEmployee
+  showEmployee,
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -77,8 +77,8 @@ export function Employee({
 
   useEffect(() => {
     showEmployee();
-    console.log("USers List index =====", usersList)
-  }, [])
+    console.log('USers List index =====', usersList);
+  }, []);
 
   const reposListProps = {
     loading,
@@ -92,7 +92,7 @@ export function Employee({
 
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick = (event) => {
+  const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -105,23 +105,21 @@ export function Employee({
 
   const [showEdit, setShowEdit] = useState(false);
   const openEdit = () => {
-    setShowEdit(true)
-  }
+    setShowEdit(true);
+  };
   const handleExit = () => {
-    setShowEdit(false)
-  }
-  useEffect(() => {
-  }, [usersList])
-  const onDeleteUser = (id) => {
-
-    let verify = window.confirm("Are you sure you want to delete ?");
-    console.log("Verify====id ", verify, id)
+    setShowEdit(false);
+  };
+  useEffect(() => {}, [usersList]);
+  const onDeleteUser = id => {
+    const verify = window.confirm('Are you sure you want to delete ?');
+    console.log('Verify====id ', verify, id);
     if (verify == true) {
-      console.log("Inside true");
-      //pass id to delete
-     deleteUser(id)
+      console.log('Inside true');
+      // pass id to delete
+      deleteUser(id);
     }
-  }
+  };
 
   return (
     <div className="myprofile">
@@ -129,33 +127,36 @@ export function Employee({
         <UsersUtility />
         <div className="">
           {/* {usersList && usersList.length > 0 && usersList.map((user, index) => { */}
-          <div className=" w-full" >
+          <div className=" w-full">
             {/* gap-x-1 */}
 
-            {usersList && usersList.length > 0 && usersList.map((list, index) => {
-              return (
-                <div className="block text-gray lg:ml-6 md:ml-10 sm:ml-12" key={list.name}
-                // style={{border:'2px solid red', marginLeft:'6px',marginRight:'6px'}}
+            {usersList &&
+              usersList.length > 0 &&
+              usersList.map((list, index) => (
+                <div
+                  className="block text-gray lg:ml-6 md:ml-10 sm:ml-12"
+                  key={list.name}
+                  // style={{border:'2px solid red', marginLeft:'6px',marginRight:'6px'}}
                 >
                   <div className="my-5 w-full justify-center " />
                   <div>
-
-                    <Card className='w-full rounded-full h-[72px]' style={{ borderRadius: '50px', marginTop: '10px' }}>
-
+                    <Card
+                      className="w-full rounded-full h-[72px]"
+                      style={{ borderRadius: '50px', marginTop: '10px' }}
+                    >
                       <CardContent className="justify-center">
-
-                        <div className="flex rounded-full" key={list.name} >
-
-                          <div className=''>
-                            <img className='rounded-full ml-3 w-[41px] h-[41px]'
+                        <div className="flex rounded-full" key={list.name}>
+                          <div className="">
+                            <img
+                              className="rounded-full ml-3 w-[41px] h-[41px]"
                               src={emp_image}
                             />
                           </div>
-                          <div className='ml-10'>
+                          <div className="ml-10">
                             <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
                               Employee
                             </p>
-                            <div className='flex'>
+                            <div className="flex">
                               <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
                                 {list.name}
                               </p>
@@ -166,31 +167,31 @@ export function Employee({
                               </div>
                             </div>
                           </div>
-                          <div className='ml-10'>
+                          <div className="ml-10">
                             <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
                               Department
                             </p>
-                            <p className='text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]'>
+                            <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
                               {list.departmentName}
                             </p>
                           </div>
-                          <div className='ml-12'>
+                          <div className="ml-12">
                             <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
                               Phone
                             </p>
-                            <p className='text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]'>
+                            <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
                               {list.mobileNumber}
                             </p>
                           </div>
-                          <div className='ml-12'>
+                          <div className="ml-12">
                             <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
                               Email ID
                             </p>
-                            <p className='text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]'>
+                            <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
                               {list.emailId}
                             </p>
                           </div>
-                          <div className='ml-12'>
+                          <div className="ml-12">
                             <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
                               Active
                             </p>
@@ -200,7 +201,7 @@ control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="check
 /> */}
                             <GreenSwitch {...label} defaultChecked />
                           </div>
-                          <div className='mt-2 ml-8'>
+                          <div className="mt-2 ml-8">
                             <MoreVert onClick={handleClick} />
                           </div>
                           <Popover
@@ -219,20 +220,40 @@ control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="check
                             }}
                           >
                             <div className="p-2 m-2">
-                              <div><button className="my-1 mx-4" disable onClick={openEdit}>Edit</button></div>
-                              <div><button className="my-1 mx-4" onClick={() => onDeleteUser(list.id)}>Delete</button></div>
+                              <div>
+                                <button
+                                  className="my-1 mx-4"
+                                  disable
+                                  onClick={openEdit}
+                                >
+                                  Edit
+                                </button>
+                              </div>
+                              <div>
+                                <button
+                                  className="my-1 mx-4"
+                                  onClick={() => onDeleteUser(list.id)}
+                                >
+                                  Delete
+                                </button>
+                              </div>
                             </div>
                           </Popover>
-                          <Dialog open={showEdit} onClose={handleExit} className="w-50 h-50">
-                            <DialogContent style={{
-                              borderRadius: '15px',
-                              background: '#FFFFFF',
-                              boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
-                              Width: '604px',
-                              Height: '494px',
-                            }}>
+                          <Dialog
+                            open={showEdit}
+                            onClose={handleExit}
+                            className="w-50 h-50"
+                          >
+                            <DialogContent
+                              style={{
+                                borderRadius: '15px',
+                                background: '#FFFFFF',
+                                boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
+                                Width: '604px',
+                                Height: '494px',
+                              }}
+                            >
                               <EditUser />
-
                             </DialogContent>
                           </Dialog>
                         </div>
@@ -247,10 +268,8 @@ control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="check
                   )} */}
                   </div>
                 </div>
-              );
-            })}
+              ))}
           </div>
-
         </div>
         {/* <label className="users_heading">Users</label> */}
       </div>
@@ -264,7 +283,6 @@ control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="check
             {/* <Users />
             <Users /> */}
     </div>
-
   );
 }
 
@@ -278,7 +296,8 @@ Employee.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  usersList: state.users.EmployeeCardList.length > 0 ? state.users.EmployeeCardList : []
+  usersList:
+    state.users.EmployeeCardList.length > 0 ? state.users.EmployeeCardList : [],
 });
 
 export function mapDispatchToProps(dispatch) {
@@ -291,7 +310,7 @@ export function mapDispatchToProps(dispatch) {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(loadRepos());
     },
-  }
+  };
 
   // const mapStateToProps = createStructuredSelector({
   //   repos: makeSelectRepos(),

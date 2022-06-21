@@ -4,11 +4,21 @@
 
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 
-import { HOST, BASE_PATH, SCHEMES, URL } from '../../containers/config.json';
 import request from 'utils/request';
-import { ADD_USER, DELETE_USER, GET_ALL_DEPARTMENTS, GET_ALL_ROLES, SHOW_EMPLOYEE } from './constants';
-import { setAllDepartment, setAllRoles, setEmployee, showEmployee } from './actions';
-
+import { HOST, BASE_PATH, SCHEMES, URL } from '../config.json';
+import {
+  ADD_USER,
+  DELETE_USER,
+  GET_ALL_DEPARTMENTS,
+  GET_ALL_ROLES,
+  SHOW_EMPLOYEE,
+} from './constants';
+import {
+  setAllDepartment,
+  setAllRoles,
+  setEmployee,
+  showEmployee,
+} from './actions';
 
 function* getUsersList() {
   const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/user/list`;
@@ -49,7 +59,7 @@ function* addUserSaga(action) {
         Authorization: `Bearer ${awtToken}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(action.payload)
+      body: JSON.stringify(action.payload),
     });
     console.log('success in addUserSaga saga', result);
     yield put(showEmployee());
@@ -112,7 +122,9 @@ function* getAllRolesSaga() {
 }
 
 function* deleteUserSaga(action) {
-  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/user/${action.payload}`;
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/user/${
+    action.payload
+  }`;
   const awtToken = localStorage.getItem('awtToken');
   console.log('data in saga get :', requestURL, action.payload);
   let result;
@@ -125,7 +137,7 @@ function* deleteUserSaga(action) {
         Authorization: `Bearer ${awtToken}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(action.payload)
+      body: JSON.stringify(action.payload),
     });
     console.log('success in deleteUserSaga saga', result);
     yield put(showEmployee());
@@ -144,5 +156,5 @@ export default function* usersData() {
   yield takeLatest(ADD_USER, addUserSaga);
   yield takeLatest(GET_ALL_ROLES, getAllRolesSaga);
   yield takeLatest(GET_ALL_DEPARTMENTS, getAllDepartmentSaga);
-  yield takeLatest(DELETE_USER,deleteUserSaga);
+  yield takeLatest(DELETE_USER, deleteUserSaga);
 }

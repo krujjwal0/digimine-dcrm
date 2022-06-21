@@ -1,31 +1,30 @@
 import produce from 'immer';
-import { SET_ALL_DEPARTMENTS, SET_ALL_ROLES, SET_EMPLOYEE } from './constants';
 import { v4 as uuidv4 } from 'uuid';
+import { SET_ALL_DEPARTMENTS, SET_ALL_ROLES, SET_EMPLOYEE } from './constants';
 
 export const initialState = {
   EmployeeCardList: [],
   EmployeeCardListreplica: [],
   departmentList: [],
-  rolesList: []
-
+  rolesList: [],
 };
 
 /* eslint-disable default-case, no-param-reassign */
 const empReducer = (state = initialState, action) =>
   produce(state, draft => {
     const { type } = action;
-    //console.log('in orgchart reducer ==',action.type,action.payload.Users.map)
+    // console.log('in orgchart reducer ==',action.type,action.payload.Users.map)
     switch (action.type) {
       case SET_ALL_DEPARTMENTS:
         return {
           ...state,
-          departmentList: action.payload
-        }
+          departmentList: action.payload,
+        };
       case SET_ALL_ROLES:
         return {
           ...state,
-          rolesList: action.payload
-        }
+          rolesList: action.payload,
+        };
       case SET_EMPLOYEE:
         // if(action.payload.fromSaga === true){
         //   console.log('in side if ==',action.payload.fromSaga)
@@ -41,7 +40,6 @@ const empReducer = (state = initialState, action) =>
           EmployeeCardList: action.payload,
         };
       // }
-
 
       default:
         return state;
