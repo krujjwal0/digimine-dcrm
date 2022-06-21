@@ -14,13 +14,20 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
-
+import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import { Redirect, useHistory } from 'react-router-dom';
 import reducer from './reducer';
 import saga from './saga';
 const key = 'navReducer';
 
 export function NavBar({ getUserLogout }) {
+
+  const history = useHistory();
+  
+  const routeChange = () =>{ 
+    let path = `/myprofile`; 
+    history.push(path);
+  }
 
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -36,6 +43,7 @@ export function NavBar({ getUserLogout }) {
     <>
       <IconContext.Provider value={{ color: '#F66B6B' }}>
         <div className="navbar w-full font-sans">
+       
           {/* <Link to="#" className='menu-bars'> */}
           {/* <p onClick={showSidebar} >
                     </p> */}
@@ -43,14 +51,15 @@ export function NavBar({ getUserLogout }) {
                     </Link> */}
           <p style={{ float: 'right' }}>Notification icon at corner</p>
         </div>
-        <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
+        <nav style={{}} className={sidebar ? 'nav-menu active' : 'nav-menu'}>
           {/* <div className='nav-menu-items '>
                         <Link to="#" >
                             <img src={logo} style={{ width: '180px', height: '60px' }} />
                         </Link>
                     </div> */}
+                     
           <ul className="nav-menu-items font-sans ">
-            <li className="navbar-toggle font-sans mb-6">
+            <li className="navbar-toggle font-sans mb-6 mt-10">
               <Link to="#" className="menu-bars font-sans">
                 <img src={logo} style={{ width: '180px', height: '60px' }} />
               </Link>
@@ -67,14 +76,21 @@ export function NavBar({ getUserLogout }) {
             })}
           </ul>
 
+          {/* <div className='mt-12  flex justify-end' style={{float: "right"}}>
+        <div>
+          <NotificationsNoneIcon />
+          </div></div> */}
+
           <div
-            className="absolute font-sans "
+            className="fixed font-sans "
             style={{
-              top: '425px',
+              // top: '425px',
               height: '220px',
               width: '240px',
-              right: '13px',
+              // right: '13px',
               backgroundColor: '#EDEDF3',
+              bottom: '0',
+              left: '0'
             }}
           >
             <img src={navImage} />
@@ -82,13 +98,15 @@ export function NavBar({ getUserLogout }) {
 
             <div className=" absolute -mt-48 bg-white rounded-full w-36  h-12 font-sans " style={{ marginLeft: '10px', alignSelf: 'center', alignContent: 'center', justifyItems: 'center' }}>
               <div className='flex'>
-                <div className=' mt-3 h-[30px] w-[30px] ml-3 bg-[#132B6B]' style={{ borderRadius: '40px' }}>
+                <div className=' mt-3 h-[30px] w-[30px] ml-3 bg-[#132B6B]' style={{ borderRadius: '40px' }}
+                 onClick={routeChange}>
                   <p className='text-white ml-[6px] mt-[7px] font-sans'>
                     RK
                   </p>
 
                 </div>
-                <Button className=' font-sans ' style={{ color: '#132B6B', alignContent: 'center', justifyItems: 'center' }}  >
+                <Button className=' font-sans ' style={{ color: '#132B6B', alignContent: 'center', justifyItems: 'center' }}  
+                onClick={routeChange}>
                   <p className='font-sans font-normal text-sm -ml-4 ' style={{ marginTop: '5px', }}>My Profile</p>
                 </Button>
               </div>

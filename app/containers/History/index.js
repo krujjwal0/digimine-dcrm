@@ -14,6 +14,8 @@ import { alpha, makeStyles } from '@material-ui/core/styles';
 //   KeyboardTimePicker,
 //   KeyboardDatePicker,
 // } from '@material-ui/pickers';
+import SearchIcon from '@material-ui/icons/Search';
+import InputBase from '@material-ui/core/InputBase';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -33,7 +35,6 @@ import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import photo from './image/profilepic.png';
 import HistoryCard from './HistoryCard';
 
 const key = 'history';

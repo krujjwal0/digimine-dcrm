@@ -73,7 +73,7 @@ function FeedbackForm(
   const [feedbackRadioCheck, setFeedbackRadioCheck] = useState();
 
   const handleNext = () => {
-    history.push('/admin/users')
+    history.push('/dashboard')
     setNavBar(true)
     // setRedirectToUserManagementPage(true);
 
@@ -391,7 +391,7 @@ function FeedbackForm(
           >
             NEXT
           </button>
-          <button
+          {/* <button
             style={{
               background: '#132B6B',
               borderRadius: '60px',
@@ -404,7 +404,7 @@ function FeedbackForm(
             onClick={handleSave}
           >
             SAVE
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

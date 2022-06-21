@@ -74,7 +74,7 @@ export function App(props) {
             <Route path="/help" component={HelpPage} />
             <Route path="/features" component={FeaturePage} />
             <Route path="/otp" component={OtpPage} />
-            <Route path="/users" component={Users} />
+            <Route path="/admin/users" component={Users} />
             <Route path="/listadd" component={Listadd} />
             <Route path="/listadd2" component={Listadd2} />
             <Route path="/location" component={Location} />
@@ -82,7 +82,7 @@ export function App(props) {
             <Route path="/empLogin" component={EmpLogin} />
             <Route path="/form" component={FeedbackForm} />
             <Route path="/formsecond" component={SecondFeedbackForm} />
-            <Route path="/admin/users" component={Employee} />
+            <Route path="/users" component={Employee} />
             <Route path="/myprofile" component={MyProfile} />
             <Route path="/history" component={History} />
             <Route path="/login" component={LoginPage} />
