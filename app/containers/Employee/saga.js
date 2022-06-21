@@ -4,11 +4,21 @@
 
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 
-import { HOST, BASE_PATH, SCHEMES, URL } from '../../containers/config.json';
 import request from 'utils/request';
-import { ADD_USER, SHOW_EMPLOYEE } from './constants';
-import { setEmployee } from './actions';
-
+import { HOST, BASE_PATH, SCHEMES, URL } from '../config.json';
+import {
+  ADD_USER,
+  DELETE_USER,
+  GET_ALL_DEPARTMENTS,
+  GET_ALL_ROLES,
+  SHOW_EMPLOYEE,
+} from './constants';
+import {
+  setAllDepartment,
+  setAllRoles,
+  setEmployee,
+  showEmployee,
+} from './actions';
 
 function* getUsersList() {
   const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/user/list`;
@@ -26,7 +36,7 @@ function* getUsersList() {
       },
     });
     console.log('success in getUsersList saga', result);
-    yield put(setEmployee(result.data));
+    yield put(setEmployee(result.data.users));
   } catch (err) {
     console.log('Error in getUsersList saga', result, err);
     if (result) {
@@ -38,7 +48,7 @@ function* getUsersList() {
 function* addUserSaga(action) {
   const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/user/saveOrUpdate`;
   const awtToken = localStorage.getItem('awtToken');
-  console.log('data in saga get :', requestURL,action.payload);
+  console.log('data in saga get :', requestURL, action.payload);
   let result;
 
   try {
@@ -49,12 +59,90 @@ function* addUserSaga(action) {
         Authorization: `Bearer ${awtToken}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(action.payload)
+      body: JSON.stringify(action.payload),
     });
     console.log('success in addUserSaga saga', result);
-    yield put(getUsersList());
+    yield put(showEmployee());
   } catch (err) {
     console.log('Error in addUserSaga saga', result, err);
+    if (result) {
+      alert(result.status.message);
+    } else alert(err);
+  }
+}
+
+function* getAllDepartmentSaga() {
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/department/list`;
+  const awtToken = localStorage.getItem('awtToken');
+  console.log('data in saga get :', requestURL);
+  let result;
+
+  try {
+    console.log('getAllDepartmentSaga get ');
+    result = yield call(request, requestURL, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${awtToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log('success in getAllDepartmentSaga saga', result);
+    // yield put(setAllDepartment(result.data));
+  } catch (err) {
+    console.log('Error in getAllDepartmentSaga saga', result, err);
+    if (result) {
+      alert(result.status.message);
+    } else alert(err);
+  }
+}
+
+function* getAllRolesSaga() {
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/getallRoles`;
+  const awtToken = localStorage.getItem('awtToken');
+  console.log('data in saga get :', requestURL);
+  let result;
+
+  try {
+    console.log('getAllRolesSaga get ');
+    result = yield call(request, requestURL, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${awtToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log('success in getAllRolesSaga saga', result);
+    // yield put(setAllRoles(result.data));
+  } catch (err) {
+    console.log('Error in getAllRolesSaga saga', result, err);
+    if (result) {
+      alert(result.status.message);
+    } else alert(err);
+  }
+}
+
+function* deleteUserSaga(action) {
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/user/${
+    action.payload
+  }`;
+  const awtToken = localStorage.getItem('awtToken');
+  console.log('data in saga get :', requestURL, action.payload);
+  let result;
+
+  try {
+    console.log('deleteUserSaga get ');
+    result = yield call(request, requestURL, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${awtToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(action.payload),
+    });
+    console.log('success in deleteUserSaga saga', result);
+    yield put(showEmployee());
+  } catch (err) {
+    console.log('Error in deleteUserSaga saga', result, err);
     if (result) {
       alert(result.status.message);
     } else alert(err);
@@ -64,10 +152,9 @@ function* addUserSaga(action) {
  * Root saga manages watcher lifecycle
  */
 export default function* usersData() {
-  // Watches for LOAD_REPOS actions and calls getRepos when one comes in.
-  // By using `takeLatest` only the result of the latest API call is applied.
-  // It returns task descriptor (just like fork) so we can continue execution
-  // It will be cancelled automatically on component unmount
   yield takeLatest(SHOW_EMPLOYEE, getUsersList);
-  yield takeLatest(ADD_USER,addUserSaga);
+  yield takeLatest(ADD_USER, addUserSaga);
+  yield takeLatest(GET_ALL_ROLES, getAllRolesSaga);
+  yield takeLatest(GET_ALL_DEPARTMENTS, getAllDepartmentSaga);
+  yield takeLatest(DELETE_USER, deleteUserSaga);
 }
