@@ -22,6 +22,13 @@ const key = 'navReducer';
 
 export function NavBar({ getUserLogout }) {
 
+  const history = useHistory();
+  
+  const routeChange = () =>{ 
+    let path = `/myprofile`; 
+    history.push(path);
+  }
+
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
@@ -91,13 +98,15 @@ export function NavBar({ getUserLogout }) {
 
             <div className=" absolute -mt-48 bg-white rounded-full w-36  h-12 font-sans " style={{ marginLeft: '10px', alignSelf: 'center', alignContent: 'center', justifyItems: 'center' }}>
               <div className='flex'>
-                <div className=' mt-3 h-[30px] w-[30px] ml-3 bg-[#132B6B]' style={{ borderRadius: '40px' }}>
+                <div className=' mt-3 h-[30px] w-[30px] ml-3 bg-[#132B6B]' style={{ borderRadius: '40px' }}
+                 onClick={routeChange}>
                   <p className='text-white ml-[6px] mt-[7px] font-sans'>
                     RK
                   </p>
 
                 </div>
-                <Button className=' font-sans ' style={{ color: '#132B6B', alignContent: 'center', justifyItems: 'center' }} >
+                <Button className=' font-sans ' style={{ color: '#132B6B', alignContent: 'center', justifyItems: 'center' }}  
+                onClick={routeChange}>
                   <p className='font-sans font-normal text-sm -ml-4 ' style={{ marginTop: '5px', }}>My Profile</p>
                 </Button>
               </div>

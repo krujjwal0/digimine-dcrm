@@ -1,5 +1,5 @@
 import { TextField, Box, Button } from '@material-ui/core';
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useEffect } from 'react';
 import close from '../History/image/close.png';
 import camera from '../History/image/camera.png';
 import PropTypes from 'prop-types';
@@ -15,7 +15,7 @@ import { useInjectSaga } from 'utils/injectSaga';
 
 import reducer from './reducer';
 import saga from './saga';
-import { addUser } from './actions';
+import { addUser, getAllDepartment, getAllRoles } from './actions';
 
 const key = 'users';
 
@@ -31,20 +31,24 @@ export function AddUser(props) {
   const [mobileNumber, setMobileNumber] = useState("");
   const [employeeId, setEmployeeId] = useState("");
   const [emailId, setEmailId] = useState("");
-  const [departmentId, setDepartmentId] = useState(0);
-  const [roleId, setRoleId] = useState(0);
+  const [departmentId, setDepartmentId] = useState(1);
+  const [roleId, setRoleId] = useState(3);
   const insertUser = () => {
     //Add condition for blank
     let data = {
-      roleId: roleId, //backend
+      roleId: roleId, //backend3
       name: name,
       mobileNumber: mobileNumber,
       emailId: emailId,
-      departmentId: departmentId,
+      departmentId: departmentId,//1
       employeeId: employeeId
     }
     props.addUser(data);
   }
+  useEffect(()=>{
+    props.getAllDepartment();
+    props.getAllRoles();
+  },[])
   return (
     <div className="">
       <div className="flex">
@@ -164,12 +168,14 @@ AddUser.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  // usersList: state.users.EmployeeCardList > 0 ? state.users.EmployeeCardList : []
+  // usersList: state.users.EmployeeCardList.length > 0 ? state.users.EmployeeCardList : []
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
     addUser: data => dispatch(addUser(data)),
+    getAllDepartment: () => dispatch(getAllDepartment()),
+    getAllRoles: () => dispatch(getAllRoles())
   };
 }
 
