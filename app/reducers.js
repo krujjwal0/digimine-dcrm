@@ -9,10 +9,10 @@ import history from 'utils/history';
 import globalReducer from 'containers/App/reducer';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import loginReducer from 'containers/LoginPage/reducer';
-import navReducer from 'components/NavBar/reducer';
 import helpReducer from 'containers/Help/reducer';
 import empReducer from './containers/Employee/reducer';
 import appReducer from 'containers/App/reducer';
+import navReducer from 'components/NavBar/reducer';
 
 /**
  * Merges the main reducer with the router state and dynamically injected reducers
