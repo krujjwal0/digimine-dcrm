@@ -48,6 +48,8 @@ import { useInjectSaga } from 'utils/injectSaga';
 
 
 import reducer from './reducer';
+import { setNavBar } from './actions';
+import { setOtpAction, setShowOtpPage } from '../LoginPage/actions';
 
 const key = 'main';
 
@@ -65,7 +67,7 @@ export function App(props) {
     <>
       <div className="w-full h-full dis">
         <Router history={history}>
-          {nav ? <NavBar /> : null}
+          {nav ? <NavBar setNavBar={props.setNavBar} setOtpAction={props.setOtpAction} /> : null}
           <Switch>
             <Route exact path="/" component={SplashScreen} />
             <Route path="/dashboard" component={Dashboard} />
@@ -107,7 +109,8 @@ const mapStateToProps = state => ({
 
 export function mapDispatchToProps(dispatch) {
   return {
-    // addUser: data => dispatch(addUser(data)),
+    setNavBar: data => dispatch(setNavBar(data)),
+    setOtpAction: data => dispatch(setShowOtpPage(data)),
   };
 }
 

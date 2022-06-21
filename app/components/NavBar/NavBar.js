@@ -18,9 +18,11 @@ import { SidebarData } from './SidebarData';
 
 import reducer from './reducer';
 import saga from './saga';
+import { setOtpAction } from '../../containers/LoginPage/actions';
 const key = 'navReducer';
 
-export function NavBar({ getUserLogout }) {
+export function NavBar({ setNavBar ,getUserLogout, setOtpAction }) {
+  
   const history = useHistory();
 
   const routeChange = () => {
@@ -34,8 +36,14 @@ export function NavBar({ getUserLogout }) {
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
   const userLogout = () => {
-    console.log('Logging out', getUserLogout);
-    getUserLogout();
+    console.log('Logging out');
+    // getUserLogout();
+    const path = `/`;
+    history.push(path);
+    setNavBar(false);
+    setOtpAction(false);
+
+    
   };
   return (
     <>

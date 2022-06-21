@@ -376,13 +376,13 @@ function FeedbackForm(
                 content: '',
                 left: '0',
                 bottom: '0',
-                top: '612px',
+                top: '657px',
               }}
             />
           </div>
         </div>
 
-        <div className="mr-80 -mt-12 ">
+        <div className="mr-80 -mt-2 ">
           <button
             style={{
               background: '#132B6B',
