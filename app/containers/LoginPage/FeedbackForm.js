@@ -122,6 +122,11 @@ function FeedbackForm(
     };
   };
 
+  function helpPageCall() {
+    history.push({pathname: '/help'})
+    setNavBar(true)
+  }
+
   return (
     <div className="bg-white w-full min-h-screen font-sans">
       <div className="font-sans ml-28 flex flex justify-between">
@@ -342,10 +347,10 @@ function FeedbackForm(
         </div>
       </div>
       <div className="flex flex justify-between  ">
-        <div className="flex w-full ml-32 ">
+        <div className="flex w-full ml-32 " onClick={()=>{helpPageCall()}}>
           <HelpOutlineIcon
             className="mb-6 "
-            onClick={()=>{history.push('/help')}}
+            // onClick={()=>{history.push({pathname: '/help'})}}
             style={{
               backgroundColor: '#FFFFFF',
               width: '55px',

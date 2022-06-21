@@ -51,7 +51,7 @@ export function Regulatory({
 
   return (
     <div className="regulatory">
-      <div className="w-1/2"> Regulatory</div>
+      
       <Users />
       {/* <div className='w-1/2'> Ruchi</div> */}
       {/* <div className='w-1/5 h-screen bg-gray-500'>
