@@ -21,7 +21,7 @@ const key = 'users';
 
 
 
-export function AddUser(props) {
+export function EditUser(props) {
 
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -54,7 +54,7 @@ export function AddUser(props) {
           fontWeight: '600',
           fontSize: '24px',
           lineHeight: '15px',
-        }}>Add User</label>
+        }}>Update User</label>
 
         <div>
           <button className="ml-40"> <img className='rounded-full ml-3 w-[40px] h-[40px]'
@@ -151,7 +151,7 @@ export function AddUser(props) {
               height: '40px',
               background: '#98E91D',
               borderRadius: '60px'
-            }}>Save</Button></div>
+            }}>Update</Button></div>
         </div>
 
       </div>
@@ -159,7 +159,7 @@ export function AddUser(props) {
   )
 }
 
-AddUser.propTypes = {
+EditUser.propTypes = {
   addUser: PropTypes.func,
 };
 
@@ -181,4 +181,4 @@ const withConnect = connect(
 export default compose(
   withConnect,
   memo,
-)(AddUser);
+)(EditUser);

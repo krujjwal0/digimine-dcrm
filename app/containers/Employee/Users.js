@@ -18,7 +18,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 import { useInjectReducer } from 'utils/injectReducer';
@@ -28,6 +29,7 @@ import { useInjectSaga } from 'utils/injectSaga';
 import reducer from './reducer';
 import saga from './saga';
 import { showEmployee } from './actions';
+import { EditUser } from './EditUser';
 
 const key = 'users';
 
@@ -136,6 +138,14 @@ export function Users(props) {
   useEffect(() => {
     props.showEmployee();
   }, [])
+
+  const [showEdit, setShowEdit] = useState(false);
+  const openEdit = () => {
+    setShowEdit(true)
+  }
+  const handleExit = () => {
+    setShowEdit(false)
+  }
   return (
     <div className="">
       {/* <div className="list">
@@ -227,10 +237,22 @@ export function Users(props) {
               }}
             >
               <div className="p-2 m-2">
-                <div><button className="my-1 mx-4" disable>Edit</button></div>
+                <div><button className="my-1 mx-4" disable onClick={openEdit}>Edit</button></div>
                 <div><button className="my-1 mx-4" disable>Delete</button></div>
               </div>
             </Popover>
+            <Dialog open={showEdit} onClose={handleExit} className="w-50 h-50">
+        <DialogContent style={{
+          borderRadius: '15px',
+          background: '#FFFFFF',
+          boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
+          Width: '604px',
+          Height: '494px',
+        }}>
+         <EditUser/>
+          
+        </DialogContent>
+      </Dialog>
           </div>
         </CardContent>
       </Card>

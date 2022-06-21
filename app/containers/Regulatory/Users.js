@@ -4,13 +4,69 @@ import React from 'react';
 // import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 // import List from 'react-virtualized/dist/commonjs/List';
 // import { List } from "react-virtualized";
-
+import { withStyles } from '@material-ui/core/styles';
 import './style.css';
 import { List, AutoSizer } from 'react-virtualized';
 import { alpha, styled } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import Switch from '@material-ui/core/Switch';
 import emp_image from '../../images/emp_image.png';
+import {Card, CardContent} from '@material-ui/core';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
+const IOSSwitch = withStyles((theme) => ({
+  root: {
+    width: 42,
+    height: 26,
+    padding: 0,
+    margin: theme.spacing(1),
+  },
+  switchBase: {
+    padding: 1,
+    '&$checked': {
+      transform: 'translateX(16px)',
+      color: theme.palette.common.white,
+      '& + $track': {
+        backgroundColor: '#52d869',
+        opacity: 1,
+        border: 'none',
+      },
+    },
+    '&$focusVisible $thumb': {
+      color: '#52d869',
+      border: '6px solid #fff',
+    },
+  },
+  thumb: {
+    width: 24,
+    height: 24,
+  },
+  track: {
+    borderRadius: 26 / 2,
+    border: `1px solid ${theme.palette.grey[400]}`,
+    backgroundColor: theme.palette.grey[50],
+    opacity: 1,
+    transition: theme.transitions.create(['background-color', 'border']),
+  },
+  checked: {},
+  focusVisible: {},
+}))(({ classes, ...props }) => {
+  return (
+    <Switch
+      focusVisibleClassName={classes.focusVisible}
+      disableRipple
+      classes={{
+        root: classes.root,
+        switchBase: classes.switchBase,
+        thumb: classes.thumb,
+        track: classes.track,
+        checked: classes.checked,
+      }}
+      {...props}
+    />
+  );
+});
+
 
 const GreenSwitch = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-switchBase.Mui-checked': {
@@ -86,6 +142,14 @@ function rowRenderer({
 }
 
 export default function Users() {
+
+  const [state, setState] = React.useState({
+    checked: true,
+  });
+
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
   return (
     <>
       {/* <div />
@@ -160,7 +224,7 @@ export default function Users() {
                 </p>
                 
                 <FormControlLabel
-                  control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="checkedB" />}
+                  control={<IOSSwitch checked={state.checked} onChange={handleChange} name="checkedB" />}
                   
                     />
                     

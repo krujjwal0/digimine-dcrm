@@ -62,10 +62,10 @@ export function ChooseLocation(props) {
           style={{ marginRight: '23%' }}
         >
           <div className="card bg-white shadow-lg rounded-3xl py-10 px-10 max-w-xl w-8/12">
-            <div className="flex mt-10 ml-24  justify-between">
-              <div className="w-24 h-5 ml-4 ">
+            <div className="flex mt-7 mb-7 w-full  justify-between">
+              <div className="w-full h-5 ml-4 ">
                 <select
-                  className=" font-sans  text-gray-150 w-60  text-black h-10 pl-4 pr-8 -mt-12 bg-white hover:border-gray-400"
+                  className=" font-sans  text-gray-150 w-full  text-black h-10 pl-4 pr-8 -mt-12 bg-white hover:border-gray-400"
                   onClick={selectLocation}
                   value={choosedLocation}
                 >
@@ -85,7 +85,7 @@ export function ChooseLocation(props) {
                   <option value="2">Two</option>
                   <option value="3">Three</option> */}
                 </select>
-                <div className="w-60">
+                <div className="w-full">
                   <Divider />
                 </div>
               </div>
