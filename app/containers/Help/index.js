@@ -40,27 +40,27 @@ import { getQ_A } from './action';
 const key = 'helpReducer';
 
 function Help(props) {
-    useInjectReducer({ key, reducer });
-    useInjectSaga({ key, saga });
+  useInjectReducer({ key, reducer });
+  useInjectSaga({ key, saga });
 
-    
-    useEffect(() => {
-      props.getQ_A()
-      console.log("Help Questions and Answers ", props.help_Q_A)
-    }, [props.help_Q_A]);
+
+  useEffect(() => {
+    props.getQ_A()
+    console.log("Help Questions and Answers ", props.help_Q_A)
+  }, [props.help_Q_A]);
 
   return (
     <div className="maindash">
       <div className="mx-20 mt-6  w-[95%] h-full">
-      <Typography
+        <Typography
           sx={{ display: 'flex', alignItems: 'center' }}
           color="text.primary"
-          className='font-sans font-bold text-xl' 
-          style={{marginLeft: '30px',fontWeight: '800', fontSize: '30px', color: '#132B6B'}}
+          className='font-sans font-bold text-xl'
+          style={{ marginLeft: '30px', fontWeight: '800', fontSize: '30px', color: '#132B6B' }}
         >Help
-        {/* <ClearAllIcon sx={{ mr: 0.5 }} fontSize="inherit" /> */}
+          {/* <ClearAllIcon sx={{ mr: 0.5 }} fontSize="inherit" /> */}
         </Typography>
-         
+
         <p
           className=" font- sans font-bold ml-20 text-xl mt-5"
           style={{ color: '#F66B6B' }}
@@ -84,99 +84,29 @@ function Help(props) {
         </div>
 
         <div className="mt-7">
-          <Accordion
-            className="w-full"
-            style={{ border: '1px solid #DCE1EA', borderRadius: '10px' }}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              <Typography className="mt-8" style={{ marginTop: '7px' }}>
-                Accordion 1
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-
-          <div className="mt-6">
+          {props.help_Q_A.length > 0 ? props.help_Q_A.map((ques, i) =>
             <Accordion
+              key={i}
               className="w-full"
               style={{ border: '1px solid #DCE1EA', borderRadius: '10px' }}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel2a-content"
-                id="panel2a-header"
+                aria-controls="panel1a-content"
+                id="panel1a-header"
               >
                 <Typography className="mt-8" style={{ marginTop: '7px' }}>
-                  Accordion 2
+                  {ques.question}
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget.
+                  {ques.answer}
                 </Typography>
               </AccordionDetails>
             </Accordion>
-          </div>
+          ) : <p>No Questions Yet!</p>}
 
-          <div className="mt-6">
-            <Accordion
-              className="w-full"
-              style={{ border: '1px solid #DCE1EA', borderRadius: '10px' }}
-            >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel2a-content"
-                id="panel2a-header"
-              >
-                <Typography className="mt-8" style={{ marginTop: '7px' }}>
-                  Accordion 2
-                </Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget.
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
-          </div>
-
-          <div className="mt-6">
-            <Accordion
-              className="w-full"
-              style={{ border: '1px solid #DCE1EA', borderRadius: '10px' }}
-            >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel2a-content"
-                id="panel2a-header"
-              >
-                <Typography className="mt-8" style={{ marginTop: '7px' }}>
-                  Accordion 2
-                </Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget.
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
-          </div>
         </div>
 
         <div className="mt-9 flex pl-80 mb-12">
@@ -200,18 +130,18 @@ function Help(props) {
 
 Help.propTypes = {
   help_Q_A: PropTypes.string,
-  getQ_A:PropTypes.func
+  getQ_A: PropTypes.func
 };
 
 const mapStateToProps = state => ({
-    help_Q_A: state.helpReducer.help
-  
+  help_Q_A: state.helpReducer.help > 0 ? state.helpReducer.help : []
+
 })
 
 export function mapDispatchToProps(dispatch) {
   return {
     getQ_A: () => dispatch(getQ_A()),
-    
+
   };
 }
 

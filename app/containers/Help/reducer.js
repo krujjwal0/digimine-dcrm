@@ -16,7 +16,7 @@ const helpReducer = (state = initialState, action) =>
       case SET_Q_A:
         return {
           ...state,
-          help: action.payload.qNa
+          help: action.payload
         }
       default:
         return state;

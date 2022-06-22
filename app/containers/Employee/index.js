@@ -26,7 +26,7 @@ import {
   makeSelectError,
 } from 'containers/App/selectors';
 import { EditUser } from './EditUser';
-import { deleteUser, editUser, showEmployee, changeUsername } from './actions';
+import { deleteUser, editUser, showEmployee, changeUsername, getAllDepartment, getAllRoles } from './actions';
 import { loadRepos } from '../App/actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
@@ -60,6 +60,11 @@ export function Employee({
   onSubmitForm,
   onChangeUsername,
   showEmployee,
+  editUser,
+  rolesList,
+  departmentList,
+  getAllDepartment,
+  getAllRoles
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -103,8 +108,10 @@ export function Employee({
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
+  const [editUserData,setEditUserData]=useState({});
   const [showEdit, setShowEdit] = useState(false);
-  const openEdit = () => {
+  const openEdit = (data) => {
+    setEditUserData(data)
     setShowEdit(true);
   };
   const handleExit = () => {
@@ -224,7 +231,7 @@ control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="check
                                 <button
                                   className="my-1 mx-4"
                                   disable
-                                  onClick={openEdit}
+                                  onClick={() => openEdit(list)}
                                 >
                                   Edit
                                 </button>
@@ -253,7 +260,7 @@ control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="check
                                 Height: '494px',
                               }}
                             >
-                              <EditUser />
+                              <EditUser list={editUserData} editUser={editUser} rolesList={rolesList} departmentList={departmentList} getAllDepartment={getAllDepartment} getAllRoles={getAllRoles} />
                             </DialogContent>
                           </Dialog>
                         </div>
@@ -298,6 +305,11 @@ Employee.propTypes = {
 const mapStateToProps = state => ({
   usersList:
     state.users.EmployeeCardList.length > 0 ? state.users.EmployeeCardList : [],
+    rolesList:
+    state.users.rolesList.length > 0 ? state.users.rolesList : [],
+    departmentList:
+    state.users.departmentList.length > 0 ? state.users.departmentList : [],
+  
 });
 
 export function mapDispatchToProps(dispatch) {
@@ -306,6 +318,8 @@ export function mapDispatchToProps(dispatch) {
     editUser: data => dispatch(editUser(data)),
     deleteUser: data => dispatch(deleteUser(data)),
     onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),
+    getAllDepartment:()=>dispatch(getAllDepartment()),
+    getAllRoles:()=>dispatch(getAllRoles()),
     onSubmitForm: evt => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(loadRepos());

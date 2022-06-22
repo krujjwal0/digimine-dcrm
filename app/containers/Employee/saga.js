@@ -9,6 +9,7 @@ import { HOST, BASE_PATH, SCHEMES, URL } from '../config.json';
 import {
   ADD_USER,
   DELETE_USER,
+  EDIT_USER,
   GET_ALL_DEPARTMENTS,
   GET_ALL_ROLES,
   SHOW_EMPLOYEE,
@@ -45,14 +46,14 @@ function* getUsersList() {
   }
 }
 
-function* addUserSaga(action) {
+function* saveOrUpdateUserSaga(action) {
   const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/user/saveOrUpdate`;
   const awtToken = localStorage.getItem('awtToken');
   console.log('data in saga get :', requestURL, action.payload);
   let result;
 
   try {
-    console.log('addUserSaga get ');
+    console.log('saveOrUpdateUserSaga get ');
     result = yield call(request, requestURL, {
       method: 'PUT',
       headers: {
@@ -61,10 +62,10 @@ function* addUserSaga(action) {
       },
       body: JSON.stringify(action.payload),
     });
-    console.log('success in addUserSaga saga', result);
+    console.log('success in saveOrUpdateUserSaga saga', result);
     yield put(showEmployee());
   } catch (err) {
-    console.log('Error in addUserSaga saga', result, err);
+    console.log('Error in saveOrUpdateUserSaga saga', result, err);
     if (result) {
       alert(result.status.message);
     } else alert(err);
@@ -87,7 +88,7 @@ function* getAllDepartmentSaga() {
       },
     });
     console.log('success in getAllDepartmentSaga saga', result);
-    // yield put(setAllDepartment(result.data));
+    yield put(setAllDepartment(result.data));
   } catch (err) {
     console.log('Error in getAllDepartmentSaga saga', result, err);
     if (result) {
@@ -112,7 +113,7 @@ function* getAllRolesSaga() {
       },
     });
     console.log('success in getAllRolesSaga saga', result);
-    // yield put(setAllRoles(result.data));
+    yield put(setAllRoles(result.data.roles));
   } catch (err) {
     console.log('Error in getAllRolesSaga saga', result, err);
     if (result) {
@@ -153,8 +154,9 @@ function* deleteUserSaga(action) {
  */
 export default function* usersData() {
   yield takeLatest(SHOW_EMPLOYEE, getUsersList);
-  yield takeLatest(ADD_USER, addUserSaga);
+  yield takeLatest(ADD_USER, saveOrUpdateUserSaga);
   yield takeLatest(GET_ALL_ROLES, getAllRolesSaga);
   yield takeLatest(GET_ALL_DEPARTMENTS, getAllDepartmentSaga);
   yield takeLatest(DELETE_USER, deleteUserSaga);
+  yield takeLatest(EDIT_USER,saveOrUpdateUserSaga)
 }

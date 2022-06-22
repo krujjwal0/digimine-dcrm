@@ -9,6 +9,8 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
+export const USER_LOGOUT = 'digimine/LoginPage/USER_LOGOUT';
+export const SET_INITIAL_STATE='digimine/LoginPage/SET_INITIAL_STATE'
 export const GENERATE_OTP = 'digimine/LoginPage/GENERATE_OTP';
 export const SET_ROLE_TYPE = 'digimine/LoginPage/SET_ROLE_TYPE';
 export const SET_OTP = 'digimine/LoginPage/SET_OTP';

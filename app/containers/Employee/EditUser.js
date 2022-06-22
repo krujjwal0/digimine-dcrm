@@ -1,5 +1,5 @@
 import { TextField, Box, Button } from '@material-ui/core';
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useEffect } from 'react';
 import close from '../History/image/close.png';
 import camera from '../History/image/camera.png';
 import PropTypes from 'prop-types';
@@ -15,7 +15,7 @@ import { useInjectSaga } from 'utils/injectSaga';
 
 import reducer from './reducer';
 import saga from './saga';
-import { addUser } from './actions';
+// import { editUser } from './actions';
 
 const key = 'users';
 
@@ -27,24 +27,37 @@ export function EditUser(props) {
   useInjectSaga({ key, saga });
 
 
-  const [name, setName] = useState("");
-  const [mobileNumber, setMobileNumber] = useState("");
-  const [employeeId, setEmployeeId] = useState("");
-  const [emailId, setEmailId] = useState("");
-  const [departmentId, setDepartmentId] = useState(0);
-  const [roleId, setRoleId] = useState(0);
-  const insertUser = () => {
-    //Add condition for blank
-    let data = {
-      roleId: roleId, //backend
-      name: name,
-      mobileNumber: mobileNumber,
-      emailId: emailId,
-      departmentId: departmentId,
-      employeeId: employeeId
-    }
-    props.addUser(data);
+  const [name, setName] = useState(props.list.name);
+  const [mobileNumber, setMobileNumber] = useState(props.list.mobileNumber);
+  const [employeeId, setEmployeeId] = useState(props.list.employeeId);
+  const [emailId, setEmailId] = useState(props.list.emailId);
+  const [departmentId, setDepartmentId] = useState(props.list.departmentId);
+  const [roleId, setRoleId] = useState(1);
+  const updateUser = () => { 
+    let active = props.list.active;
+    const data = {
+      ...props.list,
+      roleId, // backend3
+      name,
+      mobileNumber,
+      emailId,
+      departmentId, // 1
+      employeeId,
+      active,
+    };
+    props.editUser(data);
   }
+  
+  const selectDepartmentId = value => {
+    console.log(value);
+    setDepartmentId(value)
+    // Call api to show users list of particular Location
+  };
+  useEffect(() => {
+    props.getAllDepartment();
+    props.getAllRoles();
+  }, []);
+
   return (
     <div className="">
       <div className="flex">
@@ -131,20 +144,55 @@ export function EditUser(props) {
               }}
             /></div>
           <div>
-            <TextField
+            <select style={{
+              width: '200px',
+            }}
+              className=" font-sans  text-gray-150   text-black h-10 pl-4 pr-8 -mt-12 bg-white hover:border-gray-400"
+              onClick={selectDepartmentId}
+              value={departmentId}
+            >
+              {props.departmentList.map((data, index) => {
+                console.log("dept============", data);
+                return (
+                  <option key={index} name={data.name} value={data.id}>
+                    {data.name}
+                  </option>
+                );
+              })}
+            </select>
+            {/* <TextField
               label="Select Department"
               name="departmentId"
               value={departmentId}
-              onChange={(e) => setDepartmentId(e.target.value)}
+              onChange={e => setDepartmentId(e.target.value)}
               autoComplete="off"
               placeholder="Enter Here"
               id="outlined-basic"
               style={{
                 width: '200px',
               }}
-            /></div>
+            /> */}
+          </div>
+          <div>
+            <select style={{
+              width: '200px',
+            }}
+              className=" font-sans  text-gray-150   text-black h-10 pl-4 pr-8 -mt-12 bg-white hover:border-gray-400"
+              onClick={selectDepartmentId}
+              value={roleId}
+            >
+              {props.rolesList.map((data, index) => {
+                console.log("dept============", data);
+                return (
+                  <option key={index} name={data.name} value={data.id}>
+                    {data.name}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
           <div className="mt-10"><Button
-            onClick={() => insertUser()}
+            onClick={() => updateUser()}
             style={{
               position: 'absolute',
               width: '155px',
@@ -160,7 +208,7 @@ export function EditUser(props) {
 }
 
 EditUser.propTypes = {
-  addUser: PropTypes.func,
+  // editUser: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -169,7 +217,7 @@ const mapStateToProps = state => ({
 
 export function mapDispatchToProps(dispatch) {
   return {
-    addUser: data => dispatch(addUser(data)),
+    // editUser: data => dispatch(editUser(data)),
   };
 }
 

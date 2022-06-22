@@ -8,7 +8,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Popover from '@material-ui/core/Popover';
-import {setEmployee} from './actions';
+import { getAllDepartment, getAllRoles, setEmployee } from './actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import AddUser from './AddUser';
@@ -56,7 +56,7 @@ const StyledMenu = styled(props => (
   },
 }));
 
-export function UsersUtility() {
+export function UsersUtility({ rolesList, departmentList, getAllDepartment, getAllRoles }) {
 
   const [showExport, setShowExport] = useState(false);
   const openExport = () => {
@@ -79,12 +79,12 @@ export function UsersUtility() {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
-  const[name, setName] = useState("");
+  const [name, setName] = useState("");
   const filterEmployee = (e) => {
     const keyword = e.target.value;
     let obj = {
       fromSaga: false,
-      results:[],
+      results: [],
     }
 
     if (keyword !== '') {
@@ -198,8 +198,7 @@ export function UsersUtility() {
           Width: '604px',
           Height: '494px',
         }}>
-         <AddUser/>
-          
+          <AddUser rolesList={rolesList} departmentList={departmentList} getAllDepartment={getAllDepartment} getAllRoles={getAllRoles} />
         </DialogContent>
       </Dialog>
     </div>
@@ -208,13 +207,19 @@ export function UsersUtility() {
 const mapDispatchToProps = dispatch => ({
   showEmployee: obj => dispatch(showEmployee(obj)),
   setEmployee: obj => dispatch(setEmployee(obj)),
- 
+  getAllRoles: ()=> dispatch(getAllRoles()),
+  getAllDepartment: ()=> dispatch(getAllDepartment())
+
 });
 
 const mapStateToProps = state => {
   console.log('index of EmployeeList', state.emp.EmployeeCardList);
   return {
     EmployeeCardList: state.emp.EmployeeCardList,
+    rolesList:
+      state.users.rolesList.length > 0 ? state.users.rolesList : [],
+    departmentList:
+      state.users.departmentList.length > 0 ? state.users.departmentList : [],
     EmployeeCardListreplica: state.emp.EmployeeCardListreplica,
   };
 };

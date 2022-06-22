@@ -18,11 +18,13 @@ import {
   SET_USER_DATA,
   SET_FEEDBACK_FORM,
   SET_SHOW_FEEDBACK_FORM_DATA,
+  SET_INITIAL_STATE,
 } from './constants';
 
 // The initial state of the App
 export const initialState = {
   ROLE_TYPE: '',
+  userIsAuthenticated:false,
   userData: {},
   otp: '',
   emailId: '',
@@ -38,6 +40,10 @@ export const initialState = {
 const loginReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
+      case SET_INITIAL_STATE:
+        return {
+          state:initialState
+        }
       case SET_ADMIN_LOCATIONS:
         console.log(action.payload);
         return {
@@ -79,6 +85,7 @@ const loginReducer = (state = initialState, action) =>
         return {
           ...state,
           userData: action.payload,
+          userIsAuthenticated:true,
           showFeedback: action.payload.feedbackCompleted,
           showSuccessPage: true,
         };

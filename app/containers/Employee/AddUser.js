@@ -44,6 +44,13 @@ export function AddUser(props) {
     props.getAllDepartment();
     props.getAllRoles();
   }, []);
+
+  const selectDepartmentId = value => {
+    console.log(value);
+    setDepartmentId(value)
+    // Call api to show users list of particular Location
+  };
+
   return (
     <div className="">
       <div className="flex">
@@ -140,7 +147,23 @@ export function AddUser(props) {
             />
           </div>
           <div>
-            <TextField
+            <select style={{
+              width: '200px',
+            }}
+              className=" font-sans  text-gray-150   text-black h-10 pl-4 pr-8 -mt-12 bg-white hover:border-gray-400"
+              onClick={( )=>selectDepartmentId}
+              value={departmentId}
+            >
+              {props.departmentList.map((data, index) => {
+                console.log("dept============", data);
+                return (
+                  <option key={index} name={data.name} value={data.id}>
+                    {data.name}
+                  </option>
+                );
+              })}
+            </select>
+            {/* <TextField
               label="Select Department"
               name="departmentId"
               value={departmentId}
@@ -151,8 +174,27 @@ export function AddUser(props) {
               style={{
                 width: '200px',
               }}
-            />
+            /> */}
           </div>
+          <div>
+            <select style={{
+              width: '200px',
+            }}
+              className=" font-sans  text-gray-150   text-black h-10 pl-4 pr-8 -mt-12 bg-white hover:border-gray-400"
+              onClick={selectDepartmentId}
+              value={roleId}
+            >
+              {props.rolesList.map((data, index) => {
+                console.log("dept============", data);
+                return (
+                  <option key={index} name={data.name} value={data.id}>
+                    {data.name}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          
           <div className="mt-10">
             <Button
               onClick={() => insertUser()}
@@ -178,7 +220,9 @@ AddUser.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  // usersList: state.users.EmployeeCardList.length > 0 ? state.users.EmployeeCardList : []
+  departmentList: state.users.departmentList.length > 0 ? state.users.departmentList : [], 
+   rolesList: state.users.rolesList.length > 0 ? state.users.rolesList : []
+
 });
 
 export function mapDispatchToProps(dispatch) {

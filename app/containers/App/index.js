@@ -46,7 +46,7 @@ import LoginPage from '../LoginPage/LoginPage';
 
 import reducer from './reducer';
 import { setNavBar } from './actions';
-import { setOtpAction, setShowOtpPage } from '../LoginPage/actions';
+import { getUserLogout, setOtpAction, setShowOtpPage } from '../LoginPage/actions';
 
 const key = 'main';
 
@@ -68,29 +68,37 @@ export function App(props) {
             <NavBar
               setNavBar={props.setNavBar}
               setOtpAction={props.setOtpAction}
+              signOut={props.signOut}
             />
           ) : null}
+
           <Switch>
             <Route exact path="/" component={SplashScreen} />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/categories" component={Categories} />
-            <Route path="/regulatory" component={Regulatory} />
-            <Route path="/help" component={HelpPage} />
-            <Route path="/features" component={FeaturePage} />
-            <Route path="/otp" component={OtpPage} />
-            <Route path="/admin/users" component={Users} />
-            <Route path="/listadd" component={Listadd} />
-            <Route path="/listadd2" component={Listadd2} />
-            <Route path="/location" component={Location} />
-            <Route path="/success" component={Success} />
-            <Route path="/empLogin" component={EmpLogin} />
-            <Route path="/form" component={FeedbackForm} />
-            <Route path="/formsecond" component={SecondFeedbackForm} />
-            <Route path="/users" component={Employee} />
-            <Route path="/myprofile" component={MyProfile} />
-            <Route path="/history" component={History} />
             <Route path="/login" component={LoginPage} />
+            <Route path="/otp" component={OtpPage} />
 
+            {props.userIsAuthenticated == true ?
+              <>
+                <Route path="/success" component={Success} />
+                <Route path="/location" component={Location} />
+                <Route path="/dashboard" component={Dashboard} />
+                <Route path="/categories" component={Categories} />
+                <Route path="/regulatory" component={Regulatory} />
+                <Route path="/help" component={HelpPage} />
+                <Route path="/features" component={FeaturePage} />
+                <Route path="/admin/users" component={Users} />
+                <Route path="/listadd" component={Listadd} />
+                <Route path="/listadd2" component={Listadd2} />
+                <Route path="/empLogin" component={EmpLogin} />
+                <Route path="/form" component={FeedbackForm} />
+                <Route path="/formsecond" component={SecondFeedbackForm} />
+                <Route path="/users" component={Employee} />
+                <Route path="/myprofile" component={MyProfile} />
+                <Route path="/history" component={History} />
+              </>
+              :
+              <Route component={NotFoundPage} />
+            }
             <Route component={NotFoundPage} />
           </Switch>
         </Router>
@@ -107,12 +115,14 @@ App.propTypes = {
 
 const mapStateToProps = state => ({
   navBar: state.main.navBar,
+  userIsAuthenticated: state.loginReducer.userIsAuthenticated
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
     setNavBar: data => dispatch(setNavBar(data)),
     setOtpAction: data => dispatch(setShowOtpPage(data)),
+    signOut: () => dispatch(getUserLogout())
   };
 }
 

@@ -31,8 +31,22 @@ import {
   SET_FEEDBACK_FORM,
   SAVE_FEEDBACK_FORM_DATA,
   SET_SHOW_FEEDBACK_FORM_DATA,
+  SET_INITIAL_STATE
+} from './constants';
+import {
+  USER_LOGOUT,
 } from './constants';
 
+export function setInitialState(){
+  return {
+    type: SET_INITIAL_STATE
+  }
+}
+export function getUserLogout() {
+  return {
+    type: USER_LOGOUT,
+  };
+}
 export function generateOtpByEmailIdAction(email) {
   console.log('Action login');
   return {

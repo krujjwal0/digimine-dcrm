@@ -15,6 +15,7 @@ import {
   GET_ADMIN_LOCATIONS,
   SIGN_IN,
   GET_FEEDBACK_FORM,
+  USER_LOGOUT,
 } from './constants';
 import {
   setAdminLocationsAction,
@@ -24,6 +25,7 @@ import {
   signIn,
   setUserData,
   setFeedbackFormData,
+  setInitialState
 } from './actions';
 import { makeSelectEmailId } from './selectors';
 
@@ -114,6 +116,7 @@ function* postSignIn(action) {
     console.log('success in saga', result, result.data);
     yield put(setUserData(result.data));
 
+
     localStorage.setItem('awtToken', result.data.awtToken);
   } catch (err) {
     if (result) {
@@ -170,6 +173,32 @@ function* getFeedbackFormSaga(action) {
     console.log('this is error=', err);
   }
 }
+
+function* getUserLogout() {
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/userLogout`;
+  console.log('data in saga getUserLogout :', requestURL);
+  let result;
+  const awtToken = localStorage.getItem('awtToken');
+  try {
+    console.log('generatorFunction getUserLogout ');
+    result = yield call(request, requestURL, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${awtToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log('success in saga', result);
+    yield put(setInitialState());
+    localStorage.setItem('awtToken', '');
+    window. location. reload(false);
+  } catch (err) {
+    console.log('Error in Logging out saga', result, err);
+    if (result) {
+      alert(result.status.message);
+    } else alert(err);
+  }
+}
 /**
  * Root saga manages watcher lifecycle
  */
@@ -184,4 +213,5 @@ export default function* loginData() {
   yield takeLatest(GET_ADMIN_LOCATIONS, getAdminLocations);
   yield takeLatest(SIGN_IN, postSignIn);
   yield takeLatest(GET_FEEDBACK_FORM, getFeedbackFormSaga);
+  yield takeLatest(USER_LOGOUT, getUserLogout);
 }

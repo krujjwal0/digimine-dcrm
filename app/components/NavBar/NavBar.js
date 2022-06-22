@@ -21,7 +21,7 @@ import saga from './saga';
 import { setOtpAction } from '../../containers/LoginPage/actions';
 const key = 'navReducer';
 
-export function NavBar({ setNavBar, getUserLogout, setOtpAction }) {
+export function NavBar({ setNavBar, getUserLogout, setOtpAction, signOut }) {
   const history = useHistory();
 
   const routeChange = () => {
@@ -36,11 +36,11 @@ export function NavBar({ setNavBar, getUserLogout, setOtpAction }) {
   const showSidebar = () => setSidebar(!sidebar);
   const userLogout = () => {
     console.log('Logging out');
-    // getUserLogout();
+    signOut();
     const path = `/`;
     history.push(path);
     setNavBar(false);
-    setOtpAction(false);
+    // setOtpAction(false);
   };
   return (
     <>
