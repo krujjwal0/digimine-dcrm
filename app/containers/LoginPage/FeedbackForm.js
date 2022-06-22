@@ -254,10 +254,9 @@ function FeedbackForm({
                 <div className=" mt-7 -ml-1">
 
                   <FormControl className="mb-3"  >
-                    {
-                     feed.options? 
-                    feed.options.map((option, index) => {
+                    {feed.options.map((option, index) => {
                       return (
+
                         <RadioGroup
                           key={index}
                           row
@@ -286,10 +285,7 @@ function FeedbackForm({
                         </RadioGroup>
 
                       )
-                    })
-                    :
-                    <p>No Options</p>
-                    }
+                    })}
                   </FormControl>
 
 
