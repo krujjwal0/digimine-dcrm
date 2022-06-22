@@ -132,6 +132,11 @@ function FeedbackForm({
     setNavBar(true);
   }
 
+  function handleSkip() {
+    history.push('/dashboard');
+    setNavBar(true);
+  }
+
   return (
     <div className="bg-white w-full min-h-screen font-sans">
       <div className="font-sans ml-28 flex flex justify-between">
@@ -386,13 +391,28 @@ function FeedbackForm({
                 content: '',
                 left: '0',
                 bottom: '0',
-                top: '657px',
+                top: '612px',
               }}
             />
           </div>
         </div>
 
-        <div className="mr-80 -mt-2 ">
+        <div className="flex mr-80 -mt-12 ">
+          <button
+            style={{
+              background: '#132B6B',
+              borderRadius: '60px',
+              color: 'white',
+              width: '115px',
+              height: '40px',
+              marginLeft: '-120px',
+              marginTop: '3px',
+            }}
+            className="font-sans absolute"
+            onClick={handleSkip}
+          >
+            Skip
+          </button>
           <button
             style={{
               background: '#132B6B',
