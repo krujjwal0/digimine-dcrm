@@ -11,8 +11,9 @@ export function getQ_A() {
     type: GET_Q_A,
   };
 }
-export function setQ_A() {
+export function setQ_A(data) {
   return {
     type: SET_Q_A,
+    payload: data
   };
 }

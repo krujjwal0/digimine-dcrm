@@ -45,12 +45,12 @@ function Help(props) {
 
 
   useEffect(() => {
-    props.getQ_A()
+    props.getQ_A();
     console.log("Help Questions and Answers ", props.help_Q_A)
   }, []);
 
   useEffect(()=>{
-
+    console.log("Help UseEffect ", props.help_Q_A)
   },[props.help_Q_A])
   return (
     <div className="maindash">
@@ -132,12 +132,12 @@ function Help(props) {
 }
 
 Help.propTypes = {
-  help_Q_A: PropTypes.string,
+  // help_Q_A: PropTypes.string,
   getQ_A: PropTypes.func
 };
 
 const mapStateToProps = state => ({
-  help_Q_A: state.helpReducer.help > 0 ? state.helpReducer.help : []
+  help_Q_A: state.helpReducer.help.length > 0 ? state.helpReducer.help : []
 
 })
 

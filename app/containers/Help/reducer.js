@@ -6,7 +6,7 @@ import {
 
 // The initial state of the App
 export const initialState = {
-  help: [],
+  help: []
 };
 
 /* eslint-disable default-case, no-param-reassign */
