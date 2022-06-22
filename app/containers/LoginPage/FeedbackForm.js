@@ -67,29 +67,69 @@ function FeedbackForm({
   useEffect(() => {
     console.log('inside useeffect', feedbackFormData);
     getFeedbackFormData();
-    saveDataFeedbackForm();
-    setShowToFeedBackPage();
+    // saveDataFeedbackForm();
+    // setShowToFeedBackPage();
   }, []);
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [feedbackRadioCheck, setFeedbackRadioCheck] = useState();
-
-  const handleNext = () => {
+  const [completed, setCompleted] = React.useState({});
+  const completedSteps = () => {
+    return Object.keys(completed).length;
+  };
+  function handleSkip() {
     history.push('/dashboard');
     setNavBar(true);
-    // setRedirectToUserManagementPage(true);
+  }
+  // const handleNext = () => {
+  // history.push('/dashboard');
+  // setNavBar(true);
+  // setRedirectToUserManagementPage(true);
 
-    // active when we have feedback form API
-    // setActiveStep(prevActiveStep => prevActiveStep + 1);
+  // active when we have feedback form API
+  //   setActiveStep(prevActiveStep => prevActiveStep + 1);
+  // };
+
+  const totalSteps = () => {
+    return feedbackFormData.length;
+  };
+  const handleNext = () => {
+    const newActiveStep =
+      isLastStep() && !allStepsCompleted()
+        ? // It's the last step, but not all steps have been completed,
+        // find the first step that has been completed
+        steps.findIndex((step, i) => !(i in completed))
+        : activeStep + 1;
+    setActiveStep(newActiveStep);
   };
 
   const handleBack = () => {
-    setActiveStep(prevActiveStep => prevActiveStep - 1);
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleStep = (step) => () => {
+    setActiveStep(step);
+  };
+
+  const handleComplete = () => {
+    const newCompleted = completed;
+    newCompleted[activeStep] = true;
+    setCompleted(newCompleted);
+    handleNext();
   };
 
   const handleReset = () => {
     setActiveStep(0);
+    setCompleted({});
   };
+
+  // const handleBack = () => {
+  //   setActiveStep(prevActiveStep => prevActiveStep - 1);
+  // };
+
+  // const handleReset = () => {
+  //   setActiveStep(0);
+  // };
 
   const [
     redirectToUserManagementPage,
@@ -126,11 +166,19 @@ function FeedbackForm({
       setShowToFeedBackPage(true);
     };
   };
+  const isLastStep = () => {
+    return activeStep === totalSteps() - 1;
+  };
+
+  const allStepsCompleted = () => {
+    return completedSteps() === totalSteps();
+  };
 
   function helpPageCall() {
     history.push({ pathname: '/help' });
     setNavBar(true);
   }
+  const [options, setOptions] = useState([])
 
   return (
     <div className="bg-white w-full min-h-screen font-sans">
@@ -167,191 +215,116 @@ function FeedbackForm({
             // marginLeft: '117px',
           }}
         />
-        <div className="w-3/4 mt-24 ml-6">
-          <label
-            style={{
-              width: '176px',
-              height: '40px',
-              left: '154px',
-              // fontFamily: 'Omnes',
-              fontWeight: '600',
-              fontSize: '32px',
-              lineHeight: '110%',
-              color: '#F46B6B',
-            }}
-            className="font-sans"
-          >
-            Question 1
-          </label>
-          <p
-            style={{
-              color: '#132B6B',
-              // fontFamily: 'Nunito',
-              fontWeight: '700',
-              fontSize: '20px',
-              lineHeight: '25px',
-              width: '808px',
-              height: '60px',
-              left: '154px',
-              // marginTop: '8px',
-            }}
-            className="mt-4 font-sans"
-          >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-          <div className=" mt-7 -ml-1">
-            <FormControl className="mb-3">
-              {/* <FormLabel id="demo-row-radio-buttons-group-label">Gender</FormLabel> */}
-              <RadioGroup
-                row
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                name="row-radio-buttons-group"
-                onClick={onClickRadioFeedback}
-              >
-                <FormControlLabel
+        {feedbackFormData.length > 0 ?
+          feedbackFormData.map((feed, i) =>
+          (
+            <>
+              <div className="w-3/4 mt-24 ml-6" key={i} activeStep={1}  >
+                <label
                   style={{
-                    color: '#132B6B',
+                    width: '176px',
+                    height: '40px',
+                    left: '154px',
                     // fontFamily: 'Omnes',
-                    fontWeight: '400',
-                    fontSize: '12px',
+                    fontWeight: '600',
+                    fontSize: '32px',
+                    lineHeight: '110%',
+                    color: '#F46B6B',
                   }}
-                  value="OptionOne"
-                  control={
-                    <Radio
-                      value="Enable"
-                      name="Disable"
-                      checked={feedbackRadioCheck === 'Enable'}
-                    />
-                  }
-                  label="Lorem ipsum dolor sit amet, consectetur"
                   className="font-sans"
-                />
-                <FormControlLabel
-                  className=" mb-3 font-sans"
+                >
+                  Question {i + 1}
+                </label>
+                <p
                   style={{
                     color: '#132B6B',
-                    fontFamily: 'Omnes',
-                    fontWeight: '400',
-                    fontSize: '12px',
-                    marginLeft: '38px',
+                    // fontFamily: 'Nunito',
+                    fontWeight: '700',
+                    fontSize: '20px',
+                    lineHeight: '25px',
+                    width: '808px',
+                    height: '60px',
+                    left: '154px',
+                    // marginTop: '8px',
                   }}
-                  value="OptionTwo"
-                  control={
-                    <Radio
-                      value="Disable"
-                      name="Disable"
-                      checked={feedbackRadioCheck === 'Disable'}
-                    />
-                  }
-                  label="Lorem ipsum dolor sit amet, consectetur"
-                />
-                <br />
-                <br />
-                <FormControlLabel
-                  className="font-sans"
-                  style={{
-                    color: '#132B6B',
-                    fontFamily: 'Omnes',
-                    fontWeight: '400',
-                    fontSize: '12px',
-                  }}
-                  value="OptionThree"
-                  control={
-                    <Radio
-                      value="ThirdOption"
-                      name="Disable"
-                      checked={feedbackRadioCheck === 'ThirdOption'}
-                    />
-                  }
-                  label="Lorem ipsum dolor sit amet, consectetur"
-                />
-                <FormControlLabel
-                  className="font-sans"
-                  style={{
-                    color: '#132B6B',
-                    fontFamily: 'Omnes',
-                    fontWeight: '400',
-                    fontSize: '12px',
-                    marginLeft: '38px',
-                  }}
-                  value="optionFour"
-                  control={
-                    <Radio
-                      value="OptionFour"
-                      name="Disable"
-                      checked={feedbackRadioCheck === 'OptionFour'}
-                    />
-                  }
-                  label="Lorem ipsum dolor sit amet, consectetur"
-                />
-              </RadioGroup>
-            </FormControl>
-          </div>
-        </div>
-        <div className=" ml-36 step_list -mt-12">
-          <Box sx={{ maxWidth: 400 }}>
-            <Stepper
-              activeStep={1}
-              orientation="vertical"
-              style={{ marginLeft: '0px', width: '20.77px' }}
-            >
-              {steps.map(label => (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
-                </Step>
-              ))}
-            </Stepper>
-          </Box>
-          {/* <Box sx={{ maxWidth: 400 }}>
-            <Stepper activeStep={activeStep} orientation="vertical">
-              {steps.map((step, index) => (
-                <Step key={step.label}>
-                  <StepLabel
-                    optional={
-                      index === 2 ? <Typography variant="caption" /> : null
-                    }
-                  >
-                    {step.label}
-                  </StepLabel>
-                  <StepContent>
-                    <Typography>{step.description}</Typography>
-                    <Box sx={{ mb: 2 }}>
-                      <div>
-                  <Button
-                    variant="contained"
-                    onClick={handleNext}
-                    sx={{ mt: 1, mr: 1 }}
-                  >
-                    {index === steps.length - 1 ? 'Finish' : 'Continue'}
-                  </Button>
-                  <Button
-                    disabled={index === 0}
-                    onClick={handleBack}
-                    sx={{ mt: 1, mr: 1 }}
-                  >
-                    Back
-                  </Button>
+                  className="mt-4 font-sans"
+                >
+                  {feed.question}
+                </p>
+                <div className=" mt-7 -ml-1">
+
+                  <FormControl className="mb-3"  >
+                    {feed.options.map((option, index) => {
+                      return (
+
+                        <RadioGroup
+                          key={index}
+                          row
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                          onClick={onClickRadioFeedback}
+                        >
+                          <FormControlLabel
+                            style={{
+                              color: '#132B6B',
+                              // fontFamily: 'Omnes',
+                              fontWeight: '400',
+                              fontSize: '12px',
+                            }}
+                            value={option.description}
+                            control={
+                              <Radio
+                                value="Enable"
+                                name="Disable"
+                                checked={feedbackRadioCheck === 'Enable'}
+                              />
+                            }
+                            label={option.description}
+                            className="font-sans"
+                          />
+                        </RadioGroup>
+
+                      )
+                    })}
+                  </FormControl>
+
+
                 </div>
-                    </Box>
-                  </StepContent>
-                </Step>
-              ))}
-            </Stepper>
-            {activeStep === steps.length && (
-              <Paper square elevation={0} sx={{ p: 3 }}>
-                <Typography>
-                  All steps completed - you&apos;re finished
-                </Typography>
-                <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-                  Reset
-                </Button>
-              </Paper>
-            )}
-          </Box> */}
+              </div>
+
+            </>
+          )
+          )
+          : <p>No Questions!</p>}
+        <div className=" ml-36 step_list -mt-12">
+          {allStepsCompleted() ? (
+            <>
+              <Typography sx={{ mt: 2, mb: 1 }}>
+                All steps completed - you&apos;re finished
+              </Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                <Box sx={{ flex: '1 1 auto' }} />
+                <Button onClick={handleReset}>Reset</Button>
+              </Box>
+            </>) :
+
+            <Box sx={{ maxWidth: 400 }}>
+              <Stepper
+                activeStep={1}
+                orientation="vertical"
+                style={{ marginLeft: '0px', width: '20.77px' }}
+              >
+                {steps.map(label => (
+                  <Step key={label}>
+                    <StepLabel>{label}</StepLabel>
+                  </Step>
+                ))}
+              </Stepper>
+            </Box>
+          }
         </div>
       </div>
-      <div className="flex flex justify-between  ">
+      <div className="flex justify-between  ">
         <div
           className="flex w-full ml-32 "
           onClick={() => {
@@ -400,26 +373,27 @@ function FeedbackForm({
               color: 'white',
               width: '115px',
               height: '40px',
+              marginTop: '42px',
             }}
             className="font-sans absolute"
-            onClick={handleNext}
+            onClick={handleSkip}
           >
-            NEXT
+            SKIP
           </button>
-          {/* <button
+          <button
             style={{
               background: '#132B6B',
               borderRadius: '60px',
               color: 'white',
               width: '115px',
               height: '40px',
-              marginTop: '42px',
             }}
             className="font-sans absolute"
-            onClick={handleSave}
+            onClick={handleNext}
           >
-            SAVE
-          </button> */}
+            NEXT
+          </button>
+
         </div>
       </div>
     </div>
@@ -436,11 +410,11 @@ const mapStateToProps = state => {
     state.loginReducer.feedbackFormData,
   );
   return {
-    // feedbackFormData: state.loginReducer.feedbackFormData
-    //   ? state.loginReducer.feedbackFormData
-    //   : [],
+    feedbackFormData: state.loginReducer.feedbackFormData
+      ? state.loginReducer.feedbackFormData
+      : [],
 
-    feedbackFormData: state.loginReducer.feedbackFormData,
+    // feedbackFormData: state.loginReducer.feedbackFormData > 0 ? state.loginReducer.feedbackFormData : [],
   };
 };
 

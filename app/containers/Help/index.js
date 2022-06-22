@@ -47,8 +47,11 @@ function Help(props) {
   useEffect(() => {
     props.getQ_A()
     console.log("Help Questions and Answers ", props.help_Q_A)
-  }, [props.help_Q_A]);
+  }, []);
 
+  useEffect(()=>{
+
+  },[props.help_Q_A])
   return (
     <div className="maindash">
       <div className="mx-20 mt-6  w-[95%] h-full">

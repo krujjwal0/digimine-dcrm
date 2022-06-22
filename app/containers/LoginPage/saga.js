@@ -168,7 +168,7 @@ function* getFeedbackFormSaga(action) {
     });
     console.log('sucess in feedbackform saga', result);
 
-    yield put(setFeedbackFormData(result.data));
+    yield put(setFeedbackFormData(result.data.qNo));
   } catch (err) {
     console.log('this is error=', err);
   }

@@ -33,7 +33,7 @@ export const initialState = {
   showSuccessPage: false,
   showFeedback: false,
   adminLocations: [],
-  feedbackFormData: ['check question'],
+  feedbackFormData: [{question:'checking'}],
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -94,7 +94,7 @@ const loginReducer = (state = initialState, action) =>
         console.log('inside reducer of feedback form data ===', action.payload);
         return {
           ...state,
-          feedbackFormData: action.payload.qNo
+          feedbackFormData: action.payload
         };
 
       case SET_SHOW_FEEDBACK_FORM_DATA:
