@@ -169,7 +169,7 @@ export function Employee({
                               </p>
                               <div className="flex justify-center w-20 bg-[#F66B6B] ml-1 mt-[6px] rounded-md h-4">
                                 <p className="text-center text-[11px] mt-[2px] text-white font-sans">
-                                  {list.id}
+                                  {list.employeeId}
                                 </p>
                               </div>
                             </div>
