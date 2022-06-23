@@ -73,10 +73,21 @@ function FeedbackForm({
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [feedbackRadioCheck, setFeedbackRadioCheck] = useState();
+  const [completed, setCompleted] = useState({});
+
+  const totalSteps = steps.length;
+  const completedSteps = Object.keys(completed).length;
+  const allStepCompleted = completedSteps === totalSteps;
 
   const handleNext = () => {
-    history.push('/dashboard');
-    setNavBar(true);
+    const newCompleted = completed;
+    newCompleted[activeStep] = true;
+    setCompleted(newCompleted);
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    // history.push('/dashboard');
+    // setNavBar(true);
+
+
     // setRedirectToUserManagementPage(true);
 
     // active when we have feedback form API
@@ -87,9 +98,9 @@ function FeedbackForm({
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
+  // const handleReset = () => {
+  //   setActiveStep(0);
+  // };
 
   const [
     redirectToUserManagementPage,
@@ -109,7 +120,7 @@ function FeedbackForm({
   }
 
   const onClickRadioFeedback = event => {
-    setFeedbackRadioCheck(event.target.value);
+    setFeedbackRadioCheck({...feedbackRadioCheck, [event.target.name]: event.target.value });
     console.log(event.target.value);
   };
 
@@ -137,6 +148,8 @@ function FeedbackForm({
     setNavBar(true);
   }
 
+
+
   return (
     <div className="bg-white w-full min-h-screen font-sans">
       <div className="font-sans ml-28 flex flex justify-between">
@@ -162,6 +175,7 @@ function FeedbackForm({
           </label>
         </div>
       </div>
+     
       <div className="flex ml-32">
         <div
           className="mt-24"
@@ -172,6 +186,7 @@ function FeedbackForm({
             // marginLeft: '117px',
           }}
         />
+         {feedbackFormData.map((feed, index) => (
         <div className="w-3/4 mt-24 ml-6">
           <label
             style={{
@@ -184,11 +199,10 @@ function FeedbackForm({
               lineHeight: '110%',
               color: '#F46B6B',
             }}
-            className="font-sans"
+            className="font-sans flex"
           >
-            Question 1
-          </label>
-          <p
+               {index + 1}
+               <p
             style={{
               color: '#132B6B',
               // fontFamily: 'Nunito',
@@ -200,11 +214,12 @@ function FeedbackForm({
               left: '154px',
               // marginTop: '8px',
             }}
-            className="mt-4 font-sans"
+            className=" font-sans"
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            {feed.question}
           </p>
+          </label>
+          
           <div className=" mt-7 -ml-1">
             <FormControl className="mb-3">
               {/* <FormLabel id="demo-row-radio-buttons-group-label">Gender</FormLabel> */}
@@ -224,14 +239,21 @@ function FeedbackForm({
                   value="OptionOne"
                   control={
                     <Radio
-                      value="Enable"
-                      name="Disable"
+                      // value={feedbackRadioCheck.feed.description}
+                      // name="feed.description"
+                      value="enable"
+                      name="enable"
                       checked={feedbackRadioCheck === 'Enable'}
+                     
                     />
+                    
                   }
-                  label="Lorem ipsum dolor sit amet, consectetur"
+                  label="hey"
                   className="font-sans"
+                 
                 />
+                
+                
                 <FormControlLabel
                   className=" mb-3 font-sans"
                   style={{
@@ -294,19 +316,23 @@ function FeedbackForm({
             </FormControl>
           </div>
         </div>
+                ))}
         <div className=" ml-36 step_list -mt-12">
           <Box sx={{ maxWidth: 400 }}>
             <Stepper
-              activeStep={1}
+              activeStep={activeStep}
               orientation="vertical"
               style={{ marginLeft: '0px', width: '20.77px' }}
             >
-              {steps.map(label => (
+              {steps.map((label) => (
                 <Step key={label}>
                   <StepLabel>{label}</StepLabel>
                 </Step>
               ))}
             </Stepper>
+            <Typography>
+                  All steps completed 
+                </Typography>
           </Box>
           {/* <Box sx={{ maxWidth: 400 }}>
             <Stepper activeStep={activeStep} orientation="vertical">
@@ -413,6 +439,12 @@ function FeedbackForm({
           >
             Skip
           </button>
+          <div>
+            {allStepCompleted ? 
+            (
+<Typography>All Steps are Completed</Typography>
+            ): (
+            
           <button
             style={{
               background: '#132B6B',
@@ -422,10 +454,12 @@ function FeedbackForm({
               height: '40px',
             }}
             className="font-sans absolute"
-            onClick={handleNext}
+            onClick= {handleNext}
           >
             NEXT
           </button>
+            )}
+          </div>
           {/* <button
             style={{
               background: '#132B6B',
@@ -460,7 +494,7 @@ const mapStateToProps = state => {
     //   ? state.loginReducer.feedbackFormData
     //   : [],
 
-    feedbackFormData: state.loginReducer.feedbackFormData,
+     feedbackFormData: state.loginReducer.feedbackFormData,
   };
 };
 
