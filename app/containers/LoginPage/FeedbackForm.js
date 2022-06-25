@@ -84,8 +84,9 @@ function FeedbackForm({
   // const [feedbackRadioCheck, setFeedbackRadioCheck] = useState([]);
   // let feedbackRadioCheck=[];
   const [completed, setCompleted] = useState({});
+  const[selectedOption, setSelectedOption ] = useState(0);
 
-  const [totalSteps, setTotalSteps] = useState(steps.length);
+  const [totalSteps, setTotalSteps] = useState(0);
   const completedSteps = Object.keys(completed).length;
   let allStepCompleted = completedSteps === totalSteps;
 
@@ -133,8 +134,8 @@ function FeedbackForm({
     // setFeedbackRadioCheck({ ...feedbackRadioCheck, questionId:feedbackFormData[activeStep].id,selectedOptionId: event.target.value });
 
     setFeedbackRadioCheck(feedbackFormData[activeStep].id, event.target.value)
-
-    console.log(event.target.value);
+    setSelectedOption(event.target.value);
+    console.log("checking radio button",event.target.value);
   };
 
   const handleSave = e => {
@@ -240,6 +241,7 @@ function FeedbackForm({
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
                 onClick={onClickRadioFeedback}
+                value={selectedOption}
               >
                 {feedbackFormData[activeStep].options.map((opt, i) =>
                   <FormControlLabel
@@ -253,8 +255,11 @@ function FeedbackForm({
                     value={opt.id}
                     control={
                       <Radio
-                        value={opt.id}
-                        // checked={feedbackRadioCheck === opt.id}
+                         
+                         checked={selectedOption == opt.id }
+                         //value= 'enable'
+                        //name="enable"
+                        // checked={feedbackRadioCheck === 'Enable'}
                       />
                     }
                     label={opt.description}
@@ -388,9 +393,9 @@ function FeedbackForm({
               orientation="vertical"
               style={{ marginLeft: '0px', width: '20.77px' }}
             >
-              {steps.map((label) => (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
+              {feedbackFormData.map((label, i) => (
+                <Step key={i}>
+                  <StepLabel></StepLabel>
                 </Step>
               ))}
             </Stepper>
