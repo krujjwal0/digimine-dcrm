@@ -56,7 +56,7 @@ const StyledMenu = styled(props => (
   },
 }));
 
-export function UsersUtility({ rolesList, departmentList, getAllDepartment, getAllRoles, usersList, EmployeeCardListreplica }) {
+export function UsersUtility({ rolesList, departmentList, getAllDepartment, getAllRoles }) {
 
   const [showExport, setShowExport] = useState(false);
   const openExport = () => {
@@ -216,14 +216,14 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => {
-  console.log('index of EmployeeList', state.users.EmployeeCardList);
+  console.log('index of EmployeeList', state.emp.EmployeeCardList);
   return {
-    usersList: state.users.EmployeeCardList.length > 0 ? state.users.EmployeeCardList : [],
+    EmployeeCardList: state.emp.EmployeeCardList,
     rolesList:
       state.users.rolesList.length > 0 ? state.users.rolesList : [],
     departmentList:
       state.users.departmentList.length > 0 ? state.users.departmentList : [],
-    EmployeeCardListreplica: state.users.EmployeeCardListreplica.length > 0 ? state.users.EmployeeCardListreplica : [] ,
+    EmployeeCardListreplica: state.emp.EmployeeCardListreplica,
   };
 };
 const withConnect = connect(

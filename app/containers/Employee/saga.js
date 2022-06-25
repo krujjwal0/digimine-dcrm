@@ -37,7 +37,6 @@ function* getUsersList() {
       },
     });
     console.log('success in getUsersList saga', result);
- 
     yield put(setEmployee(result.data.users));
   } catch (err) {
     console.log('Error in getUsersList saga', result, err);

@@ -3,7 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { SET_ALL_DEPARTMENTS, SET_ALL_ROLES, SET_EMPLOYEE } from './constants';
 
 export const initialState = {
-  EmployeeCardList: [], 
+  EmployeeCardList: [],
+  EmployeeCardListreplica: [],
   departmentList: [],
   rolesList: [],
 };
@@ -25,12 +26,20 @@ const empReducer = (state = initialState, action) =>
           rolesList: action.payload,
         };
       case SET_EMPLOYEE:
-       
-        console.log('in side else ==',action.payload)
+        // if(action.payload.fromSaga === true){
+        //   console.log('in side if ==',action.payload.fromSaga)
+        //   return {
+        //     ...state,
+        //     EmployeeCardList: action.payload.users,
+        //     EmployeeCardListreplica: action.payload.users
+        //   };
+        // } else{
+        // console.log('in side else ==',action.payload.fromSaga)
         return {
           ...state,
           EmployeeCardList: action.payload,
         };
+      // }
 
       default:
         return state;
