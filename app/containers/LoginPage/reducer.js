@@ -38,7 +38,9 @@ export const initialState = {
   showFeedback: false,
   adminLocations: [],
   feedbackFormData: [{ question: "", options: [{ description: '' }] }],
-  feedbackRadioCheck: []
+  feedbackRadioCheck: [],
+  // feedbackFormData: ['check question'],
+  emailError: '',
 };
 
 /* eslint-disable default-case, no-param-reassign */

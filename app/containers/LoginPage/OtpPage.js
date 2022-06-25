@@ -150,6 +150,10 @@ export function OtpPage(props) {
     setCode(code);
     props.onSetOtpAction(code)
   }
+  const [timer,setTimer]=useState('30s');
+  // useEffect(()=>{
+  //   // setTimer(timer from backend)
+  // }[timer from backend])
 
   return (
     <div className="font-sans login_page  py-">
@@ -190,10 +194,16 @@ export function OtpPage(props) {
                     marginBottom: '20px',
                   }}
                 />
+                
               </div>
-
+              {/* <p className="text-right mt-20 font-sans text-green-500">
+                {timer}
+              </p> */}
               {/* <div className="flex mt-20 justify-between">
-                <TextField
+            <div className="form_box otp_form w-full">
+              <div className="flex mt-20 justify-between">
+              {/* <input class="m-2 border h-10 w-10 text-center form-control " type="text" id="first" maxlength="1" />  */}
+               {/* <TextField
                   variant="standard"
                   name="otpIndex0"
                   value={otpIndex0}
