@@ -20,14 +20,14 @@ import {
   makeSelectError,
 } from 'containers/App/selectors';
 
-import { generateOtpByEmailIdAction, setEmailId } from './actions';
+import { checkEmailError, generateOtpByEmailIdAction, setEmailId } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
 const key = 'loginReducer';
 
-export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmailId, showOtpPage }) {
+export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmailId, showOtpPage, emailError, checkEmailError}) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
   const history = useHistory();
@@ -38,12 +38,13 @@ export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmail
   const login = () => {
     showOtpPage = true;
     console.log("login for otp");
-    if (emailId == '') {
-      alert('Email required..')
-    } else {
+    // if (emailId == '') {
+    //   // alert('Email required..')
+    //   checkEmailError('Email Error..')
+    // } else {
       onSetEmailId(emailId);
       onGenerateOtpByEmailIdAction(emailId);
-    }
+    // }
   };
 
   useEffect(() => {
@@ -83,7 +84,7 @@ export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmail
                 style={{ width: '100%', color: '#6E7B8B', fontSize: '16px' }}
               />
               <p className="text-right mb-32 mt-2 font-sans text-red-500">
-                {/* Error Message */}
+                {emailError}
               </p>
               {/* <TextField
                 name="password"
@@ -129,14 +130,16 @@ Login.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    showOtpPage: state.loginReducer.showOtpPage
+    showOtpPage: state.loginReducer.showOtpPage,
+    emailError: state.loginReducer.emailError,
   }
 }
 
 export function mapDispatchToProps(dispatch) {
   return {
     onGenerateOtpByEmailIdAction: data => dispatch(generateOtpByEmailIdAction(data)),
-    onSetEmailId: data => dispatch(setEmailId(data))
+    onSetEmailId: data => dispatch(setEmailId(data)),
+    checkEmailError: data => dispatch(checkEmailError(data))
     // onSubmitForm: evt => {
     //   if (evt !== undefined && evt.preventDefault) evt.preventDefault();
     //   dispatch(loadRepos());

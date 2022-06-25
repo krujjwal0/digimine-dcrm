@@ -32,7 +32,8 @@ import {
   SAVE_FEEDBACK_FORM_DATA,
   SET_SHOW_FEEDBACK_FORM_DATA,
   SET_INITIAL_STATE,
-  SET_SHOW_FEEDBACK_FORM_RADIO_DATA
+  SET_SHOW_FEEDBACK_FORM_RADIO_DATA,
+  EMAIL_ERROR
 } from './constants';
 import {
   USER_LOGOUT,
@@ -157,4 +158,11 @@ export function setShowToFeedBackPage(data) {
     type: SET_SHOW_FEEDBACK_FORM_DATA,
     payload: data,
   };
+}
+export function checkEmailError(data) {
+  console.log('Email validating', data);
+  return {
+    type: EMAIL_ERROR,
+    payload: data
+  }
 }

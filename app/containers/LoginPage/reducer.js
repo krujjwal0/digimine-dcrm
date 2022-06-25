@@ -19,7 +19,8 @@ import {
   SET_FEEDBACK_FORM,
   SET_SHOW_FEEDBACK_FORM_DATA,
   SET_INITIAL_STATE,
-  SET_SHOW_FEEDBACK_FORM_RADIO_DATA
+  SET_SHOW_FEEDBACK_FORM_RADIO_DATA,
+  EMAIL_ERROR
 } from './constants';
 
 // The initial state of the App
@@ -35,7 +36,9 @@ export const initialState = {
   showFeedback: false,
   adminLocations: [],
   feedbackFormData: [{ question: "", options: [{ description: '' }] }],
-  feedbackRadioCheck: []
+  feedbackRadioCheck: [],
+  feedbackFormData: ['check question'],
+  emailError: '',
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -53,7 +56,12 @@ const loginReducer = (state = initialState, action) =>
           // feedbackRadioCheck: {
           //   questionId: action.questionId,
           //   selectedOptionId: action.selectedOptionId
-          // }
+           };
+      case EMAIL_ERROR:
+        console.log('email Error', action.payload)
+        return{
+          ...state,
+          emailError: action.payload
         }
       case SET_INITIAL_STATE:
         return {
@@ -109,7 +117,7 @@ const loginReducer = (state = initialState, action) =>
         console.log('inside reducer of feedback form data ===', action.payload);
         return {
           ...state,
-          feedbackFormData: action.payload
+          feedbackFormData: action.payload.qNo
         };
 
       case SET_SHOW_FEEDBACK_FORM_DATA:

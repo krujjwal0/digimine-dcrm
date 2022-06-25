@@ -3,7 +3,7 @@ import './style.css';
 import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
+import OtpInput from 'react-otp-input';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -113,14 +113,14 @@ export function OtpPage(props) {
   };
 
   const validateOtp = () => {
-    console.log('VAlidating Otp');
+    console.log('VAlidating Otp', code, props.otp);
     if (props.otp == '') {
       alert('Otp required..');
     } else {
       const data = {
         emailId: props.emailId,
-        otp: props.otp,
-        password: props.otp,
+        otp: code,
+        password: code,
         deviceType: '',
         deviceToken: '',
       };
@@ -143,6 +143,13 @@ export function OtpPage(props) {
       alert('EmailID required..');
     } else props.onGenerateOtpByEmailIdAction(props.emailId);
   };
+
+  const [code, setCode] = useState('');
+
+  const handleChange = code => {
+    setCode(code);
+    props.onSetOtpAction(code)
+  }
 
   return (
     <div className="font-sans login_page  py-">
@@ -168,7 +175,24 @@ export function OtpPage(props) {
               <b className="font-sans text-sky-700">{props.emailId}</b>
             </p>{' '}
             <div className="form_box w-full">
-              <div className="flex mt-20 justify-between">
+              <div className="flex mt-20 justify-center">
+                <OtpInput
+                  value={code}
+                  onChange={handleChange}
+                  numInputs={6}
+                  separator={<span style={{ width: '2px' }} />}
+                  isInputNum={true}
+                  inputStyle={{
+                    width: '45px',
+                    height: '54px',
+                    fontSize: '18px',
+                    borderBottom: '1px solid #EAEAEA',
+                    marginBottom: '20px',
+                  }}
+                />
+              </div>
+
+              {/* <div className="flex mt-20 justify-between">
                 <TextField
                   variant="standard"
                   name="otpIndex0"
@@ -264,7 +288,7 @@ export function OtpPage(props) {
                     marginBottom: '20px',
                   }}
                 />
-              </div>
+              </div> */}
 
               <p
                 className="text-gray-400 text-center flex mb-10 justify-center my-4 font-sans"
