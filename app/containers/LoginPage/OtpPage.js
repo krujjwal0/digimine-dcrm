@@ -306,6 +306,9 @@ export function OtpPage(props) {
                   }}
                 />
               </div> */}
+              <p className="text-right mr-6 font-sans text-red-500">
+                Wrong OTP
+              </p>
 
               <p
                 className="text-gray-400 text-center flex mb-10 justify-center my-4 font-sans"
