@@ -150,6 +150,10 @@ export function OtpPage(props) {
     setCode(code);
     props.onSetOtpAction(code)
   }
+  const [timer,setTimer]=useState('30s');
+  // useEffect(()=>{
+  //   // setTimer(timer from backend)
+  // }[timer from backend])
 
   return (
     <div className="font-sans login_page  py-">
@@ -190,8 +194,11 @@ export function OtpPage(props) {
                     marginBottom: '20px',
                   }}
                 />
+                
               </div>
-
+              {/* <p className="text-right mt-20 font-sans text-green-500">
+                {timer}
+              </p> */}
               {/* <div className="flex mt-20 justify-between">
                 <TextField
                   variant="standard"

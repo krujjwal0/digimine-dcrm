@@ -50,22 +50,28 @@ function* generateOtpByEmailIdSaga(action) {
         'Content-Type': 'application/json',
       },
     });
+    
     console.log('success in saga', result);
 
     yield put(setOtpAction(result.data.otp));
     if (result.data) {
       yield put(setShowOtpPage(true));
     }
+
   } catch (err) {
-    console.log('Error in saga', result.status=='404', result, err);
+    console.log('Error in saga', err.response.status, err.response, result, err,err.response.status == 400);
     // if (result) {
     //   alert(result.status.message);
     //   checkEmailError(result.status.message);
     // } else 
-    if(result.status=='404'){
-
-    // alert(err);
-    checkEmailError(result.message)
+    if (err.response.status == 400) {
+      // alert(err);
+     yield put(checkEmailError('Missing Email Id parameter.'));
+    }else if(err.response.status==404){
+      yield put(checkEmailError('User is not present/active'));
+    }
+    else{
+      yield put(checkEmailError(err));
     }
   }
 }
@@ -199,7 +205,7 @@ function* getUserLogout() {
     console.log('success in saga', result);
     yield put(setInitialState());
     localStorage.setItem('awtToken', '');
-    window. location. reload(false);
+    window.location.reload(false);
   } catch (err) {
     console.log('Error in Logging out saga', result, err);
     if (result) {
