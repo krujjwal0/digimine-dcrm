@@ -33,7 +33,7 @@ import LoginFirstImage from './images/image1.png';
 
 const key = 'loginReducer';
 
-export function OtpPage(props) {
+export function OtpPage(props, {otpError}) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
@@ -148,12 +148,21 @@ export function OtpPage(props) {
 
   const handleChange = code => {
     setCode(code);
-    props.onSetOtpAction(code)
-  }
-  const [timer,setTimer]=useState('30s');
+    props.onSetOtpAction(code);
+  };
+  const [timer, setTimer] = useState('30s');
   // useEffect(()=>{
   //   // setTimer(timer from backend)
   // }[timer from backend])
+  const [errorInOTP, setError] = useState(otpError);
+  useEffect(() => {
+    setError('');
+  }, []);
+
+  useEffect(()=>{
+    console.log("err.response.status == 400 useEffect  ", otpError, errorInOTP)
+    setError(otpError)
+  },[otpError])
 
   return (
     <div className="font-sans login_page  py-">
@@ -194,7 +203,6 @@ export function OtpPage(props) {
                     marginBottom: '20px',
                   }}
                 />
-                
               </div>
               {/* <p className="text-right mt-20 font-sans text-green-500">
                 {timer}
@@ -203,7 +211,7 @@ export function OtpPage(props) {
             <div className="form_box otp_form w-full">
               <div className="flex mt-20 justify-between">
               {/* <input class="m-2 border h-10 w-10 text-center form-control " type="text" id="first" maxlength="1" />  */}
-               {/* <TextField
+              {/* <TextField
                   variant="standard"
                   name="otpIndex0"
                   value={otpIndex0}
