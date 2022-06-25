@@ -97,7 +97,7 @@ export function NavBar({ setNavBar, getUserLogout, setOtpAction, signOut }) {
                 height: '180px',
                 width: '210px',
                 // right: '13px',
-                backgroundColor: '#EDEDF3',
+                
                 bottom: '0',
                 left: '0',
               }}

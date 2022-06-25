@@ -105,7 +105,7 @@ export function UsersUtility({ rolesList, departmentList, getAllDepartment, getA
     setName(keyword);
   };
   return (
-    <div className="flex font-sans ml-6 ">
+    <div className="flex font-sans">
       <select
         className="border-2 border-gray-200 bg-white h-9 px-3 pr-2 ml-6 rounded-full text-sm focus:outline-none"
         style={{ width: '10%' }}

@@ -20,7 +20,13 @@ import {
   makeSelectLoading,
   makeSelectError,
 } from 'containers/App/selectors';
-import { Card, CardContent, Divider, FormGroup, Typography } from '@material-ui/core';
+import {
+  Card,
+  CardContent,
+  Divider,
+  FormGroup,
+  Typography,
+} from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { loadRepos } from '../App/actions';
@@ -148,12 +154,14 @@ function Dashboard({
           style={{ color: '#F66B6B', fontSize: '11px' }}
           className=" font-sans ml-16"
         >
-          Dashboard | <span className=" font-sans" style={{ color: '#151F63' }}>Dashboard </span>
+          Dashboard |{' '}
+          <span className=" font-sans" style={{ color: '#151F63' }}>
+            Dashboard{' '}
+          </span>
         </p>
-<div className='mt-4 w-full'>
-<Divider  />
-</div>
-       
+        <div className="mt-4 w-full">
+          <Divider />
+        </div>
 
         {/* <div className="-mt-4 flex justify-end">
           <div>

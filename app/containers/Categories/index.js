@@ -70,7 +70,7 @@ export function Categories({
 
   return (
 
-    <div className='maindash1'>
+ 
        <div className="myprofile">
       <div className="w-full">
         <div className="ml-8 ">
@@ -200,7 +200,7 @@ export function Categories({
           </div>
         </div>
       </div>
-    </div>
+   
         {/* <div className='w-1/2'> Ruchi</div> */}
       {/* <div className='w-1/5 h-screen bg-gray-500'>
         <SideNavigation />

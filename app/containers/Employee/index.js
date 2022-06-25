@@ -8,7 +8,7 @@ import React, { useEffect, useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { Card, CardContent } from '@material-ui/core';
+import { Card, CardContent, Typography, Divider } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import CardActions from '@material-ui/core/CardActions';
 import Popover from '@material-ui/core/Popover';
@@ -26,7 +26,14 @@ import {
   makeSelectError,
 } from 'containers/App/selectors';
 import { EditUser } from './EditUser';
-import { deleteUser, editUser, showEmployee, changeUsername, getAllDepartment, getAllRoles } from './actions';
+import {
+  deleteUser,
+  editUser,
+  showEmployee,
+  changeUsername,
+  getAllDepartment,
+  getAllRoles,
+} from './actions';
 import { loadRepos } from '../App/actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
@@ -34,6 +41,8 @@ import saga from './saga';
 import Users from './Users';
 import UsersUtility from './UsersUtility';
 import emp_image from '../../images/emp_image.png';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import ClearAllIcon from '@material-ui/icons/ClearAll';
 
 const key = 'users';
 
@@ -64,7 +73,7 @@ export function Employee({
   rolesList,
   departmentList,
   getAllDepartment,
-  getAllRoles
+  getAllRoles,
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -108,10 +117,10 @@ export function Employee({
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
-  const [editUserData,setEditUserData]=useState({});
+  const [editUserData, setEditUserData] = useState({});
   const [showEdit, setShowEdit] = useState(false);
-  const openEdit = (data) => {
-    setEditUserData(data)
+  const openEdit = data => {
+    setEditUserData(data);
     setShowEdit(true);
   };
   const handleExit = () => {
@@ -130,8 +139,42 @@ export function Employee({
 
   return (
     <div className="myprofile">
-      <div className="mt-10 ml-6 w-full font-sans">
+      <div className="mt-4 mx-9 w-full font-sans">
+      <Breadcrumbs
+          aria-label="breadcrumb"
+          className="font-sans font-bold text-xl"
+          style={{ marginLeft: '0px', fontWeight: '800', fontSize: '30px' }}
+        >
+          <Typography
+            sx={{ display: 'flex', alignItems: 'center' }}
+            color="text.primary"
+            className="font-sans font-bold text-xl"
+            style={{
+              marginLeft: '30px',
+              fontWeight: '500',
+              fontSize: '25px',
+              color: '#132B6B',
+            }}
+          >
+            <ClearAllIcon sx={{ mr: 0.8 }} fontSize="inherit" />
+            List
+          </Typography>
+        </Breadcrumbs>
+        <p
+          style={{ color: '#F66B6B', fontSize: '11px' }}
+          className=" font-sans ml-14"
+        >
+          Dashboard |
+          <span className=" font-sans" style={{ color: '#151F63' }}>
+            List{' '}
+          </span>
+        </p>
+        <div className="mt-4 w-full">
+          <Divider />
+        </div>
+        <div className='mt-6 w-full'>
         <UsersUtility />
+        </div>
         <div className="">
           {/* {usersList && usersList.length > 0 && usersList.map((user, index) => { */}
           <div className=" w-full">
@@ -260,7 +303,14 @@ control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="check
                                 Height: '494px',
                               }}
                             >
-                              <EditUser list={editUserData} editUser={editUser} rolesList={rolesList} departmentList={departmentList} getAllDepartment={getAllDepartment} getAllRoles={getAllRoles} />
+                              <EditUser
+                                list={editUserData}
+                                editUser={editUser}
+                                rolesList={rolesList}
+                                departmentList={departmentList}
+                                getAllDepartment={getAllDepartment}
+                                getAllRoles={getAllRoles}
+                              />
                             </DialogContent>
                           </Dialog>
                         </div>
@@ -305,11 +355,9 @@ Employee.propTypes = {
 const mapStateToProps = state => ({
   usersList:
     state.users.EmployeeCardList.length > 0 ? state.users.EmployeeCardList : [],
-    rolesList:
-    state.users.rolesList.length > 0 ? state.users.rolesList : [],
-    departmentList:
+  rolesList: state.users.rolesList.length > 0 ? state.users.rolesList : [],
+  departmentList:
     state.users.departmentList.length > 0 ? state.users.departmentList : [],
-  
 });
 
 export function mapDispatchToProps(dispatch) {
@@ -318,8 +366,8 @@ export function mapDispatchToProps(dispatch) {
     editUser: data => dispatch(editUser(data)),
     deleteUser: data => dispatch(deleteUser(data)),
     onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),
-    getAllDepartment:()=>dispatch(getAllDepartment()),
-    getAllRoles:()=>dispatch(getAllRoles()),
+    getAllDepartment: () => dispatch(getAllDepartment()),
+    getAllRoles: () => dispatch(getAllRoles()),
     onSubmitForm: evt => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(loadRepos());
