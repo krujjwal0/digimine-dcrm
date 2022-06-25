@@ -33,7 +33,8 @@ import {
   SET_SHOW_FEEDBACK_FORM_DATA,
   SET_INITIAL_STATE,
   EMAIL_ERROR,
-  SET_SHOW_FEEDBACK_FORM_RADIO_DATA
+  SET_SHOW_FEEDBACK_FORM_RADIO_DATA,
+  OTP_ERROR
 } from './constants';
 import {
   USER_LOGOUT,
@@ -163,6 +164,14 @@ export function checkEmailError(data) {
   console.log('Email validating', data);
   return {
     type: EMAIL_ERROR,
+    payload: data
+  };
+}
+
+export function otpError(data) {
+  console.log('OTP Error', data);
+  return {
+    type: OTP_ERROR,
     payload: data
   }
 }

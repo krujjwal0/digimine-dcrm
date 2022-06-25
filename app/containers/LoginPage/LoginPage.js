@@ -38,13 +38,13 @@ export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmail
   const login = () => {
     showOtpPage = true;
     console.log("login for otp");
-    // if (emailId == '') {
-    //   // alert('Email required..')
-    //   checkEmailError('Email Error..')
-    // } else {
+    if (emailId == '') {
+      // alert('Email required..')
+      checkEmailError('Email Required..')
+    } else {
       onSetEmailId(emailId);
       onGenerateOtpByEmailIdAction(emailId);
-    // }
+    }
   };
 
   useEffect(() => {

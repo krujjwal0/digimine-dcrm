@@ -203,7 +203,7 @@ function FeedbackForm({
         <div className="w-3/4 mt-24 ml-6">
           <label
             style={{
-              width: '176px',
+             
               height: '40px',
               left: '154px',
               // fontFamily: 'Omnes',
@@ -214,7 +214,7 @@ function FeedbackForm({
             }}
             className="font-sans flex"
           >
-            1
+            
             <p
               style={{
                 color: '#132B6B',

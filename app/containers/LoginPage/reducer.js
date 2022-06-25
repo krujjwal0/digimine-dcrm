@@ -20,7 +20,8 @@ import {
   SET_SHOW_FEEDBACK_FORM_DATA,
   SET_INITIAL_STATE,
   EMAIL_ERROR,
-  SET_SHOW_FEEDBACK_FORM_RADIO_DATA
+  SET_SHOW_FEEDBACK_FORM_RADIO_DATA,
+  OTP_ERROR
 } from './constants';
 
 // The initial state of the App
@@ -29,6 +30,7 @@ export const initialState = {
   userIsAuthenticated: false,
   userData: {},
   otp: '',
+  otpError: '',
   emailId: '',
   userName: '',
   showOtpPage: false,
@@ -43,6 +45,12 @@ export const initialState = {
 const loginReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
+      case OTP_ERROR:
+        console.log('OTP Error', action.payload)
+        return{
+          ...state,
+          otpError: action.payload
+        }
       case EMAIL_ERROR:
         console.log('email Error', action.payload)
         return{
