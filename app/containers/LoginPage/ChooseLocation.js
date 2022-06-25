@@ -27,14 +27,14 @@ export function ChooseLocation(props) {
     props.adminLocations[0],
   );
   useEffect(() => {
-    console.log('admin Locations', props.adminLocations);
+    console.log('admin Locations', props.adminLocations, props.feedbackCompleted);
   }, [props.adminLocations, props.showFeedback]);
   const [redirectToFeedbackPage, setRedirectToFeedbackPage] = useState(
-    props.showFeedback,
+    props.feedbackCompleted
   );
 
   useEffect(() => {
-    console.log('callGetLocationAction Send data in Action');
+    console.log('callGetLocationAction Send data in Action', props.feedbackCompleted);
     // const data='';
     props.getAdminLocationsAction();
   }, []);
@@ -90,21 +90,21 @@ export function ChooseLocation(props) {
                 </div>
 
                 <div className="form_box w-full mt-40 ml-24  ">
-            <Button
-              className="bg_red  mx-auto   font-sans login_btn  w-60 h-14 rounded-4xl my-5"
-              style={{borderRadius: '30px'}}
-              onClick={() => setRedirectToFeedbackPage(true)}
-            >
-              <p className="font-sans " style={{ color: '#fff' }}>
-                Continue
-              </p>
-            </Button>
-          </div>
+                  <Button
+                    className="bg_red  mx-auto   font-sans login_btn  w-60 h-14 rounded-4xl my-5"
+                    style={{ borderRadius: '30px' }}
+                    onClick={() => setRedirectToFeedbackPage(true)}
+                  >
+                    <p className="font-sans " style={{ color: '#fff' }}>
+                      Continue
+                    </p>
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
 
-          
+
         </div>
 
         {/* <div className="msg_box  flex flex-wrap pt-5">
@@ -126,6 +126,7 @@ const mapStateToProps = state => ({
       ? state.loginReducer.adminLocations
       : [],
   showFeedback: state.loginReducer.showFeedback,
+  feedbackCompleted: state.loginReducer.userData.feedbackCompleted
 });
 
 export function mapDispatchToProps(dispatch) {

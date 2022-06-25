@@ -60,7 +60,8 @@ function FeedbackForm({
   setFeedbackFormData,
   setNavBar,
   setFeedbackRadioCheck,
-  feedbackRadioCheck
+  feedbackRadioCheck,
+  saveDataFeedbackForm
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -95,6 +96,16 @@ function FeedbackForm({
   const completedSteps = Object.keys(completed).length;
   let allStepCompleted = completedSteps === totalSteps;
 
+  useEffect(() => {
+
+  }, [completed]);
+
+  const onPostQ_A = () => {
+    saveDataFeedbackForm(feedbackRadioCheck);
+    history.push('/dashboard');
+    setNavBar(true);
+  }
+
   const handleNext = () => {
     console.log(" Length of feedback===", feedbackFormData.length, activeStep)
     setFeedbackRadioCheck(feedbackFormData[activeStep].id, selectedOption)
@@ -103,11 +114,10 @@ function FeedbackForm({
     setCompleted(newCompleted);
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
 
-    if ((feedbackFormData.length-1) == activeStep) {
+    if ((feedbackFormData.length - 1) == activeStep) {
       //Saga call Post
-      history.push('/dashboard');
-      setNavBar(true);
-    } 
+      onPostQ_A();
+    }
 
 
     // setRedirectToUserManagementPage(true);
@@ -154,7 +164,7 @@ function FeedbackForm({
     data = {
       feedbackRadioCheck,
     };
-    saveDataFeedbackForm(data);
+    // saveDataFeedbackForm(data);
     setRedirectToFeedbackPageTwo(true);
 
     const addFeedBackData = e => {
@@ -177,7 +187,7 @@ function FeedbackForm({
 
   return (
     <div className="bg-white w-full min-h-screen font-sans">
-      <div className="font-sans ml-28 flex flex justify-between">
+      <div className="font-sans ml-28 flex justify-between">
         <div className="mt-22">
           <img
             src={logo}
@@ -461,7 +471,7 @@ function FeedbackForm({
           </Box> */}
         </div>
       </div>
-      <div className="flex flex justify-between  ">
+      <div className=" flex justify-between  ">
         <div
           className="flex w-full ml-32 "
           onClick={() => {
@@ -574,7 +584,7 @@ const mapStateToProps = state => {
     //   : [],
 
     feedbackFormData: state.loginReducer.feedbackFormData.length > 0 ? state.loginReducer.feedbackFormData : [],
-    feedbackRadioCheck: state.loginReducer.feedbackRadioCheck > 0 ? state.loginReducer.feedbackRadioCheck : []
+    feedbackRadioCheck: state.loginReducer.feedbackRadioCheck.length > 0 ? state.loginReducer.feedbackRadioCheck : []
 
   };
 };
