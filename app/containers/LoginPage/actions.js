@@ -146,14 +146,14 @@ export function setFeedbackFormData(data) {
   };
 }
 export function saveDataFeedbackForm(data) {
-  console.log('Action save FeedbackForm Data', data);
+  console.log('saveDataFeedbackForm Data', data);
   return {
     type: SAVE_FEEDBACK_FORM_DATA,
     payload: data,
   };
 }
 export function setShowToFeedBackPage(data) {
-  console.log('Action save FeedbackForm Data', data);
+  console.log('setShowToFeedBackPage Data', data);
   return {
     type: SET_SHOW_FEEDBACK_FORM_DATA,
     payload: data,

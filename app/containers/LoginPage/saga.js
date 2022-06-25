@@ -214,6 +214,31 @@ function* getUserLogout() {
     } else alert(err);
   }
 }
+function* postFeedbackSaga(action) {
+
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/saveFeedback`;
+  console.log('data in saga postFeedbackSaga :', requestURL, action.payload);
+  const awtToken = localStorage.getItem('awtToken');
+  let result;
+  try {
+    console.log('generatorFunction postFeedbackSaga ');
+    result = yield call(request, requestURL, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${awtToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(action.payload),
+    });
+    console.log('postFeedbackSaga success in saga', result, result.data);
+  } catch (err) {
+    if (result) {
+      console.log("Error while saving feedbAck",result)
+      // alert(result.status.message);
+    } else console.log("Error while saving feedbAck",err)
+  }
+}
+
 /**
  * Root saga manages watcher lifecycle
  */
@@ -229,4 +254,5 @@ export default function* loginData() {
   yield takeLatest(SIGN_IN, postSignIn);
   yield takeLatest(GET_FEEDBACK_FORM, getFeedbackFormSaga);
   yield takeLatest(USER_LOGOUT, getUserLogout);
+  yield takeLatest(SAVE_FEEDBACK_FORM_DATA, postFeedbackSaga);
 }
