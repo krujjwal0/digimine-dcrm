@@ -49,9 +49,9 @@ function Help(props) {
     console.log("Help Questions and Answers ", props.help_Q_A)
   }, [props.help_Q_A]);
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log("Help UseEffect ", props.help_Q_A)
-  },[props.help_Q_A])
+  }, [props.help_Q_A])
   return (
     <div className="maindash">
       <div className="mx-20 mt-6  w-[95%] h-full">
@@ -199,13 +199,11 @@ Help.propTypes = {
 
 const mapStateToProps = state => ({
   help_Q_A: state.helpReducer.help.length > 0 ? state.helpReducer.help : []
-
 })
 
 export function mapDispatchToProps(dispatch) {
   return {
     getQ_A: () => dispatch(getQ_A()),
-
   };
 }
 
