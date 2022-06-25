@@ -59,7 +59,8 @@ function FeedbackForm({
   getFeedbackFormData,
   setFeedbackFormData,
   setNavBar,
-  setFeedbackRadioCheck
+  setFeedbackRadioCheck,
+  feedbackRadioCheck
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -67,12 +68,16 @@ function FeedbackForm({
   const history = useHistory();
 
   useEffect(() => {
-    console.log('inside useeffect', feedbackFormData);
+    console.log('inside useeffect', feedbackFormData, feedbackRadioCheck);
     getFeedbackFormData();
 
     // saveDataFeedbackForm();
     // setShowToFeedBackPage();
   }, []);
+  
+  useEffect(()=>{
+    console.log("feedbackRadioCheck===",feedbackRadioCheck)
+  },[feedbackRadioCheck])
 
   useEffect(() => {
 
@@ -254,7 +259,7 @@ function FeedbackForm({
                     control={
                       <Radio
                         value={opt.id}
-                        // checked={feedbackRadioCheck === opt.id}
+                      // checked={feedbackRadioCheck === opt.id}
                       />
                     }
                     label={opt.description}
@@ -559,6 +564,7 @@ const mapStateToProps = state => {
     //   : [],
 
     feedbackFormData: state.loginReducer.feedbackFormData.length > 0 ? state.loginReducer.feedbackFormData : [],
+    feedbackRadioCheck: state.loginReducer.feedbackRadioCheck > 0 ? state.loginReducer.feedbackRadioCheck : []
 
   };
 };
