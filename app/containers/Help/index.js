@@ -47,7 +47,7 @@ function Help(props) {
   useEffect(() => {
     props.getQ_A();
     console.log("Help Questions and Answers ", props.help_Q_A)
-  }, []);
+  }, [props.help_Q_A]);
 
   useEffect(() => {
     console.log("Help UseEffect ", props.help_Q_A)

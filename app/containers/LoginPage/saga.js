@@ -25,7 +25,8 @@ import {
   signIn,
   setUserData,
   setFeedbackFormData,
-  setInitialState
+  setInitialState,
+  checkEmailError
 } from './actions';
 import { makeSelectEmailId } from './selectors';
 
@@ -56,10 +57,16 @@ function* generateOtpByEmailIdSaga(action) {
       yield put(setShowOtpPage(true));
     }
   } catch (err) {
-    console.log('Error in saga', result, err);
-    if (result) {
-      alert(result.status.message);
-    } else alert(err);
+    console.log('Error in saga', result.status=='404', result, err);
+    // if (result) {
+    //   alert(result.status.message);
+    //   checkEmailError(result.status.message);
+    // } else 
+    if(result.status=='404'){
+
+    // alert(err);
+    checkEmailError(result.message)
+    }
   }
 }
 
@@ -94,7 +101,8 @@ function* validateOtpSaga(action) {
     yield put(signIn(signInData));
   } catch (err) {
     if (result) {
-      alert(result.status.message);
+      // alert(result.status.message);
+      checkEmailError(result.status.message);
     } else alert(err);
   }
 }
@@ -168,7 +176,7 @@ function* getFeedbackFormSaga(action) {
     });
     console.log('sucess in feedbackform saga', result);
 
-    yield put(setFeedbackFormData(result.data.qNo));
+    yield put(setFeedbackFormData(result.data));
   } catch (err) {
     console.log('this is error=', err);
   }
