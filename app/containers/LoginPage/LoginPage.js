@@ -27,19 +27,19 @@ import saga from './saga';
 
 const key = 'loginReducer';
 
-export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmailId, showOtpPage, emailError, checkEmailError }) {
+export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmailId, showOtpPage, emailError, checkEmailError}) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
-
+  
   const history = useHistory();
   console.log("History ==", history)
 
   const [emailId, setEmailId] = useState('');
-  const [errorInEmail, setError] = useState(emailError);
+  const [errorInEmail,setError]=useState(emailError);
 
-  useEffect(() => {
+  useEffect(()=>{
     setError('');
-  }, [])
+  },[])
   const login = () => {
     showOtpPage = true;
     console.log("login for otp");
@@ -52,10 +52,10 @@ export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmail
     }
   };
 
-  useEffect(() => {
-    console.log("err.response.status == 400 useEffect  ", emailError, errorInEmail);
-    setError(emailError);
-  }, [emailError]);
+  useEffect(()=>{
+    console.log("err.response.status == 400 useEffect  ",emailError,errorInEmail)
+    setError(emailError)
+  },[emailError])
 
   useEffect(() => {
     console.log("showOtpPage", showOtpPage)
@@ -87,7 +87,7 @@ export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmail
                 id="standard-error-helper-text"
                 placeholder="Enter Your Username"
                 value={emailId}
-                onChange={event => { setEmailId(event.target.value); setError(''); }}
+                onChange={event => {setEmailId(event.target.value); setError('');}}
 
                 //helperText="Error message."
                 variant="standard"
@@ -97,7 +97,7 @@ export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmail
                 {errorInEmail}
               </p>
 
-
+              
               {/* <TextField
                 name="password"
                 type="password"

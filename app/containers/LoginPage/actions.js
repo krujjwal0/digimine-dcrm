@@ -168,7 +168,7 @@ export function checkEmailError(data) {
   };
 }
 
-export function onOtpError(data) {
+export function otpError(data) {
   console.log('OTP Error', data);
   return {
     type: OTP_ERROR,
