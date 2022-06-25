@@ -51,57 +51,6 @@ const list = [
   // And so on...
 ];
 
-// function rowRenderer({
-//   key, // Unique key within array of rows
-//   index, // Index of row within collection
-//   isScrolling, // The List is currently being scrolled
-//   isVisible, // This row is visible within the List (eg it is not an overscanned row)
-//   style, // Style object to be applied to row (to position it)
-// }) {
-//   console.log('List ::::', list, key, index);
-//   return (
-//     <div key={key} className="row rounded-full">
-//       <div>
-//         <img className="empImg" src={emp_image} alt="user image" />
-//       </div>
-//       <div className="content">
-//         <label>Employee</label>
-//         <p>{list[index].name}</p>
-//       </div>
-//       <div className="content">
-//         <label> {/*  Id */} </label>
-//         <p>{/* {list[index].id} */}</p>
-//       </div>
-//       <div className="content">
-//         <label> Department </label>
-//         <p>{/* {list[index].department} */}hr</p>
-//       </div>
-//       <div className="content">
-//         <label> Phone </label>
-//         <p>
-//           9876543210
-//           {/* {list[index].id} */}
-//         </p>
-//       </div>
-//       <div className="content">
-//         <label> Phone </label>
-//         <p>
-//           9876543210
-//           {/* {list[index].id} */}
-//         </p>
-//       </div>
-//       <div className="content">
-//         <label>Active</label>
-//         <p>
-//           {/* {list[index].id} */}
-//         </p>
-//       </div>
-//       <div className="content">
-//         <MoreVert />
-//       </div>
-//     </div>
-//   );
-// }
 
 export function Users(props) {
   const [state, setState] = React.useState({
