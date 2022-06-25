@@ -83,8 +83,10 @@ export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmail
                 style={{ width: '100%', color: '#6E7B8B', fontSize: '16px' }}
               />
               <p className="text-right mb-32 mt-2 font-sans text-red-500">
-                {/* Error Message */}
+                Invalid Email
               </p>
+
+              
               {/* <TextField
                 name="password"
                 type="password"
