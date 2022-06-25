@@ -5,6 +5,10 @@ import * as AiIcons from 'react-icons/ai';
 import regulatory from '../../images/regulatory.svg';
 import categories from '../../images/categories.svg';
 import help from '../../images/help.svg';
+import nonReg from '../../images/nonreg.svg';
+import mis from '../../images/misc.svg';
+import historyImg from '../../images/history.svg';
+import user from '../../images/users.svg';
 
 export const SidebarData = [
   {
@@ -28,25 +32,25 @@ export const SidebarData = [
   {
     title: 'Non-Regulatory',
     path: '/non_regulatory',
-    icons: <img src={regulatory} style={{ width: '15px', height: '23px' }} />,
+    icons: <img src={nonReg} style={{ width: '15px', height: '23px' }} />,
     cName: 'nav-text',
   },
   {
     title: 'Miscellaneous',
     path: '/miscellaneous',
-    icons: <img src={regulatory} style={{ width: '15px', height: '23px' }} />,
+    icons: <img src={mis} style={{ width: '15px', height: '23px' }} />,
     cName: 'nav-text',
   },
   {
     title: 'Users',
     path: '/users',
-    icons: <img src={regulatory} style={{ width: '15px', height: '23px' }} />,
+    icons: <img src={user} style={{ width: '15px', height: '23px' }} />,
     cName: 'nav-text',
   },
   {
     title: 'History',
     path: '/history',
-    icons: <img src={regulatory} style={{ width: '15px', height: '23px' }} />,
+    icons: <img src={historyImg} style={{ width: '15px', height: '23px' }} />,
     cName: 'nav-text',
   },
   {

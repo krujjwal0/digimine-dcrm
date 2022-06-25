@@ -167,14 +167,16 @@ export function OtpPage(props) {
               <br /> address{' '}
               <b className="font-sans text-sky-700">{props.emailId}</b>
             </p>{' '}
-            <div className="form_box w-full">
+            <div className="form_box otp_form w-full">
               <div className="flex mt-20 justify-between">
+              {/* <input class="m-2 border h-10 w-10 text-center form-control " type="text" id="first" maxlength="1" />  */}
                 <TextField
                   variant="standard"
                   name="otpIndex0"
                   value={otpIndex0}
                   inputSize={1}
-                  type="number"
+                  type="text"
+                  maxLength="1"
                   onChange={e => onChangeOtp(e)}
                   style={{
                     width: 'auto',
@@ -190,15 +192,17 @@ export function OtpPage(props) {
                   name="otpIndex1"
                   value={otpIndex1}
                   inputSize={1}
-                  type="number"
+                  type="text"
+                  maxLength="1"
                   onChange={e => onChangeOtp(e)}
                   style={{
                     width: 'auto',
                     color: '#6E7B8B',
-                    fontSize: '16px',
+                    fontSize: '25px',
                     borderBottom: '1px solid #EAEAEA',
                     marginBottom: '20px',
                     marginRight: '15px',
+                    textAlign: 'center'
                   }}
                 />
                 <TextField
@@ -206,7 +210,8 @@ export function OtpPage(props) {
                   name="otpIndex2"
                   value={otpIndex2}
                   inputSize={1}
-                  type="number"
+                  type="text"
+                  maxLength="1"
                   onChange={e => onChangeOtp(e)}
                   style={{
                     width: 'auto',
@@ -222,7 +227,8 @@ export function OtpPage(props) {
                   name="otpIndex3"
                   value={otpIndex3}
                   inputSize={1}
-                  type="number"
+                  type="text"
+                  maxLength="1"
                   onChange={e => onChangeOtp(e)}
                   style={{
                     width: 'auto',
@@ -238,7 +244,8 @@ export function OtpPage(props) {
                   name="otpIndex4"
                   value={otpIndex4}
                   inputSize={1}
-                  type="number"
+                  type="text"
+                  maxLength="1"
                   onChange={e => onChangeOtp(e)}
                   style={{
                     width: 'auto',
@@ -254,7 +261,8 @@ export function OtpPage(props) {
                   name="otpIndex5"
                   value={otpIndex5}
                   inputSize={1}
-                  type="number"
+                  type="text"
+                  maxLength="1"
                   onChange={e => onChangeOtp(e)}
                   style={{
                     width: 'auto',
