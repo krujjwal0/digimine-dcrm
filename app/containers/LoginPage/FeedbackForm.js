@@ -51,7 +51,7 @@ import { setNavBar } from '../App/actions';
 //   },
 // ];
 
-const steps = [''];
+const steps = ['','','','','','','','','',''];
 const key = 'loginReducer';
 
 function FeedbackForm({
