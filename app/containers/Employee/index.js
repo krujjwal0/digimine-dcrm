@@ -6,10 +6,7 @@
 
 import React, { useEffect, useState, memo } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
 import { Card, CardContent } from '@material-ui/core';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import CardActions from '@material-ui/core/CardActions';
 import Popover from '@material-ui/core/Popover';
 import Switch from '@material-ui/core/Switch';
@@ -20,20 +17,64 @@ import { alpha, styled, withStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import {
-  makeSelectRepos,
-  makeSelectLoading,
-  makeSelectError,
-} from 'containers/App/selectors';
 import { EditUser } from './EditUser';
-import { deleteUser, editUser, showEmployee, changeUsername, getAllDepartment, getAllRoles } from './actions';
+import { deleteUser, editUser, showEmployee, changeUsername, getAllDepartment, getAllRoles, setEmployee  } from './actions';
 import { loadRepos } from '../App/actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import Users from './Users';
-import UsersUtility from './UsersUtility';
 import emp_image from '../../images/emp_image.png';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core';
+import { InputBase } from '@material-ui/core';
+import Menu from '@material-ui/core/Menu';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import AddUser from './AddUser';
+
+const StyledMenu = styled(props => (
+  <Menu
+    elevation={0}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'right',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'right',
+    }}
+    {...props}
+  />
+))(({ theme }) => ({
+  '& .MuiPaper-root': {
+    borderRadius: 6,
+    marginTop: theme.spacing(1),
+    minWidth: 180,
+    color:
+      theme.palette.mode === 'light'
+        ? 'rgb(55, 65, 81)'
+        : theme.palette.grey[300],
+    boxShadow:
+      'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+    '& .MuiMenu-list': {
+      padding: '4px 0',
+    },
+    '& .MuiMenuItem-root': {
+      '& .MuiSvgIcon-root': {
+        fontSize: 18,
+        color: theme.palette.text.secondary,
+        marginRight: theme.spacing(1.5),
+      },
+      '&:active': {
+        backgroundColor: alpha(
+          theme.palette.primary.main,
+          theme.palette.action.selectedOpacity,
+        ),
+      },
+    },
+  },
+}));
 
 const key = 'users';
 
@@ -64,7 +105,8 @@ export function Employee({
   rolesList,
   departmentList,
   getAllDepartment,
-  getAllRoles
+  getAllRoles,
+  EmployeeCardListreplica
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -97,11 +139,11 @@ export function Employee({
 
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick = event => {
+  const handleClickEdit = event => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleCloseEdit = () => {
     setAnchorEl(null);
   };
 
@@ -114,7 +156,7 @@ export function Employee({
     setEditUserData(data)
     setShowEdit(true);
   };
-  const handleExit = () => {
+  const handleEditExit = () => {
     setShowEdit(false);
   };
   useEffect(() => {}, [usersList]);
@@ -128,22 +170,158 @@ export function Employee({
     }
   };
 
+  const [showExport, setShowExport] = useState(false);
+  const openExport = () => {
+    setShowExport(true)
+  }
+  const handleExit = () => {
+    setShowExport(false)
+  }
+
+ const [anchorE2, setAnchorE2] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorE2(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorE2(null);
+  };
+
+  // const open = Boolean(anchorEl);
+  // const id = open ? 'simple-popover' : undefined;
+
+  const [foundUser, setFoundUsers] = useState("");
+  const [name, setName] = useState("");
+  const filter = (e) => {
+    const keyword = e.target.value;
+    let obj = {
+      fromSaga: false,
+      results: [],
+    }
+
+    if (keyword !== '') {
+      const results = usersList.filter((list) => {
+        return list.name.toLowerCase().startsWith(keyword.toLowerCase());
+      });
+      setFoundUsers(results);
+      console.log('show result inside filter', results)
+      // obj.results = results;
+      // setEmployee(obj);
+    }
+    else {
+      setFoundUsers(usersList);
+      //setEmployee(obj);
+    }
+
+    setName(keyword);
+  };
+
+  
   return (
     <div className="myprofile">
-      <div className="mt-10 ml-6 w-full font-sans">
-        <UsersUtility />
-        <div className="">
-          {/* {usersList && usersList.length > 0 && usersList.map((user, index) => { */}
-          <div className=" w-full">
-            {/* gap-x-1 */}
+      <div className="mt-16 w-full">
+        {/* <UsersUtility usersList={usersList} EmployeeCardListreplica={EmployeeCardListreplica}/> */}
+        <div className="md:flex  m-2">
+      <select
+        className="border-2 border-gray-200 bg-white h-9 px-3 pr-2 ml-6 rounded-full text-sm focus:outline-none"
+        style={{ width: '10%', borderRadius: '8px' }}
+        onChange={() => orderBy()}
+      >
+        <option value="" disabled selected>
+          Sort by
+        </option>
+        <option value="departmentName">Department</option>
+        <option value="emailId">Email_ID</option>
+        <option value="id">User_ID</option>
+      </select>
 
-            {usersList &&
-              usersList.length > 0 &&
-              usersList.map((list, index) => (
+      <label className="border-0 border-gray-200 bg-white h-9 mt-2 px-2 ml-2 rounded-full text-sm"
+        style={{ width: '12%', borderRadius: '8px' }}>Search By</label>
+      <select
+        className="border-2 border-gray-200 bg-white h-9 px-2 pr-2 ml-1 rounded-full text-sm focus:outline-none"
+        style={{ width: '14%', borderRadius: '8px' }}
+      // onChange={() => orderBy()}
+      >
+        <option value="" disabled selected>
+          Department
+        </option>
+        <option value="1">Marketing</option>
+        <option value="2">Account</option>
+        <option value="3">IT</option>
+        <option value="4">HR</option>
+      </select>
+
+      <input
+        className="border-2 border-gray-300 bg-white w-72 h-9 px-8 pr-6 ml-3 rounded-full text-sm focus:outline-none"
+        value={name}
+        onChange={filter}
+        style={{ borderRadius: '8px' }}
+        type="text"
+        name="search"
+        placeholder="Search by name"
+      />
+      <button className="text-green-500 border-2 rounded-full border-gray-300 mr-3 ml-3 pr-2 pl-1">
+        Clear
+      </button>
+      <Button
+        id="demo-customized-button"
+        aria-controls={open ? 'demo-customized-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        variant="contained"
+        disableElevation
+        onClick={handleClick}
+        endIcon={<MoreVertIcon />}
+        style={{
+          color: 'white',
+          borderRadius: '30px',
+          background: 'rgba(102, 115, 126, 0.46)',
+        }}
+      >
+        ACTION
+      </Button>
+      <Popover
+        id={id}
+        open={open}
+        anchorE2={anchorE2}
+        onClose={handleClose}
+        style={{
+          borderRadius: '15px',
+          // background: '#FFFFFF',
+          // boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)'
+        }}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+      >
+        <div className="p-2 m-2">
+          <div><button className="text-slate-200 mx-3" disable>Import Excel</button></div>
+          <div><button className="text-slate-200 mx-3 my-2" disable>Import SAP</button></div>
+          <div><button className="mx-3" onClick={openExport}>Add User</button></div>
+        </div>
+      </Popover>
+      <Dialog open={showExport} onClose={handleExit}>
+        <DialogContent style={{
+          borderRadius: '15px',
+          background: '#FFFFFF',
+          boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
+          Width: '70%',
+          Height: '80%',
+        }}>
+          <AddUser rolesList={rolesList} departmentList={departmentList} getAllDepartment={getAllDepartment} getAllRoles={getAllRoles} />
+        </DialogContent>
+      </Dialog>
+    </div>
+        <div className="">
+          <div className=" w-full">
+            {foundUser &&
+              foundUser.length > 0 &&
+              foundUser.map((list, index) => (
                 <div
                   className="block text-gray lg:ml-6 md:ml-10 sm:ml-12"
                   key={list.name}
-                  // style={{border:'2px solid red', marginLeft:'6px',marginRight:'6px'}}
                 >
                   <div className="my-5 w-full justify-center " />
                   <div>
@@ -209,13 +387,13 @@ control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="check
                             <GreenSwitch {...label} defaultChecked />
                           </div>
                           <div className="mt-2 ml-8">
-                            <MoreVert onClick={handleClick} />
+                            <MoreVert onClick={handleClickEdit} />
                           </div>
                           <Popover
                             id={id}
                             open={open}
                             anchorEl={anchorEl}
-                            onClose={handleClose}
+                            onClose={handleCloseEdit}
                             style={{
                               borderRadius: '15px',
                               // background: '#FFFFFF',
@@ -248,7 +426,7 @@ control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="check
                           </Popover>
                           <Dialog
                             open={showEdit}
-                            onClose={handleExit}
+                            onClose={handleEditExit}
                             className="w-50 h-50"
                           >
                             <DialogContent
@@ -315,6 +493,7 @@ const mapStateToProps = state => ({
 export function mapDispatchToProps(dispatch) {
   return {
     showEmployee: data => dispatch(showEmployee(data)),
+    setEmployee: obj => dispatch(setEmployee(obj)),
     editUser: data => dispatch(editUser(data)),
     deleteUser: data => dispatch(deleteUser(data)),
     onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),

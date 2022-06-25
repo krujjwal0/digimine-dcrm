@@ -144,52 +144,56 @@ export function EditUser(props) {
               }}
             /></div>
           <div>
-            <select style={{
-              width: '200px',
-            }}
-              className=" font-sans  text-gray-150   text-black h-10 pl-4 pr-8 -mt-12 bg-white hover:border-gray-400"
-              onClick={selectDepartmentId}
-              value={departmentId}
-            >
-              {props.departmentList.map((data, index) => {
-                console.log("dept============", data);
-                return (
-                  <option key={index} name={data.name} value={data.id}>
-                    {data.name}
-                  </option>
-                );
-              })}
-            </select>
-            {/* <TextField
-              label="Select Department"
-              name="departmentId"
-              value={departmentId}
-              onChange={e => setDepartmentId(e.target.value)}
-              autoComplete="off"
-              placeholder="Enter Here"
-              id="outlined-basic"
-              style={{
-                width: '200px',
-              }}
-            /> */}
+          <FormControl className={classes.formControl}>
+              <InputLabel id="demo-simple-select-label">
+                Department
+              </InputLabel>
+              <MSelect
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                name="departmentId"
+                required={true}
+                onClick={(e) => selectDepartmentId(e)}
+                value={departmentId}
+                style={{
+                  width: '175px',
+                }}
+              >
+                {props.departmentList.map((dept, index) => {
+                  console.log("dept============", dept);
+                  return (
+                    <MenuItem key={index} name={dept.name} value={dept.id}>{dept.name}</MenuItem>
+                  )
+                })
+                }
+              </MSelect>
+            </FormControl>
           </div>
           <div>
-            <select style={{
-              width: '200px',
-            }}
-              className=" font-sans  text-gray-150   text-black h-10 pl-4 pr-8 -mt-12 bg-white hover:border-gray-400"
-              onClick={selectDepartmentId}
-              value={roleId}
-            >
-              {props.rolesList.map((data, index) => {
-                console.log("dept============", data);
-                return (
-                  <option key={index} name={data.name} value={data.id}>
-                    {data.name}
-                  </option>
-                );
-              })}
-            </select>
+          <FormControl className={classes.formControl}>
+              <InputLabel id="demo-simple-select-label">
+                Role
+              </InputLabel>
+              <MSelect
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                name="roleId"
+                required={true}
+                onClick={(e) => selectRoleId(e)}
+                value={roleId}
+                style={{
+                  width: '175px',
+                }}
+              >
+                {props.rolesList.map((role, index) => {
+                  console.log("dept============", role);
+                  return (
+                    <MenuItem key={index} name={role.name} value={role.id}>{role.name}</MenuItem>
+                  )
+                })
+                }
+              </MSelect>
+            </FormControl>
           </div>
           <div className="mt-10"><Button
             onClick={() => updateUser()}
