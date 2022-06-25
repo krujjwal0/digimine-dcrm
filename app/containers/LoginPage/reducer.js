@@ -37,7 +37,7 @@ export const initialState = {
   adminLocations: [],
   feedbackFormData: [{ question: "", options: [{ description: '' }] }],
   feedbackRadioCheck: [],
-  feedbackFormData: ['check question'],
+  // feedbackFormData: ['check question'],
   emailError: '',
 };
 

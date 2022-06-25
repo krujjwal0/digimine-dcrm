@@ -50,21 +50,10 @@ export function Regulatory({
   };
 
   return (
-    <div className="regulatory">
+    <div className="myprofile">
       
-      <Users />
-      {/* <div className='w-1/2'> Ruchi</div> */}
-      {/* <div className='w-1/5 h-screen bg-gray-500'>
-        <SideNavigation />
-      </div>
-      <div className='w-4/5 h-full'>
-        <div className='w-full h-20'>
-          notification icon at corner
-        </div>
-        <div className='w-full' style={{ height: '673px' }}>
-          content show
-        </div>
-      </div> */}
+      Details
+     
     </div>
   );
 }

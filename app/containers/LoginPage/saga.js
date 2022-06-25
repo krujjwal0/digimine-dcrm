@@ -16,6 +16,7 @@ import {
   SIGN_IN,
   GET_FEEDBACK_FORM,
   USER_LOGOUT,
+  SAVE_FEEDBACK_FORM_DATA
 } from './constants';
 import {
   setAdminLocationsAction,

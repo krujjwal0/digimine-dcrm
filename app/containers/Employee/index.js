@@ -130,7 +130,7 @@ export function Employee({
 
   return (
     <div className="myprofile">
-      <div className="mt-16 w-full">
+      <div className="mt-10 ml-6 w-full font-sans">
         <UsersUtility />
         <div className="">
           {/* {usersList && usersList.length > 0 && usersList.map((user, index) => { */}

@@ -51,7 +51,7 @@ import { setNavBar } from '../App/actions';
 //   },
 // ];
 
-const steps = [''];
+const steps = ['', '', '', '', '', '', '', '', '', ''];
 const key = 'loginReducer';
 
 function FeedbackForm({
@@ -74,10 +74,10 @@ function FeedbackForm({
     // saveDataFeedbackForm();
     // setShowToFeedBackPage();
   }, []);
-  
-  useEffect(()=>{
-    console.log("feedbackRadioCheck===",feedbackRadioCheck)
-  },[feedbackRadioCheck])
+
+  useEffect(() => {
+    console.log("feedbackRadioCheck===", feedbackRadioCheck)
+  }, [feedbackRadioCheck])
 
   useEffect(() => {
 
@@ -89,18 +89,25 @@ function FeedbackForm({
   // const [feedbackRadioCheck, setFeedbackRadioCheck] = useState([]);
   // let feedbackRadioCheck=[];
   const [completed, setCompleted] = useState({});
+  const [selectedOption, setSelectedOption] = useState(0);
 
-  const [totalSteps, setTotalSteps] = useState(steps.length);
+  const [totalSteps, setTotalSteps] = useState(0);
   const completedSteps = Object.keys(completed).length;
   let allStepCompleted = completedSteps === totalSteps;
 
   const handleNext = () => {
+    console.log(" Length of feedback===", feedbackFormData.length, activeStep)
+    setFeedbackRadioCheck(feedbackFormData[activeStep].id, selectedOption)
     const newCompleted = completed;
     newCompleted[activeStep] = true;
     setCompleted(newCompleted);
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    // history.push('/dashboard');
-    // setNavBar(true);
+
+    if ((feedbackFormData.length-1) == activeStep) {
+      //Saga call Post
+      history.push('/dashboard');
+      setNavBar(true);
+    } 
 
 
     // setRedirectToUserManagementPage(true);
@@ -137,9 +144,9 @@ function FeedbackForm({
   const onClickRadioFeedback = event => {
     // setFeedbackRadioCheck({ ...feedbackRadioCheck, questionId:feedbackFormData[activeStep].id,selectedOptionId: event.target.value });
 
-    setFeedbackRadioCheck(feedbackFormData[activeStep].id, event.target.value)
-
-    console.log(event.target.value);
+    // setFeedbackRadioCheck(feedbackFormData[activeStep].id, event.target.value)
+    setSelectedOption(event.target.value);
+    console.log("checking radio button", event.target.value);
   };
 
   const handleSave = e => {
@@ -245,6 +252,7 @@ function FeedbackForm({
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
                 onClick={onClickRadioFeedback}
+                value={selectedOption}
               >
                 {feedbackFormData[activeStep].options.map((opt, i) =>
                   <FormControlLabel
@@ -258,8 +266,10 @@ function FeedbackForm({
                     value={opt.id}
                     control={
                       <Radio
-                        value={opt.id}
-                      // checked={feedbackRadioCheck === opt.id}
+                        checked={selectedOption == opt.id}
+                      //value= 'enable'
+                      //name="enable"
+                      // checked={feedbackRadioCheck === 'Enable'}
                       />
                     }
                     label={opt.description}
@@ -393,9 +403,9 @@ function FeedbackForm({
               orientation="vertical"
               style={{ marginLeft: '0px', width: '20.77px' }}
             >
-              {steps.map((label) => (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
+              {feedbackFormData.map((label, i) => (
+                <Step key={i}>
+                  <StepLabel></StepLabel>
                 </Step>
               ))}
             </Stepper>
