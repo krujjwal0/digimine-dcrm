@@ -47,6 +47,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import reducer from './reducer';
 import { setNavBar } from './actions';
 import { getUserLogout, setOtpAction, setShowOtpPage } from '../LoginPage/actions';
+import GeekStepper  from '../LoginPage/GeekStepper'
 
 const key = 'main';
 
@@ -76,9 +77,10 @@ export function App(props) {
             <Route exact path="/" component={SplashScreen} />
             <Route path="/login" component={LoginPage} />
             <Route path="/otp" component={OtpPage} />
+                <Route path="/stepper" component={GeekStepper}/>
 
-            {props.userIsAuthenticated == true ?
-              <>
+            {/* {props.userIsAuthenticated == true ? */}
+              {/* <> */}
                 <Route path="/success" component={Success} />
                 <Route path="/location" component={Location} />
                 <Route path="/dashboard" component={Dashboard} />
@@ -95,10 +97,10 @@ export function App(props) {
                 <Route path="/users" component={Employee} />
                 <Route path="/myprofile" component={MyProfile} />
                 <Route path="/history" component={History} />
-              </>
-              :
+              {/* </>
+              : */}
               <Route component={NotFoundPage} />
-            }
+            {/* } */}
             <Route component={NotFoundPage} />
           </Switch>
         </Router>

@@ -20,7 +20,13 @@ import {
   makeSelectLoading,
   makeSelectError,
 } from 'containers/App/selectors';
-import { Card, CardContent, FormGroup, Typography } from '@material-ui/core';
+import {
+  Card,
+  CardContent,
+  Divider,
+  FormGroup,
+  Typography,
+} from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { loadRepos } from '../App/actions';
@@ -123,11 +129,11 @@ function Dashboard({
 
   return (
     <div className="maindash">
-      <div className="mx-20 mt-6  w-[95%]">
+      <div className="mx-9 mt-4 w-[95%]">
         <Breadcrumbs
           aria-label="breadcrumb"
           className="font-sans font-bold text-xl"
-          style={{ marginLeft: '30px', fontWeight: '800', fontSize: '30px' }}
+          style={{ marginLeft: '0px', fontWeight: '800', fontSize: '30px' }}
         >
           <Typography
             sx={{ display: 'flex', alignItems: 'center' }}
@@ -135,21 +141,27 @@ function Dashboard({
             className="font-sans font-bold text-xl"
             style={{
               marginLeft: '30px',
-              fontWeight: '800',
-              fontSize: '30px',
+              fontWeight: '500',
+              fontSize: '25px',
               color: '#132B6B',
             }}
           >
-            <ClearAllIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+            <ClearAllIcon sx={{ mr: 0.8 }} fontSize="inherit" />
             Dashboard
           </Typography>
         </Breadcrumbs>
         <p
           style={{ color: '#F66B6B', fontSize: '11px' }}
-          className=" font-sans ml-24"
+          className=" font-sans ml-16"
         >
-          Dashboard | <span style={{ color: '#151F63' }}>Dashboard </span>
+          Dashboard |{' '}
+          <span className=" font-sans" style={{ color: '#151F63' }}>
+            Dashboard{' '}
+          </span>
         </p>
+        <div className="mt-4 w-full">
+          <Divider />
+        </div>
 
         {/* <div className="-mt-4 flex justify-end">
           <div>

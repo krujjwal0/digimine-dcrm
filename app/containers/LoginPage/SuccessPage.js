@@ -12,7 +12,8 @@ import { useHistory } from 'react-router-dom';
 import { getAdminLocationsAction, validateOtpAction } from './actions';
 import reducer from './reducer';
 import saga from './saga';
-import userImage from './images/user.jpg';
+// import userImage from './images/user.jpg';
+import userImage from './images/addImage.png';
 
 const key = 'loginReducer';
 

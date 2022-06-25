@@ -49,9 +49,9 @@ function Help(props) {
     console.log("Help Questions and Answers ", props.help_Q_A)
   }, [props.help_Q_A]);
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log("Help UseEffect ", props.help_Q_A)
-  },[props.help_Q_A])
+  }, [props.help_Q_A])
   return (
     <div className="maindash">
       <div className="mx-20 mt-6  w-[95%] h-full">
@@ -108,9 +108,70 @@ function Help(props) {
                 </Typography>
               </AccordionDetails>
             </Accordion>
-          ) : <p>No Questions Yet!</p>}
+          ) : <p>!</p>}
 
         </div>
+
+        <Accordion
+           
+              className="w-full"
+              style={{ border: '1px solid #DCE1EA', borderRadius: '10px' }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography className="mt-8" style={{ marginTop: '7px' }}>
+                question
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>
+                 Lorem
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+               <Accordion
+           
+               className="w-full mt-5 "
+               style={{ border: '1px solid #DCE1EA', borderRadius: '10px' }}
+             >
+               <AccordionSummary
+                 expandIcon={<ExpandMoreIcon />}
+                 aria-controls="panel1a-content"
+                 id="panel1a-header"
+               >
+                 <Typography className="mt-8" style={{ marginTop: '7px' }}>
+                 question
+                 </Typography>
+               </AccordionSummary>
+               <AccordionDetails>
+                 <Typography>
+                  Lorem
+                 </Typography>
+               </AccordionDetails>
+             </Accordion>
+                <Accordion
+           
+                className="w-full mt-5"
+                style={{ border: '1px solid #DCE1EA', borderRadius: '10px' }}
+              >
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography className="mt-8" style={{ marginTop: '7px' }}>
+                  question
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                   Lorem
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
 
         <div className="mt-9 flex pl-80 mb-12">
           <Button
@@ -138,13 +199,11 @@ Help.propTypes = {
 
 const mapStateToProps = state => ({
   help_Q_A: state.helpReducer.help.length > 0 ? state.helpReducer.help : []
-
 })
 
 export function mapDispatchToProps(dispatch) {
   return {
     getQ_A: () => dispatch(getQ_A()),
-
   };
 }
 

@@ -105,10 +105,10 @@ export function UsersUtility({ rolesList, departmentList, getAllDepartment, getA
     setName(keyword);
   };
   return (
-    <div className="md:flex  m-2">
+    <div className="flex font-sans">
       <select
         className="border-2 border-gray-200 bg-white h-9 px-3 pr-2 ml-6 rounded-full text-sm focus:outline-none"
-        style={{ width: '10%', borderRadius: '8px' }}
+        style={{ width: '10%' }}
       // onChange={() => orderBy()}
       >
         <option value="" disabled selected>
@@ -124,34 +124,35 @@ export function UsersUtility({ rolesList, departmentList, getAllDepartment, getA
         name="filter"
         placeholder="Filter"
       /> */}
-      <label className="border-0 border-gray-200 bg-white h-9 mt-2 px-2 ml-2 rounded-full text-sm"
-        style={{ width: '12%', borderRadius: '8px' }}>Search By</label>
+      <label className="border-0 font-sans border-gray-200 bg-white h-9 mt-1 px-2 ml-2  text-sm"
+        style={{ width: '8%' }}>Search By</label>
       <select
-        className="border-2 border-gray-200 bg-white h-9 px-2 pr-2 ml-1 rounded-full text-sm focus:outline-none"
-        style={{ width: '14%', borderRadius: '8px' }}
+        className="border-2 border-gray-200 font-sans bg-white h-9 px-2 pr-2 ml-1 rounded-full text-sm focus:outline-none"
+        style={{ width: '14%' }}
       // onChange={() => orderBy()}
       >
-        <option value="" disabled selected>
+        <option className='font-sans' value="" disabled selected>
           Department
         </option>
-        <option value="1">Marketing</option>
-        <option value="2">Account</option>
-        <option value="3">IT</option>
-        <option value="4">HR</option>
+        <option className='font-sans' value="1">Marketing</option>
+        <option className='font-sans' value="2">Account</option>
+        <option className='font-sans' value="3">IT</option>
+        <option className='font-sans' value="4">HR</option>
       </select>
 
       <input
-        className="border-2 border-gray-300 bg-white w-72 h-9 px-8 pr-6 ml-3 rounded-full text-sm focus:outline-none"
+        className="border-2 border-gray-300 bg-white w-2/5 h-9 px-8 pr-6 ml-3 rounded-full text-sm focus:outline-none"
         value={name}
         onChange={filterEmployee}
-        style={{ borderRadius: '8px' }}
+        style={{ }}
         type="text"
         name="search"
         placeholder="Search by phone, email"
       />
-      <button className="text-green-500 border-2 rounded-full border-gray-300 mr-3 ml-3 pr-2 pl-1">
+      <button className="text-red-400 border-2 rounded-full border-gray-300 mr-3 ml-3 w-16 h-9 pr-2 pl-1">
         Clear
       </button>
+      <div>
       <Button
         id="demo-customized-button"
         aria-controls={open ? 'demo-customized-menu' : undefined}
@@ -169,6 +170,8 @@ export function UsersUtility({ rolesList, departmentList, getAllDepartment, getA
       >
         ACTION
       </Button>
+      </div>
+     
       <Popover
         id={id}
         open={open}

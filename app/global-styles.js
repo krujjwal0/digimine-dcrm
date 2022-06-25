@@ -28,6 +28,14 @@ const GlobalStyle = createGlobalStyle`
     background-color: #F3F3F9;
     
   }
+  .maindash1{
+    // display:flex;
+  
+    // margin-left:250px;
+    border-radius: 70px 0px 0px 0px;
+    background-color: #F3F3F9;
+    
+  }
   .myprofile{
     display:flex;
     height: 89vh;
@@ -35,6 +43,7 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 70px 0px 0px 0px;
     background-color: #ffff;
 `;
+
 
 export default GlobalStyle;
 /** html,

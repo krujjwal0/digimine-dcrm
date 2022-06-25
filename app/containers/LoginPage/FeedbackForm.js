@@ -31,6 +31,7 @@ import {
   setFeedbackFormData,
   saveDataFeedbackForm,
   setShowToFeedBackPage,
+  setFeedbackRadioCheck
 } from './actions';
 import saga from './saga';
 import { setNavBar } from '../App/actions';
@@ -50,7 +51,7 @@ import { setNavBar } from '../App/actions';
 //   },
 // ];
 
-const steps = ['', '', '', '', '', '', '', '', '', ''];
+const steps = ['','','','','','','','','',''];
 const key = 'loginReducer';
 
 function FeedbackForm({
@@ -58,6 +59,7 @@ function FeedbackForm({
   getFeedbackFormData,
   setFeedbackFormData,
   setNavBar,
+  setFeedbackRadioCheck
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -67,16 +69,35 @@ function FeedbackForm({
   useEffect(() => {
     console.log('inside useeffect', feedbackFormData);
     getFeedbackFormData();
-    saveDataFeedbackForm();
-    setShowToFeedBackPage();
+
+    // saveDataFeedbackForm();
+    // setShowToFeedBackPage();
   }, []);
 
+  useEffect(() => {
+
+    setTotalSteps(feedbackFormData.length);
+    allStepCompleted = completedSteps === totalSteps;
+    console.log('Lngth=====', totalSteps, allStepCompleted)
+  }, [feedbackFormData, totalSteps])
   const [activeStep, setActiveStep] = React.useState(0);
-  const [feedbackRadioCheck, setFeedbackRadioCheck] = useState();
+  // const [feedbackRadioCheck, setFeedbackRadioCheck] = useState([]);
+  // let feedbackRadioCheck=[];
+  const [completed, setCompleted] = useState({});
+
+  const [totalSteps, setTotalSteps] = useState(steps.length);
+  const completedSteps = Object.keys(completed).length;
+  let allStepCompleted = completedSteps === totalSteps;
 
   const handleNext = () => {
-    history.push('/dashboard');
-    setNavBar(true);
+    const newCompleted = completed;
+    newCompleted[activeStep] = true;
+    setCompleted(newCompleted);
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    // history.push('/dashboard');
+    // setNavBar(true);
+
+
     // setRedirectToUserManagementPage(true);
 
     // active when we have feedback form API
@@ -87,9 +108,9 @@ function FeedbackForm({
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
+  // const handleReset = () => {
+  //   setActiveStep(0);
+  // };
 
   const [
     redirectToUserManagementPage,
@@ -109,7 +130,10 @@ function FeedbackForm({
   }
 
   const onClickRadioFeedback = event => {
-    setFeedbackRadioCheck(event.target.value);
+    // setFeedbackRadioCheck({ ...feedbackRadioCheck, questionId:feedbackFormData[activeStep].id,selectedOptionId: event.target.value });
+
+    setFeedbackRadioCheck(feedbackFormData[activeStep].id, event.target.value)
+
     console.log(event.target.value);
   };
 
@@ -131,6 +155,13 @@ function FeedbackForm({
     history.push({ pathname: '/help' });
     setNavBar(true);
   }
+
+  function handleSkip() {
+    history.push('/dashboard');
+    setNavBar(true);
+  }
+
+
 
   return (
     <div className="bg-white w-full min-h-screen font-sans">
@@ -157,6 +188,7 @@ function FeedbackForm({
           </label>
         </div>
       </div>
+
       <div className="flex ml-32">
         <div
           className="mt-24"
@@ -167,6 +199,7 @@ function FeedbackForm({
             // marginLeft: '117px',
           }}
         />
+        {/* {feedbackFormData.map((feed, index) => ( */}
         <div className="w-3/4 mt-24 ml-6">
           <label
             style={{
@@ -179,30 +212,84 @@ function FeedbackForm({
               lineHeight: '110%',
               color: '#F46B6B',
             }}
-            className="font-sans"
+            className="font-sans flex"
           >
-            Question 1
+            1
+            <p
+              style={{
+                color: '#132B6B',
+                // fontFamily: 'Nunito',
+                fontWeight: '700',
+                fontSize: '20px',
+                lineHeight: '25px',
+                width: '808px',
+                height: '60px',
+                left: '154px',
+                // marginTop: '8px',
+              }}
+              className=" font-sans"
+            >
+              {feedbackFormData[activeStep].question}
+            </p>
           </label>
-          <p
-            style={{
-              color: '#132B6B',
-              // fontFamily: 'Nunito',
-              fontWeight: '700',
-              fontSize: '20px',
-              lineHeight: '25px',
-              width: '808px',
-              height: '60px',
-              left: '154px',
-              // marginTop: '8px',
-            }}
-            className="mt-4 font-sans"
-          >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
+
           <div className=" mt-7 -ml-1">
-            <FormControl className="mb-3">
-              {/* <FormLabel id="demo-row-radio-buttons-group-label">Gender</FormLabel> */}
+            {feedbackFormData[activeStep].options.length > 0 ?
+              <RadioGroup
+                row
+                aria-labelledby="demo-row-radio-buttons-group-label"
+                name="row-radio-buttons-group"
+                onClick={onClickRadioFeedback}
+              >
+                {feedbackFormData[activeStep].options.map((opt, i) =>
+                  <FormControlLabel
+                    className="font-sans"
+                    style={{
+                      color: '#132B6B',
+                      fontFamily: 'Omnes',
+                      fontWeight: '400',
+                      fontSize: '12px',
+                    }}
+                    value={opt.id}
+                    control={
+                      <Radio
+                        value={opt.id}
+                        // checked={feedbackRadioCheck === opt.id}
+                      />
+                    }
+                    label={opt.description}
+                  />
+
+                  //   <FormControlLabel
+                  //   style={{
+                  //     color: '#132B6B',
+                  //     // fontFamily: 'Omnes',
+                  //     fontWeight: '400',
+                  //     fontSize: '12px',
+                  //   }}
+                  //   value={opt.description}
+                  //   control={
+                  //     <Radio
+                  //       // value={feedbackRadioCheck.feed.description}
+                  //       // name="feed.description"
+                  //       value="enable"
+                  //       name="enable"
+                  //       checked={feedbackRadioCheck === 'Enable'}
+
+                  //     />
+
+                  //   }
+                  //   label={opt.description}
+                  //   className="font-sans"
+
+                  // />
+
+
+                  // console.log("HIIIIII",opt.description) 
+                )}</RadioGroup>
+              : <p>No options</p>}
+            {/* <FormControl className="mb-3" >
+             
               <RadioGroup
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
@@ -212,21 +299,25 @@ function FeedbackForm({
                 <FormControlLabel
                   style={{
                     color: '#132B6B',
-                    // fontFamily: 'Omnes',
                     fontWeight: '400',
                     fontSize: '12px',
                   }}
                   value="OptionOne"
                   control={
                     <Radio
-                      value="Enable"
-                      name="Disable"
+                      value="enable"
+                      name="enable"
                       checked={feedbackRadioCheck === 'Enable'}
+
                     />
+
                   }
-                  label="Lorem ipsum dolor sit amet, consectetur"
+                  label="hey"
                   className="font-sans"
+
                 />
+
+
                 <FormControlLabel
                   className=" mb-3 font-sans"
                   style={{
@@ -286,22 +377,26 @@ function FeedbackForm({
                   label="Lorem ipsum dolor sit amet, consectetur"
                 />
               </RadioGroup>
-            </FormControl>
+            </FormControl> */}
           </div>
         </div>
+        {/* ))} */}
         <div className=" ml-36 step_list -mt-12">
           <Box sx={{ maxWidth: 400 }}>
             <Stepper
-              activeStep={1}
+              activeStep={activeStep}
               orientation="vertical"
               style={{ marginLeft: '0px', width: '20.77px' }}
             >
-              {steps.map(label => (
+              {steps.map((label) => (
                 <Step key={label}>
                   <StepLabel>{label}</StepLabel>
                 </Step>
               ))}
             </Stepper>
+            <Typography>
+              All steps completed
+            </Typography>
           </Box>
           {/* <Box sx={{ maxWidth: 400 }}>
             <Stepper activeStep={activeStep} orientation="vertical">
@@ -386,13 +481,13 @@ function FeedbackForm({
                 content: '',
                 left: '0',
                 bottom: '0',
-                top: '657px',
+                top: '612px',
               }}
             />
           </div>
         </div>
 
-        <div className="mr-80 -mt-2 ">
+        <div className="flex mr-80 -mt-12 ">
           <button
             style={{
               background: '#132B6B',
@@ -400,12 +495,35 @@ function FeedbackForm({
               color: 'white',
               width: '115px',
               height: '40px',
+              marginLeft: '-120px',
+              marginTop: '3px',
             }}
             className="font-sans absolute"
-            onClick={handleNext}
+            onClick={handleSkip}
           >
-            NEXT
+            Skip
           </button>
+          <div>
+            {allStepCompleted ?
+              (
+                <Typography>All Steps are Completed</Typography>
+              ) : (
+
+                <button
+                  style={{
+                    background: '#132B6B',
+                    borderRadius: '60px',
+                    color: 'white',
+                    width: '115px',
+                    height: '40px',
+                  }}
+                  className="font-sans absolute"
+                  onClick={handleNext}
+                >
+                  NEXT
+                </button>
+              )}
+          </div>
           {/* <button
             style={{
               background: '#132B6B',
@@ -440,7 +558,8 @@ const mapStateToProps = state => {
     //   ? state.loginReducer.feedbackFormData
     //   : [],
 
-    feedbackFormData: state.loginReducer.feedbackFormData,
+    feedbackFormData: state.loginReducer.feedbackFormData.length > 0 ? state.loginReducer.feedbackFormData : [],
+
   };
 };
 
@@ -451,6 +570,7 @@ export function mapDispatchToProps(dispatch) {
     saveDataFeedbackForm: data => dispatch(saveDataFeedbackForm(data)),
     setShowToFeedBackPage: data => dispatch(setShowToFeedBackPage(data)),
     setNavBar: data => dispatch(setNavBar(data)),
+    setFeedbackRadioCheck: (qId, oId) => dispatch(setFeedbackRadioCheck(qId, oId))
   };
 }
 

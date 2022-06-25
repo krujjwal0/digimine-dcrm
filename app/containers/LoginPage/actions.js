@@ -32,13 +32,21 @@ import {
   SAVE_FEEDBACK_FORM_DATA,
   SET_SHOW_FEEDBACK_FORM_DATA,
   SET_INITIAL_STATE,
-  EMAIL_ERROR
+  EMAIL_ERROR,
+  SET_SHOW_FEEDBACK_FORM_RADIO_DATA
 } from './constants';
 import {
   USER_LOGOUT,
 } from './constants';
 
-export function setInitialState(){
+export const setFeedbackRadioCheck = (questionId, selectedOptionId) => {
+  return {
+    type: SET_SHOW_FEEDBACK_FORM_RADIO_DATA,
+    questionId: questionId,
+    selectedOptionId: selectedOptionId
+  }
+}
+export function setInitialState() {
   return {
     type: SET_INITIAL_STATE
   }
