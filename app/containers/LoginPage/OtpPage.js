@@ -317,38 +317,14 @@ export function OtpPage(props, {otpError}) {
               <p className="text-right mr-6 font-sans text-red-500">
                 Wrong OTP
               </p>
-              {counter == 0 ? (
-                <p
-                  className="text_blue font-semibold flex mb-10 justify-center font-sans resend"
-                  style={{ fontSize: '14px' }}
-                  onClick={resendOtp}
-                >
-                  <img className="mr-3 text-bold" src={Resend} /> Resend OTP
-                </p>
-              ) : (
-                <Box className="mb-10">
-                  <Typography
-                    fontWeight={500}
-                    align="center"
-                    color="textSecondary"
-                  >
-                    {' '}
-                    Resend OTP in{' '}
-                    <span
-                      className="-ml-0"
-                      style={{
-                        fontFamily: 'font-sans',
-                        color: 'black',
-                        fontWeight: 'bold',
-                      }}
-                    >
-                      {' '}
-                      00:{counter}{' '}
-                    </span>{' '}
-                  </Typography>
-                </Box>
-              )}
 
+              <p
+                className="text-gray-400 text-center flex mb-10 justify-center my-4 font-sans"
+                style={{ fontSize: '14px' }}
+                onClick={resendOtp}
+              >
+                <img className="mr-3" src={Resend} /> Resend OTP
+              </p>
               <Button
                 className={
                   props.otp == ''
