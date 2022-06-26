@@ -32,7 +32,7 @@ export const initialState = {
   userData: {},
   otp: '',
   otpError: '',
-  emailId: '',
+  emailId: 'rsinha488@gmail.com',
   userName: '',
   showOtpPage: false,
   showSuccessPage: false,
@@ -42,7 +42,7 @@ export const initialState = {
   feedbackRadioCheck: [],
   // feedbackFormData: ['check question'],
   emailError: '',
-  showOtpErrorPopup: false
+  showOtpErrorPopup: { status: false, msg: "" }
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -51,19 +51,19 @@ const loginReducer = (state = initialState, action) =>
     switch (action.type) {
       case SHOW_OTP_ERROR_POPUP:
         console.log('Show OTP Error Popup', action.payload)
-        return{
+        return {
           ...state,
-          showOtpErrorPopup : action.payload
+          showOtpErrorPopup: action.payload
         }
       case OTP_ERROR:
         console.log('OTP Error', action.payload)
-        return{
+        return {
           ...state,
           otpError: action.payload
         }
       case EMAIL_ERROR:
         console.log('email Error', action.payload)
-        return{
+        return {
           ...state,
           emailError: action.payload
         }

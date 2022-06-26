@@ -29,7 +29,7 @@ import {
   setInitialState,
   checkEmailError,
   onOtpError,
-  showOtpErrorPopup,
+  showOtpErrorPopupAction,
 } from './actions';
 import { makeSelectEmailId } from './selectors';
 
@@ -57,10 +57,9 @@ function* generateOtpByEmailIdSaga(action) {
     });
 
     console.log('success in saga', result);
-    if (result.status.message == 422) 
-    
-    yield put(showOtpErrorPopup(result.status.message))
-
+    if (result.status.status == 422){     
+    yield put(showOtpErrorPopupAction({ status: true, msg: result.status.message }))
+}
     yield put(setOtpAction(result.data.otp));
     if (result.data) {
       yield put(setShowOtpPage(true));
@@ -114,7 +113,10 @@ function* validateOtpSaga(action) {
       body: JSON.stringify(validateOtpData),
     });
     console.log('success in saga', result, result.data);
-
+    if (result.status.status == 422) {
+      // alert(result.status.message);
+      yield put(onOtpError(result.status.message));
+    }
     yield put(setUsername(result.data.userName));
 
     yield put(signIn(signInData));

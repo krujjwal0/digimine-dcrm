@@ -177,7 +177,7 @@ export function onOtpError(data) {
   }
 }
 
-export function showOtpErrorPopup(data) {
+export function showOtpErrorPopupAction(data) {
   console.log('OtpErrorPopup', data);
   return {
     type: SHOW_OTP_ERROR_POPUP,

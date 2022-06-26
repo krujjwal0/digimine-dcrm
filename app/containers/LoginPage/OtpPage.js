@@ -21,6 +21,7 @@ import {
   generateOtpByEmailIdAction,
   onOtpError,
   setOtpAction,
+  showOtpErrorPopupAction,
   validateOtpAction,
 } from './actions';
 import { makeSelectEmailId, makeSelectOtp } from './selectors';
@@ -32,6 +33,7 @@ import LoginThirdImage from './images/Login3.svg';
 import LoginSecondImage from './images/Login2.svg';
 import LoginFirstImage from './images/image1.png';
 import { Box, Typography } from '@material-ui/core';
+import CustomizedDialogs from '../../components/Dialog/DialogMsg';
 
 const key = 'loginReducer';
 
@@ -163,6 +165,11 @@ export function OtpPage(props) {
     setError('');
     console.log('showOtpErrorPopup', props.showOtpErrorPopup)
   }, []);
+
+  useEffect(() => {
+    console.log('onUpdateShowOtpErrorPopup Otp Page', props.showOtpErrorPopup )
+  }, [props.showOtpErrorPopup])
+
 
   useEffect(() => {
     console.log(
@@ -398,6 +405,8 @@ export function OtpPage(props) {
           </div>
         </div>
       </div>
+      {props.showOtpErrorPopup.status ? <CustomizedDialogs goToLogin={'/'}errorMessage={props.showOtpErrorPopup.msg} showDialog={props.showOtpErrorPopup.status} showOtpErrorPopupAction={props.showOtpErrorPopupAction} /> : null}
+
     </div>
   );
 }
@@ -429,6 +438,7 @@ export function mapDispatchToProps(dispatch) {
     onGenerateOtpByEmailIdAction: data =>
       dispatch(generateOtpByEmailIdAction(data)),
     onSetOtpAction: data => dispatch(setOtpAction(data)),
+    showOtpErrorPopupAction:data=>dispatch(showOtpErrorPopupAction(data))
     // onSubmitForm: evt => {
     //   if (evt !== undefined && evt.preventDefault) evt.preventDefault();
     //   dispatch(loadRepos());

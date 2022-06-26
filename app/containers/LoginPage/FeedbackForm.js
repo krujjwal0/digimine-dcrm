@@ -101,14 +101,18 @@ function FeedbackForm({
   }, [completed]);
 
   const onPostQ_A = () => {
-    saveDataFeedbackForm(feedbackRadioCheck);
+    // saveDataFeedbackForm(feedbackRadioCheck); //Save all answers
     history.push('/dashboard');
     setNavBar(true);
   }
 
   const handleNext = () => {
     console.log(" Length of feedback===", feedbackFormData.length, activeStep)
-    setFeedbackRadioCheck(feedbackFormData[activeStep].id, selectedOption)
+    // setFeedbackRadioCheck(feedbackFormData[activeStep].id, selectedOption); //Save all answers
+
+
+    //Individual api call for post
+    saveDataFeedbackForm({ questionId: feedbackFormData[activeStep].id, selectedOptionId: selectedOption });
     const newCompleted = completed;
     newCompleted[activeStep] = true;
     setCompleted(newCompleted);
@@ -225,7 +229,7 @@ function FeedbackForm({
         <div className="w-3/4 mt-24 ml-6">
           <label
             style={{
-             
+
               height: '40px',
               left: '154px',
               // fontFamily: 'Omnes',
@@ -236,7 +240,7 @@ function FeedbackForm({
             }}
             className="font-sans flex"
           >
-            
+
             <p
               style={{
                 color: '#132B6B',

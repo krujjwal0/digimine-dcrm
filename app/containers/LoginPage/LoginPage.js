@@ -20,7 +20,7 @@ import {
   makeSelectError,
 } from 'containers/App/selectors';
 
-import { checkEmailError, generateOtpByEmailIdAction, setEmailId } from './actions';
+import { checkEmailError, generateOtpByEmailIdAction, setEmailId, showOtpErrorPopupAction } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -28,7 +28,7 @@ import CustomizedDialogs from '../../components/Dialog/DialogMsg';
 
 const key = 'loginReducer';
 
-export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmailId, showOtpPage, emailError, checkEmailError, showOtpErrorPopup }) {
+export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmailId, showOtpPage, emailError, checkEmailError, showOtpErrorPopup, showOtpErrorPopupAction }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
@@ -136,7 +136,7 @@ export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmail
           </div>
         </div>
       </div>
-      {showOtpErrorPopup ? <CustomizedDialogs errorMessage={'error'} showDialog={showOtpErrorPopup}/> : null}
+      {showOtpErrorPopup.status ? <CustomizedDialogs errorMessage={showOtpErrorPopup.msg} showDialog={showOtpErrorPopup.status} showOtpErrorPopupAction={showOtpErrorPopupAction} /> : null}
     </div>
   );
 }
@@ -163,7 +163,8 @@ export function mapDispatchToProps(dispatch) {
   return {
     onGenerateOtpByEmailIdAction: data => dispatch(generateOtpByEmailIdAction(data)),
     onSetEmailId: data => dispatch(setEmailId(data)),
-    checkEmailError: data => dispatch(checkEmailError(data))
+    checkEmailError: data => dispatch(checkEmailError(data)),
+    showOtpErrorPopupAction:data=>dispatch(showOtpErrorPopupAction(data))
     // onSubmitForm: evt => {
     //   if (evt !== undefined && evt.preventDefault) evt.preventDefault();
     //   dispatch(loadRepos());

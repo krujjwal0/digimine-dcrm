@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const styles = (theme) => ({
   root: {
@@ -50,16 +51,24 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-export default function CustomizedDialogs({errorMessage, showDialog} ) {
+export default function CustomizedDialogs({ goToLogin, errorMessage, showDialog, showOtpErrorPopupAction }) {
   const [open, setOpen] = React.useState(showDialog);
+  const history = useHistory();
 
-  useEffect(()=> {console.log('value of showDialog', errorMessage, showDialog)},[showDialog]);
+  useEffect(() => { console.log('value of showDialog', errorMessage, showDialog) }, [showDialog]);
 
   const handleClickOpen = () => {
     setOpen(true);
+
   };
   const handleClose = () => {
     setOpen(false);
+    showOtpErrorPopupAction({ status: false, msg: "" })
+    if (goToLogin == '/') {
+      history.push({ pathname: goToLogin });
+    }
+    window.location.reload(false)
+
   };
 
   return (
@@ -73,8 +82,8 @@ export default function CustomizedDialogs({errorMessage, showDialog} ) {
         </DialogTitle>
         <DialogContent dividers>
           <Typography gutterBottom>
-          {/* Otp maximum attempts exceeded. Please wait for approx 30 minutes to resend it. */}
-          {errorMessage}
+            {/* Otp maximum attempts exceeded. Please wait for approx 30 minutes to resend it. */}
+            {errorMessage}
           </Typography>
         </DialogContent>
         <DialogActions>
