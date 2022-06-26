@@ -177,6 +177,15 @@ function FeedbackForm({
     history.push('/dashboard');
     setNavBar(true);
   }
+// Try For OPTIONS MAPPING
+  // let halwayPoint,colA,colB;
+  // useEffect(()=>{
+
+  // },[colA,colB])
+  //  halwayPoint = Math.ceil(feedbackFormData[activeStep].options.length / 2)
+  //  colA = feedbackFormData[activeStep].options.splice(0, halwayPoint);
+  //  colB = feedbackFormData[activeStep].options.splice(-halwayPoint);
+  // console.log("Col A and Col b===", colA, colB);
 
 
 
