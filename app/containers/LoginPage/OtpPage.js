@@ -142,6 +142,7 @@ export function OtpPage(props) {
   }
 
   const resendOtp = () => {
+    setError('');
     setEditOtp(false);
     console.log('Resend Otp');
     if (props.emailId == '') {
@@ -405,7 +406,7 @@ export function OtpPage(props) {
           </div>
         </div>
       </div>
-      {props.showOtpErrorPopup.status ? <CustomizedDialogs goToLogin={'/'}errorMessage={props.showOtpErrorPopup.msg} showDialog={props.showOtpErrorPopup.status} showOtpErrorPopupAction={props.showOtpErrorPopupAction} /> : null}
+      {props.showOtpErrorPopup.status ? <CustomizedDialogs goToLogin={'/'} errorMessage={props.showOtpErrorPopup.msg} showDialog={props.showOtpErrorPopup.status} showOtpErrorPopupAction={props.showOtpErrorPopupAction} /> : null}
 
     </div>
   );
