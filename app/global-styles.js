@@ -42,6 +42,15 @@ const GlobalStyle = createGlobalStyle`
     margin-left:250px;
     border-radius: 70px 0px 0px 0px;
     background-color: #ffff;
+  }
+  .content {
+    display:flex;
+    min-height: 89vh;
+    height: 100%;
+    margin-left:250px;
+    border-radius: 70px 0px 0px 0px;
+    background-color: #ffff;
+  }
 `;
 
 

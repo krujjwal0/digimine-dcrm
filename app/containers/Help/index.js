@@ -24,7 +24,13 @@ import {
 
 import reducer from './reducer';
 import saga from './saga';
-import { Card, CardContent, FormGroup, Typography } from '@material-ui/core';
+import {
+  Card,
+  CardContent,
+  FormGroup,
+  Typography,
+  Divider,
+} from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -43,26 +49,49 @@ function Help(props) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
-
   useEffect(() => {
     props.getQ_A();
-    console.log("Help Questions and Answers ", props.help_Q_A)
+    console.log('Help Questions and Answers ', props.help_Q_A);
   }, []);
 
   useEffect(() => {
-    console.log("Help UseEffect ", props.help_Q_A)
-  }, [props.help_Q_A])
+    console.log('Help UseEffect ', props.help_Q_A);
+  }, [props.help_Q_A]);
   return (
-    <div className="maindash">
-      <div className="mx-20 mt-6  w-[95%] h-full">
-        <Typography
-          sx={{ display: 'flex', alignItems: 'center' }}
-          color="text.primary"
-          className='font-sans font-bold text-xl'
-          style={{ marginLeft: '30px', fontWeight: '800', fontSize: '30px', color: '#132B6B' }}
-        >Help
-          {/* <ClearAllIcon sx={{ mr: 0.5 }} fontSize="inherit" /> */}
-        </Typography>
+    <div className="content">
+      <div className="mx-9 mt-4  w-[95%] h-full">
+        <Breadcrumbs
+          aria-label="breadcrumb"
+          className="font-sans font-bold text-xl"
+          style={{ marginLeft: '0px', fontWeight: '800', fontSize: '30px' }}
+        >
+          <Typography
+            sx={{ display: 'flex', alignItems: 'center' }}
+            color="text.primary"
+            className="font-sans font-bold text-xl"
+            style={{
+              marginLeft: '30px',
+              fontWeight: '500',
+              fontSize: '25px',
+              color: '#132B6B',
+            }}
+          >
+            <ClearAllIcon sx={{ mr: 0.8 }} fontSize="inherit" />
+            Help
+          </Typography>
+        </Breadcrumbs>
+        <p
+          style={{ color: '#F66B6B', fontSize: '11px' }}
+          className=" font-sans ml-14"
+        >
+          Dashboard |{' '}
+          <span className=" font-sans" style={{ color: '#151F63' }}>
+            Help{' '}
+          </span>
+        </p>
+        <div className="mt-4 w-full">
+          <Divider />
+        </div>
 
         <p
           className=" font- sans font-bold ml-20 text-xl mt-5"
@@ -87,74 +116,11 @@ function Help(props) {
         </div>
 
         <div className="mt-7">
-          {props.help_Q_A.length > 0 ? props.help_Q_A.map((ques, i) =>
-            <Accordion
-              key={i}
-              className="w-full"
-              style={{ border: '1px solid #DCE1EA', borderRadius: '10px' }}
-            >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-              >
-                <Typography className="mt-8" style={{ marginTop: '7px' }}>
-                  {ques.question}
-                </Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography>
-                  {ques.answer}
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
-          ) : <p>!</p>}
-
-        </div>
-
-        <Accordion
-           
-              className="w-full"
-              style={{ border: '1px solid #DCE1EA', borderRadius: '10px' }}
-            >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-              >
-                <Typography className="mt-8" style={{ marginTop: '7px' }}>
-                question
-                </Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography>
-                 Lorem
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
-               <Accordion
-           
-               className="w-full mt-5 "
-               style={{ border: '1px solid #DCE1EA', borderRadius: '10px' }}
-             >
-               <AccordionSummary
-                 expandIcon={<ExpandMoreIcon />}
-                 aria-controls="panel1a-content"
-                 id="panel1a-header"
-               >
-                 <Typography className="mt-8" style={{ marginTop: '7px' }}>
-                 question
-                 </Typography>
-               </AccordionSummary>
-               <AccordionDetails>
-                 <Typography>
-                  Lorem
-                 </Typography>
-               </AccordionDetails>
-             </Accordion>
-                <Accordion
-           
-                className="w-full mt-5"
+          {props.help_Q_A.length > 0 ? (
+            props.help_Q_A.map((ques, i) => (
+              <Accordion
+                key={i}
+                className="w-full"
                 style={{ border: '1px solid #DCE1EA', borderRadius: '10px' }}
               >
                 <AccordionSummary
@@ -162,16 +128,53 @@ function Help(props) {
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <Typography className="mt-8" style={{ marginTop: '7px' }}>
-                  question
+                  <Typography
+                    className="mt-8  text-[#132B6B]"
+                    style={{
+                      marginTop: '7px',
+                      color: '#132B6B',
+                      fontWeight: '500',
+                      fontSize: '18px',
+                    }}
+                  >
+                    {ques.question}
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography>
-                   Lorem
-                  </Typography>
+                  <Typography>{ques.answer}</Typography>
                 </AccordionDetails>
               </Accordion>
+            ))
+          ) : (
+            <p>!</p>
+          )}
+        </div>
+
+        <Accordion
+          className="w-full mt-4"
+          style={{ border: '1px solid #DCE1EA', borderRadius: '10px' }}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography
+              className="mt-8 font-sans"
+              style={{
+                marginTop: '7px',
+                color: '#132B6B',
+                fontWeight: '500',
+                fontSize: '18px',
+              }}
+            >
+              question
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>Lorem</Typography>
+          </AccordionDetails>
+        </Accordion>
 
         <div className="mt-9 flex pl-80 mb-12">
           <Button
@@ -194,12 +197,12 @@ function Help(props) {
 
 Help.propTypes = {
   // help_Q_A: PropTypes.string,
-  getQ_A: PropTypes.func
+  getQ_A: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
-  help_Q_A: state.helpReducer.help.length > 0 ? state.helpReducer.help : []
-})
+  help_Q_A: state.helpReducer.help.length > 0 ? state.helpReducer.help : [],
+});
 
 export function mapDispatchToProps(dispatch) {
   return {
@@ -216,4 +219,3 @@ export default compose(
   withConnect,
   memo,
 )(Help);
-
