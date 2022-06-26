@@ -49,3 +49,7 @@
     margin-left: 0px;
   
 }
+
+.rotate {
+  transform: rotate(180deg);
+}
