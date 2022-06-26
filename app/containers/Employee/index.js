@@ -8,7 +8,7 @@ import React, { useEffect, useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { Card, CardContent, Typography, Divider } from '@material-ui/core';
+import { Card, CardContent, Typography, Divider, Button } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import CardActions from '@material-ui/core/CardActions';
 import Popover from '@material-ui/core/Popover';
@@ -25,6 +25,8 @@ import {
   makeSelectLoading,
   makeSelectError,
 } from 'containers/App/selectors';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import ClearAllIcon from '@material-ui/icons/ClearAll';
 import { EditUser } from './EditUser';
 import {
   deleteUser,
@@ -33,16 +35,17 @@ import {
   changeUsername,
   getAllDepartment,
   getAllRoles,
+  setEmployee,
+  addUser,
 } from './actions';
 import { loadRepos } from '../App/actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import Users from './Users';
-import UsersUtility from './UsersUtility';
+import {AddUser} from './AddUser';
+//import UsersUtility from './UsersUtility';
 import emp_image from '../../images/emp_image.png';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import ClearAllIcon from '@material-ui/icons/ClearAll';
 
 const key = 'users';
 
@@ -62,6 +65,7 @@ const label = { inputProps: { 'aria-label': 'Switch demo' } };
 export function Employee({
   username,
   usersList,
+  usersListreplica,
   deleteUser,
   loading,
   error,
@@ -74,6 +78,8 @@ export function Employee({
   departmentList,
   getAllDepartment,
   getAllRoles,
+  setEmployee,
+  addUser,
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -91,8 +97,13 @@ export function Employee({
 
   useEffect(() => {
     showEmployee();
+    getAllDepartment();
     console.log('USers List index =====', usersList);
   }, []);
+
+  useEffect(() => {
+    console.log('department list', departmentList);
+  }, [departmentList]);
 
   const reposListProps = {
     loading,
@@ -105,6 +116,7 @@ export function Employee({
   };
 
   const [anchorEl, setAnchorEl] = useState(null);
+  const [anchor, setAnchor] = useState(null);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -114,8 +126,19 @@ export function Employee({
     setAnchorEl(null);
   };
 
+  const handleClickAdd = event => {
+    setAnchor(event.currentTarget);
+  };
+
+  const handleCloseAdd = () => {
+    setAnchor(null);
+  };
+
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
+
+  const openAdd = Boolean(anchor);
+  const idAdd = openAdd ? 'simple-popover' : undefined;
 
   const [editUserData, setEditUserData] = useState({});
   const [showEdit, setShowEdit] = useState(false);
@@ -126,57 +149,183 @@ export function Employee({
   const handleExit = () => {
     setShowEdit(false);
   };
-  useEffect(() => {}, [usersList]);
+  
+  useEffect(() => { }, [usersList]);
   const onDeleteUser = id => {
-    const verify = window.confirm('Are you sure you want to delete ?');
-    console.log('Verify====id ', verify, id);
-    if (verify == true) {
-      console.log('Inside true');
+    // const verify = window.confirm('Are you sure you want to delete ?');
+    // console.log('Verify====id ', verify, id);
+    // if (verify == true) {
+    //   console.log('Inside true');
       // pass id to delete
       deleteUser(id);
+    // }
+  };
+
+  const [showExport, setShowExport] = useState(false);
+  const openExport = () => {
+    setShowExport(true);
+  };
+  const handleCloseBtn = () => {
+    setShowExport(false);
+  };
+
+  const [name, setName] = useState();
+
+  const filter = e => {
+    const keyword = e.target.value;
+    let obj = {
+      fromSaga: false,
+      results: [],
+    };
+
+    if (keyword !== '') {
+      const results = usersListreplica.filter((list) => {
+        return list.name.toLowerCase().startsWith(keyword.toLowerCase());
+      });
+      // setFoundUsers(results);
+      console.log('show result inside filter', results);
+      obj.results = results;
+      setEmployee(obj);
+    } else {
+      obj.results = usersListreplica;
+      // setFoundUsers(usersList);
+      setEmployee(obj);
     }
+    setName(keyword);
+  }; 
+
+  const [searchBy, setSearchBy] = useState('name')
+  const selectDepartment = value => {
+    console.log(value);
+    setSearchBy(value);
+    // Call api to show users list of particular Location
   };
 
   return (
     <div className="myprofile">
-      <div className="mt-4 mx-9 w-full font-sans">
-      <Breadcrumbs
-          aria-label="breadcrumb"
-          className="font-sans font-bold text-xl"
-          style={{ marginLeft: '0px', fontWeight: '800', fontSize: '30px' }}
-        >
-          <Typography
-            sx={{ display: 'flex', alignItems: 'center' }}
-            color="text.primary"
-            className="font-sans font-bold text-xl"
+      <div className="mt-16 w-full">
+        <div className="md:flex  m-2">
+          <select
+            className="border-2 border-gray-200 bg-white h-9 px-3 pr-2 ml-6 rounded-full text-sm focus:outline-none"
+            style={{ width: '10%', borderRadius: '8px' }}
+            onChange={() => orderBy()}
+          >
+            <option value="" disabled selected>
+              Sort by
+            </option>
+            <option value="departmentName">Department</option>
+            <option value="emailId">Email_ID</option>
+            <option value="id">User_ID</option>
+          </select>
+
+          <label
+            className="border-0 border-gray-200 bg-white h-9 mt-2 px-2 ml-2 rounded-full text-sm"
+            style={{ width: '12%', borderRadius: '8px' }}
+          >
+            Search By
+          </label>
+          <select
+            className="border-2 border-gray-200 bg-white h-9 px-2 pr-2 ml-1 rounded-full text-sm focus:outline-none"
+            style={{ width: '14%', borderRadius: '8px' }}
+            onClick={selectDepartment}
+            value={name}
+          >
+            <option value="" disabled selected>
+              Name
+            </option>
+            {/* {departmentList.map((data, index) => {
+              return (
+                <option key={index} name={data.name} value={data.id}>
+                  {data.name}
+                </option>
+              );
+            })} */}
+          </select>
+
+          <input
+            className="border-2 border-gray-300 bg-white w-72 h-9 px-8 pr-6 ml-3 rounded-full text-sm focus:outline-none"
+            value={name}
+            onChange={filter}
+            style={{ borderRadius: '8px' }}
+            type="text"
+            name="search"
+            placeholder="Search by name"
+          />
+          <button className="text-green-500 border-2 rounded-full border-gray-300 mr-3 ml-3 pr-2 pl-1">
+            Clear
+          </button>
+          <Button
+            id="demo-customized-button"
+            aria-controls={open ? 'demo-customized-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            variant="contained"
+            disableElevation
+            onClick={handleClick}
+            endIcon={<MoreVert />}
             style={{
-              marginLeft: '30px',
-              fontWeight: '500',
-              fontSize: '25px',
-              color: '#132B6B',
+              color: 'white',
+              borderRadius: '30px',
+              background: 'rgba(102, 115, 126, 0.46)',
             }}
           >
-            <ClearAllIcon sx={{ mr: 0.8 }} fontSize="inherit" />
-            List
-          </Typography>
-        </Breadcrumbs>
-        <p
-          style={{ color: '#F66B6B', fontSize: '11px' }}
-          className=" font-sans ml-14"
-        >
-          Dashboard |
-          <span className=" font-sans" style={{ color: '#151F63' }}>
-            List{' '}
-          </span>
-        </p>
-        <div className="mt-4 w-full">
-          <Divider />
-        </div>
-        <div className='mt-6 w-full'>
-        <UsersUtility />
+            ACTION
+          </Button>
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            style={{
+              borderRadius: '15px',
+              // background: '#FFFFFF',
+              // boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)'
+            }}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'left',
+            }}
+          >
+            <div className="p-2 m-2">
+              <div>
+                <button className="text-slate-200 mx-3" disable>
+                  Import Excel
+                </button>
+              </div>
+              <div>
+                <button className="text-slate-200 mx-3 my-2" disable>
+                  Import SAP
+                </button>
+              </div>
+              <div>
+                <button className="mx-3" onClick={openExport}>
+                  Add User
+                </button>
+              </div>
+            </div>
+          </Popover>
+          <Dialog open={showExport} onClose={handleCloseBtn}>
+            <DialogContent
+              style={{
+                borderRadius: '15px',
+                background: '#FFFFFF',
+                boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
+                Width: '70%',
+                Height: '80%',
+              }}
+            >
+              <AddUser
+              addUser={addUser}
+                rolesList={rolesList}
+                departmentList={departmentList}
+                getAllDepartment={getAllDepartment}
+                getAllRoles={getAllRoles}
+                handleCloseBtn={handleCloseBtn}
+              />
+            </DialogContent>
+          </Dialog>
         </div>
         <div className="">
-          {/* {usersList && usersList.length > 0 && usersList.map((user, index) => { */}
           <div className=" w-full">
             {/* gap-x-1 */}
 
@@ -186,7 +335,7 @@ export function Employee({
                 <div
                   className="block text-gray lg:ml-6 md:ml-10 sm:ml-12"
                   key={list.name}
-                  // style={{border:'2px solid red', marginLeft:'6px',marginRight:'6px'}}
+                // style={{border:'2px solid red', marginLeft:'6px',marginRight:'6px'}}
                 >
                   <div className="my-5 w-full justify-center " />
                   <div>
@@ -252,20 +401,24 @@ control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="check
                             <GreenSwitch {...label} defaultChecked />
                           </div>
                           <div className="mt-2 ml-8">
-                            <MoreVert onClick={handleClick} />
+                            <MoreVert onClick={handleClickAdd} />
                           </div>
                           <Popover
-                            id={id}
-                            open={open}
-                            anchorEl={anchorEl}
-                            onClose={handleClose}
+                            id={idAdd}
+                            open={openAdd}
+                            anchorEl={anchor}
+                            onClose={handleCloseAdd}
                             style={{
                               borderRadius: '15px',
                               // background: '#FFFFFF',
                               // boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)'
                             }}
                             anchorOrigin={{
-                              vertical: 'bottom',
+                              vertical: 'top',
+                              horizontal: 'right',
+                            }}
+                            transformOrigin={{
+                              vertical: 'top',
                               horizontal: 'left',
                             }}
                           >
@@ -353,21 +506,22 @@ Employee.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  usersList:
-    state.users.EmployeeCardList.length > 0 ? state.users.EmployeeCardList : [],
+  usersList: state.users.usersList.length > 0 ? state.users.usersList : [],
+  usersListreplica: state.users.usersListreplica.length > 0 ? state.users.usersListreplica : [],
   rolesList: state.users.rolesList.length > 0 ? state.users.rolesList : [],
-  departmentList:
-    state.users.departmentList.length > 0 ? state.users.departmentList : [],
+  departmentList: state.users.departmentList.length > 0 ? state.users.departmentList : [],
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
     showEmployee: data => dispatch(showEmployee(data)),
+    setEmployee: data => dispatch(setEmployee(data)),
     editUser: data => dispatch(editUser(data)),
     deleteUser: data => dispatch(deleteUser(data)),
     onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),
     getAllDepartment: () => dispatch(getAllDepartment()),
     getAllRoles: () => dispatch(getAllRoles()),
+    addUser: data => dispatch(addUser(data)),
     onSubmitForm: evt => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(loadRepos());

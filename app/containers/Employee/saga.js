@@ -37,7 +37,12 @@ function* getUsersList() {
       },
     });
     console.log('success in getUsersList saga', result);
-    yield put(setEmployee(result.data.users));
+    let obj = {
+      fromSaga: true,
+      results: result,
+    }
+    // yield put(setEmployee(result.data.users));
+    yield put(setEmployee(obj));
   } catch (err) {
     console.log('Error in getUsersList saga', result, err);
     if (result) {
@@ -158,5 +163,5 @@ export default function* usersData() {
   yield takeLatest(GET_ALL_ROLES, getAllRolesSaga);
   yield takeLatest(GET_ALL_DEPARTMENTS, getAllDepartmentSaga);
   yield takeLatest(DELETE_USER, deleteUserSaga);
-  yield takeLatest(EDIT_USER,saveOrUpdateUserSaga)
+  yield takeLatest(EDIT_USER, saveOrUpdateUserSaga);
 }

@@ -3,53 +3,77 @@ import React, { useState, memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { createStructuredSelector } from 'reselect';
-
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-
+import MSelect from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import camera from '../History/image/camera.png';
 import close from '../History/image/close.png';
-import CloseIcon from '@material-ui/icons/Close';
-import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import { makeStyles } from '@material-ui/core/styles';
 import reducer from './reducer';
 import saga from './saga';
 import { addUser, getAllDepartment, getAllRoles } from './actions';
-import { Divider } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+
 const key = 'users';
 
 export function AddUser(props) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
+  const useStyles = makeStyles(theme => ({
+    formControl: {
+      margin: theme.spacing(0),
+      minWidth: 120,
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2),
+    },
+    layout: {
+      width: 1089,
+      height: 1000,
+    },
+  }));
+  const classes = useStyles();
   const [name, setName] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
   const [employeeId, setEmployeeId] = useState('');
   const [emailId, setEmailId] = useState('');
-  const [departmentId, setDepartmentId] = useState(1);
-  const [roleId, setRoleId] = useState(3);
+  const [departmentId, setDepartmentId] = useState('');
+  const [roleId, setRoleId] = useState('');
   const insertUser = () => {
     // Add condition for blank
     const data = {
-      roleId, // backend3
-      name,
-      mobileNumber,
-      emailId,
-      departmentId, // 1
-      employeeId,
+      roleId: roleId, // backend3
+      name: name,
+      mobileNumber: mobileNumber,
+      emailId: emailId,
+      departmentId: departmentId, // 1
+      employeeId: employeeId,
     };
     props.addUser(data);
+    setRoleId('');
+    setName('');
+    setMobileNumber('');
+    setEmployeeId('');
+    setEmailId('');
+    setDepartmentId('');
   };
   useEffect(() => {
     props.getAllDepartment();
     props.getAllRoles();
   }, []);
 
-  const selectDepartmentId = value => {
-    console.log(value);
-    setDepartmentId(value)
+  const selectDepartmentId = e => {
+    // console.log(value);
+    setDepartmentId(e.target.value);
     // Call api to show users list of particular Location
+  };
+  const selectRoleId = e => {
+    setRoleId(e.target.value);
   };
 
   return (
@@ -58,10 +82,10 @@ export function AddUser(props) {
         <label
           style={{
             // fontFamily: 'Nunito',
-            // marginTop: '18px',
-            fontWeight: '600',
-            fontSize: '24px',
-            lineHeight: '15px',
+            // marginTop: '14px',
+            fontWeight: '500',
+            fontSize: '22px',
+            lineHeight: '1px',
           }}
           className="font-sans"
         >
@@ -69,10 +93,9 @@ export function AddUser(props) {
         </label>
 
         <div>
-          <button className="">
+          <button className="" onClick={props.handleCloseBtn}>
             {' '}
-            {/* <img className="rounded-full ml-3 w-[40px] h-[40px]" src={close} /> */}
-           < CloseIcon style={{color: 'red', fontWeight: '600px'}} />
+            < CloseIcon style={{color: 'red', fontWeight: '600px'}} />
           </button>
         </div>
       </div>
@@ -82,15 +105,14 @@ export function AddUser(props) {
           {' '}
           <Box
             sx={{
-              width: '111.5px',
-              height: '102.68px',
+              width: '110px',
+              height: '100px',
               background: '#E5E7EB',
               borderRadius: '10px',
               transform: 'matrix(1, 0, 0, -1, 0, 0)',
             }}
           >
-            {/* <img className="ml-8 w-[41px] h-[41px] rotate-180" src={camera} /> */}
-           <div className=' ml-11'><PhotoCameraIcon className='rotate' style={{marginTop: '44px', }} /></div> 
+            <div className=' ml-11'><PhotoCameraIcon className='rotate' style={{marginTop: '44px', }} /></div>
           </Box>
         </div>
         <div className="-mt-6 ml-12">
@@ -101,13 +123,11 @@ export function AddUser(props) {
               value={name}
               onChange={e => setName(e.target.value)}
               autoComplete="off"
-              placeholder="Name"
+              placeholder="Enter Here"
               id="outlined-basic"
               style={{
                 width: '263px',
               }}
-              className="font-sans"
-              
             />
           </div>
           <div>
@@ -117,12 +137,11 @@ export function AddUser(props) {
               value={employeeId}
               onChange={e => setEmployeeId(e.target.value)}
               autoComplete="off"
-              placeholder="Employee Id"
+              placeholder="Enter Here"
               id="outlined-basic"
               style={{
                 width: '263px',
               }}
-              className="font-sans"
             />
           </div>
           <div>
@@ -132,12 +151,11 @@ export function AddUser(props) {
               value={mobileNumber}
               onChange={e => setMobileNumber(e.target.value)}
               autoComplete="off"
-              placeholder="Phone"
+              placeholder="Enter Here"
               id="outlined-basic"
               style={{
                 width: '263px',
               }}
-              className="font-sans"
             />
           </div>
           <div>
@@ -147,85 +165,78 @@ export function AddUser(props) {
               value={emailId}
               onChange={e => setEmailId(e.target.value)}
               autoComplete="off"
-              placeholder="Email Address"
+              placeholder="Enter Here"
               id="outlined-basic"
               style={{
                 width: '263px',
               }}
-              className="font-sans"
             />
           </div>
           <div>
-            <select style={{
-              width: '263px',
-            }}
-              className=" font-sans  text-gray-150   text-black h-10  pr-8 mt-3 bg-white hover:border-gray-400"
-              onClick={( )=>selectDepartmentId}
-              value={departmentId}
-              placeholder="Select Department"
-            >
-              {props.departmentList.map((data, index) => {
-                console.log("dept============", data);
-                return (
-                  <option className='font-sans'  key={index} name={data.name} value={data.id}>
-                    {data.name}
-                  </option>
-                );
-              })}
-            </select>
-            <div className=''>
-              < Divider style={{color: 'LightGray'}} />
-            </div>
-            {/* <TextField
-              label="Select Department"
-              name="departmentId"
-              value={departmentId}
-              onChange={e => setDepartmentId(e.target.value)}
-              autoComplete="off"
-              placeholder="Enter Here"
-              id="outlined-basic"
-              style={{
-                width: '200px',
-              }}
-            /> */}
+            <FormControl className={classes.formControl}>
+              <InputLabel id="demo-simple-select-label">
+                Department
+              </InputLabel>
+              <MSelect
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                name="departmentId"
+                required={true}
+                onClick={(e) => selectDepartmentId(e)}
+                value={departmentId}
+                style={{
+                  width: '263px',
+                }}
+              >
+                {props.departmentList.map((dept, index) => {
+                  console.log("dept============", dept);
+                  return (
+                    <MenuItem key={index} name={dept.name} value={dept.id}>{dept.name}</MenuItem>
+                  )
+                })
+                }
+              </MSelect>
+            </FormControl>
           </div>
           <div>
-            <select style={{
-              width: '263px',
-            }}
-              className=" font-sans  text-gray-150   text-black h-10  pr-8 mt-3 bg-white hover:border-gray-400"
-              onClick={selectDepartmentId}
-              value={roleId}
-              placeholder="Select Roles"
-             
-            >
-              {props.rolesList.map((data, index) => {
-                console.log("dept============", data);
-                return (
-                  
-                  <option className='font-sans' placeholder='Select Roles' key={index} name={data.name} value={data.id}>
-                    {data.name}
-                  </option>
-                );
-              })}
-            </select>
-            <div className=''>
-              < Divider style={{color: 'LightGray'}} />
-            </div>
+            <FormControl className={classes.formControl}>
+              <InputLabel id="demo-simple-select-label">
+                Role
+              </InputLabel>
+              <MSelect
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                name="roleId"
+                required={true}
+                onClick={(e) => selectRoleId(e)}
+                value={roleId}
+                style={{
+                  width: '263px',
+                }}
+              >
+                {props.rolesList.map((role, index) => {
+                  console.log("dept============", role);
+                  return (
+                    <MenuItem key={index} name={role.name} value={role.id}>{role.name}</MenuItem>
+                  )
+                })
+                }
+              </MSelect>
+            </FormControl>
           </div>
-          
-          <div className="mt-6">
+
+          <div className="mt-4">
             <Button
               onClick={() => insertUser()}
               style={{
                 position: 'absolute',
-                width: '160px',
+                width: '155px',
                 height: '40px',
                 background: '#98E91D',
                 borderRadius: '60px',
               }}
             >
-             <p className='font-sans -ml-3'>Save</p> 
+              Save
             </Button>
           </div>
         </div>
@@ -239,8 +250,8 @@ AddUser.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  departmentList: state.users.departmentList.length > 0 ? state.users.departmentList : [], 
-   rolesList: state.users.rolesList.length > 0 ? state.users.rolesList : []
+  departmentList: state.users.departmentList.length > 0 ? state.users.departmentList : [],
+  rolesList: state.users.rolesList.length > 0 ? state.users.rolesList : []
 
 });
 
