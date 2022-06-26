@@ -11,11 +11,12 @@ import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import camera from '../History/image/camera.png';
 import close from '../History/image/close.png';
-
+import CloseIcon from '@material-ui/icons/Close';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import reducer from './reducer';
 import saga from './saga';
 import { addUser, getAllDepartment, getAllRoles } from './actions';
-
+import { Divider } from '@material-ui/core';
 const key = 'users';
 
 export function AddUser(props) {
@@ -53,28 +54,30 @@ export function AddUser(props) {
 
   return (
     <div className="">
-      <div className="flex">
+      <div className="flex flex justify-between mt-6">
         <label
           style={{
-            fontFamily: 'Nunito',
-            marginTop: '18px',
+            // fontFamily: 'Nunito',
+            // marginTop: '18px',
             fontWeight: '600',
             fontSize: '24px',
             lineHeight: '15px',
           }}
+          className="font-sans"
         >
           Add User
         </label>
 
         <div>
-          <button className="ml-40">
+          <button className="">
             {' '}
-            <img className="rounded-full ml-3 w-[40px] h-[40px]" src={close} />
+            {/* <img className="rounded-full ml-3 w-[40px] h-[40px]" src={close} /> */}
+           < CloseIcon style={{color: 'red', fontWeight: '600px'}} />
           </button>
         </div>
       </div>
       <br />
-      <div className="flex">
+      <div className="flex mt-8">
         <div>
           {' '}
           <Box
@@ -86,10 +89,11 @@ export function AddUser(props) {
               transform: 'matrix(1, 0, 0, -1, 0, 0)',
             }}
           >
-            <img className="ml-8 w-[41px] h-[41px] rotate-180" src={camera} />
+            {/* <img className="ml-8 w-[41px] h-[41px] rotate-180" src={camera} /> */}
+           <div className=' ml-11'><PhotoCameraIcon className='rotate' style={{marginTop: '44px', }} /></div> 
           </Box>
         </div>
-        <div className="my-2 ml-4">
+        <div className="-mt-6 ml-12">
           <div>
             <TextField
               label="Name"
@@ -97,11 +101,13 @@ export function AddUser(props) {
               value={name}
               onChange={e => setName(e.target.value)}
               autoComplete="off"
-              placeholder="Enter Here"
+              placeholder="Name"
               id="outlined-basic"
               style={{
-                width: '200px',
+                width: '263px',
               }}
+              className="font-sans"
+              
             />
           </div>
           <div>
@@ -111,11 +117,12 @@ export function AddUser(props) {
               value={employeeId}
               onChange={e => setEmployeeId(e.target.value)}
               autoComplete="off"
-              placeholder="Enter Here"
+              placeholder="Employee Id"
               id="outlined-basic"
               style={{
-                width: '200px',
+                width: '263px',
               }}
+              className="font-sans"
             />
           </div>
           <div>
@@ -125,11 +132,12 @@ export function AddUser(props) {
               value={mobileNumber}
               onChange={e => setMobileNumber(e.target.value)}
               autoComplete="off"
-              placeholder="Enter Here"
+              placeholder="Phone"
               id="outlined-basic"
               style={{
-                width: '200px',
+                width: '263px',
               }}
+              className="font-sans"
             />
           </div>
           <div>
@@ -139,30 +147,35 @@ export function AddUser(props) {
               value={emailId}
               onChange={e => setEmailId(e.target.value)}
               autoComplete="off"
-              placeholder="Enter Here"
+              placeholder="Email Address"
               id="outlined-basic"
               style={{
-                width: '200px',
+                width: '263px',
               }}
+              className="font-sans"
             />
           </div>
           <div>
             <select style={{
-              width: '200px',
+              width: '263px',
             }}
-              className=" font-sans  text-gray-150   text-black h-10 pl-4 pr-8 -mt-12 bg-white hover:border-gray-400"
+              className=" font-sans  text-gray-150   text-black h-10  pr-8 mt-3 bg-white hover:border-gray-400"
               onClick={( )=>selectDepartmentId}
               value={departmentId}
+              placeholder="Select Department"
             >
               {props.departmentList.map((data, index) => {
                 console.log("dept============", data);
                 return (
-                  <option key={index} name={data.name} value={data.id}>
+                  <option className='font-sans'  key={index} name={data.name} value={data.id}>
                     {data.name}
                   </option>
                 );
               })}
             </select>
+            <div className=''>
+              < Divider style={{color: 'LightGray'}} />
+            </div>
             {/* <TextField
               label="Select Department"
               name="departmentId"
@@ -178,35 +191,41 @@ export function AddUser(props) {
           </div>
           <div>
             <select style={{
-              width: '200px',
+              width: '263px',
             }}
-              className=" font-sans  text-gray-150   text-black h-10 pl-4 pr-8 -mt-12 bg-white hover:border-gray-400"
+              className=" font-sans  text-gray-150   text-black h-10  pr-8 mt-3 bg-white hover:border-gray-400"
               onClick={selectDepartmentId}
               value={roleId}
+              placeholder="Select Roles"
+             
             >
               {props.rolesList.map((data, index) => {
                 console.log("dept============", data);
                 return (
-                  <option key={index} name={data.name} value={data.id}>
+                  
+                  <option className='font-sans' placeholder='Select Roles' key={index} name={data.name} value={data.id}>
                     {data.name}
                   </option>
                 );
               })}
             </select>
+            <div className=''>
+              < Divider style={{color: 'LightGray'}} />
+            </div>
           </div>
           
-          <div className="mt-10">
+          <div className="mt-6">
             <Button
               onClick={() => insertUser()}
               style={{
                 position: 'absolute',
-                width: '155px',
+                width: '160px',
                 height: '40px',
                 background: '#98E91D',
                 borderRadius: '60px',
               }}
             >
-              Save
+             <p className='font-sans -ml-3'>Save</p> 
             </Button>
           </div>
         </div>

@@ -50,6 +50,15 @@
   
 }
 
+.MuiDialog-paperWidthSm {
+  width: 500px;
+  height: 490px;
+ 
+}
+.MuiPaper-rounded {
+  border-radius: 40px;
+}
+
 .rotate {
   transform: rotate(180deg);
 }
