@@ -101,42 +101,33 @@ function FeedbackForm({
   }, [completed]);
 
   const onPostQ_A = () => {
-    // saveDataFeedbackForm(feedbackRadioCheck); //Save all answers
+    saveDataFeedbackForm(feedbackRadioCheck); //Save all answers
     history.push('/dashboard');
     setNavBar(true);
   }
 
   const handleNext = () => {
     console.log(" Length of feedback===", feedbackFormData.length, activeStep)
-    // setFeedbackRadioCheck(feedbackFormData[activeStep].id, selectedOption); //Save all answers
-
+    if (selectedOption != 0) {
+      setFeedbackRadioCheck(feedbackFormData[activeStep].id, parseInt(selectedOption)); //Save all answers
+    }
 
     //Individual api call for post
-    saveDataFeedbackForm({ questionId: feedbackFormData[activeStep].id, selectedOptionId: selectedOption });
+    // saveDataFeedbackForm({ questionId: feedbackFormData[activeStep].id, selectedOptionId: selectedOption });
     const newCompleted = completed;
     newCompleted[activeStep] = true;
     setCompleted(newCompleted);
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-
+    setSelectedOption(0);
     if ((feedbackFormData.length - 1) == activeStep) {
       //Saga call Post
       onPostQ_A();
     }
-
-
-    // setRedirectToUserManagementPage(true);
-
-    // active when we have feedback form API
-    // setActiveStep(prevActiveStep => prevActiveStep + 1);
   };
 
   const handleBack = () => {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
-
-  // const handleReset = () => {
-  //   setActiveStep(0);
-  // };
 
   const [
     redirectToUserManagementPage,
