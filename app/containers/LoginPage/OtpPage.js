@@ -19,6 +19,7 @@ import {
 import { Redirect, useHistory } from 'react-router-dom';
 import {
   generateOtpByEmailIdAction,
+  onOtpError,
   setOtpAction,
   validateOtpAction,
 } from './actions';
@@ -30,16 +31,18 @@ import LoginImage from './images/Logo.svg';
 import LoginThirdImage from './images/Login3.svg';
 import LoginSecondImage from './images/Login2.svg';
 import LoginFirstImage from './images/image1.png';
+import { Box, Typography } from '@material-ui/core';
 
 const key = 'loginReducer';
 
-export function OtpPage(props, {otpError}) {
+export function OtpPage(props) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
   const history = useHistory();
 
   const [newOtp, setNewOtp] = useState('');
+  const [errorInOTP, setError] = useState('');
   useEffect(() => {
     console.log('UseEffect');
   }, [props.otp]);
@@ -113,9 +116,9 @@ export function OtpPage(props, {otpError}) {
   };
 
   const validateOtp = () => {
-    console.log('VAlidating Otp', code, props.otp);
-    if (props.otp == '') {
-      alert('Otp required..');
+    console.log('VAlidating Otp', code);
+    if (code == '') {
+      props.onOtpError('Otp is invalid');
     } else {
       const data = {
         emailId: props.emailId,
@@ -154,15 +157,25 @@ export function OtpPage(props, {otpError}) {
   // useEffect(()=>{
   //   // setTimer(timer from backend)
   // }[timer from backend])
-  const [errorInOTP, setError] = useState(otpError);
   useEffect(() => {
     setError('');
   }, []);
 
-  useEffect(()=>{
-    console.log("err.response.status == 400 useEffect  ", otpError, errorInOTP)
-    setError(otpError)
-  },[otpError])
+  useEffect(() => {
+    console.log(
+      'err.response.status == 400 useEffect  ',
+      props.otpError,
+      errorInOTP,
+    );
+    setError(props.otpError);
+  }, [props.otpError]);
+
+  const [counter, setCounter] = React.useState(29);
+  React.useEffect(() => {
+    const timer =
+      counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+    return () => clearInterval(timer);
+  }, [counter]);
 
   return (
     <div className="font-sans login_page  py-">
@@ -188,7 +201,7 @@ export function OtpPage(props, {otpError}) {
               <b className="font-sans text-sky-700">{props.emailId}</b>
             </p>{' '}
             <div className="form_box w-full">
-              <div className="flex mt-20 justify-center">
+              <div className="flex mt-8 justify-center">
                 <OtpInput
                   value={code}
                   onChange={handleChange}
@@ -315,8 +328,37 @@ export function OtpPage(props, {otpError}) {
                 />
               </div> */}
               <p className="text-right mr-6 font-sans text-red-500">
-                Wrong OTP
+                {errorInOTP}
               </p>
+              {counter == 0 ? <p
+                className="text_blue font-semibold flex mb-10 justify-center font-sans resend"
+                style={{ fontSize: '14px' }}
+                onClick={resendOtp}
+              >
+                <img className="mr-3 text-bold" src={Resend} /> Resend OTP
+              </p> :
+              <Box className='mb-10'>
+                <Typography
+                  fontWeight={500}
+                  align="center"
+                  color="textSecondary"
+                >
+                  {' '}
+                  Resend OTP in{' '}
+                  <span
+                    className="-ml-0"
+                    style={{
+                      fontFamily: 'font-sans',
+                      color: 'black',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    {' '}
+                    00:{counter}{' '}
+                  </span>{' '}
+                </Typography>
+              </Box>
+}
 
               <p
                 className="text-gray-400 text-center flex mb-10 justify-center my-4 font-sans"
@@ -376,12 +418,14 @@ OtpPage.propTypes = {
 
 const mapStateToProps = state => ({
   otp: state.loginReducer.otp,
+  otpError: state.loginReducer.otpError,
   emailId: state.loginReducer.emailId,
   showSuccessPage: state.loginReducer.showSuccessPage,
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
+    onOtpError: data => dispatch(onOtpError(data)),
     onValidateOtp: data => dispatch(validateOtpAction(data)),
     onGenerateOtpByEmailIdAction: data =>
       dispatch(generateOtpByEmailIdAction(data)),

@@ -30,7 +30,7 @@ export const initialState = {
   userIsAuthenticated: false,
   userData: {},
   otp: '',
-  otpError: '',
+  otpError: 'Inncorerect',
   emailId: '',
   userName: '',
   showOtpPage: false,

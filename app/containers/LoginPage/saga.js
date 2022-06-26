@@ -27,7 +27,8 @@ import {
   setUserData,
   setFeedbackFormData,
   setInitialState,
-  checkEmailError
+  checkEmailError,
+  onOtpError
 } from './actions';
 import { makeSelectEmailId } from './selectors';
 
@@ -51,7 +52,7 @@ function* generateOtpByEmailIdSaga(action) {
         'Content-Type': 'application/json',
       },
     });
-    
+
     console.log('success in saga', result);
 
     yield put(setOtpAction(result.data.otp));
@@ -60,18 +61,18 @@ function* generateOtpByEmailIdSaga(action) {
     }
 
   } catch (err) {
-    console.log('Error in saga', err.response.status, err.response, result, err,err.response.status == 400);
+    console.log('Error in saga', err.response.status, err.response, result, err, err.response.status == 400);
     // if (result) {
     //   alert(result.status.message);
     //   checkEmailError(result.status.message);
     // } else 
     if (err.response.status == 400) {
       // alert(err);
-     yield put(checkEmailError('Missing Email Id parameter.'));
-    }else if(err.response.status==404){
+      yield put(checkEmailError('Missing Email Id parameter.'));
+    } else if (err.response.status == 404) {
       yield put(checkEmailError('User is not present/active'));
     }
-    else{
+    else {
       yield put(checkEmailError(err));
     }
   }
@@ -107,10 +108,10 @@ function* validateOtpSaga(action) {
 
     yield put(signIn(signInData));
   } catch (err) {
-    if (result) {
+    if (err.response.status == 422) {
       // alert(result.status.message);
-      checkEmailError(result.status.message);
-    } else alert(err);
+      yield put(onOtpError("Otp is invalid"));
+    } else { yield put(onOtpError(err)); }
   }
 }
 
@@ -233,9 +234,9 @@ function* postFeedbackSaga(action) {
     console.log('postFeedbackSaga success in saga', result, result.data);
   } catch (err) {
     if (result) {
-      console.log("Error while saving feedbAck",result)
+      console.log("Error while saving feedbAck", result)
       // alert(result.status.message);
-    } else console.log("Error while saving feedbAck",err)
+    } else console.log("Error while saving feedbAck", err)
   }
 }
 
