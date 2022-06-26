@@ -144,7 +144,9 @@ export function OtpPage(props) {
     console.log('Resend Otp');
     if (props.emailId == '') {
       alert('EmailID required..');
-    } else props.onGenerateOtpByEmailIdAction(props.emailId);
+    } else { props.onGenerateOtpByEmailIdAction(props.emailId);
+      setCounter(29);
+    }
   };
 
   const [code, setCode] = useState('');
@@ -159,6 +161,7 @@ export function OtpPage(props) {
   // }[timer from backend])
   useEffect(() => {
     setError('');
+    console.log('showOtpErrorPopup', props.showOtpErrorPopup)
   }, []);
 
   useEffect(() => {
@@ -416,6 +419,7 @@ const mapStateToProps = state => ({
   otpError: state.loginReducer.otpError,
   emailId: state.loginReducer.emailId,
   showSuccessPage: state.loginReducer.showSuccessPage,
+  showOtpErrorPopup: state.loginReducer.showOtpErrorPopup,
 });
 
 export function mapDispatchToProps(dispatch) {

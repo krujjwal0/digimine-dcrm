@@ -24,10 +24,11 @@ import { checkEmailError, generateOtpByEmailIdAction, setEmailId } from './actio
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import CustomizedDialogs from '../../components/Dialog/DialogMsg';
 
 const key = 'loginReducer';
 
-export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmailId, showOtpPage, emailError, checkEmailError }) {
+export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmailId, showOtpPage, emailError, checkEmailError, showOtpErrorPopup }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
@@ -39,7 +40,16 @@ export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmail
 
   useEffect(() => {
     setError('');
+    console.log('showOtpErrorPopup Login', showOtpErrorPopup )
   }, [])
+
+  
+  useEffect(() => {
+    console.log('onUpdateShowOtpErrorPopup Login', showOtpErrorPopup )
+  }, [showOtpErrorPopup])
+
+
+
   const login = () => {
     showOtpPage = true;
     console.log("login for otp");
@@ -126,6 +136,7 @@ export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmail
           </div>
         </div>
       </div>
+      {showOtpErrorPopup ? <CustomizedDialogs errorMessage={'error'} showDialog={showOtpErrorPopup}/> : null}
     </div>
   );
 }
@@ -144,6 +155,7 @@ const mapStateToProps = state => {
   return {
     showOtpPage: state.loginReducer.showOtpPage,
     emailError: state.loginReducer.emailError,
+    showOtpErrorPopup: state.loginReducer.showOtpErrorPopup,
   }
 }
 

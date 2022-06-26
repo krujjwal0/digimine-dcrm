@@ -21,7 +21,8 @@ import {
   SET_INITIAL_STATE,
   EMAIL_ERROR,
   SET_SHOW_FEEDBACK_FORM_RADIO_DATA,
-  OTP_ERROR
+  OTP_ERROR,
+  SHOW_OTP_ERROR_POPUP,
 } from './constants';
 
 // The initial state of the App
@@ -30,7 +31,7 @@ export const initialState = {
   userIsAuthenticated: false,
   userData: {},
   otp: '',
-  otpError: 'Inncorerect',
+  otpError: '',
   emailId: '',
   userName: '',
   showOtpPage: false,
@@ -41,12 +42,19 @@ export const initialState = {
   feedbackRadioCheck: [],
   // feedbackFormData: ['check question'],
   emailError: '',
+  showOtpErrorPopup: false
 };
 
 /* eslint-disable default-case, no-param-reassign */
 const loginReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
+      case SHOW_OTP_ERROR_POPUP:
+        console.log('Show OTP Error Popup', action.payload)
+        return{
+          ...state,
+          showOtpErrorPopup : action.payload
+        }
       case OTP_ERROR:
         console.log('OTP Error', action.payload)
         return{

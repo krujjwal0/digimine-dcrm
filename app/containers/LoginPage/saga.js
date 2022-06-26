@@ -16,7 +16,7 @@ import {
   SIGN_IN,
   GET_FEEDBACK_FORM,
   USER_LOGOUT,
-  SAVE_FEEDBACK_FORM_DATA
+  SAVE_FEEDBACK_FORM_DATA,
 } from './constants';
 import {
   setAdminLocationsAction,
@@ -28,7 +28,8 @@ import {
   setFeedbackFormData,
   setInitialState,
   checkEmailError,
-  onOtpError
+  onOtpError,
+  showOtpErrorPopup,
 } from './actions';
 import { makeSelectEmailId } from './selectors';
 
@@ -37,7 +38,9 @@ import { makeSelectEmailId } from './selectors';
  */
 
 function* generateOtpByEmailIdSaga(action) {
-  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/generateOtpByEmailId?emailId=${action.payload}`;
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/generateOtpByEmailId?emailId=${
+    action.payload
+  }`;
   console.log(
     'data in saga generateOtpByEmailIdSaga :',
     action.payload,
@@ -54,25 +57,33 @@ function* generateOtpByEmailIdSaga(action) {
     });
 
     console.log('success in saga', result);
+    if (result.status.message == 422) 
+    
+    yield put(showOtpErrorPopup(result.status.message))
 
     yield put(setOtpAction(result.data.otp));
     if (result.data) {
       yield put(setShowOtpPage(true));
     }
-
   } catch (err) {
-    console.log('Error in saga', err.response.status, err.response, result, err, err.response.status == 400);
+    console.log(
+      'Error in saga',
+      err.response.status,
+      err.response,
+      result,
+      err,
+      err.response.status == 400,
+    );
     // if (result) {
     //   alert(result.status.message);
     //   checkEmailError(result.status.message);
-    // } else 
+    // } else
     if (err.response.status == 400) {
       // alert(err);
       yield put(checkEmailError('Missing Email Id parameter.'));
     } else if (err.response.status == 404) {
       yield put(checkEmailError('User is not present/active'));
-    }
-    else {
+    } else {
       yield put(checkEmailError(err));
     }
   }
@@ -110,8 +121,10 @@ function* validateOtpSaga(action) {
   } catch (err) {
     if (err.response.status == 422) {
       // alert(result.status.message);
-      yield put(onOtpError("Otp is invalid"));
-    } else { yield put(onOtpError(err)); }
+      yield put(onOtpError('Otp is invalid'));
+    } else {
+      yield put(onOtpError(err));
+    }
   }
 }
 
@@ -131,7 +144,6 @@ function* postSignIn(action) {
     });
     console.log('success in saga', result, result.data);
     yield put(setUserData(result.data));
-
 
     localStorage.setItem('awtToken', result.data.awtToken);
   } catch (err) {
@@ -165,8 +177,6 @@ function* getAdminLocations(action) {
     } else alert(err);
   }
 }
-
-
 
 function* getFeedbackFormSaga(action) {
   console.log('feedback form Data saga call');
@@ -216,7 +226,6 @@ function* getUserLogout() {
   }
 }
 function* postFeedbackSaga(action) {
-
   const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/saveFeedback`;
   console.log('data in saga postFeedbackSaga :', requestURL, action.payload);
   const awtToken = localStorage.getItem('awtToken');
@@ -234,9 +243,9 @@ function* postFeedbackSaga(action) {
     console.log('postFeedbackSaga success in saga', result, result.data);
   } catch (err) {
     if (result) {
-      console.log("Error while saving feedbAck", result)
+      console.log('Error while saving feedbAck', result);
       // alert(result.status.message);
-    } else console.log("Error while saving feedbAck", err)
+    } else console.log('Error while saving feedbAck', err);
   }
 }
 

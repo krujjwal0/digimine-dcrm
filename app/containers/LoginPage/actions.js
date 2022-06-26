@@ -34,7 +34,8 @@ import {
   SET_INITIAL_STATE,
   EMAIL_ERROR,
   SET_SHOW_FEEDBACK_FORM_RADIO_DATA,
-  OTP_ERROR
+  OTP_ERROR,
+  SHOW_OTP_ERROR_POPUP,
 } from './constants';
 import {
   USER_LOGOUT,
@@ -172,6 +173,14 @@ export function onOtpError(data) {
   console.log('OTP Error', data);
   return {
     type: OTP_ERROR,
+    payload: data
+  }
+}
+
+export function showOtpErrorPopup(data) {
+  console.log('OtpErrorPopup', data);
+  return {
+    type: SHOW_OTP_ERROR_POPUP,
     payload: data
   }
 }
