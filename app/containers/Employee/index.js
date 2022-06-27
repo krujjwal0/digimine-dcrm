@@ -52,6 +52,8 @@ import './style.css';
 
 const key = 'users';
 
+
+
 const GreenSwitch = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-switchBase.Mui-checked': {
     color: green[600],
@@ -220,7 +222,7 @@ export function Employee({
         console.log('show result emailID inside filter', results);
         obj.results = results;
         setEmployee(obj);
-      }else {
+      } else {
         obj.results = usersListreplica;
         // setFoundUsers(usersList);
         setEmployee(obj);
@@ -234,6 +236,8 @@ export function Employee({
   };
 
   const [searchBy, setSearchBy] = useState('name');
+
+  let sortBy = 'name';
   // const selectDepartment = value => {
   //   console.log(value);
   //   setSearchBy(value);
@@ -257,12 +261,12 @@ export function Employee({
   const handleSelectSeachByOption = (e) => {
     // setName(e.target.value)
 
-   setSearchBy(e.target.value);
+    setSearchBy(e.target.value);
     console.log("Search By ===== ", e.target.value, searchBy)
   }
 
-  const clearAll=()=>{
-    console.log("clear All ===",usersList,usersListreplica)
+  const clearAll = () => {
+    console.log("clear All ===", usersList, usersListreplica)
     // const v = {
     //   target:{
     //     value:'name'
@@ -277,13 +281,56 @@ export function Employee({
       results: [],
     };
     obj1.results = usersListreplica;
-      // setFoundUsers(usersList);
-      setEmployee(obj1);
+    // setFoundUsers(usersList);
+    setEmployee(obj1);
   }
 
-  useEffect(()=>{
+  useEffect(() => {
 
-  },[name])
+  }, [name])
+
+  const orderBy = (e) => {
+    sortBy = e.target.value;
+    console.log("orderBy .................... ", sortBy);
+
+    console.log("Sortong according to ====", sortBy)
+    let obj = {
+      fromSaga: false,
+      results: []
+    };
+
+    if (sortBy === 'name') {
+      const results = usersList.sort((a, b) => a.name > b.name ? 1 : -1
+      );
+      console.log('SORTING result name inside filter', results);
+      obj.results = results;
+      setEmployee(obj);
+    }
+    else if (sortBy === 'employeeId') {
+      const results = usersList.sort((a, b) => a.employeeId > b.employeeId ? 1 : -1);
+      console.log('SORTING Id inside filter', results);
+      obj.results = results;
+      setEmployee(obj);
+    }
+    else if (sortBy === 'emailId') {
+      const results = usersList.sort((a, b) => a.emailId > b.emailId ? 1 : -1);
+      console.log('SORTING EmailId inside filter', results);
+      obj.results = results;
+      setEmployee(obj);
+    }
+    else if (sortBy === 'departmentName') {
+      const results = usersList.sort((a, b) => a.departmentName > b.departmentName ? 1 : -1);
+      console.log('SORTING department inside filter', results);
+      obj.results = results;
+      setEmployee(obj);
+    } else {
+      console.log(" ELSE In SORTING ", usersList, usersListreplica)
+
+      obj.results = usersListreplica;
+      setEmployee(obj);
+    }
+
+  }
 
   return (
     <div className="myprofile">
@@ -324,36 +371,37 @@ export function Employee({
         <div className="flex font-sans">
           <select
             className="border-2 border-gray-200 bg-white h-9 px-3 pr-2 ml-6 rounded-full text-sm focus:outline-none"
-            style={{ width: '10%', borderRadius: '8px' }}
-            onChange={() => orderBy()}
+            style={{ width: '13%' }}
+            onChange={(e) => orderBy(e)}
           >
             <option value="" disabled selected>
               Sort by
             </option>
-            <option value="departmentName">Department</option>
-            <option value="emailId">Email_ID</option>
-            <option value="id">User_ID</option>
+            <option className='font-sans' value="name" name="name">Name</option>
+            <option className='font-sans' value="emailId" name="emailId">Email ID</option>
+            <option className='font-sans' value="employeeId" name="id">Employee ID</option>
+            <option className='font-sans' value="departmentName" name="departmentName">Department</option>
           </select>
 
           <label
-            className="border-0 border-gray-200 bg-white h-9 mt-2 px-2 ml-2 rounded-full text-sm"
-            // style={{ width: '12%', borderRadius: '8px' }}
+            className="border-0 border-gray-200 bg-white h-9 mt-2 px-2 ml-2 rounded-full text-sm font-sans"
+          // style={{ width: '12%', borderRadius: '8px' }}
           >
             Search By
           </label>
           <select
             className="border-2 border-gray-200 bg-white h-9 px-2 pr-2 ml-1 rounded-full text-sm focus:outline-none"
-            style={{ width: '14%', borderRadius: '8px' }}
+            style={{ width: '14%' }}
             // onClick={selectDepartment}
             onClick={handleSelectSeachByOption}
-            // value={name}
+          // value={name}
           >
             {/* <option value="" disabled selected>
               Name
             </option> */}
             {searchByOptions.map((data, index) => {
               return (
-                <option key={index} value={data.value}>
+                <option className='font-sans' key={index} value={data.value}>
                   {data.label}
                 </option>
               );
@@ -364,33 +412,33 @@ export function Employee({
             className="border-2 border-gray-300 bg-white w-72 h-9 px-8 pr-6 ml-3 rounded-full text-sm focus:outline-none"
             value={name}
             onChange={filter}
-            style={{ borderRadius: '8px' }}
+            style={{ }}
             type="text"
             name="search"
             placeholder="Search Here"
           />
-          <button className="text-green-400 border-2 rounded-full border-gray-300 mr-3 ml-3 w-16 h-9 pr-2 pl-1"  onClick={()=>clearAll()}>
-        Clear
-      </button>
-      <div className='font-sans w-40'>
-          <Button
-            id="demo-customized-button"
-            aria-controls={open ? 'demo-customized-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-            variant="contained"
-            disableElevation
-            onClick={handleClick}
-            endIcon={<MoreVert />}
-            style={{
-              color: 'white',
-              borderRadius: '30px',
-              background: 'rgba(102, 115, 126, 0.46)',
-            }}
-            className="font-sans"
-          >
-            <p className='font-sans '>ACTION</p>
-          </Button>
+          <button className="text-green-400 border-2 rounded-full border-gray-300 mr-3 ml-3 w-16 h-9 pr-2 pl-1" onClick={() => clearAll()}>
+            Clear
+          </button>
+          <div className='font-sans w-40'>
+            <Button
+              id="demo-customized-button"
+              aria-controls={open ? 'demo-customized-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              variant="contained"
+              disableElevation
+              onClick={handleClick}
+              endIcon={<MoreVert />}
+              style={{
+                color: 'white',
+                borderRadius: '30px',
+                background: 'rgba(102, 115, 126, 0.46)',
+              }}
+              className="font-sans"
+            >
+              <p className='font-sans '>ACTION</p>
+            </Button>
           </div>
           <Popover
             id={id}
@@ -427,13 +475,13 @@ export function Employee({
           </Popover>
           <Dialog className='w-full h-full' open={showExport} onClose={handleCloseBtn}>
             <DialogContent
-              // style={{
-              //   borderRadius: '15px',
-              //   background: '#FFFFFF',
-              //   boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
-              //   Width: '70%',
-              //   Height: '80%',
-              // }}
+            // style={{
+            //   borderRadius: '15px',
+            //   background: '#FFFFFF',
+            //   boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
+            //   Width: '70%',
+            //   Height: '80%',
+            // }}
             >
               <AddUser
                 addUser={addUser}
@@ -520,7 +568,7 @@ export function Employee({
 control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="checkedB" />}
 
 /> */}
-                              <GreenSwitch {...label} defaultChecked className='-ml-3'/>
+                              <GreenSwitch {...label} defaultChecked className='-ml-3' />
                             </div>
                             <div className="mt-2 ml-8">
                               <MoreVert onClick={(e) => handleClickAdd(e, index)} />
