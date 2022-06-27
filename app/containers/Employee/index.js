@@ -547,7 +547,7 @@ control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="check
                               <div className="p-2 m-2">
                                 <div>
                                   <button
-                                    className="my-1 mx-4"
+                                    className="my-1 mx-4 font-sans"
                                     value={list.id}
                                     onClick={() => openEdit()}
                                   >
@@ -556,7 +556,7 @@ control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="check
                                 </div>
                                 <div>
                                   <button
-                                    className="my-1 mx-4"
+                                    className="my-1 mx-4 font-sans"
                                     value={list.id}
                                     onClick={() => onDeleteUser()}
                                   >
