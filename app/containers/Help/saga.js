@@ -29,8 +29,8 @@ function* getQ_A_Saga() {
   } catch (err) {
     console.log('Error in Help saga', result, err);
     if (result) {
-      alert(result.status.message);
-    } else alert(err);
+      console.log(result.status.message);
+    } else console.log(err);
   }
 }
 export default function* helpData() {
