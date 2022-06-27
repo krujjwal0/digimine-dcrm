@@ -256,9 +256,34 @@ export function Employee({
   const handleSelectSeachByOption = (e) => {
     // setName(e.target.value)
 
-   setSearchBy( e.target.value);
+   setSearchBy(e.target.value);
     console.log("Search By ===== ", e.target.value, searchBy)
   }
+
+  const clearAll=()=>{
+    console.log("clear All ===",usersList,usersListreplica)
+    // const v = {
+    //   target:{
+    //     value:'name'
+    //   }
+    // }
+
+    // handleSelectSeachByOption(v);
+
+    setName('');
+    let obj1 = {
+      fromSaga: false,
+      results: [],
+    };
+    obj1.results = usersListreplica;
+      // setFoundUsers(usersList);
+      setEmployee(obj1);
+  }
+
+  useEffect(()=>{
+
+  },[name])
+
   return (
     <div className="myprofile">
 
@@ -320,7 +345,7 @@ export function Employee({
             style={{ width: '14%', borderRadius: '8px' }}
             // onClick={selectDepartment}
             onClick={handleSelectSeachByOption}
-          // value={name}
+            // value={name}
           >
             {/* <option value="" disabled selected>
               Name
@@ -341,9 +366,9 @@ export function Employee({
             style={{ borderRadius: '8px' }}
             type="text"
             name="search"
-            placeholder="Search by name"
+            placeholder="Search Here"
           />
-          <button className="text-green-500 border-2 rounded-full border-gray-300 mr-3 ml-3 pr-2 pl-1">
+          <button className="text-green-500 border-2 rounded-full border-gray-300 mr-3 ml-3 pr-2 pl-1" onClick={()=>clearAll()}>
             Clear
           </button>
           <Button
