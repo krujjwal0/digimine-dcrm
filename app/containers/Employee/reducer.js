@@ -1,12 +1,13 @@
 import produce from 'immer';
 import { v4 as uuidv4 } from 'uuid';
-import { SET_ALL_DEPARTMENTS, SET_ALL_ROLES, SET_EMPLOYEE } from './constants';
+import { SET_ALL_DEPARTMENTS, SET_ALL_ROLES, SET_EMPLOYEE, SET_EDIT_USER_DATA } from './constants';
 
 export const initialState = {
   usersList: [],
   usersListreplica: [],
   departmentList: [],
   rolesList: [],
+  editUserData:{}
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -15,6 +16,11 @@ const empReducer = (state = initialState, action) =>
     const { type } = action;
     // console.log('in orgchart reducer ==',action.type,action.payload.Users.map)
     switch (action.type) {
+      case SET_EDIT_USER_DATA:
+        return {
+          ...state,
+          editUserData: action.payload
+        }
       case SET_ALL_DEPARTMENTS:
         return {
           ...state,

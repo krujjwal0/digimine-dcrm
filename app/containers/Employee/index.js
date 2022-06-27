@@ -37,15 +37,17 @@ import {
   getAllRoles,
   setEmployee,
   addUser,
+  setEditUserData,
 } from './actions';
 import { loadRepos } from '../App/actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import Users from './Users';
-import {AddUser} from './AddUser';
+import { AddUser } from './AddUser';
 //import UsersUtility from './UsersUtility';
 import emp_image from '../../images/emp_image.png';
+import { lastIndexOf } from 'lodash';
 
 const key = 'users';
 
@@ -80,6 +82,8 @@ export function Employee({
   getAllRoles,
   setEmployee,
   addUser,
+  setEditUserData,
+  editUserData
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -100,6 +104,10 @@ export function Employee({
     getAllDepartment();
     console.log('USers List index =====', usersList);
   }, []);
+
+  useEffect(() => {
+    console.log("editUserData =====", editUserData)
+  }, [editUserData]);
 
   useEffect(() => {
     console.log('department list', departmentList);
@@ -125,8 +133,12 @@ export function Employee({
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const [deleteId, setDeleteId] = useState(0);
 
-  const handleClickAdd = event => {
+  const handleClickAdd = (event, index) => {
+    console.log("================", index)
+    setEditUserData(usersList[index]);
+    setDeleteId(index);
     setAnchor(event.currentTarget);
   };
 
@@ -140,24 +152,24 @@ export function Employee({
   const openAdd = Boolean(anchor);
   const idAdd = openAdd ? 'simple-popover' : undefined;
 
-  const [editUserData, setEditUserData] = useState({});
+  // const [editUserData, setEditUserData] = useState({});
   const [showEdit, setShowEdit] = useState(false);
-  const openEdit = data => {
-    setEditUserData(data);
+  const openEdit = () => {
     setShowEdit(true);
   };
   const handleExit = () => {
     setShowEdit(false);
   };
-  
+
   useEffect(() => { }, [usersList]);
-  const onDeleteUser = id => {
+  const onDeleteUser = () => {
     // const verify = window.confirm('Are you sure you want to delete ?');
     // console.log('Verify====id ', verify, id);
     // if (verify == true) {
     //   console.log('Inside true');
-      // pass id to delete
-      deleteUser(id);
+    // pass id to delete
+    console.log("onDeleteUser===", deleteId);
+    deleteUser(usersList[deleteId].id);
     // }
   };
 
@@ -192,7 +204,7 @@ export function Employee({
       setEmployee(obj);
     }
     setName(keyword);
-  }; 
+  };
 
   const [searchBy, setSearchBy] = useState('name')
   const selectDepartment = value => {
@@ -203,9 +215,9 @@ export function Employee({
 
   return (
     <div className="myprofile">
-      
+
       <div className="mx-9 mt-4 w-[95%]">
-      <Breadcrumbs
+        <Breadcrumbs
           aria-label="breadcrumb"
           className="font-sans font-bold text-xl"
           style={{ marginLeft: '0px', fontWeight: '800', fontSize: '30px' }}
@@ -348,7 +360,7 @@ export function Employee({
               }}
             >
               <AddUser
-              addUser={addUser}
+                addUser={addUser}
                 rolesList={rolesList}
                 departmentList={departmentList}
                 getAllDepartment={getAllDepartment}
@@ -364,154 +376,158 @@ export function Employee({
 
             {usersList &&
               usersList.length > 0 &&
-              usersList.map((list, index) => (
-                <div
-                  className="block text-gray lg:ml-6 md:ml-10 sm:ml-12"
-                  key={list.name}
-                // style={{border:'2px solid red', marginLeft:'6px',marginRight:'6px'}}
-                >
-                  <div className="my-5 w-full justify-center " />
-                  <div>
-                    <Card
-                      className="w-full rounded-full h-[72px]"
-                      style={{ borderRadius: '50px', marginTop: '10px' }}
-                    >
-                      <CardContent className="justify-center">
-                        <div className="flex rounded-full" key={list.name}>
-                          <div className="">
-                            <img
-                              className="rounded-full ml-3 w-[41px] h-[41px]"
-                              src={emp_image}
-                            />
-                          </div>
-                          <div className="ml-10">
-                            <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
-                              Employee
-                            </p>
-                            <div className="flex">
-                              <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
-                                {list.name}
+              usersList.map((list, index) => {
+                return (
+                  <div
+                    className="block text-gray lg:ml-6 md:ml-10 sm:ml-12"
+                    key={index}
+                  // style={{border:'2px solid red', marginLeft:'6px',marginRight:'6px'}}
+                  >
+                    <div className="my-5 w-full justify-center " />
+                    <div>
+                      <Card
+                        className="w-full rounded-full h-[72px]"
+                        style={{ borderRadius: '50px', marginTop: '10px' }}
+                      >
+                        <CardContent className="justify-center">
+                          <div className="flex rounded-full" key={list.name}>
+                            <div className="">
+                              <img
+                                className="rounded-full ml-3 w-[41px] h-[41px]"
+                                src={emp_image}
+                              />
+                            </div>
+                            <div className="ml-10">
+                              <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
+                                Employee
                               </p>
-                              <div className="flex justify-center w-20 bg-[#F66B6B] ml-1 mt-[6px] rounded-md h-4">
-                                <p className="text-center text-[11px] mt-[2px] text-white font-sans">
-                                  {list.employeeId}
+                              <div className="flex">
+                                <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
+                                  {list.name}
                                 </p>
+                                <div className="flex justify-center w-20 bg-[#F66B6B] ml-1 mt-[6px] rounded-md h-4">
+                                  <p className="text-center text-[11px] mt-[2px] text-white font-sans">
+                                    {list.employeeId}
+                                  </p>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                          <div className="ml-10">
-                            <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
-                              Department
-                            </p>
-                            <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
-                              {list.departmentName}
-                            </p>
-                          </div>
-                          <div className="ml-12">
-                            <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
-                              Phone
-                            </p>
-                            <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
-                              {list.mobileNumber}
-                            </p>
-                          </div>
-                          <div className="ml-12">
-                            <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
-                              Email ID
-                            </p>
-                            <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
-                              {list.emailId}
-                            </p>
-                          </div>
-                          <div className="ml-12">
-                            <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
-                              Active
-                            </p>
-                            {/* <FormControlLabel
+                            <div className="ml-10">
+                              <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
+                                Department
+                              </p>
+                              <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
+                                {list.departmentName}
+                              </p>
+                            </div>
+                            <div className="ml-12">
+                              <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
+                                Phone
+                              </p>
+                              <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
+                                {list.mobileNumber}
+                              </p>
+                            </div>
+                            <div className="ml-12">
+                              <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
+                                Email ID
+                              </p>
+                              <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
+                                {list.emailId}
+                              </p>
+                            </div>
+                            <div className="ml-12">
+                              <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
+                                Active
+                              </p>
+                              {/* <FormControlLabel
 control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="checkedB" />}
 
 /> */}
-                            <GreenSwitch {...label} defaultChecked />
-                          </div>
-                          <div className="mt-2 ml-8">
-                            <MoreVert onClick={handleClickAdd} />
-                          </div>
-                          <Popover
-                            id={idAdd}
-                            open={openAdd}
-                            anchorEl={anchor}
-                            onClose={handleCloseAdd}
-                            style={{
-                              borderRadius: '15px',
-                              // background: '#FFFFFF',
-                              // boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)'
-                            }}
-                            anchorOrigin={{
-                              vertical: 'top',
-                              horizontal: 'right',
-                            }}
-                            transformOrigin={{
-                              vertical: 'top',
-                              horizontal: 'left',
-                            }}
-                          >
-                            <div className="p-2 m-2">
-                              <div>
-                                <button
-                                  className="my-1 mx-4"
-                                  disable
-                                  onClick={() => openEdit(list)}
-                                >
-                                  Edit
-                                </button>
-                              </div>
-                              <div>
-                                <button
-                                  className="my-1 mx-4"
-                                  onClick={() => onDeleteUser(list.id)}
-                                >
-                                  Delete
-                                </button>
-                              </div>
+                              <GreenSwitch {...label} defaultChecked />
                             </div>
-                          </Popover>
-                          <Dialog
-                            open={showEdit}
-                            onClose={handleExit}
-                            className="w-50 h-50"
-                          >
-                            <DialogContent
+                            <div className="mt-2 ml-8">
+                              <MoreVert onClick={(e) => handleClickAdd(e, index)} />
+                            </div>
+                            <Popover
+                              id={idAdd}
+                              open={openAdd}
+                              anchorEl={anchor}
+                              onClose={handleCloseAdd}
                               style={{
                                 borderRadius: '15px',
-                                background: '#FFFFFF',
-                                boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
-                                Width: '604px',
-                                Height: '494px',
+                                // background: '#FFFFFF',
+                                // boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)'
+                              }}
+                              anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                              }}
+                              transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'left',
                               }}
                             >
-                              <EditUser
-                                list={editUserData}
-                                editUser={editUser}
-                                rolesList={rolesList}
-                                departmentList={departmentList}
-                                getAllDepartment={getAllDepartment}
-                                getAllRoles={getAllRoles}
-                              />
-                            </DialogContent>
-                          </Dialog>
-                        </div>
-                      </CardContent>
-                      <CardActions>
-                        {/* <Button size="small">Learn More</Button> */}
-                      </CardActions>
-                    </Card>
-                    {/* ))
+                              <div className="p-2 m-2">
+                                <div>
+                                  <button
+                                    className="my-1 mx-4"
+                                    value={list.id}
+                                    onClick={() => openEdit()}
+                                  >
+                                    Edit
+                                  </button>
+                                </div>
+                                <div>
+                                  <button
+                                    className="my-1 mx-4"
+                                    value={list.id}
+                                    onClick={() => onDeleteUser()}
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                              </div>
+                            </Popover>
+                            <Dialog
+                              open={showEdit}
+                              onClose={handleExit}
+                              className="w-50 h-50"
+                            >
+                              <DialogContent
+                                style={{
+                                  borderRadius: '15px',
+                                  background: '#FFFFFF',
+                                  boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
+                                  Width: '604px',
+                                  Height: '494px',
+                                }}
+                              >
+                                <EditUser
+                                  list={editUserData}
+                                  editUser={editUser}
+                                  rolesList={rolesList}
+                                  departmentList={departmentList}
+                                  getAllDepartment={getAllDepartment}
+                                  getAllRoles={getAllRoles}
+                                  handleExit={handleExit}
+                                />
+                              </DialogContent>
+                            </Dialog>
+                          </div>
+                        </CardContent>
+                        <CardActions>
+                          {/* <Button size="small">Learn More</Button> */}
+                        </CardActions>
+                      </Card>
+                      {/* ))
                   ) : (
                     <h1>No results found!</h1>
                   )} */}
+                    </div>
                   </div>
-                </div>
-              ))}
+                )
+              })}
           </div>
         </div>
         {/* <label className="users_heading">Users</label> */}
@@ -543,6 +559,7 @@ const mapStateToProps = state => ({
   usersListreplica: state.users.usersListreplica.length > 0 ? state.users.usersListreplica : [],
   rolesList: state.users.rolesList.length > 0 ? state.users.rolesList : [],
   departmentList: state.users.departmentList.length > 0 ? state.users.departmentList : [],
+  editUserData: state.users.editUserData,
 });
 
 export function mapDispatchToProps(dispatch) {
@@ -555,6 +572,7 @@ export function mapDispatchToProps(dispatch) {
     getAllDepartment: () => dispatch(getAllDepartment()),
     getAllRoles: () => dispatch(getAllRoles()),
     addUser: data => dispatch(addUser(data)),
+    setEditUserData: data => dispatch(setEditUserData(data)),
     onSubmitForm: evt => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(loadRepos());
