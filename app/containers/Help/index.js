@@ -52,6 +52,10 @@ function Help(props) {
     console.log('Help UseEffect ', props.help_Q_A, props.helpreplica);
   }, [props.help_Q_A]);
 
+  useEffect(() => {
+    console.log('Help UseEffect ', props.help_Q_A, props.helpreplica);
+  }, [props.helpreplica]);
+
   const [question, setQuestion] = useState()
 
   const filter = (e) => {
@@ -62,15 +66,16 @@ function Help(props) {
     }
     if (keyword !== '') {
       const results = props.helpreplica.filter((que) => {
-        return que.question.toLowerCase().startsWith(keyword.toLowerCase());
+        // return que.question.toLowerCase().startsWith(keyword.toLowerCase());
+        return que.question.toLowerCase().includes(keyword.toLowerCase())
       });
       console.log('help replica target value', props.helpreplica, props.help_Q_A, e.target.value, results)
       obj.results = results;
-      setQ_A(obj);
+      props.setQ_A(obj);
     }
     else {
       obj.results = props.helpreplica;
-      setQ_A(obj);
+      props.setQ_A(obj);
     }
     setQuestion(keyword);
   };
@@ -162,7 +167,7 @@ function Help(props) {
               </Accordion>
             ))
           ) : (
-            <p>!</p>
+            <p>No Result Found</p>
           )}
         </div>
         <div className="mt-9 flex pl-80 mb-12">

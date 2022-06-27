@@ -12,13 +12,16 @@ const helpReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
       case SET_Q_A:
+        console.log("SET Q A====",action.payload)
         if(action.payload.fromSaga === true){
+          console.log("IF ====",action.payload)
           return {
             ...state,
             help_Q_A: action.payload.results.data.qNa,
             helpreplica: action.payload.results.data.qNa,
           }
         }else{
+          console.log("ELSE ====",action.payload)
           return {
             ...state,
             help_Q_A: action.payload.results,

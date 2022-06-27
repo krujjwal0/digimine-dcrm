@@ -12,6 +12,7 @@ export function getQ_A() {
   };
 }
 export function setQ_A(data) {
+  console.log("SET Q A====",data)
   return {
     type: SET_Q_A,
     payload: data
