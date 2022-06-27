@@ -382,7 +382,7 @@ export function Employee({
           </select>
 
           <label
-            className="border-0 border-gray-200 bg-white h-9 mt-2 px-2 ml-2 rounded-full text-sm"
+            className="border-0 border-gray-200 bg-white h-9 mt-2 px-2 ml-2 rounded-full text-sm font-sans"
           // style={{ width: '12%', borderRadius: '8px' }}
           >
             Search By
