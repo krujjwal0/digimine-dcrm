@@ -48,6 +48,7 @@ import { AddUser } from './AddUser';
 //import UsersUtility from './UsersUtility';
 import emp_image from '../../images/emp_image.png';
 import { lastIndexOf } from 'lodash';
+import './style.css';
 
 const key = 'users';
 
@@ -249,7 +250,7 @@ export function Employee({
         <div className="mt-4 mb-6 w-full">
           <Divider />
         </div>
-        <div className="md:flex  m-2">
+        <div className="flex font-sans">
           <select
             className="border-2 border-gray-200 bg-white h-9 px-3 pr-2 ml-6 rounded-full text-sm focus:outline-none"
             style={{ width: '10%', borderRadius: '8px' }}
@@ -265,7 +266,7 @@ export function Employee({
 
           <label
             className="border-0 border-gray-200 bg-white h-9 mt-2 px-2 ml-2 rounded-full text-sm"
-            style={{ width: '12%', borderRadius: '8px' }}
+            // style={{ width: '12%', borderRadius: '8px' }}
           >
             Search By
           </label>
@@ -296,9 +297,10 @@ export function Employee({
             name="search"
             placeholder="Search by name"
           />
-          <button className="text-green-500 border-2 rounded-full border-gray-300 mr-3 ml-3 pr-2 pl-1">
-            Clear
-          </button>
+          <button className="text-green-400 border-2 rounded-full border-gray-300 mr-3 ml-3 w-16 h-9 pr-2 pl-1">
+        Clear
+      </button>
+      <div className='font-sans w-40'>
           <Button
             id="demo-customized-button"
             aria-controls={open ? 'demo-customized-menu' : undefined}
@@ -313,9 +315,11 @@ export function Employee({
               borderRadius: '30px',
               background: 'rgba(102, 115, 126, 0.46)',
             }}
+            className="font-sans"
           >
-            ACTION
+            <p className='font-sans '>ACTION</p>
           </Button>
+          </div>
           <Popover
             id={id}
             open={open}
@@ -327,37 +331,37 @@ export function Employee({
               // boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)'
             }}
             anchorOrigin={{
-              vertical: 'top',
+              vertical: 'bottom',
               horizontal: 'left',
             }}
           >
-            <div className="p-2 m-2">
+            <div className="p-2 m-2 font-sans">
               <div>
-                <button className="text-slate-200 mx-3" disable>
+                <button className="text-slate-200 mx-3 font-sans" disable>
                   Import Excel
                 </button>
               </div>
               <div>
-                <button className="text-slate-200 mx-3 my-2" disable>
+                <button className="text-slate-200 mx-3 my-2 font-sans" disable>
                   Import SAP
                 </button>
               </div>
               <div>
-                <button className="mx-3" onClick={openExport}>
+                <button className="mx-3 font-sans" onClick={openExport}>
                   Add User
                 </button>
               </div>
             </div>
           </Popover>
-          <Dialog open={showExport} onClose={handleCloseBtn}>
+          <Dialog className='w-full h-full' open={showExport} onClose={handleCloseBtn}>
             <DialogContent
-              style={{
-                borderRadius: '15px',
-                background: '#FFFFFF',
-                boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
-                Width: '70%',
-                Height: '80%',
-              }}
+              // style={{
+              //   borderRadius: '15px',
+              //   background: '#FFFFFF',
+              //   boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
+              //   Width: '70%',
+              //   Height: '80%',
+              // }}
             >
               <AddUser
                 addUser={addUser}
@@ -405,8 +409,8 @@ export function Employee({
                                 <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
                                   {list.name}
                                 </p>
-                                <div className="flex justify-center w-20 bg-[#F66B6B] ml-1 mt-[6px] rounded-md h-4">
-                                  <p className="text-center text-[11px] mt-[2px] text-white font-sans">
+                                <div className="flex justify-center w-auto bg-[#F66B6B] ml-1 mt-[6px] rounded-md h-4">
+                                  <p className="text-center m-2 text-[11px] mt-[2px] text-white font-sans">
                                     {list.employeeId}
                                   </p>
                                 </div>
@@ -444,7 +448,7 @@ export function Employee({
 control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="checkedB" />}
 
 /> */}
-                              <GreenSwitch {...label} defaultChecked />
+                              <GreenSwitch {...label} defaultChecked className='-ml-3'/>
                             </div>
                             <div className="mt-2 ml-8">
                               <MoreVert onClick={(e) => handleClickAdd(e, index)} />
