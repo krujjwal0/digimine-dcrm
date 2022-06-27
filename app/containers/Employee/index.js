@@ -181,23 +181,49 @@ export function Employee({
     setShowExport(false);
   };
 
-  const [name, setName] = useState();
+  const [name, setName] = useState('');
 
   const filter = e => {
     const keyword = e.target.value;
+    // setName(searchBy);
+    console.log("Seacrh according to ====", searchBy, name)
     let obj = {
       fromSaga: false,
       results: [],
     };
 
     if (keyword !== '') {
-      const results = usersListreplica.filter((list) => {
-        return list.name.toLowerCase().startsWith(keyword.toLowerCase());
-      });
-      // setFoundUsers(results);
-      console.log('show result inside filter', results);
-      obj.results = results;
-      setEmployee(obj);
+      if (searchBy === 'name') {
+        const results = usersListreplica.filter((list) => {
+          return list.name.toLowerCase().startsWith(keyword.toLowerCase());
+        });
+        // setFoundUsers(results);
+        console.log('show result name inside filter', results);
+        obj.results = results;
+        setEmployee(obj);
+      }
+      else if (searchBy === 'departmentName') {
+        const results = usersListreplica.filter((list) => {
+          return list.departmentName.toLowerCase().startsWith(keyword.toLowerCase());
+        });
+        // setFoundUsers(results);
+        console.log('show result department inside filter', results);
+        obj.results = results;
+        setEmployee(obj);
+      }
+      else if (searchBy === 'emailId') {
+        const results = usersListreplica.filter((list) => {
+          return list.emailId.toLowerCase().startsWith(keyword.toLowerCase());
+        });
+        // setFoundUsers(results);
+        console.log('show result emailID inside filter', results);
+        obj.results = results;
+        setEmployee(obj);
+      }else {
+        obj.results = usersListreplica;
+        // setFoundUsers(usersList);
+        setEmployee(obj);
+      }
     } else {
       obj.results = usersListreplica;
       // setFoundUsers(usersList);
@@ -206,13 +232,33 @@ export function Employee({
     setName(keyword);
   };
 
-  const [searchBy, setSearchBy] = useState('name')
-  const selectDepartment = value => {
-    console.log(value);
-    setSearchBy(value);
-    // Call api to show users list of particular Location
-  };
+  const [searchBy, setSearchBy] = useState('name');
+  // const selectDepartment = value => {
+  //   console.log(value);
+  //   setSearchBy(value);
+  //   // Call api to show users list of particular Location
+  // };
+  const searchByOptions = [
+    {
+      label: 'Name',
+      value: 'name'
+    },
+    {
+      label: 'Department',
+      value: 'departmentName'
+    },
+    {
+      label: 'Email',
+      value: 'emailId'
+    }
+  ]
 
+  const handleSelectSeachByOption = (e) => {
+    // setName(e.target.value)
+
+   setSearchBy( e.target.value);
+    console.log("Search By ===== ", e.target.value, searchBy)
+  }
   return (
     <div className="myprofile">
 
@@ -272,19 +318,20 @@ export function Employee({
           <select
             className="border-2 border-gray-200 bg-white h-9 px-2 pr-2 ml-1 rounded-full text-sm focus:outline-none"
             style={{ width: '14%', borderRadius: '8px' }}
-            onClick={selectDepartment}
-            value={name}
+            // onClick={selectDepartment}
+            onClick={handleSelectSeachByOption}
+          // value={name}
           >
-            <option value="" disabled selected>
+            {/* <option value="" disabled selected>
               Name
-            </option>
-            {/* {departmentList.map((data, index) => {
+            </option> */}
+            {searchByOptions.map((data, index) => {
               return (
-                <option key={index} name={data.name} value={data.id}>
-                  {data.name}
+                <option key={index} value={data.value}>
+                  {data.label}
                 </option>
               );
-            })} */}
+            })}
           </select>
 
           <input
