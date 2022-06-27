@@ -235,7 +235,7 @@ export function AddUser(props) {
                 borderRadius: '60px',
               }}
             >
-              Save
+              <p className='font-sans -ml-3 text-white'>Save</p>
             </Button>
           </div>
         </div>
