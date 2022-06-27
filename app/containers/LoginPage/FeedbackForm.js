@@ -198,12 +198,12 @@ function FeedbackForm({
             style={{ width: '250px', height: '80px', marginTop: '30px' }}
           />
         </div>
-        <div className="font-sans mt-9" style={{ marginRight: '26%' }}>
+        <div className="font-sans mt-12" style={{ marginRight: '32%' }}>
           <label
             style={{
               color: '#132B6B',
               // fontFamily: 'Omnes',
-              fontWeight: '500',
+              fontWeight: '700',
               fontSize: '35px',
               lineHeight: '110%',
               // marginLeft: '817px'
@@ -217,7 +217,7 @@ function FeedbackForm({
 
       <div className="flex ml-32">
         <div
-          className="mt-24"
+          className="mt-20"
           style={{
             background: '#F46B6B',
             height: '270px',
@@ -226,7 +226,7 @@ function FeedbackForm({
           }}
         />
         {/* {feedbackFormData.map((feed, index) => ( */}
-        <div className="w-3/4 mt-24 ml-6">
+        <div className="w-3/4 mt-20 ml-6">
           <label
             style={{
 
@@ -238,7 +238,7 @@ function FeedbackForm({
               lineHeight: '110%',
               color: '#F46B6B',
             }}
-            className="font-sans flex"
+            className="font-sans flex ml-3"
           >
 
             <p
@@ -253,13 +253,13 @@ function FeedbackForm({
                 left: '154px',
                 // marginTop: '8px',
               }}
-              className=" font-sans"
+              className=" font-sans ml-3 mt-1"
             >
               {feedbackFormData[activeStep].question}
             </p>
           </label>
 
-          <div className=" mt-7 -ml-1">
+          <div className=" mt-5 -ml-1">
             {feedbackFormData[activeStep].options.length > 0 ?
               <RadioGroup
                 row
@@ -410,7 +410,7 @@ function FeedbackForm({
           </div>
         </div>
         {/* ))} */}
-        <div className=" ml-36 step_list -mt-12">
+        <div className=" ml-36 step_list " style={{marginTop: '-2.5rem'}}>
           <Box sx={{ maxWidth: 400 }}>
             <Stepper
               activeStep={activeStep}
@@ -423,9 +423,9 @@ function FeedbackForm({
                 </Step>
               ))}
             </Stepper>
-            <Typography>
+            {/* <Typography>
               All steps completed
-            </Typography>
+            </Typography> */}
           </Box>
           {/* <Box sx={{ maxWidth: 400 }}>
             <Stepper activeStep={activeStep} orientation="vertical">
@@ -477,13 +477,13 @@ function FeedbackForm({
       </div>
       <div className=" flex justify-between  ">
         <div
-          className="flex w- ml-32 "
-          onClick={() => {
-            helpPageCall();
-          }}
+          className="flex w-full -mt-7 "
+          // onClick={() => {
+          //   helpPageCall();
+          // }}
         >
           <HelpOutlineIcon
-            className="mb-6 "
+            className="mb-6 ml-28"
             // onClick={()=>{history.push({pathname: '/help'})}}
             style={{
               backgroundColor: '#FFFFFF',
@@ -491,10 +491,16 @@ function FeedbackForm({
               height: '45px',
               color: '#132B6B',
             }}
+            onClick={() => {
+              helpPageCall();
+            }}
           />
           <p
             className="font-sans mt-4 font-semibold "
             style={{ color: '#132B6B' }}
+            onClick={() => {
+              helpPageCall();
+            }}
           >
             Help
           </p>
@@ -502,21 +508,20 @@ function FeedbackForm({
             <img
               src={FormImg}
               style={{
-                position: 'absolute',
+                position: 'fixed',
                 backgroundSize: '100% auto',
                 width: '100%',
-                height: '30%',
+                height: '100vh',
                 maxHeight: '95px',
                 content: '',
                 left: '0',
                 bottom: '0',
-                top: '612px',
+                // top: '612px',
               }}
             />
-          </div>
-        </div>
+          <div className="flex flex justify-end  -mt-5 " style={{marginLeft: '900px', }}>
 
-        <div className="flex mr-80 -mt-12 ">
+        <div>
           <button
             style={{
               background: '#132B6B',
@@ -524,7 +529,7 @@ function FeedbackForm({
               color: 'white',
               width: '115px',
               height: '40px',
-              marginLeft: '-120px',
+              marginLeft: '-90px',
               marginTop: '3px',
             }}
             className="font-sans absolute"
@@ -532,12 +537,12 @@ function FeedbackForm({
           >
             Skip
           </button>
-          <div>
+          {/* <div>
             {allStepCompleted ?
               (
                 <Typography>All Steps are Completed</Typography>
-              ) : (
-
+              ) : ( */}
+<div>
                 <button
                   style={{
                     background: '#132B6B',
@@ -546,30 +551,17 @@ function FeedbackForm({
                     width: '115px',
                     height: '40px',
                   }}
-                  className="font-sans absolute"
+                  className="font-sans absolute ml-8"
                   onClick={handleNext}
                 >
                   NEXT
                 </button>
-              )}
-          </div>
-          {/* <button
-            style={{
-              background: '#132B6B',
-              borderRadius: '60px',
-              color: 'white',
-              width: '115px',
-              height: '40px',
-              marginTop: '42px',
-            }}
-            className="font-sans absolute"
-            onClick={handleSave}
-          >
-            SAVE
-          </button> */}
-        </div>
-      </div>
-    </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div></div></div>
+              
   );
 }
 

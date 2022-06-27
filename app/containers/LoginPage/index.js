@@ -42,7 +42,7 @@ export default function SplashScreen() {
           <img
             className="  w-full h-screen "
             src={backgroundImage}
-            style={{ marginTop: '-22.50%' }}
+            style={{ marginTop: '-21.30%' }}
           />
           
         </div>
