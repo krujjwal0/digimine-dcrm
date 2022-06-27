@@ -170,7 +170,7 @@ function Help(props) {
             <p>No Result Found</p>
           )}
         </div>
-        <div className="mt-9 flex pl-80 mb-12">
+        <div className="mt-9 flex justify-center mb-12">
           <Button
             className="bg_red mx-auto  font-bold login_btn  w-60 h-14 rounded-full my-5 "
             style={{ borderRadius: '50px' }}
