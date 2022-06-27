@@ -333,7 +333,7 @@ export function Employee({
   }
 
   return (
-    <div className="myprofile">
+    <div className="content">
 
       <div className="mx-9 mt-4 w-[95%]">
         <Breadcrumbs
