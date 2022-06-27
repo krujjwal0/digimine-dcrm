@@ -116,7 +116,7 @@ function Help(props) {
         </div>
 
         <p
-          className=" font- sans font-bold ml-20 text-xl mt-5"
+          className=" font- sans font-bold flex justify-center text-xl mt-9"
           style={{ color: '#F66B6B' }}
         >
           <p className="font-sans">
@@ -129,7 +129,7 @@ function Help(props) {
             <SearchIcon />
           </div>
           <input
-            className=" mt-7 border-2 border-gray-300 bg-white w-full h-12 px-16 rounded-full  text-sm focus:outline-none"
+            className=" mt-7 border-2 border-gray-300 bg-white w-full h-12 px-16 rounded-full font-sans text-sm focus:outline-none"
             style={{}}
             value={question}
             onChange={filter}
@@ -145,7 +145,7 @@ function Help(props) {
               <Accordion
                 key={i}
                 className="w-full"
-                style={{ border: '1px solid #DCE1EA', borderRadius: '10px', marginTop: '10px' }}
+                style={{ border: '1px solid #DCE1EA', borderRadius: '10px', marginTop: '30px' }}
               >
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -170,7 +170,7 @@ function Help(props) {
             <p>No Result Found</p>
           )}
         </div>
-        <div className="mt-9 flex justify-center mb-12">
+        <div className="mt-32 flex justify-center mb-12">
           <Button
             className="bg_red mx-auto  font-bold login_btn  w-60 h-14 rounded-full my-5 "
             style={{ borderRadius: '50px' }}

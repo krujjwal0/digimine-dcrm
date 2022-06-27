@@ -49,6 +49,7 @@ import { AddUser } from './AddUser';
 import emp_image from '../../images/emp_image.png';
 import { lastIndexOf } from 'lodash';
 import './style.css';
+import userImage from '../LoginPage/images/addImage.png';
 
 const key = 'users';
 
@@ -368,9 +369,9 @@ export function Employee({
         <div className="mt-4 mb-6 w-full">
           <Divider />
         </div>
-        <div className="flex font-sans">
+        <div className="flex justify-between font-sans">
           <select
-            className="border-2 border-gray-200 bg-white h-9 px-3 pr-2 ml-6 rounded-full text-sm focus:outline-none"
+            className="border-2 border-gray-200 bg-white h-9 px-3 pr-2 rounded-full ml-8 text-sm focus:outline-none"
             style={{ width: '13%' }}
             onChange={(e) => orderBy(e)}
           >
@@ -382,7 +383,7 @@ export function Employee({
             <option className='font-sans' value="employeeId" name="id">Employee ID</option>
             <option className='font-sans' value="departmentName" name="departmentName">Department</option>
           </select>
-
+            <div className='flex'>
           <label
             className="border-0 border-gray-200 bg-white h-9 mt-2 px-2 ml-2 rounded-full text-sm font-sans"
           // style={{ width: '12%', borderRadius: '8px' }}
@@ -390,8 +391,8 @@ export function Employee({
             Search By
           </label>
           <select
-            className="border-2 border-gray-200 bg-white h-9 px-2 pr-2 ml-1 rounded-full text-sm focus:outline-none"
-            style={{ width: '14%' }}
+            className="border-2 border-gray-200 bg-white h-9 px-2 pr-2 ml-1 rounded-full font-sans text-sm focus:outline-none"
+            style={{ width: '150px' }}
             // onClick={selectDepartment}
             onClick={handleSelectSeachByOption}
           // value={name}
@@ -407,12 +408,13 @@ export function Employee({
               );
             })}
           </select>
+          </div>
 
           <input
-            className="border-2 border-gray-300 bg-white w-72 h-9 px-8 pr-6 ml-3 rounded-full text-sm focus:outline-none"
+            className="border-2 border-gray-300 bg-white h-9 px-8 pr-6 ml-3 rounded-full text-sm focus:outline-none"
             value={name}
             onChange={filter}
-            style={{ }}
+            style={{width: '390px' }}
             type="text"
             name="search"
             placeholder="Search Here"
@@ -514,14 +516,15 @@ export function Employee({
                         style={{ borderRadius: '50px', marginTop: '10px' }}
                       >
                         <CardContent className="justify-center">
-                          <div className="flex rounded-full" key={list.name}>
+                          <div className="flex justify-between rounded-full" key={list.name}>
+                            <div className='flex'>
                             <div className="">
                               <img
                                 className="rounded-full ml-3 w-[41px] h-[41px]"
-                                src={emp_image}
+                                src={userImage}
                               />
                             </div>
-                            <div className="ml-10">
+                            <div className="ml-6">
                               <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
                                 Employee
                               </p>
@@ -529,12 +532,13 @@ export function Employee({
                                 <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
                                   {list.name}
                                 </p>
-                                <div className="flex justify-center w-auto bg-[#F66B6B] ml-1 mt-[6px] rounded-md h-4">
+                                <div className="flex justify-center w-20 bg-[#F66B6B] ml-1 mt-[6px] rounded-md h-4">
                                   <p className="text-center m-2 text-[11px] mt-[2px] text-white font-sans">
                                     {list.employeeId}
                                   </p>
                                 </div>
                               </div>
+                            </div>
                             </div>
                             <div className="ml-10">
                               <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
@@ -570,7 +574,7 @@ control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="check
 /> */}
                               <GreenSwitch {...label} defaultChecked className='-ml-3' />
                             </div>
-                            <div className="mt-2 ml-8">
+                            <div className="mt-2 mr-16">
                               <MoreVert onClick={(e) => handleClickAdd(e, index)} />
                             </div>
                             <Popover
