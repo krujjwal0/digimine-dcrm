@@ -235,7 +235,7 @@ export function Employee({
 
   const [searchBy, setSearchBy] = useState('name');
 
-  const [sortBy, setSortBy] = useState('name');
+  let sortBy = 'name';
   // const selectDepartment = value => {
   //   console.log(value);
   //   setSearchBy(value);
@@ -288,7 +288,7 @@ export function Employee({
   }, [name])
 
   const orderBy = (e) => {
-    setSortBy(e.target.value);
+    sortBy = e.target.value;
     console.log("orderBy .................... ", sortBy);
 
     console.log("Sortong according to ====", sortBy)
@@ -298,25 +298,26 @@ export function Employee({
     };
 
     if (sortBy === 'name') {
-      const results = usersList.sort((a, b) => a.name.localeCompare(b.name));
+      const results = usersList.sort((a, b) => a.name > b.name ? 1 : -1
+      );
       console.log('SORTING result name inside filter', results);
       obj.results = results;
       setEmployee(obj);
     }
     else if (sortBy === 'employeeId') {
-      const results = usersList.sort((a, b) => a.employeeId.localeCompare(b.employeeId));
+      const results = usersList.sort((a, b) => a.employeeId > b.employeeId ? 1 : -1);
       console.log('SORTING Id inside filter', results);
       obj.results = results;
       setEmployee(obj);
     }
     else if (sortBy === 'emailId') {
-      const results = usersList.sort((a, b) => a.emailId.localeCompare(b.emailId));
+      const results = usersList.sort((a, b) => a.emailId > b.emailId ? 1 : -1);
       console.log('SORTING EmailId inside filter', results);
       obj.results = results;
       setEmployee(obj);
     }
     else if (sortBy === 'departmentName') {
-      const results = usersList.sort((a, b) => a.departmentName.localeCompare(b.departmentName));
+      const results = usersList.sort((a, b) => a.departmentName > b.departmentName ? 1 : -1);
       console.log('SORTING department inside filter', results);
       obj.results = results;
       setEmployee(obj);
@@ -327,8 +328,8 @@ export function Employee({
       setEmployee(obj);
     }
 
-
   }
+
   return (
     <div className="myprofile">
 
