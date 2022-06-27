@@ -30,3 +30,4 @@ export const EMAIL_ERROR = 'digimine/LoginPage/EMAIL_ERROR';
 export const SET_SHOW_FEEDBACK_FORM_RADIO_DATA = 'SET_SHOW_FEEDBACK_FORM_RADIO_DATA';
 export const OTP_ERROR = 'digimine/LoginPage/OTP_ERROR';
 export const SHOW_OTP_ERROR_POPUP = 'digimine/LoginPage/SHOW_OTP_ERROR_POPUP';
+export const DOWNLOAD_PROFILE_IMAGE = 'digimine/LoginPage/DOWNLOAD_PROFILE_IMAGE';

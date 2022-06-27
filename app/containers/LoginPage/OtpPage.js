@@ -146,7 +146,7 @@ export function OtpPage(props) {
     setEditOtp(false);
     console.log('Resend Otp');
     if (props.emailId == '') {
-      alert('EmailID required..');
+      console.log('EmailID required..');
     } else { props.onGenerateOtpByEmailIdAction(props.emailId);
       setCounter(29);
     }

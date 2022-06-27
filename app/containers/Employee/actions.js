@@ -8,6 +8,7 @@ import {
   GET_ALL_DEPARTMENTS,
   SET_ALL_ROLES,
   SET_ALL_DEPARTMENTS,
+  SET_EDIT_USER_DATA
 } from './constants';
 
 export function showEmployee(obj) {
@@ -74,6 +75,13 @@ export function setAllDepartment(data) {
   console.log('Set all depts:-');
   return {
     type: SET_ALL_DEPARTMENTS,
+    payload: data,
+  };
+}
+export function setEditUserData(data) {
+  console.log('set EditUser Data:-');
+  return {
+    type: SET_EDIT_USER_DATA,
     payload: data,
   };
 }

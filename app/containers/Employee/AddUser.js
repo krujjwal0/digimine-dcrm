@@ -61,6 +61,7 @@ export function AddUser(props) {
     setEmployeeId('');
     setEmailId('');
     setDepartmentId('');
+    props.handleCloseBtn();
   };
   useEffect(() => {
     props.getAllDepartment();
@@ -78,11 +79,9 @@ export function AddUser(props) {
 
   return (
     <div className="">
-      <div className="flex flex justify-between mt-6">
+      <div className="flex justify-between mt-6">
         <label
           style={{
-            // fontFamily: 'Nunito',
-            // marginTop: '14px',
             fontWeight: '500',
             fontSize: '22px',
             lineHeight: '1px',

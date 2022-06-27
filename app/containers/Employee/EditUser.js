@@ -14,6 +14,7 @@ import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import reducer from './reducer';
 import saga from './saga';
+import CloseIcon from '@material-ui/icons/Close';
 // import { editUser } from './actions';
 
 const key = 'users';
@@ -37,15 +38,19 @@ export function EditUser(props) {
       height: 1000,
     },
   }));
+
+  console.log("DEtails=====",props.list)
+
   const classes = useStyles();
   const [name, setName] = useState(props.list.name);
   const [mobileNumber, setMobileNumber] = useState(props.list.mobileNumber);
   const [employeeId, setEmployeeId] = useState(props.list.employeeId);
   const [emailId, setEmailId] = useState(props.list.emailId);
   const [departmentId, setDepartmentId] = useState(props.list.departmentId);
-  const [roleId, setRoleId] = useState(1);
+  const [roleId, setRoleId] = useState(props.list.roleName);
+  const [active,setActive]=useState(props.list.active)
   const updateUser = () => { 
-    let active = props.list.active;
+    // let active = props.list.active;
     const data = {
       ...props.list,
       roleId, // backend3
@@ -57,17 +62,21 @@ export function EditUser(props) {
       active,
     };
     props.editUser(data);
+    props.handleExit()
   }
   
-  const selectDepartmentId = value => {
-    console.log(value);
-    setDepartmentId(value)
+  const selectDepartmentId = e => {
+    console.log(e.target.value);
+    setDepartmentId(e.target.value)
     // Call api to show users list of particular Location
   };
   useEffect(() => {
     props.getAllDepartment();
     props.getAllRoles();
   }, []);
+  const selectRoleId = e => {
+    setRoleId(e.target.value);
+  };
 
   return (
     <div className="">
@@ -81,9 +90,10 @@ export function EditUser(props) {
         }}>Update User</label>
 
         <div>
-          <button className="ml-40"> <img className='rounded-full ml-3 w-[40px] h-[40px]'
-            src={close}
-          /></button>
+        <button className="" onClick={props.handleExit}>
+            {' '}
+            < CloseIcon style={{color: 'red', fontWeight: '600px'}} />
+          </button>
         </div>
       </div>
       <br />

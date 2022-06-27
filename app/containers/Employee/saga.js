@@ -46,8 +46,8 @@ function* getUsersList() {
   } catch (err) {
     console.log('Error in getUsersList saga', result, err);
     if (result) {
-      alert(result.status.message);
-    } else alert(err);
+      console.log(result.status.message);
+    } else console.log(err);
   }
 }
 
@@ -72,8 +72,8 @@ function* saveOrUpdateUserSaga(action) {
   } catch (err) {
     console.log('Error in saveOrUpdateUserSaga saga', result, err);
     if (result) {
-      alert(result.status.message);
-    } else alert(err);
+      console.log(result.status.message);
+    } else console.log(err);
   }
 }
 
@@ -97,8 +97,8 @@ function* getAllDepartmentSaga() {
   } catch (err) {
     console.log('Error in getAllDepartmentSaga saga', result, err);
     if (result) {
-      alert(result.status.message);
-    } else alert(err);
+      console.log(result.status.message);
+    } else console.log(err);
   }
 }
 
@@ -122,8 +122,8 @@ function* getAllRolesSaga() {
   } catch (err) {
     console.log('Error in getAllRolesSaga saga', result, err);
     if (result) {
-      alert(result.status.message);
-    } else alert(err);
+      console.log(result.status.message);
+    } else console.log(err);
   }
 }
 
@@ -150,8 +150,8 @@ function* deleteUserSaga(action) {
   } catch (err) {
     console.log('Error in deleteUserSaga saga', result, err);
     if (result) {
-      alert(result.status.message);
-    } else alert(err);
+      console.log(result.status.message);
+    } else console.log(err);
   }
 }
 /**

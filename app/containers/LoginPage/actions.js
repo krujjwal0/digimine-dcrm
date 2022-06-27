@@ -36,6 +36,7 @@ import {
   SET_SHOW_FEEDBACK_FORM_RADIO_DATA,
   OTP_ERROR,
   SHOW_OTP_ERROR_POPUP,
+  DOWNLOAD_PROFILE_IMAGE,
 } from './constants';
 import {
   USER_LOGOUT,
@@ -182,5 +183,11 @@ export function showOtpErrorPopupAction(data) {
   return {
     type: SHOW_OTP_ERROR_POPUP,
     payload: data
+  }
+}
+
+export function downloadProfileImageAction() {
+  return {
+    type: DOWNLOAD_PROFILE_IMAGE
   }
 }
