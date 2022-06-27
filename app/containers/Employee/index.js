@@ -504,7 +504,7 @@ export function Employee({
                                 {list.mobileNumber}
                               </p>
                             </div>
-                            <div className="ml-12">
+                            <div className="ml-12 w-48">
                               <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
                                 Email ID
                               </p>
