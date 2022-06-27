@@ -76,7 +76,7 @@ export default function CustomizedDialogs({ goToLogin, errorMessage, showDialog,
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         Error Msg
       </Button>
-      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} style={{height: '40%', margin: '180px'}}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
           Login Error
         </DialogTitle>
