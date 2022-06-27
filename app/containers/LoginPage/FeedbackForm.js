@@ -477,7 +477,7 @@ function FeedbackForm({
       </div>
       <div className=" flex justify-between  ">
         <div
-          className="flex w-full ml-32 "
+          className="flex w- ml-32 "
           onClick={() => {
             helpPageCall();
           }}

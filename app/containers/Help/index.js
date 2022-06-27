@@ -4,7 +4,7 @@
  * This is the first thing users see of our App, at the '/' route
  */
 
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -22,15 +22,7 @@ import {
   makeSelectError,
 } from 'containers/App/selectors';
 
-import reducer from './reducer';
-import saga from './saga';
-import {
-  Card,
-  CardContent,
-  FormGroup,
-  Typography,
-  Divider,
-} from '@material-ui/core';
+import { Card, CardContent, FormGroup, Typography, Divider } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -41,7 +33,9 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import HomeIcon from '@material-ui/icons/Home';
 import ClearAllIcon from '@material-ui/icons/ClearAll';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
-import { getQ_A } from './action';
+import saga from './saga';
+import reducer from './reducer';
+import { getQ_A, setQ_A } from './action';
 
 const key = 'helpReducer';
 
@@ -55,8 +49,31 @@ function Help(props) {
   }, []);
 
   useEffect(() => {
-    console.log('Help UseEffect ', props.help_Q_A);
+    console.log('Help UseEffect ', props.help_Q_A, props.helpreplica);
   }, [props.help_Q_A]);
+
+  const [question, setQuestion] = useState()
+
+  const filter = (e) => {
+    const keyword = e.target.value;
+    let obj = {
+      fromSaga: false,
+      results: [],
+    }
+    if (keyword !== '') {
+      const results = props.helpreplica.filter((que) => {
+        return que.question.toLowerCase().startsWith(keyword.toLowerCase());
+      });
+      console.log('help replica target value', props.helpreplica, props.help_Q_A, e.target.value, results)
+      obj.results = results;
+      setQ_A(obj);
+    }
+    else {
+      obj.results = props.helpreplica;
+      setQ_A(obj);
+    }
+    setQuestion(keyword);
+  };
   return (
     <div className="content">
       <div className="mx-9 mt-4  w-[95%] h-full">
@@ -109,6 +126,8 @@ function Help(props) {
           <input
             className=" mt-7 border-2 border-gray-300 bg-white w-full h-12 px-16 rounded-full  text-sm focus:outline-none"
             style={{}}
+            value={question}
+            onChange={filter}
             type="text"
             name="search"
             placeholder="Search"
@@ -121,22 +140,19 @@ function Help(props) {
               <Accordion
                 key={i}
                 className="w-full"
-                style={{ border: '1px solid #DCE1EA', borderRadius: '10px' }}
+                style={{ border: '1px solid #DCE1EA', borderRadius: '10px', marginTop: '10px' }}
               >
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <Typography
-                    className="mt-8  text-[#132B6B]"
-                    style={{
+                  <Typography className="mt-8 text-[#132B6B]" style={{
                       marginTop: '7px',
                       color: '#132B6B',
                       fontWeight: '500',
                       fontSize: '18px',
-                    }}
-                  >
+                    }}>
                     {ques.question}
                   </Typography>
                 </AccordionSummary>
@@ -149,33 +165,6 @@ function Help(props) {
             <p>!</p>
           )}
         </div>
-
-        <Accordion
-          className="w-full mt-4"
-          style={{ border: '1px solid #DCE1EA', borderRadius: '10px' }}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <Typography
-              className="mt-8 font-sans"
-              style={{
-                marginTop: '7px',
-                color: '#132B6B',
-                fontWeight: '500',
-                fontSize: '18px',
-              }}
-            >
-              question
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>Lorem</Typography>
-          </AccordionDetails>
-        </Accordion>
-
         <div className="mt-9 flex pl-80 mb-12">
           <Button
             className="bg_red mx-auto  font-bold login_btn  w-60 h-14 rounded-full my-5 "
@@ -201,12 +190,14 @@ Help.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  help_Q_A: state.helpReducer.help.length > 0 ? state.helpReducer.help : [],
+  help_Q_A: state.helpReducer.help_Q_A.length > 0 ? state.helpReducer.help_Q_A : [],
+  helpreplica: state.helpReducer.helpreplica.length > 0 ? state.helpReducer.helpreplica : [],
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
     getQ_A: () => dispatch(getQ_A()),
+    setQ_A: (data) => dispatch(setQ_A(data)),
   };
 }
 

@@ -25,7 +25,11 @@ function* getQ_A_Saga() {
       },
     });
     console.log('success in Help saga', result);
-    yield put(setQ_A(result.data.qNa));
+    let obj = {
+      fromSaga: true,
+      results: result,
+    }
+    yield put(setQ_A(obj));
   } catch (err) {
     console.log('Error in Help saga', result, err);
     if (result) {
