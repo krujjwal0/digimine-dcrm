@@ -52,6 +52,8 @@ import './style.css';
 
 const key = 'users';
 
+
+
 const GreenSwitch = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-switchBase.Mui-checked': {
     color: green[600],
@@ -369,16 +371,16 @@ export function Employee({
         <div className="flex font-sans">
           <select
             className="border-2 border-gray-200 bg-white h-9 px-3 pr-2 ml-6 rounded-full text-sm focus:outline-none"
-            style={{ width: '13%', borderRadius: '8px' }}
+            style={{ width: '13%' }}
             onChange={(e) => orderBy(e)}
           >
             <option value="" disabled selected>
               Sort by
             </option>
-            <option value="name" name="name">Name</option>
-            <option value="emailId" name="emailId">Email ID</option>
-            <option value="employeeId" name="id">Employee ID</option>
-            <option value="departmentName" name="departmentName">Department</option>
+            <option className='font-sans' value="name" name="name">Name</option>
+            <option className='font-sans' value="emailId" name="emailId">Email ID</option>
+            <option className='font-sans' value="employeeId" name="id">Employee ID</option>
+            <option className='font-sans' value="departmentName" name="departmentName">Department</option>
           </select>
 
           <label
@@ -389,7 +391,7 @@ export function Employee({
           </label>
           <select
             className="border-2 border-gray-200 bg-white h-9 px-2 pr-2 ml-1 rounded-full text-sm focus:outline-none"
-            style={{ width: '14%', borderRadius: '8px' }}
+            style={{ width: '14%' }}
             // onClick={selectDepartment}
             onClick={handleSelectSeachByOption}
           // value={name}
@@ -399,7 +401,7 @@ export function Employee({
             </option> */}
             {searchByOptions.map((data, index) => {
               return (
-                <option key={index} value={data.value}>
+                <option className='font-sans' key={index} value={data.value}>
                   {data.label}
                 </option>
               );
@@ -410,7 +412,7 @@ export function Employee({
             className="border-2 border-gray-300 bg-white w-72 h-9 px-8 pr-6 ml-3 rounded-full text-sm focus:outline-none"
             value={name}
             onChange={filter}
-            style={{ borderRadius: '8px' }}
+            style={{ }}
             type="text"
             name="search"
             placeholder="Search Here"
