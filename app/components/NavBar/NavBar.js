@@ -4,7 +4,7 @@ import './NavBar.css';
 import { IconContext } from 'react-icons';
 import Button from '@material-ui/core/Button';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
-
+import nav from './Image/navTop.png';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -69,9 +69,12 @@ export function NavBar({ setNavBar, getUserLogout, setOtpAction, signOut }) {
                     </div> */}
 
             <ul className="nav-menu-items font-sans ">
-              <li className="navbar-toggle font-sans mb-6 mt-8">
+            <li className="navbar-toggle font-sans mb-1 mt-8">
                 <Link to="#" className="menu-bars   font-sans">
-                  <img src={logo} style={{ width: '160px', height: '50px' }} />
+                <div className='-mt-3 -ml-6 mb-4'>
+                <img src={nav}  />
+                </div>
+                  <img src={logo} style={{ width: '160px', height: '50px', marginLeft: '-3px' }} />
                 </Link>
               </li>
 
@@ -91,7 +94,7 @@ export function NavBar({ setNavBar, getUserLogout, setOtpAction, signOut }) {
           </div></div> */}
 
             <div
-              className=" font-sans "
+              className=" font-sans fixed "
               style={{
                 // top: '425px',
                 height: '180px',
