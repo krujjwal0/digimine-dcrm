@@ -26,8 +26,8 @@ import {
     } catch (err) {
       console.log('Error in Logging out saga', result, err);
       if (result) {
-        alert(result.status.message);
-      } else alert(err);
+        console.log(result.status.message);
+      } else console.log(err);
     }
   }
   export default function* navData() {

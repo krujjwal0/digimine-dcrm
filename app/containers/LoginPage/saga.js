@@ -76,11 +76,11 @@ function* generateOtpByEmailIdSaga(action) {
       err.response.status == 400,
     );
     // if (result) {
-    //   alert(result.status.message);
+    //   console.log(result.status.message);
     //   checkEmailError(result.status.message);
     // } else
     if (err.response.status == 400) {
-      // alert(err);
+      // console.log(err);
       yield put(checkEmailError('Missing Email Id parameter.'));
     } else if (err.response.status == 404) {
       yield put(checkEmailError('User is not present/active'));
@@ -116,7 +116,7 @@ function* validateOtpSaga(action) {
     });
     console.log('success in saga', result, result.data);
     if (result.status.status == 422) {
-      // alert(result.status.message);
+      // console.log(result.status.message);
       yield put(onOtpError(result.status.message));
     }
     yield put(setUsername(result.data.userName));
@@ -124,7 +124,7 @@ function* validateOtpSaga(action) {
     yield put(signIn(signInData));
   } catch (err) {
     if (err.response.status == 422) {
-      // alert(result.status.message);
+      // console.log(result.status.message);
       yield put(onOtpError('Otp is invalid'));
     } else {
       yield put(onOtpError(err));
@@ -153,8 +153,8 @@ function* postSignIn(action) {
     localStorage.setItem('awtToken', result.data.awtToken);
   } catch (err) {
     if (result) {
-      alert(result.status.message);
-    } else alert(err);
+      console.log(result.status.message);
+    } else console.log(err);
   }
 }
 
@@ -178,8 +178,8 @@ function* getAdminLocations(action) {
   } catch (err) {
     console.log('Error in saga', result, err);
     if (result) {
-      alert(result.status.message);
-    } else alert(err);
+      console.log(result.status.message);
+    } else console.log(err);
   }
 }
 
@@ -226,8 +226,8 @@ function* getUserLogout() {
   } catch (err) {
     console.log('Error in Logging out saga', result, err);
     if (result) {
-      alert(result.status.message);
-    } else alert(err);
+      console.log(result.status.message);
+    } else console.log(err);
   }
 }
 function* postFeedbackSaga(action) {
@@ -249,7 +249,7 @@ function* postFeedbackSaga(action) {
   } catch (err) {
     if (result) {
       console.log('Error while saving feedbAck', result);
-      // alert(result.status.message);
+      // console.log(result.status.message);
     } else console.log('Error while saving feedbAck', err);
   }
 }
@@ -272,7 +272,7 @@ function* downloadProfileImageSaga() {
   } catch (err) {
     if (result) {
       console.log('Error while saving profile', result);
-      // alert(result.status.message);
+      // console.log(result.status.message);
     } else console.log('Error while saving profile', err);
   }
 }
