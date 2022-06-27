@@ -327,16 +327,16 @@ export function Employee({
             style={{ width: '10%', borderRadius: '8px' }}
             onChange={() => orderBy()}
           >
-            <option value="" disabled selected>
+            <option className='font-sans' value="" disabled selected>
               Sort by
             </option>
-            <option value="departmentName">Department</option>
-            <option value="emailId">Email_ID</option>
-            <option value="id">User_ID</option>
+            <option className='font-sans' value="departmentName">Department</option>
+            <option className='font-sans' value="emailId">Email_ID</option>
+            <option className='font-sans' value="id">User_ID</option>
           </select>
 
           <label
-            className="border-0 border-gray-200 bg-white h-9 mt-2 px-2 ml-2 rounded-full text-sm"
+            className="border-0 border-gray-200 bg-white h-9 mt-2 px-2 ml-2 font-sans rounded-full text-sm"
             // style={{ width: '12%', borderRadius: '8px' }}
           >
             Search By
@@ -353,7 +353,7 @@ export function Employee({
             </option> */}
             {searchByOptions.map((data, index) => {
               return (
-                <option key={index} value={data.value}>
+                <option className='font-sans' key={index} value={data.value}>
                   {data.label}
                 </option>
               );
