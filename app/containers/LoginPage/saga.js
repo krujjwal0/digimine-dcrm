@@ -17,6 +17,7 @@ import {
   GET_FEEDBACK_FORM,
   USER_LOGOUT,
   SAVE_FEEDBACK_FORM_DATA,
+  DOWNLOAD_PROFILE_IMAGE
 } from './constants';
 import {
   setAdminLocationsAction,
@@ -30,6 +31,7 @@ import {
   checkEmailError,
   onOtpError,
   showOtpErrorPopupAction,
+  downloadProfileImageAction,
 } from './actions';
 import { makeSelectEmailId } from './selectors';
 
@@ -145,6 +147,7 @@ function* postSignIn(action) {
       body: JSON.stringify(action.payload),
     });
     console.log('success in saga', result, result.data);
+    yield put(downloadProfileImageAction());
     yield put(setUserData(result.data));
 
     localStorage.setItem('awtToken', result.data.awtToken);
@@ -250,6 +253,30 @@ function* postFeedbackSaga(action) {
     } else console.log('Error while saving feedbAck', err);
   }
 }
+function* downloadProfileImageSaga() {
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/download`;
+  console.log(' downloadProfileImageSaga URL:', requestURL);
+  const awtToken = localStorage.getItem('awtToken');
+  console.log("PRofile image ====",awtToken)
+  let result;
+  try {
+    console.log('generatorFunction downloadProfileImageSaga ');
+    result = yield call(request, requestURL, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${awtToken}`,
+        'Content-Type': 'image/jpeg',
+      }
+    });
+    console.log('downloadProfileImageSaga success in saga', result, result.data);
+  } catch (err) {
+    if (result) {
+      console.log('Error while saving profile', result);
+      // alert(result.status.message);
+    } else console.log('Error while saving profile', err);
+  }
+}
+
 
 /**
  * Root saga manages watcher lifecycle
@@ -267,4 +294,5 @@ export default function* loginData() {
   yield takeLatest(GET_FEEDBACK_FORM, getFeedbackFormSaga);
   yield takeLatest(USER_LOGOUT, getUserLogout);
   yield takeLatest(SAVE_FEEDBACK_FORM_DATA, postFeedbackSaga);
+  yield takeLatest(DOWNLOAD_PROFILE_IMAGE,downloadProfileImageSaga)
 }
