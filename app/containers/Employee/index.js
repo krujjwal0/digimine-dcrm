@@ -203,7 +203,40 @@ export function Employee({
 
   return (
     <div className="myprofile">
-      <div className="mt-16 w-full">
+      
+      <div className="mx-9 mt-4 w-[95%]">
+      <Breadcrumbs
+          aria-label="breadcrumb"
+          className="font-sans font-bold text-xl"
+          style={{ marginLeft: '0px', fontWeight: '800', fontSize: '30px' }}
+        >
+          <Typography
+            sx={{ display: 'flex', alignItems: 'center' }}
+            color="text.primary"
+            className="font-sans font-bold text-xl"
+            style={{
+              marginLeft: '30px',
+              fontWeight: '500',
+              fontSize: '25px',
+              color: '#132B6B',
+            }}
+          >
+            <ClearAllIcon sx={{ mr: 0.8 }} fontSize="inherit" />
+            List
+          </Typography>
+        </Breadcrumbs>
+        <p
+          style={{ color: '#F66B6B', fontSize: '11px' }}
+          className=" font-sans ml-14"
+        >
+          Dashboard |
+          <span className=" font-sans ml-2" style={{ color: '#151F63' }}>
+            List{' '}
+          </span>
+        </p>
+        <div className="mt-4 mb-6 w-full">
+          <Divider />
+        </div>
         <div className="md:flex  m-2">
           <select
             className="border-2 border-gray-200 bg-white h-9 px-3 pr-2 ml-6 rounded-full text-sm focus:outline-none"
