@@ -15,6 +15,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 // import QuestionMarkIcon from '@material-ui/icons/QuestionMark';
 import HelpIcon from '@material-ui/icons/Help';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import './style.css';
 import { Redirect, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -234,19 +235,19 @@ function FeedbackForm({
               left: '154px',
               // fontFamily: 'Omnes',
               fontWeight: '600',
-              fontSize: '32px',
+              fontSize: '27px',
               lineHeight: '110%',
               color: '#F46B6B',
             }}
-            className="font-sans flex ml-3"
+            className="font-sans flex ml-3 "
           >
-
+<FiberManualRecordIcon className='mt-1' />
             <p
               style={{
                 color: '#132B6B',
                 // fontFamily: 'Nunito',
-                fontWeight: '700',
-                fontSize: '20px',
+                fontWeight: '500',
+                fontSize: '26px',
                 lineHeight: '25px',
                 width: '808px',
                 height: '60px',
@@ -254,7 +255,7 @@ function FeedbackForm({
                 // marginTop: '8px',
               }}
               className=" font-sans ml-3 mt-1"
-            >
+            > 
               {feedbackFormData[activeStep].question}
             </p>
           </label>

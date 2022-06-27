@@ -166,7 +166,7 @@ export function Users(props) {
       </div> */}
 
       <Card
-        className="w-full rounded-full h-[72px]"
+        className="w-full rounded-full h-[65px]"
         style={{ borderRadius: '50px', marginTop: '10px' }}
       >
         <CardContent>
@@ -186,14 +186,14 @@ export function Users(props) {
                 <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
                   {user.name}
                 </p>
-                <div className="flex justify-center w-20 bg-[#F66B6B] ml-1 mt-[6px] rounded-md h-4">
+                <div className="flex justify-center bg-[#F66B6B] ml-1 mt-[6px] rounded-md h-4 w-20">
                   <p className="text-center text-[11px] mt-[2px] text-white font-sans">
                     {user.id}
                   </p>
                 </div>
               </div>
             </div>
-            <div className="ml-10">
+            <div className="ml-12">
               <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
                 Department
               </p>
@@ -201,7 +201,7 @@ export function Users(props) {
                 {user.departmentName}
               </p>
             </div>
-            <div className="ml-12">
+            <div className="ml-16">
               <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
                 Phone
               </p>
@@ -209,7 +209,7 @@ export function Users(props) {
                 {user.mobileNumber}
               </p>
             </div>
-            <div className="ml-12">
+            <div className="ml-14">
               <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
                 Email ID
               </p>
@@ -217,7 +217,7 @@ export function Users(props) {
                 {user.emailId}
               </p>
             </div>
-            <div className="ml-12">
+            <div className="ml-14">
               <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
                 Active
               </p>
@@ -227,7 +227,7 @@ export function Users(props) {
               /> */}
               <GreenSwitch {...label} defaultChecked />
             </div>
-            <div className="mt-2 ml-8">
+            <div className="mt-2 ml-12">
               <MoreVert onClick={handleClick} />
             </div>
             <Popover
