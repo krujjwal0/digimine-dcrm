@@ -33,7 +33,7 @@ import {
   setFeedbackFormData,
   saveDataFeedbackForm,
   setShowToFeedBackPage,
-  setFeedbackRadioCheck
+  setFeedbackRadioCheck,
 } from './actions';
 import saga from './saga';
 import { setNavBar } from '../App/actions';
@@ -63,7 +63,7 @@ function FeedbackForm({
   setNavBar,
   setFeedbackRadioCheck,
   feedbackRadioCheck,
-  saveDataFeedbackForm
+  saveDataFeedbackForm,
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -79,15 +79,14 @@ function FeedbackForm({
   }, []);
 
   useEffect(() => {
-    console.log("feedbackRadioCheck===", feedbackRadioCheck)
-  }, [feedbackRadioCheck])
+    console.log('feedbackRadioCheck===', feedbackRadioCheck);
+  }, [feedbackRadioCheck]);
 
   useEffect(() => {
-
     setTotalSteps(feedbackFormData.length);
     allStepCompleted = completedSteps === totalSteps;
-    console.log('Lngth=====', totalSteps, allStepCompleted)
-  }, [feedbackFormData, totalSteps])
+    console.log('Lngth=====', totalSteps, allStepCompleted);
+  }, [feedbackFormData, totalSteps]);
   const [activeStep, setActiveStep] = React.useState(0);
   // const [feedbackRadioCheck, setFeedbackRadioCheck] = useState([]);
   // let feedbackRadioCheck=[];
@@ -98,20 +97,21 @@ function FeedbackForm({
   const completedSteps = Object.keys(completed).length;
   let allStepCompleted = completedSteps === totalSteps;
 
-  useEffect(() => {
-
-  }, [completed]);
+  useEffect(() => {}, [completed]);
 
   const onPostQ_A = () => {
     saveDataFeedbackForm(feedbackRadioCheck); //Save all answers
     history.push('/dashboard');
     setNavBar(true);
-  }
+  };
 
   const handleNext = () => {
-    console.log(" Length of feedback===", feedbackFormData.length, activeStep)
+    console.log(' Length of feedback===', feedbackFormData.length, activeStep);
     if (selectedOption != 0) {
-      setFeedbackRadioCheck(feedbackFormData[activeStep].id, parseInt(selectedOption)); //Save all answers
+      setFeedbackRadioCheck(
+        feedbackFormData[activeStep].id,
+        parseInt(selectedOption),
+      ); //Save all answers
     }
 
     //Individual api call for post
@@ -119,9 +119,9 @@ function FeedbackForm({
     const newCompleted = completed;
     newCompleted[activeStep] = true;
     setCompleted(newCompleted);
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setActiveStep(prevActiveStep => prevActiveStep + 1);
     setSelectedOption(0);
-    if ((feedbackFormData.length - 1) == activeStep) {
+    if (feedbackFormData.length - 1 == activeStep) {
       //Saga call Post
       onPostQ_A();
     }
@@ -153,7 +153,7 @@ function FeedbackForm({
 
     // setFeedbackRadioCheck(feedbackFormData[activeStep].id, event.target.value)
     setSelectedOption(event.target.value);
-    console.log("checking radio button", event.target.value);
+    console.log('checking radio button', event.target.value);
   };
 
   const handleSave = e => {
@@ -179,7 +179,7 @@ function FeedbackForm({
     history.push('/dashboard');
     setNavBar(true);
   }
-// Try For OPTIONS MAPPING
+  // Try For OPTIONS MAPPING
   // let halwayPoint,colA,colB;
   // useEffect(()=>{
 
@@ -188,8 +188,6 @@ function FeedbackForm({
   //  colA = feedbackFormData[activeStep].options.splice(0, halwayPoint);
   //  colB = feedbackFormData[activeStep].options.splice(-halwayPoint);
   // console.log("Col A and Col b===", colA, colB);
-
-
 
   return (
     <div className="bg-white w-full min-h-screen font-sans fixed">
@@ -231,7 +229,6 @@ function FeedbackForm({
         <div className="w-3/4 mt-20 ml-6">
           <label
             style={{
-
               height: '40px',
               left: '154px',
               // fontFamily: 'Omnes',
@@ -256,7 +253,7 @@ function FeedbackForm({
                 // marginTop: '8px',
               }}
               className=" font-sans ml-3 mt-1"
-            > 
+            >
               {feedbackFormData[activeStep].question}
             </p>
           </label>
@@ -311,7 +308,7 @@ function FeedbackForm({
           </div>
         </div>
         {/* ))} */}
-        <div className=" ml-36 step_list " style={{marginTop: '-2.5rem'}}>
+        <div className=" ml-36 step_list " style={{ marginTop: '-2.5rem' }}>
           <Box sx={{ maxWidth: 400 }}>
             <Stepper
               activeStep={activeStep}
@@ -320,7 +317,7 @@ function FeedbackForm({
             >
               {feedbackFormData.map((label, i) => (
                 <Step key={i}>
-                  <StepLabel></StepLabel>
+                  <StepLabel />
                 </Step>
               ))}
             </Stepper>
@@ -376,15 +373,16 @@ function FeedbackForm({
           </Box> */}
         </div>
       </div>
-      <div className=" flex justify-between  ">
+      <div className="">
         <div
-          className="flex w-full -mt-7 "
+          className="flex"
           // onClick={() => {
           //   helpPageCall();
           // }}
+          style={{marginTop: '50px'}}
         >
           <HelpOutlineIcon
-            className="mb-6 ml-28"
+            className="ml-28"
             // onClick={()=>{history.push({pathname: '/help'})}}
             style={{
               backgroundColor: '#FFFFFF',
@@ -409,41 +407,21 @@ function FeedbackForm({
             <img
               src={FormImg}
               style={{
-                position: 'fixed',
+                position: 'absolute',
                 backgroundSize: '100% auto',
                 width: '100%',
-                height: '100vh',
-                maxHeight: '95px',
+                height: '15%',
                 content: '',
                 left: '0',
                 bottom: '0',
                 // top: '612px',
               }}
-            />
-          <div className="flex flex justify-end -mt-2 " style={{marginLeft: '1000px', }}>
-
-        <div>
-          <button
-            style={{
-              background: '#132B6B',
-              borderRadius: '60px',
-              color: 'white',
-              width: '115px',
-              height: '40px',
-              marginLeft: '-190px',
-              // marginTop: '70px',
-            }}
-            className="font-sans absolute"
-            onClick={handleSkip}
-          >
-            Skip
-          </button>
-          {/* <div>
-            {allStepCompleted ?
-              (
-                <Typography>All Steps are Completed</Typography>
-              ) : ( */}
-<div>
+            /></div>
+            <div
+              className="flex justify-end "
+              style={{ marginLeft: '960px' }}
+            >
+              <div>
                 <button
                   style={{
                     background: '#132B6B',
@@ -451,19 +429,39 @@ function FeedbackForm({
                     color: 'white',
                     width: '115px',
                     height: '40px',
-                   marginLeft: '-60px'
+                    marginLeft: '-90px',
                   }}
-                  className="font-sans absolute "
-                  onClick={handleNext}
+                  className="font-sans absolute"
+                  onClick={handleSkip}
                 >
-                  NEXT
+                  Skip
                 </button>
-                </div>
-                </div>
-                </div>
-                </div>
-                </div></div></div>
+                {/* <div>
+            {allStepCompleted ?
+              (
+                <Typography>All Steps are Completed</Typography>
+              ) : ( */}
               
+                
+                  <button
+                    style={{
+                      background: '#132B6B',
+                      borderRadius: '60px',
+                      color: 'white',
+                      width: '115px',
+                      height: '40px',
+                    }}
+                    className="font-sans absolute ml-12"
+                    onClick={handleNext}
+                  >
+                    NEXT
+                  </button>
+                  </div>
+                  
+            </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -481,9 +479,14 @@ const mapStateToProps = state => {
     //   ? state.loginReducer.feedbackFormData
     //   : [],
 
-    feedbackFormData: state.loginReducer.feedbackFormData.length > 0 ? state.loginReducer.feedbackFormData : [],
-    feedbackRadioCheck: state.loginReducer.feedbackRadioCheck.length > 0 ? state.loginReducer.feedbackRadioCheck : []
-
+    feedbackFormData:
+      state.loginReducer.feedbackFormData.length > 0
+        ? state.loginReducer.feedbackFormData
+        : [],
+    feedbackRadioCheck:
+      state.loginReducer.feedbackRadioCheck.length > 0
+        ? state.loginReducer.feedbackRadioCheck
+        : [],
   };
 };
 
@@ -494,7 +497,8 @@ export function mapDispatchToProps(dispatch) {
     saveDataFeedbackForm: data => dispatch(saveDataFeedbackForm(data)),
     setShowToFeedBackPage: data => dispatch(setShowToFeedBackPage(data)),
     setNavBar: data => dispatch(setNavBar(data)),
-    setFeedbackRadioCheck: (qId, oId) => dispatch(setFeedbackRadioCheck(qId, oId))
+    setFeedbackRadioCheck: (qId, oId) =>
+      dispatch(setFeedbackRadioCheck(qId, oId)),
   };
 }
 
