@@ -224,7 +224,7 @@ export function EditUser(props) {
               </MSelect>
             </FormControl>
           </div>
-          <div className="mt-4">
+          <div className="mt-4 font-sans">
             <Button
               onClick={() => updateUser()}
               style={{
@@ -233,9 +233,12 @@ export function EditUser(props) {
                 height: '40px',
                 background: '#98E91D',
                 borderRadius: '60px',
+                
               }}
+              className= 'flex justify-center '
+             
             >
-              Update
+             <p  className='font-sans text-white '>Update</p> 
             </Button>
           </div>
         </div>

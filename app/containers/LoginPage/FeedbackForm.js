@@ -16,6 +16,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import HelpIcon from '@material-ui/icons/Help';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import LabelImportantIcon from '@material-ui/icons/LabelImportant';
 import './style.css';
 import { Redirect, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -191,7 +192,7 @@ function FeedbackForm({
 
 
   return (
-    <div className="bg-white w-full min-h-screen font-sans">
+    <div className="bg-white w-full min-h-screen font-sans fixed">
       <div className="font-sans ml-28 flex justify-between">
         <div className="mt-22">
           <img
@@ -241,7 +242,7 @@ function FeedbackForm({
             }}
             className="font-sans flex ml-3 "
           >
-<FiberManualRecordIcon className='mt-1' />
+<LabelImportantIcon className='mt-1' />
             <p
               style={{
                 color: '#132B6B',
@@ -260,23 +261,27 @@ function FeedbackForm({
             </p>
           </label>
 
-          <div className=" mt-5 -ml-1">
+          <div className=" mt-6 ml-7 grid-cols-4" style={{fontSize: '30px'}}>
             {feedbackFormData[activeStep].options.length > 0 ?
+              <div className='flex justify-between'>
               <RadioGroup
-                row
+                
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
                 onClick={onClickRadioFeedback}
                 value={selectedOption}
+             
+                style={{fontSize: '30px'}}
               >
                 {feedbackFormData[activeStep].options.map((opt, i) =>
                   <FormControlLabel
-                    className="font-sans"
+                    className="font-sans "
                     style={{
                       color: '#132B6B',
                       fontFamily: 'Omnes',
                       fontWeight: '400',
-                      fontSize: '12px',
+                      fontSize: '30px',
+                      padding: '5px'
                     }}
                     value={opt.id}
                     control={
@@ -285,129 +290,24 @@ function FeedbackForm({
                       //value= 'enable'
                       //name="enable"
                       // checked={feedbackRadioCheck === 'Enable'}
+                      className="text-2xl"
+                      style={{fontSize: '40px'}}
+                    
                       />
+                     
                     }
+                    
                     label={opt.description}
+                   
+                    
+                    
                   />
 
-                  //   <FormControlLabel
-                  //   style={{
-                  //     color: '#132B6B',
-                  //     // fontFamily: 'Omnes',
-                  //     fontWeight: '400',
-                  //     fontSize: '12px',
-                  //   }}
-                  //   value={opt.description}
-                  //   control={
-                  //     <Radio
-                  //       // value={feedbackRadioCheck.feed.description}
-                  //       // name="feed.description"
-                  //       value="enable"
-                  //       name="enable"
-                  //       checked={feedbackRadioCheck === 'Enable'}
-
-                  //     />
-
-                  //   }
-                  //   label={opt.description}
-                  //   className="font-sans"
-
-                  // />
-
-
-                  // console.log("HIIIIII",opt.description) 
+                 
                 )}</RadioGroup>
+                </div>
               : <p>No options</p>}
-            {/* <FormControl className="mb-3" >
-             
-              <RadioGroup
-                row
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                name="row-radio-buttons-group"
-                onClick={onClickRadioFeedback}
-              >
-                <FormControlLabel
-                  style={{
-                    color: '#132B6B',
-                    fontWeight: '400',
-                    fontSize: '12px',
-                  }}
-                  value="OptionOne"
-                  control={
-                    <Radio
-                      value="enable"
-                      name="enable"
-                      checked={feedbackRadioCheck === 'Enable'}
-
-                    />
-
-                  }
-                  label="hey"
-                  className="font-sans"
-
-                />
-
-
-                <FormControlLabel
-                  className=" mb-3 font-sans"
-                  style={{
-                    color: '#132B6B',
-                    fontFamily: 'Omnes',
-                    fontWeight: '400',
-                    fontSize: '12px',
-                    marginLeft: '38px',
-                  }}
-                  value="OptionTwo"
-                  control={
-                    <Radio
-                      value="Disable"
-                      name="Disable"
-                      checked={feedbackRadioCheck === 'Disable'}
-                    />
-                  }
-                  label="Lorem ipsum dolor sit amet, consectetur"
-                />
-                <br />
-                <br />
-                <FormControlLabel
-                  className="font-sans"
-                  style={{
-                    color: '#132B6B',
-                    fontFamily: 'Omnes',
-                    fontWeight: '400',
-                    fontSize: '12px',
-                  }}
-                  value="OptionThree"
-                  control={
-                    <Radio
-                      value="ThirdOption"
-                      name="Disable"
-                      checked={feedbackRadioCheck === 'ThirdOption'}
-                    />
-                  }
-                  label="Lorem ipsum dolor sit amet, consectetur"
-                />
-                <FormControlLabel
-                  className="font-sans"
-                  style={{
-                    color: '#132B6B',
-                    fontFamily: 'Omnes',
-                    fontWeight: '400',
-                    fontSize: '12px',
-                    marginLeft: '38px',
-                  }}
-                  value="optionFour"
-                  control={
-                    <Radio
-                      value="OptionFour"
-                      name="Disable"
-                      checked={feedbackRadioCheck === 'OptionFour'}
-                    />
-                  }
-                  label="Lorem ipsum dolor sit amet, consectetur"
-                />
-              </RadioGroup>
-            </FormControl> */}
+           
           </div>
         </div>
         {/* ))} */}
@@ -520,7 +420,7 @@ function FeedbackForm({
                 // top: '612px',
               }}
             />
-          <div className="flex flex justify-end  -mt-5 " style={{marginLeft: '900px', }}>
+          <div className="flex flex justify-end -mt-2 " style={{marginLeft: '1000px', }}>
 
         <div>
           <button
@@ -530,8 +430,8 @@ function FeedbackForm({
               color: 'white',
               width: '115px',
               height: '40px',
-              marginLeft: '-90px',
-              marginTop: '3px',
+              marginLeft: '-190px',
+              // marginTop: '70px',
             }}
             className="font-sans absolute"
             onClick={handleSkip}
@@ -551,8 +451,9 @@ function FeedbackForm({
                     color: 'white',
                     width: '115px',
                     height: '40px',
+                   marginLeft: '-60px'
                   }}
-                  className="font-sans absolute ml-8"
+                  className="font-sans absolute "
                   onClick={handleNext}
                 >
                   NEXT

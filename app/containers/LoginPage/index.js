@@ -26,10 +26,10 @@ export default function SplashScreen() {
         </div>
         <div>
         <div className="container relative z-10">
-        <div className="flex justify-start flex-wrap h-full  min-h-full items-center"
+        <div className="flex justify-start flex-wrap h-full mt-7 min-h-full items-center"
         style={{paddingLeft: '300px'}}
         >
-          <div className="card mt-12 bg-white shadow-lg rounded-3xl py-7 px-10 max-w-xl w-3/5">
+          <div className="card mt-12 bg-white shadow-lg rounded-3xl  py-7 px-10 max-w-xl w-3/5">
           <div className="msg_box  flex flex-wrap pt-5">
           <div className="w-full lg:-mt-5 ml-4 item-center quote_box md:text-3xl text-xl font-bold">
             <h3 className="text_blue font-sans">Smart Platform for</h3>
@@ -40,9 +40,10 @@ export default function SplashScreen() {
           </div>
           </div>
           <img
-            className="  w-full h-screen "
+            className=" sticky w-full h-screen lg:-mt-80 md:-mt-72 "
             src={backgroundImage}
-            style={{ marginTop: '-21.30%' }}
+            //  style={{ marginTop: '-24.30%' }}
+            
           />
           
         </div>
