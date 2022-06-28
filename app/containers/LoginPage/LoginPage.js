@@ -55,7 +55,7 @@ export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmail
     console.log("login for otp");
     if (emailId == '') {
       // console.log('Email required..')
-      checkEmailError('Email Required..')
+      checkEmailError('Email Required')
     } else {
       onSetEmailId(emailId);
       onGenerateOtpByEmailIdAction(emailId);
