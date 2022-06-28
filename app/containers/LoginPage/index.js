@@ -40,7 +40,7 @@ export default function SplashScreen() {
           </div>
           </div>
           <img
-            className=" sticky w-full h-screen lg:-mt-80 md:-mt-72 "
+            className="  w-full h-screen lg:-mt-80 md:-mt-72 "
             src={backgroundImage}
             //  style={{ marginTop: '-24.30%' }}
             
