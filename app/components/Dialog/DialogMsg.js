@@ -88,7 +88,7 @@ export default function CustomizedDialogs({ goToLogin, errorMessage, showDialog,
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
-            Close
+            <p className='font-sans'>Close</p>
           </Button>
         </DialogActions>
       </Dialog>
