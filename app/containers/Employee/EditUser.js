@@ -77,7 +77,7 @@ export function EditUser(props) {
 
   return (
     <div className="">
-      <div className="flex flex justify-between mt-6">
+      <div className="flex justify-between mt-6">
         <label
           style={{
             fontWeight: '500',
