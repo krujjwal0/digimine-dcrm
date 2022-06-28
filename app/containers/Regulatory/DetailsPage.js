@@ -96,7 +96,7 @@ export function DetailsPage({
   }
 
   return (
-    <div className="maindash">
+    <div className="content">
       {/* <div className=" mt-4  ml-6 w-[100%] h-[100%]" style={{ border: '2px solid red' }}> */}
       <div className=" mt-4  ml-6 w-[100%] h-[100%]">
         <div
