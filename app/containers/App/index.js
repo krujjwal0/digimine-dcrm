@@ -48,6 +48,7 @@ import reducer from './reducer';
 import { setNavBar } from './actions';
 import { getUserLogout, setOtpAction, setShowOtpPage } from '../LoginPage/actions';
 import GeekStepper  from '../LoginPage/GeekStepper'
+import { DetailsPage } from '../Regulatory/DetailsPage';
 
 const key = 'main';
 
@@ -96,7 +97,8 @@ export function App(props) {
                 <Route path="/formsecond" component={SecondFeedbackForm} />
                 <Route path="/users" component={Employee} />
                 <Route path="/myprofile" component={MyProfile} />
-                <Route path="/history" component={History} />
+                <Route path="/history" component={History} /> 
+                <Route path="/regulatory/details" component={ DetailsPage } />
               {/* </>
               : */}
               <Route component={NotFoundPage} />
