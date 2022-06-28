@@ -190,14 +190,14 @@ export function Employee({
   const filter = e => {
     const keyword = e.target.value;
     // setName(searchBy);
-    console.log("Seacrh according to ====", searchBy, name)
+    console.log("Seacrh according to ====", searchBy, name, keyword.length)
     let obj = {
       fromSaga: false,
       results: [],
     };
 
-    if (keyword !== '') {
-      if (searchBy === 'name') {
+    if (keyword !== '' && keyword.length > 1) {
+      if (searchBy === 'name' && keyword.length > 2) {
         const results = usersListreplica.filter((list) => {
           return list.name.toLowerCase().startsWith(keyword.toLowerCase());
         });
@@ -215,7 +215,7 @@ export function Employee({
         obj.results = results;
         setEmployee(obj);
       }
-      else if (searchBy === 'emailId') {
+      else if (searchBy === 'emailId' && keyword.length > 2) {
         const results = usersListreplica.filter((list) => {
           return list.emailId.toLowerCase().startsWith(keyword.toLowerCase());
         });
@@ -379,38 +379,38 @@ export function Employee({
             <option className='font-sans' value="employeeId" name="id">Employee ID</option>
             <option className='font-sans' value="departmentName" name="departmentName">Department</option>
           </select>
-            <div className='flex'>
-          <label
-            className="border-0 border-gray-200 bg-white h-9 mt-2 px-2 ml-2 rounded-full text-sm font-sans"
-          // style={{ width: '12%', borderRadius: '8px' }}
-          >
-            Search By
-          </label>
-          <select
-            className="border-2 border-gray-200 bg-white h-9 px-2 pr-2 ml-1 rounded-full font-sans text-sm focus:outline-none"
-            style={{ width: '150px' }}
-            // onClick={selectDepartment}
-            onClick={handleSelectSeachByOption}
-          // value={name}
-          >
-            {/* <option value="" disabled selected>
+          <div className='flex'>
+            <label
+              className="border-0 border-gray-200 bg-white h-9 mt-2 px-2 ml-2 rounded-full text-sm font-sans"
+            // style={{ width: '12%', borderRadius: '8px' }}
+            >
+              Search By
+            </label>
+            <select
+              className="border-2 border-gray-200 bg-white h-9 px-2 pr-2 ml-1 rounded-full font-sans text-sm focus:outline-none"
+              style={{ width: '150px' }}
+              // onClick={selectDepartment}
+              onClick={handleSelectSeachByOption}
+            // value={name}
+            >
+              {/* <option value="" disabled selected>
               Name
             </option> */}
-            {searchByOptions.map((data, index) => {
-              return (
-                <option className='font-sans' key={index} value={data.value}>
-                  {data.label}
-                </option>
-              );
-            })}
-          </select>
+              {searchByOptions.map((data, index) => {
+                return (
+                  <option className='font-sans' key={index} value={data.value}>
+                    {data.label}
+                  </option>
+                );
+              })}
+            </select>
           </div>
 
           <input
             className="border-2 border-gray-300 bg-white h-9 px-8 pr-6 ml-3 rounded-full text-sm focus:outline-none"
             value={name}
             onChange={filter}
-            style={{width: '390px' }}
+            style={{ width: '390px' }}
             type="text"
             name="search"
             placeholder="Search Here"
@@ -514,27 +514,27 @@ export function Employee({
                         <CardContent className="justify-center">
                           <div className="flex justify-between rounded-full" key={list.name}>
                             <div className='flex'>
-                            <div className="">
-                              <img
-                                className="rounded-full ml-3 w-[41px] h-[41px]"
-                                src={userImage}
-                              />
-                            </div>
-                            <div className="ml-6">
-                              <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
-                                Employee
-                              </p>
-                              <div className="flex">
-                                <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
-                                  {list.name}
+                              <div className="">
+                                <img
+                                  className="rounded-full ml-3 w-[41px] h-[41px]"
+                                  src={userImage}
+                                />
+                              </div>
+                              <div className="ml-6">
+                                <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
+                                  Employee
                                 </p>
-                                <div className="flex justify-center w-20 bg-[#F66B6B] ml-1 mt-[6px] rounded-md h-4">
-                                  <p className="text-center m-2 text-[11px] mt-[2px] text-white font-sans">
-                                    {list.employeeId}
+                                <div className="flex">
+                                  <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
+                                    {list.name}
                                   </p>
+                                  <div className="flex justify-center w-20 bg-[#F66B6B] ml-1 mt-[6px] rounded-md h-4">
+                                    <p className="text-center m-2 text-[11px] mt-[2px] text-white font-sans">
+                                      {list.employeeId}
+                                    </p>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
                             </div>
                             <div className="ml-10">
                               <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
