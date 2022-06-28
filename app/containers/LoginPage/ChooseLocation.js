@@ -23,23 +23,23 @@ export function ChooseLocation(props) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
-  const [choosedLocation, setChoosedLocation] = useState(
-    props.adminLocations[0],
-  );
+  const [choosedLocation, setChoosedLocation] = useState(props.adminLocations[0]);
+  const [userFeedbackStatus, setUserFeedbackStatus] = useState();
+
   useEffect(() => {
     console.log('admin Locations', props.adminLocations, props.feedbackCompleted);
   }, [props.adminLocations, props.showFeedback]);
-  const [redirectToFeedbackPage, setRedirectToFeedbackPage] = useState(
-    props.feedbackCompleted
-  );
+
+  const [redirectToFeedbackPage, setRedirectToFeedbackPage] = useState(props.feedbackCompleted);
 
   useEffect(() => {
     console.log('callGetLocationAction Send data in Action', props.feedbackCompleted);
     // const data='';
     props.getAdminLocationsAction();
+    setUserFeedbackStatus(props.userData.feedbackCompleted);
   }, []);
 
-  if (redirectToFeedbackPage) {
+  if (userFeedbackStatus) {
     return <Redirect to={{ pathname: '/form' }} />;
   }
 
@@ -126,7 +126,8 @@ const mapStateToProps = state => ({
       ? state.loginReducer.adminLocations
       : [],
   showFeedback: state.loginReducer.showFeedback,
-  feedbackCompleted: state.loginReducer.userData.feedbackCompleted
+  feedbackCompleted: state.loginReducer.userData.feedbackCompleted,
+  userData: state.loginReducer.userData
 });
 
 export function mapDispatchToProps(dispatch) {
