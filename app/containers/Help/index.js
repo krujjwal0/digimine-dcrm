@@ -64,7 +64,7 @@ function Help(props) {
       fromSaga: false,
       results: [],
     }
-    if (keyword !== '') {
+    if (keyword !== '' && keyword.length > 2) {
       const results = props.helpreplica.filter((que) => {
         // return que.question.toLowerCase().startsWith(keyword.toLowerCase());
         return que.question.toLowerCase().includes(keyword.toLowerCase())
@@ -153,11 +153,11 @@ function Help(props) {
                   id="panel1a-header"
                 >
                   <Typography className="mt-8 text-[#132B6B]" style={{
-                      marginTop: '7px',
-                      color: '#132B6B',
-                      fontWeight: '500',
-                      fontSize: '18px',
-                    }}>
+                    marginTop: '7px',
+                    color: '#132B6B',
+                    fontWeight: '500',
+                    fontSize: '18px',
+                  }}>
                     {ques.question}
                   </Typography>
                 </AccordionSummary>
