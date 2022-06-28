@@ -190,14 +190,14 @@ export function Employee({
   const filter = e => {
     const keyword = e.target.value;
     // setName(searchBy);
-    console.log("Seacrh according to ====", searchBy, name)
+    console.log("Seacrh according to ====", searchBy, name,keyword.length)
     let obj = {
       fromSaga: false,
       results: [],
     };
 
-    if (keyword !== '') {
-      if (searchBy === 'name') {
+    if (keyword !== ''&& keyword.length>1) {
+      if (searchBy === 'name'&& keyword.length>2) {
         const results = usersListreplica.filter((list) => {
           return list.name.toLowerCase().startsWith(keyword.toLowerCase());
         });
@@ -215,7 +215,7 @@ export function Employee({
         obj.results = results;
         setEmployee(obj);
       }
-      else if (searchBy === 'emailId') {
+      else if (searchBy === 'emailId'&& keyword.length>2) {
         const results = usersListreplica.filter((list) => {
           return list.emailId.toLowerCase().startsWith(keyword.toLowerCase());
         });
