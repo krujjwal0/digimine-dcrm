@@ -4,7 +4,7 @@ import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Redirect, useHistory } from 'react-router-dom';
-import LoginImage from './images/Logo.svg';
+import LoginImage from './images/logo.svg';
 import Resend from './images/resendImage.svg';
 import './style.css';
 

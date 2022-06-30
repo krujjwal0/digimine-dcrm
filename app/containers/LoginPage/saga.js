@@ -188,7 +188,7 @@ function* getFeedbackFormSaga(action) {
 
   const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/getallQuestions`;
   const awtToken = localStorage.getItem('awtToken');
-  // http://13.127.152.251:15000/api/getallQuestions
+  // http://13.232.217.210:15000/api/getallQuestions
   try {
     const result = yield call(request, requestURL, {
       method: 'GET',

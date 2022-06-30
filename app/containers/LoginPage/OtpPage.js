@@ -28,7 +28,7 @@ import { makeSelectEmailId, makeSelectOtp } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import Resend from './images/resendImage.svg';
-import LoginImage from './images/Logo.svg';
+import LoginImage from './images/logo.svg';
 import LoginThirdImage from './images/Login3.svg';
 import LoginSecondImage from './images/Login2.svg';
 import LoginFirstImage from './images/image1.png';
