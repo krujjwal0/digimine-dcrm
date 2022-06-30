@@ -44,7 +44,7 @@ export function EditUser(props) {
   const [employeeId, setEmployeeId] = useState(props.list.employeeId);
   const [emailId, setEmailId] = useState(props.list.emailId);
   const [departmentId, setDepartmentId] = useState(props.list.departmentId);
-  const [roleId, setRoleId] = useState(props.list.roleName);
+  const [roleId, setRoleId] = useState(props.list.roleId);
   const [active, setActive] = useState(props.list.active);
   const updateUser = () => {
     // let active = props.list.active;

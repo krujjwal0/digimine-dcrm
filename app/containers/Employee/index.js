@@ -160,6 +160,7 @@ export function Employee({
   const [showEdit, setShowEdit] = useState(false);
   const openEdit = () => {
     setShowEdit(true);
+    handleCloseAdd();
   };
   const handleExit = () => {
     setShowEdit(false);
@@ -180,6 +181,7 @@ export function Employee({
   const [showExport, setShowExport] = useState(false);
   const openExport = () => {
     setShowExport(true);
+    handleClose();
   };
   const handleCloseBtn = () => {
     setShowExport(false);

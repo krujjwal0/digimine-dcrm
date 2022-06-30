@@ -15,7 +15,8 @@ import { validateOtpAction, getAdminLocationsAction } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import Resend from './images/resendImage.svg';
-import LoginImage from './images/Logo.svg';
+import LoginImage from './images/logo.svg';
+import { setNavBar } from '../App/actions';
 
 const key = 'loginReducer';
 
@@ -23,15 +24,16 @@ export function ChooseLocation(props) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
-  const [choosedLocation, setChoosedLocation] = useState(
-    props.adminLocations[0],
-  );
+  const [choosedLocation, setChoosedLocation] = useState(props.adminLocations[0]);
+  const [userFeedbackStatus, setUserFeedbackStatus] = useState();
+
   useEffect(() => {
     console.log('admin Locations', props.adminLocations, props.feedbackCompleted);
   }, [props.adminLocations, props.showFeedback]);
-  const [redirectToFeedbackPage, setRedirectToFeedbackPage] = useState(
-    props.feedbackCompleted
-  );
+
+  const setRedirectToFeedbackPage=()=>{
+    setUserFeedbackStatus(props.userData.feedbackCompleted);
+  }
 
   useEffect(() => {
     console.log('callGetLocationAction Send data in Action', props.feedbackCompleted);
@@ -39,8 +41,12 @@ export function ChooseLocation(props) {
     props.getAdminLocationsAction();
   }, []);
 
-  if (redirectToFeedbackPage) {
+  
+  if (userFeedbackStatus == false) {
     return <Redirect to={{ pathname: '/form' }} />;
+  } else if(userFeedbackStatus == true){
+    // props.setNavBar(true);
+    return <Redirect to={{ pathname: '/dashboard' }} />;
   }
 
   const selectLocation = value => {
@@ -93,7 +99,7 @@ export function ChooseLocation(props) {
                   <Button
                     className="bg_red  mx-auto   font-sans login_btn  w-60 h-14 rounded-4xl my-5"
                     style={{ borderRadius: '30px' }}
-                    onClick={() => setRedirectToFeedbackPage(true)}
+                    onClick={() => setRedirectToFeedbackPage()}
                   >
                     <p className="font-sans " style={{ color: '#fff' }}>
                       Continue
@@ -126,13 +132,15 @@ const mapStateToProps = state => ({
       ? state.loginReducer.adminLocations
       : [],
   showFeedback: state.loginReducer.showFeedback,
-  feedbackCompleted: state.loginReducer.userData.feedbackCompleted
+  feedbackCompleted: state.loginReducer.userData.feedbackCompleted,
+  userData: state.loginReducer.userData
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
     onValidateOtp: data => dispatch(validateOtpAction(data)),
-    getAdminLocationsAction: data => dispatch(getAdminLocationsAction(data)),
+    getAdminLocationsAction: data => dispatch(getAdminLocationsAction(data)),    
+    setNavBar: data => dispatch(setNavBar(data)),
   };
 }
 
