@@ -241,11 +241,7 @@ export function Employee({
   const [searchBy, setSearchBy] = useState('name');
 
   let sortBy = 'name';
-  // const selectDepartment = value => {
-  //   console.log(value);
-  //   setSearchBy(value);
-  //   // Call api to show users list of particular Location
-  // };
+ 
   const searchByOptions = [
     {
       label: 'Name',
@@ -377,7 +373,7 @@ export function Employee({
             style={{ width: '13%' }}
             onChange={(e) => orderBy(e)}
           >
-            <option value="" disabled selected>
+            <option value="" disabled selected className='font-sans'>
               Sort by
             </option>
             <option className='font-sans' value="name" name="name">Name</option>

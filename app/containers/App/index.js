@@ -39,7 +39,6 @@ import Location from '../LoginPage/ChooseLocation';
 import Success from '../LoginPage/SuccessPage';
 import Users from '../Regulatory/Users';
 import FeedbackForm from '../LoginPage/FeedbackForm';
-import SecondFeedbackForm from '../FeedbackForm/FeedbackPage2';
 import Employee from '../Employee';
 import History from '../History';
 import LoginPage from '../LoginPage/LoginPage';
@@ -99,7 +98,6 @@ export function App(props) {
               <Route path="/listadd" component={Listadd} />
               <Route path="/listadd2" component={Listadd2} />
               <Route path="/empLogin" component={EmpLogin} />
-              <Route path="/formsecond" component={SecondFeedbackForm} />
               <Route path="/users" component={Employee} />
               <Route path="/myprofile" component={MyProfile} />
               <Route path="/history" component={History} />
@@ -145,3 +143,4 @@ export default compose(
   withConnect,
   memo,
 )(App);
+

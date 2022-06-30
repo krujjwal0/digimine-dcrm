@@ -15,7 +15,7 @@ import { validateOtpAction, getAdminLocationsAction } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import Resend from './images/resendImage.svg';
-import LoginImage from './images/Logo.svg';
+import LoginImage from './images/logo.svg';
 import { setNavBar } from '../App/actions';
 
 const key = 'loginReducer';

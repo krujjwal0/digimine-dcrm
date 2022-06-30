@@ -4,7 +4,7 @@ import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Redirect, useHistory } from 'react-router-dom';
-import LoginImage from './images/Logo.svg';
+import LoginImage from './images/logo.svg';
 import Resend from './images/resendImage.svg';
 import './style.css';
 
@@ -55,7 +55,7 @@ export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmail
     console.log("login for otp");
     if (emailId == '') {
       // console.log('Email required..')
-      checkEmailError('Email Required..')
+      checkEmailError('Email Required')
     } else {
       onSetEmailId(emailId);
       onGenerateOtpByEmailIdAction(emailId);
