@@ -45,7 +45,7 @@ const GlobalStyle = createGlobalStyle`
 
   .myprofile1{
     display:flex;
-    height: 100vh;
+   
     margin-left:250px;
     border-radius: 70px 0px 0px 0px;
     background-color: #ffff;
