@@ -10,8 +10,10 @@ import FormControl from '@material-ui/core/FormControl';
 import CloseIcon from '@material-ui/icons/Close';
 
 
-export function AddCategories(){
+export default function AddCategories(props){
+  
     return(
+
         <div>
            <div className="flex justify-between mt-6">
         <label
@@ -27,7 +29,7 @@ export function AddCategories(){
 
         <div>
           <button className="" 
-          //onClick={props.handleCloseBtn}
+          onClick={props.handleCloseBtn}
           >
             {' '}
             < CloseIcon style={{color: 'red', fontWeight: '600px'}} />
@@ -36,7 +38,7 @@ export function AddCategories(){
       </div>  
 
       <div>
-            <FormControl className={classes.formControl}>
+            <FormControl className=''>
               <InputLabel id="demo-simple-select-label">
                 Department
               </InputLabel>
