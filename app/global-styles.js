@@ -60,7 +60,6 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-
 export default GlobalStyle;
 /** html,
   body {
