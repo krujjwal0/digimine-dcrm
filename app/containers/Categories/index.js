@@ -109,7 +109,7 @@ export function Categories({
     console.info('You clicked a breadcrumb.');
   }
   return (
-    <div className="myprofile1 font-sans">
+    <div className="content font-sans">
       <div className="w-full h-full">
         <div className="ml-8 ">
           <div className="mt-3 text-xl ">

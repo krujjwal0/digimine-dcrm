@@ -52,7 +52,7 @@ const GlobalStyle = createGlobalStyle`
   }
   .content {
     display:flex;
-    min-height: 89vh;
+    min-height: 88.5vh;
     height: 100%;
     margin-left:250px;
     border-radius: 70px 0px 0px 0px;
