@@ -4,7 +4,7 @@
  * This is the first thing users see of our App, at the '/' route
  */
 
-import React, { useEffect, memo } from 'react';
+import React, { useEffect,useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -43,6 +43,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import ClearAllIcon from '@material-ui/icons/ClearAll';
+import AddCategory from './addCategories';
 import './style.css';
 
 const useStyles = makeStyles(theme => ({
@@ -97,6 +98,16 @@ export function Categories({
     repos,
   };
 
+  const [showAddCategory, setShowAddCategory] = useState(false);
+  const openNewCategories = () => {
+    setShowAddCategory(true);
+    // handleClose();
+  };
+  const handleCloseBtn = () => {
+    setShowAddCategory(false);
+  };
+
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -108,6 +119,10 @@ export function Categories({
     event.preventDefault();
     console.info('You clicked a breadcrumb.');
   }
+
+  
+
+
   return (
     <div className="myprofile1 font-sans">
       <div className="w-full h-full">
@@ -184,10 +199,31 @@ export function Categories({
 
             <div className="font-sans w-56 h-9 mt-5 ml-80 border-2 rounded-full flex justify-center m-2" style={{background: '#132B6B'}}>
               {/* <AddIcon className="text-white mt-1 " /> */}
-              <button className="text-white ml-2" >ADD NEW CATEGORIES</button>
+              <button className="text-white ml-2" onClick={openNewCategories}>ADD NEW CATEGORIES</button>
             </div>
-         
+            <Dialog className='w-full h-full' open={showAddCategory} onClose={handleCloseBtn}>
+            <DialogContent
+            // style={{
+            //   borderRadius: '15px',
+            //   background: '#FFFFFF',
+            //   boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
+            //   Width: '70%',
+            //   Height: '80%',
+            // }}
+            >
+              <AddCategory
+                // addUser={addUser}
+                // rolesList={rolesList}
+                // departmentList={departmentList}
+                // getAllDepartment={getAllDepartment}
+                // getAllRoles={getAllRoles}
+                handleCloseBtn={handleCloseBtn}
+              />
+            </DialogContent>
+          </Dialog>
           </div>
+
+       
 
           <div className="mt-8 ml-3 w-11/12 font-sans">
             <div className={classes.root}>
