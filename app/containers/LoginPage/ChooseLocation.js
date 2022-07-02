@@ -83,7 +83,7 @@ export function ChooseLocation(props) {
                   {props.adminLocations.map((data, index) => {
                     console.log(data);
                     return (
-                      <option key={index} name={data} value={data.id}>
+                      <option className='font-sans p-3' key={index} name={data} value={data.id}>
                         {data.name}
                       </option>
                     );
