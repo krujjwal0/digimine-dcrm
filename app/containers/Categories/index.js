@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import HistoryCard from '../History';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import {
@@ -17,22 +16,21 @@ import {
   makeSelectLoading,
   makeSelectError,
 } from 'containers/App/selectors';
-import { loadRepos } from '../App/actions';
-import { changeUsername } from './actions';
-import { makeSelectUsername } from './selectors';
-import reducer from './reducer';
-import saga from './saga';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { Card, CardContent, FormGroup, Typography } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
 import { green } from '@material-ui/core/colors';
 import Dialog from '@material-ui/core/Dialog';
-import emp_image from '../../images/emp_image.png';
 import DialogContent from '@material-ui/core/DialogContent';
-import { alpha, styled, withStyles } from '@material-ui/core/styles';
+import {
+  alpha,
+  styled,
+  withStyles,
+  makeStyles,
+} from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
-import { makeStyles } from '@material-ui/core/styles';
+
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -46,6 +44,7 @@ import ClearAllIcon from '@material-ui/icons/ClearAll';
 import AddCategory from './addCategories';
 import AddSubCategory from './subCategories';
 import './style.css';
+import AddCategory from './addCategories';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -168,7 +167,6 @@ export function Categories({
               >
                 Categories /
               </Link>
-
               <Link
                 color="textPrimary"
                 href="/components/breadcrumbs/"
@@ -376,7 +374,7 @@ export function Categories({
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography>
-                    <div>
+                    <div className=''>
                       <p
                         className="font-sans h-9 px-4 py-1 flex justify-start -ml-4"
                         style={{ backgroundColor: '#F5F5F5', width: '248%' }}

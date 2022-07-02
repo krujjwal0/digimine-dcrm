@@ -23,12 +23,14 @@ import {
   SET_SHOW_FEEDBACK_FORM_RADIO_DATA,
   OTP_ERROR,
   SHOW_OTP_ERROR_POPUP,
+  SET_CHOOSED_LOCATION
 } from './constants';
 
 // The initial state of the App
 export const initialState = {
   ROLE_TYPE: '',
   userIsAuthenticated: false,
+  choosedLocationId: 0,
   userData: {},
   otp: '',
   otpError: '',
@@ -49,6 +51,12 @@ export const initialState = {
 const loginReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
+      case SET_CHOOSED_LOCATION:
+        console.log("choosedLocationId in reducer === ", action.payload)
+        return {
+          ...state,
+          choosedLocationId: action.payload
+        }
       case SHOW_OTP_ERROR_POPUP:
         console.log('Show OTP Error Popup', action.payload)
         return {
@@ -89,6 +97,7 @@ const loginReducer = (state = initialState, action) =>
         return {
           ...state,
           adminLocations: action.payload.locations,
+          choosedLocationId: action.payload.locations[0].id
         };
       case SET_EMAIL_ID:
         // console.log(action.payload);

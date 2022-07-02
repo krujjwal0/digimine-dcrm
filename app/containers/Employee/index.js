@@ -87,7 +87,8 @@ export function Employee({
   setEmployee,
   addUser,
   setEditUserData,
-  editUserData
+  editUserData,
+  choosedLocationId
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -106,7 +107,7 @@ export function Employee({
   useEffect(() => {
     showEmployee();
     getAllDepartment();
-    console.log('USers List index =====', usersList);
+    console.log('USers List index ===== choosedLocationId', usersList, choosedLocationId);
   }, []);
 
   useEffect(() => {
@@ -241,7 +242,7 @@ export function Employee({
   const [searchBy, setSearchBy] = useState('name');
 
   let sortBy = 'name';
- 
+
   const searchByOptions = [
     {
       label: 'Name',
@@ -686,6 +687,7 @@ const mapStateToProps = state => ({
   rolesList: state.users.rolesList.length > 0 ? state.users.rolesList : [],
   departmentList: state.users.departmentList.length > 0 ? state.users.departmentList : [],
   editUserData: state.users.editUserData,
+  choosedLocationId: state.loginReducer.choosedLocationId,
 });
 
 export function mapDispatchToProps(dispatch) {
