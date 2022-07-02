@@ -20,6 +20,7 @@ import {
   setEmployee,
   showEmployee,
 } from './actions';
+import { silentRenewalAction } from '../LoginPage/actions';
 
 function* getUsersList() {
   const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/user/list`;
@@ -44,8 +45,14 @@ function* getUsersList() {
     // yield put(setEmployee(result.data.users));
     yield put(setEmployee(obj));
   } catch (err) {
-    console.log('Error in getUsersList saga', result, err);
-    if (result) {
+    console.log('Error in getUsersList saga', result, err, err.response.status);
+    if (err.response.status == 401) {
+      console.log(" Unauthorised access");
+
+      //call silentRenewal with refresh token
+      yield put(silentRenewalAction());
+    }
+    else if (result) {
       console.log(result.status.message);
     } else console.log(err);
   }
@@ -71,7 +78,13 @@ function* saveOrUpdateUserSaga(action) {
     yield put(showEmployee());
   } catch (err) {
     console.log('Error in saveOrUpdateUserSaga saga', result, err);
-    if (result) {
+    if (err.response.status == 401) {
+      console.log(" Unauthorised access");
+
+      //call silentRenewal with refresh token
+      yield put(silentRenewalAction());
+    }
+    else if (result) {
       console.log(result.status.message);
     } else console.log(err);
   }
@@ -96,7 +109,13 @@ function* getAllDepartmentSaga() {
     yield put(setAllDepartment(result.data));
   } catch (err) {
     console.log('Error in getAllDepartmentSaga saga', result, err);
-    if (result) {
+    if (err.response.status == 401) {
+      console.log(" Unauthorised access");
+
+      //call silentRenewal with refresh token
+      yield put(silentRenewalAction());
+    }
+    else if (result) {
       console.log(result.status.message);
     } else console.log(err);
   }
@@ -121,16 +140,21 @@ function* getAllRolesSaga() {
     yield put(setAllRoles(result.data.roles));
   } catch (err) {
     console.log('Error in getAllRolesSaga saga', result, err);
-    if (result) {
+    if (err.response.status == 401) {
+      console.log(" Unauthorised access");
+
+      //call silentRenewal with refresh token
+      yield put(silentRenewalAction());
+    }
+    else if (result) {
       console.log(result.status.message);
     } else console.log(err);
   }
 }
 
 function* deleteUserSaga(action) {
-  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/user/${
-    action.payload
-  }`;
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/user/${action.payload
+    }`;
   const awtToken = localStorage.getItem('awtToken');
   console.log('data in saga get :', requestURL, action.payload);
   let result;
@@ -149,7 +173,13 @@ function* deleteUserSaga(action) {
     yield put(showEmployee());
   } catch (err) {
     console.log('Error in deleteUserSaga saga', result, err);
-    if (result) {
+    if (err.response.status == 401) {
+      console.log(" Unauthorised access");
+
+      //call silentRenewal with refresh token
+      yield put(silentRenewalAction());
+    }
+    else if (result) {
       console.log(result.status.message);
     } else console.log(err);
   }

@@ -37,6 +37,8 @@ import {
   OTP_ERROR,
   SHOW_OTP_ERROR_POPUP,
   DOWNLOAD_PROFILE_IMAGE,
+  SILENT_RENEWAL,
+  SET_CHOOSED_LOCATION
 } from './constants';
 import {
   USER_LOGOUT,
@@ -189,5 +191,17 @@ export function showOtpErrorPopupAction(data) {
 export function downloadProfileImageAction() {
   return {
     type: DOWNLOAD_PROFILE_IMAGE
+  }
+}
+
+export function silentRenewalAction() {
+  return {
+    type: SILENT_RENEWAL
+  }
+}
+export function setChoosedLocationAction(data) {
+  return {
+    type: SET_CHOOSED_LOCATION,
+    payload: data
   }
 }

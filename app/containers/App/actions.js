@@ -27,11 +27,11 @@ export function loadRepos() {
     type: LOAD_REPOS,
   };
 }
-export function setNavBar(data){
-return {
-  type: SET_NAV_BAR,
-  payload: data
-}
+export function setNavBar(data) {
+  return {
+    type: SET_NAV_BAR,
+    payload: data
+  }
 }
 
 /**
@@ -63,3 +63,9 @@ export function repoLoadingError(error) {
     error,
   };
 }
+
+// export function silentRenewalAction() {
+//   return { 
+//     type: SILENT_RENEWAL 
+//   }
+// }

@@ -31,3 +31,5 @@ export const SET_SHOW_FEEDBACK_FORM_RADIO_DATA = 'SET_SHOW_FEEDBACK_FORM_RADIO_D
 export const OTP_ERROR = 'digimine/LoginPage/OTP_ERROR';
 export const SHOW_OTP_ERROR_POPUP = 'digimine/LoginPage/SHOW_OTP_ERROR_POPUP';
 export const DOWNLOAD_PROFILE_IMAGE = 'digimine/LoginPage/DOWNLOAD_PROFILE_IMAGE';
+export const SILENT_RENEWAL = 'boilerplate/App/SILENT_RENEWAL';
+export const SET_CHOOSED_LOCATION = 'boilerplate/App/SET_CHOOSED_LOCATION';
