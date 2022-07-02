@@ -11,7 +11,7 @@ import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 
 import { Redirect } from 'react-router-dom';
-import { validateOtpAction, getAdminLocationsAction } from './actions';
+import { validateOtpAction, getAdminLocationsAction, setChoosedLocationAction } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import Resend from './images/resendImage.svg';
@@ -31,7 +31,7 @@ export function ChooseLocation(props) {
     console.log('admin Locations', props.adminLocations, props.feedbackCompleted);
   }, [props.adminLocations, props.showFeedback]);
 
-  const setRedirectToFeedbackPage=()=>{
+  const setRedirectToFeedbackPage = () => {
     setUserFeedbackStatus(props.userData.feedbackCompleted);
   }
 
@@ -41,16 +41,20 @@ export function ChooseLocation(props) {
     props.getAdminLocationsAction();
   }, []);
 
-  
+
   if (userFeedbackStatus == false) {
     return <Redirect to={{ pathname: '/form' }} />;
-  } else if(userFeedbackStatus == true){
+  } else if (userFeedbackStatus == true) {
     // props.setNavBar(true);
     return <Redirect to={{ pathname: '/dashboard' }} />;
   }
 
-  const selectLocation = value => {
-    console.log(value);
+  const selectLocation = e => {
+    console.log(e.target.value);
+    // setChoosedLocation(e.target.value);
+    console.log("setChoosedLocation ==== ", e.target.value);
+    const id = parseInt(e.target.value);
+    props.setChoosedLocationAction(id);
     // Call api to show users list of particular Location
   };
 
@@ -139,8 +143,9 @@ const mapStateToProps = state => ({
 export function mapDispatchToProps(dispatch) {
   return {
     onValidateOtp: data => dispatch(validateOtpAction(data)),
-    getAdminLocationsAction: data => dispatch(getAdminLocationsAction(data)),    
+    getAdminLocationsAction: data => dispatch(getAdminLocationsAction(data)),
     setNavBar: data => dispatch(setNavBar(data)),
+    setChoosedLocationAction: data => dispatch(setChoosedLocationAction(data))
   };
 }
 

@@ -32,7 +32,13 @@ function* getQ_A_Saga() {
     yield put(setQ_A(obj));
   } catch (err) {
     console.log('Error in Help saga', result, err);
-    if (result) {
+    if (err.response.status == 401) {
+      console.log(" Unauthorised access");
+
+      //call silentRenewal with refresh token
+      yield put(silentRenewalAction());
+    }
+    else if (result) {
       console.log(result.status.message);
     } else console.log(err);
   }
