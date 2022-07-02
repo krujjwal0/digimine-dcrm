@@ -44,6 +44,7 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import ClearAllIcon from '@material-ui/icons/ClearAll';
 import AddCategory from './addCategories';
+import AddSubCategory from './subCategories';
 import './style.css';
 
 const useStyles = makeStyles(theme => ({
@@ -104,10 +105,18 @@ export function Categories({
   };
   const handleCloseBtn = () => {
     setShowAddCategory(false);
+    setShowSubCategory(false);
+  };
+
+  const [showSubCategory, setShowSubCategory] = useState(false);
+  const openSubCategory = () => {
+    setShowSubCategory(true);
   };
 
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  const [fullWidth, setFullWidth] = React.useState(true);
+  const [maxWidth, setMaxWidth] = React.useState('sm');
 
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -119,7 +128,7 @@ export function Categories({
   }
 
   return (
-    <div className="myprofile1 font-sans">
+    <div className="content font-sans">
       <div className="w-full h-full">
         <div className="ml-8 ">
           <div className="mt-3 text-xl ">
@@ -173,7 +182,7 @@ export function Categories({
             <hr />
           </div>
 
-          <div className="flex font-sans">
+          <div className="flex font-sans flex justify-between">
             <div className="flex mt-5 flex justify-start ml-2">
               <form>
                 <select
@@ -213,7 +222,7 @@ export function Categories({
             </div>
 
             <div
-              className="font-sans w-56 h-9 mt-5 ml-80 border-2 rounded-full flex justify-center m-2"
+              className="font-sans w-56 h-9 mt-5  border-2 rounded-full flex justify-center m-2"
               style={{ background: '#132B6B' }}
             >
               {/* <AddIcon className="text-white mt-1 " /> */}
@@ -221,30 +230,39 @@ export function Categories({
                 ADD NEW CATEGORIES
               </button>
             </div>
-            <Dialog
-              className="w-full h-full"
-              open={showAddCategory}
-              onClose={handleCloseBtn}
-            >
-              <DialogContent
-              // style={{
-              //   borderRadius: '15px',
-              //   background: '#FFFFFF',
-              //   boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
-              //   Width: '70%',
-              //   Height: '80%',
-              // }}
+            <div className="flex justify-between rounded-full ">
+              <Dialog
+                style={{
+                  width: '50%',
+                  borderRadius: '50px',
+                  marginLeft: '30%',
+                  marginTop: '7%',
+                }}
+                className="w-full h-3/4 "
+                open={showAddCategory}
+                onClose={handleCloseBtn}
               >
-                <AddCategory
-                  // addUser={addUser}
-                  // rolesList={rolesList}
-                  // departmentList={departmentList}
-                  // getAllDepartment={getAllDepartment}
-                  // getAllRoles={getAllRoles}
-                  handleCloseBtn={handleCloseBtn}
-                />
-              </DialogContent>
-            </Dialog>
+                <DialogContent
+                  // style={{
+                  //   borderRadius: '15px',
+                  //   background: '#FFFFFF',
+                  //   boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
+                  //   Width: '70%',
+                  //   Height: '80%',
+                  // }}
+                  className="flex justify-start"
+                >
+                  <AddCategory
+                    // addUser={addUser}
+                    // rolesList={rolesList}
+                    // departmentList={departmentList}
+                    // getAllDepartment={getAllDepartment}
+                    // getAllRoles={getAllRoles}
+                    handleCloseBtn={handleCloseBtn}
+                  />
+                </DialogContent>
+              </Dialog>
+            </div>
           </div>
 
           <div className="mt-8 ml-3 w-11/12 font-sans">
@@ -252,7 +270,8 @@ export function Categories({
               <Accordion
                 expanded={expanded === 'panel1'}
                 onChange={handleChange('panel1')}
-                className="rounded-full font-sans "
+                className=" font-sans "
+                style={{borderRadius: '30px'}}
               >
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -268,9 +287,42 @@ export function Categories({
                       className="font-sans flex w-36 h-8 text-white rounded-full flex justify-center"
                       style={{ background: '#132B6B' }}
                     >
-                      <AddIcon className="mt-1 " />
+                      <AddIcon className="mt-1 " onClick={openSubCategory} />
                       <p className="mt-1 font-sans">Add Sub Rule</p>
                     </button>
+
+                    <Dialog
+                      fullWidth={fullWidth}
+                      maxWidth={maxWidth}
+                      style={{
+                        borderRadius: '50px',
+                        marginLeft: '1%',
+                        marginTop: '',
+                      }}
+                      className="w-full h-full "
+                      open={showSubCategory}
+                      onClose={handleCloseBtn}
+                    >
+                      <DialogContent
+                        // style={{
+                        //   borderRadius: '15px',
+                        //   background: '#FFFFFF',
+                        //   boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
+                        //   Width: '70%',
+                        //   Height: '80%',
+                        // }}
+                        className="flex justify-start"
+                      >
+                        <AddSubCategory
+                          // addUser={addUser}
+                          // rolesList={rolesList}
+                          // departmentList={departmentList}
+                          // getAllDepartment={getAllDepartment}
+                          // getAllRoles={getAllRoles}
+                          handleCloseBtn={handleCloseBtn}
+                        />
+                      </DialogContent>
+                    </Dialog>
 
                     <div className="flex ml-6 mt-1 font-sans">
                       <div className="flex">
@@ -286,7 +338,7 @@ export function Categories({
                           Rule A{' '}
                         </p>
                         <p
-                          className="rounded-full h-6 mt-1 text-white font-sans flex justify-center "
+                          className="rounded-full h-6 m-1 px-1 text-white font-sans items-center "
                           style={{
                             background: '#F66B6B',
                             fontSize: '12px',
@@ -299,13 +351,14 @@ export function Categories({
                       <div className="ml-6 flex w-full ">
                         <ChevronLeftIcon style={{ color: '#36454F' }} />
                         <div
-                          className="border-2 flex w-12 h-7 "
-                          style={{ color: '#EAEAEA' }}
+                          className="border-2 flex w-12 h-7 flex justify-center font-sans "
+                          style={{
+                            color: '#36454F',
+                          
+                            borderRadius: '4px',
+                          }}
                         >
-                          <p className="font-sans" style={{ color: '#36454F' }}>
-                            {' '}
-                            5<span className="font-sans">(4)</span>
-                          </p>
+                          5<p>(4)</p>
                         </div>
                         <div className="border-2 flex ml-3 w-12 h-7 flex justify-center">
                           5<p>(4)</p>
@@ -325,13 +378,13 @@ export function Categories({
                   <Typography>
                     <div>
                       <p
-                        className="font-sans h-9 px-6 py-1 flex justify-start"
-                        style={{ backgroundColor: '#F5F5F5', width: '1000px' }}
+                        className="font-sans h-9 px-4 py-1 flex justify-start -ml-4"
+                        style={{ backgroundColor: '#F5F5F5', width: '248%' }}
                       >
                         {' '}
                         <Breadcrumbs
                           aria-label="breadcrumb"
-                          style={{ color: '#132B6B' }}
+                          style={{ color: '#132B6B', fontWeight: '600', fontSize: '14px' }}
                           className="font-sans "
                         >
                           <Link
@@ -363,7 +416,7 @@ export function Categories({
                           </Typography>
                         </Breadcrumbs>
                         <p
-                          className="w-10 h-6 px-1 mt-1 ml-2"
+                          className="w-10 h-6 px-1  ml-2 font-sans"
                           style={{
                             background: '#8EF4D2',
                             color: '#36454F',
@@ -378,11 +431,11 @@ export function Categories({
                         <div className="mt-7">
                           <p
                             className="font-sans"
-                            style={{ color: ' #132B6B', fontSize: '18px' }}
+                            style={{ color: ' #132B6B', fontSize: '18px', fontWeight: '600' }}
                           >
                             Title of the Rules and Regulations
                           </p>
-                          <p className="font-sans" style={{ fontSize: '14px' }}>
+                          <p className="font-sans" style={{ fontSize: '14px',color: '#000000', fontWeight: '400' }}>
                             Electrical Safety Officer
                           </p>
                         </div>
@@ -390,7 +443,7 @@ export function Categories({
                         <div className="mt-7 font-sans">
                           <p
                             className="font-sans"
-                            style={{ color: ' #132B6B', fontSize: '18px' }}
+                            style={{ color: ' #132B6B', fontSize: '18px', fontWeight: '600' }}
                           >
                             Responsibility
                           </p>
@@ -400,7 +453,7 @@ export function Categories({
                               href="/"
                               onClick={handleClick}
                               className="font-sans"
-                              style={{ fontSize: '14px' }}
+                              style={{ fontSize: '14px',color: '#000000', fontWeight: '400' }}
                             >
                               Owner
                             </Link>
@@ -409,7 +462,7 @@ export function Categories({
                               href="/getting-started/installation/"
                               onClick={handleClick}
                               className="font-sans"
-                              style={{ fontSize: '14px' }}
+                              style={{ fontSize: '14px', color: '#000000', fontWeight: '400' }}
                             >
                               Agent
                             </Link>
@@ -418,7 +471,7 @@ export function Categories({
                               href="/getting-started/installation/"
                               onClick={handleClick}
                               className="font-sans"
-                              style={{ fontSize: '14px' }}
+                              style={{ fontSize: '14px' , color: '#000000', fontWeight: '400'}}
                             >
                               Manager
                             </Link>
@@ -431,11 +484,11 @@ export function Categories({
                         <div className="mt-7">
                           <p
                             className="font-sans"
-                            style={{ color: ' #132B6B', fontSize: '18px' }}
+                            style={{ color: ' #132B6B', fontSize: '18px', fontWeight: '600' }}
                           >
                             Description
                           </p>
-                          <p className="font-sans" style={{ fontSize: '14px' }}>
+                          <p className="font-sans" style={{ fontSize: '14px',color: '#000000', fontWeight: '400' }}>
                             Electrical Safety Officer
                           </p>
                         </div>
@@ -443,11 +496,11 @@ export function Categories({
                         <div className="mt-7">
                           <p
                             className="font-sans"
-                            style={{ color: ' #132B6B', fontSize: '18px' }}
+                            style={{ color: ' #132B6B', fontSize: '18px', fontWeight: '600' }}
                           >
                             Revelant Circular
                           </p>
-                          <p className="font-sans" style={{ fontSize: '14px' }}>
+                          <p className="font-sans" style={{ fontSize: '14px', color: '#000000', fontWeight: '400' }}>
                             Electrical Safety Officer
                           </p>
                         </div>

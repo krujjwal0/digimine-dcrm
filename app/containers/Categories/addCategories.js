@@ -14,20 +14,22 @@ export default function AddCategories(props){
   
     return(
 
-        <div>
-           <div className="flex justify-between mt-6">
+        <div className='ml-8 mt-2'>
+           <div className="flex  mt-6">
+            <div>
         <label
           style={{
-            fontWeight: '500',
-            fontSize: '22px',
+            fontWeight: '700',
+            fontSize: '24px',
             lineHeight: '1px',
           }}
           className="font-sans"
         >
           Add New Categories
         </label>
+        </div>
 
-        <div>
+        <div className='-mt-2 ml-36 '>
           <button className="" 
           onClick={props.handleCloseBtn}
           >
@@ -37,8 +39,8 @@ export default function AddCategories(props){
         </div>
       </div>  
 
-      <div>
-            <FormControl className=''>
+      <div className='mt-5'>
+            <FormControl className='font-sans'>
               <InputLabel id="demo-simple-select-label">
                 Department
               </InputLabel>
@@ -50,20 +52,21 @@ export default function AddCategories(props){
                 // onClick={(e) => selectDepartmentId(e)}
                 // value={departmentId}
                 style={{
-                  width: '263px',
+                  width: '190%',
                 }}
+                 className="font-sans"
               >
                 {/* {props.departmentList.map((dept, index) => {
                   console.log("dept============", dept); */}
                   return (
                     <MenuItem 
-                        name= 'department'>Select your department</MenuItem>
+                        name= 'department' className='font-sans '>Select Your Department</MenuItem>
                   )
                 {/* })
                 } */}
               </MSelect>
 
-              <div>
+              <div className='mt-2' style={{fontSize: '5px'}}>
             <TextField
               label="Enter New Categories (Rules)"
               name="mobileNumber"
@@ -73,15 +76,17 @@ export default function AddCategories(props){
               placeholder="Enter New Categories (Rules)"
               id="outlined-basic"
               style={{
-                width: '263px',
+                width: '190%',
+                fontSize: '5px'
               }}
+              className="font-sans"
             />
           </div>
             </FormControl>
           </div>
-
+<div className='mt-12 mb-12 '>
           <Button
-            className="bg_red mx-auto  font-bold login_btn  w-60 h-14 rounded-full my-5 "
+            className="bg_red  font-bold login_btn mt-7  w-52 h-12 rounded-full   "
             style={{ borderRadius: '50px' }}
             // onClick={e => login(e)}
           >
@@ -92,6 +97,7 @@ export default function AddCategories(props){
               Create Rules
             </p>
           </Button>
+          </div>
         </div>
     )
 }
