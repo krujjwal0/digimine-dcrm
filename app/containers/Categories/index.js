@@ -4,7 +4,7 @@
  * This is the first thing users see of our App, at the '/' route
  */
 
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -49,6 +49,7 @@ import { changeUsername } from './actions';
 import { loadRepos } from '../App/actions';
 import HistoryCard from '../History';
 import './style.css';
+import AddCategory from './addCategories';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -102,6 +103,14 @@ export function Categories({
     repos,
   };
 
+  const [showAddCategory, setShowAddCategory] = useState(false);
+  const openNewCategories = () => {
+    setShowAddCategory(true);
+  };
+  const handleCloseBtn = () => {
+    setShowAddCategory(false);
+  };
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -113,6 +122,7 @@ export function Categories({
     event.preventDefault();
     console.info('You clicked a breadcrumb.');
   }
+
   return (
     <div className="content font-sans">
       <div className="w-full h-full">
@@ -211,8 +221,34 @@ export function Categories({
               style={{ background: '#132B6B' }}
             >
               {/* <AddIcon className="text-white mt-1 " /> */}
-              <button className="text-white ml-2">ADD NEW CATEGORIES</button>
+              <button className="text-white ml-2" onClick={openNewCategories}>
+                ADD NEW CATEGORIES
+              </button>
             </div>
+            <Dialog
+              className="w-full h-full"
+              open={showAddCategory}
+              onClose={handleCloseBtn}
+            >
+              <DialogContent
+              // style={{
+              //   borderRadius: '15px',
+              //   background: '#FFFFFF',
+              //   boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
+              //   Width: '70%',
+              //   Height: '80%',
+              // }}
+              >
+                <AddCategory
+                  // addUser={addUser}
+                  // rolesList={rolesList}
+                  // departmentList={departmentList}
+                  // getAllDepartment={getAllDepartment}
+                  // getAllRoles={getAllRoles}
+                  handleCloseBtn={handleCloseBtn}
+                />
+              </DialogContent>
+            </Dialog>
           </div>
 
           <div className="mt-8 ml-3 w-11/12 font-sans">
