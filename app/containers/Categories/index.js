@@ -4,12 +4,11 @@
  * This is the first thing users see of our App, at the '/' route
  */
 
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import HistoryCard from '../History';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import {
@@ -17,22 +16,21 @@ import {
   makeSelectLoading,
   makeSelectError,
 } from 'containers/App/selectors';
-import { loadRepos } from '../App/actions';
-import { changeUsername } from './actions';
-import { makeSelectUsername } from './selectors';
-import reducer from './reducer';
-import saga from './saga';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { Card, CardContent, FormGroup, Typography } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
 import { green } from '@material-ui/core/colors';
 import Dialog from '@material-ui/core/Dialog';
-import emp_image from '../../images/emp_image.png';
 import DialogContent from '@material-ui/core/DialogContent';
-import { alpha, styled, withStyles } from '@material-ui/core/styles';
+import {
+  alpha,
+  styled,
+  withStyles,
+  makeStyles,
+} from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
-import { makeStyles } from '@material-ui/core/styles';
+
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -42,7 +40,16 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
+import ClearAllIcon from '@material-ui/icons/ClearAll';
+import emp_image from '../../images/emp_image.png';
+import saga from './saga';
+import reducer from './reducer';
+import { makeSelectUsername } from './selectors';
+import { changeUsername } from './actions';
+import { loadRepos } from '../App/actions';
+import HistoryCard from '../History';
 import './style.css';
+import AddCategory from './addCategories';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -96,6 +103,14 @@ export function Categories({
     repos,
   };
 
+  const [showAddCategory, setShowAddCategory] = useState(false);
+  const openNewCategories = () => {
+    setShowAddCategory(true);
+  };
+  const handleCloseBtn = () => {
+    setShowAddCategory(false);
+  };
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -107,58 +122,141 @@ export function Categories({
     event.preventDefault();
     console.info('You clicked a breadcrumb.');
   }
+
   return (
-    <div className="myprofile1 font-sans">
-      <div className="w-full">
+    <div className="content font-sans">
+      <div className="w-full h-full">
         <div className="ml-8 ">
-          <div className="ml-4 mt-3 text-xl ">
-            <p
-              style={{ color: '#151F63', fontSize: '18px' }}
-              className="font-sans font-semibold"
+          <div className="mt-3 text-xl ">
+            <Breadcrumbs
+              aria-label="breadcrumb"
+              className="font-sans font-bold text-xl"
+              style={{ marginLeft: '0px', fontWeight: '800', fontSize: '20px' }}
             >
-              Categories
-            </p>
+              <Typography
+                sx={{ display: 'flex', alignItems: 'center' }}
+                color="text.primary"
+                className="font-sans font-bold text-xl"
+                style={{
+                  marginLeft: '30px',
+                  fontWeight: '500',
+                  fontSize: '21px',
+                  color: '#132B6B',
+                }}
+              >
+                <ClearAllIcon
+                  sx={{ mr: 0.8 }}
+                  fontSize="inherit"
+                  className=""
+                />
+                Categories
+              </Typography>
+            </Breadcrumbs>
             <p
-              style={{ color: '#F66B6B', fontSize: '11px' }}
-              className=" font-sans ml-18"
+              style={{ color: '#F66B6B', fontSize: '13px' }}
+              className=" font-sans ml-14 -mt-1"
             >
-              Dashboard | <span style={{ color: '#151F63' }}>History</span>
+              <Link
+                color="inherit"
+                href="/"
+                onClick={handleClick}
+                className="font-sans"
+              >
+                Categories /
+              </Link>
+              <Link
+                color="textPrimary"
+                href="/components/breadcrumbs/"
+                onClick={handleClick}
+                aria-current="page"
+                className="font-sans"
+              >
+                categories
+              </Link>
             </p>
             <hr />
           </div>
+
           <div className="flex font-sans">
-            <div className="flex mt-5 flex justify-start">
+            <div className="flex mt-5 flex justify-start ml-2">
               <form>
-                <select className="w-20 font-sans  border-2 rounded-[20px] h-7">
-                  <option className="font-sans">Sort By</option>
+                <select
+                  className="w-24 font-sans px-2 border-2 rounded-[20px] h-9"
+                  style={{ boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)' }}
+                >
+                  <option className="font-sans text-black">Sort by</option>
                 </select>
               </form>
 
-              <div className="font-sans flex justify-between ml-5 w-80 h-7 flex item-strech border-2 px-5 rounded-[20px]">
+              <div
+                className="font-sans flex justify-between ml-5 w-80 h-9 flex item-strech border-2 px-6 rounded-[20px]"
+                style={{ boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)' }}
+              >
                 <InputBase
                   placeholder="Search by Rule"
                   inputProps={{ 'aria-label': 'search' }}
+                  className="font-sans font-normal"
+                  style={{
+                    fontSize: '13px',
+                    color: '#AAAAAA',
+                    fontWeight: '300',
+                  }}
                 />
-                <SearchIcon className="" />
+                <SearchIcon
+                  className="px-0 mt-1"
+                  style={{ color: '#0F4C4F' }}
+                />
               </div>
 
-              <button className="font-sans border-2 w-20 ml-6  h-8 rounded-[20px]">
+              <button
+                className="font-sans border-2 text-red-400 w-20 ml-6  h-8 rounded-[20px]"
+                style={{ boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)' }}
+              >
                 Clear
               </button>
             </div>
 
-            <div className="font-sans w-56 h-8 mt-5 ml-48 border-2 bg-blue-800 rounded-full flex justify-center">
-              <AddIcon className="text-white" />
-              <button className="text-white ">Add New Categories</button>
+            <div
+              className="font-sans w-56 h-9 mt-5 ml-80 border-2 rounded-full flex justify-center m-2"
+              style={{ background: '#132B6B' }}
+            >
+              {/* <AddIcon className="text-white mt-1 " /> */}
+              <button className="text-white ml-2" onClick={openNewCategories}>
+                ADD NEW CATEGORIES
+              </button>
             </div>
+            <Dialog
+              className="w-full h-full"
+              open={showAddCategory}
+              onClose={handleCloseBtn}
+            >
+              <DialogContent
+              // style={{
+              //   borderRadius: '15px',
+              //   background: '#FFFFFF',
+              //   boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
+              //   Width: '70%',
+              //   Height: '80%',
+              // }}
+              >
+                <AddCategory
+                  // addUser={addUser}
+                  // rolesList={rolesList}
+                  // departmentList={departmentList}
+                  // getAllDepartment={getAllDepartment}
+                  // getAllRoles={getAllRoles}
+                  handleCloseBtn={handleCloseBtn}
+                />
+              </DialogContent>
+            </Dialog>
           </div>
 
-          <div className="mt-6 font-sans">
+          <div className="mt-8 ml-3 w-11/12 font-sans">
             <div className={classes.root}>
               <Accordion
                 expanded={expanded === 'panel1'}
                 onChange={handleChange('panel1')}
-                className="rounded-full font-sans"
+                className="rounded-full font-sans "
               >
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -170,15 +268,56 @@ export function Categories({
                     className={classes.heading}
                     style={{ display: 'inline-flex' }}
                   >
-                    <button className="font-sans">Add Sub Rule</button>
-                    <div className="flex ml-5 font-sans">
-                      Rule A<p style={{ background: 'pink' }}>25</p>
-                      <div className="ml-6 flex">
-                        <ChevronLeftIcon />
-                        <div className="border-2 flex">
+                    <button
+                      className="font-sans flex w-36 h-8 text-white rounded-full flex justify-center"
+                      style={{ background: '#132B6B' }}
+                    >
+                      <AddIcon className="mt-1 " />
+                      <p className="mt-1 font-sans">Add Sub Rule</p>
+                    </button>
+
+                    <div className="flex ml-6 mt-1 font-sans">
+                      <div className="flex">
+                        <p
+                          className="w-16 font-sans"
+                          style={{
+                            color: '#132B6B',
+                            fontSize: '16px',
+                            fontWeight: '700',
+                          }}
+                        >
+                          {' '}
+                          Rule A{' '}
+                        </p>
+                        <p
+                          className="rounded-full h-6 mt-1 text-white font-sans flex justify-center "
+                          style={{
+                            background: '#F66B6B',
+                            fontSize: '12px',
+                            width: '28px',
+                          }}
+                        >
+                          25
+                        </p>
+                      </div>
+                      <div className="ml-6 flex w-full ">
+                        <ChevronLeftIcon style={{ color: '#36454F' }} />
+                        <div
+                          className="border-2 flex w-12 h-7 "
+                          style={{ color: '#EAEAEA' }}
+                        >
+                          <p className="font-sans" style={{ color: '#36454F' }}>
+                            {' '}
+                            5<span className="font-sans">(4)</span>
+                          </p>
+                        </div>
+                        <div className="border-2 flex ml-3 w-12 h-7 flex justify-center">
                           5<p>(4)</p>
                         </div>
-                        <div className="border-2 flex ml-3">
+                        <div className="border-2 flex ml-3 w-12 h-7 flex justify-center">
+                          5<p>(4)</p>
+                        </div>
+                        <div className="border-2 flex ml-3 w-12 h-7 flex justify-center">
                           5<p>(4)</p>
                         </div>
                         <ChevronRightIcon />
@@ -188,20 +327,30 @@ export function Categories({
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography>
-                    <div>
+                    <div className=''>
                       <p
-                        className="font-sans"
-                        style={{ backgroundColor: '#F5F5F5' }}
+                        className="font-sans h-9 px-6 py-1 flex justify-start"
+                        style={{ backgroundColor: '#F5F5F5', width: '1100px' }}
                       >
                         {' '}
-                        <Breadcrumbs aria-label="breadcrumb">
-                          <Link color="inherit" href="/" onClick={handleClick}>
+                        <Breadcrumbs
+                          aria-label="breadcrumb"
+                          style={{ color: '#132B6B' }}
+                          className="font-sans "
+                        >
+                          <Link
+                            color="inherit"
+                            href="/"
+                            onClick={handleClick}
+                            className="font-sans "
+                          >
                             Section
                           </Link>
                           <Link
                             color="inherit"
                             href="/getting-started/installation/"
                             onClick={handleClick}
+                            className="font-sans"
                           >
                             Rules
                           </Link>
@@ -209,54 +358,103 @@ export function Categories({
                             color="inherit"
                             href="/getting-started/installation/"
                             onClick={handleClick}
+                            className="font-sans"
                           >
                             Clause
                           </Link>
-                          <Typography color="textPrimary">
-                            Sub Clause
+                          <Typography color="textPrimary" className="font-sans">
+                            SubClause No.
                           </Typography>
                         </Breadcrumbs>
+                        <p
+                          className="w-10 h-6 px-1 mt-1 ml-2"
+                          style={{
+                            background: '#8EF4D2',
+                            color: '#36454F',
+                            borderRadius: '4px',
+                          }}
+                        >
+                          5(4)
+                        </p>
                       </p>
 
-                      <div className="mt-7">
-                        Title of the Rules and Regulations
-                        <p>Electrical Safety Officer</p>
-                      </div>
-                      <hr />
-                      <div className="mt-7">
-                        Responsibility
-                        <p> <Breadcrumbs aria-label="breadcrumb">
-                          <Link color="inherit" href="/" onClick={handleClick}>
-                            Owner
-                          </Link>
-                          <Link
-                            color="inherit"
-                            href="/getting-started/installation/"
-                            onClick={handleClick}
+                      <div className="m-4">
+                        <div className="mt-7">
+                          <p
+                            className="font-sans"
+                            style={{ color: ' #132B6B', fontSize: '18px' }}
                           >
-                            Agent
-                          </Link>
-                          <Link
-                            color="inherit"
-                            href="/getting-started/installation/"
-                            onClick={handleClick}
+                            Title of the Rules and Regulations
+                          </p>
+                          <p className="font-sans" style={{ fontSize: '14px' }}>
+                            Electrical Safety Officer
+                          </p>
+                        </div>
+                        <hr />
+                        <div className="mt-7 font-sans">
+                          <p
+                            className="font-sans"
+                            style={{ color: ' #132B6B', fontSize: '18px' }}
                           >
-                            Manager
-                          </Link>
-                          {/* <Typography color="textPrimary">
+                            Responsibility
+                          </p>
+                          <Breadcrumbs aria-label="breadcrumb">
+                            <Link
+                              color="inherit"
+                              href="/"
+                              onClick={handleClick}
+                              className="font-sans"
+                              style={{ fontSize: '14px' }}
+                            >
+                              Owner
+                            </Link>
+                            <Link
+                              color="inherit"
+                              href="/getting-started/installation/"
+                              onClick={handleClick}
+                              className="font-sans"
+                              style={{ fontSize: '14px' }}
+                            >
+                              Agent
+                            </Link>
+                            <Link
+                              color="inherit"
+                              href="/getting-started/installation/"
+                              onClick={handleClick}
+                              className="font-sans"
+                              style={{ fontSize: '14px' }}
+                            >
+                              Manager
+                            </Link>
+                            {/* <Typography color="textPrimary">
                             Sub Clause
                           </Typography> */}
-                        </Breadcrumbs></p>
-                      </div>
-
-                      <div className="mt-7">
-                       Description
-                        <p>Electrical Safety Officer</p>
-                      </div>
-
-                      <div className="mt-7">
-                       Revelant Circular
-                        <p>Electrical Safety Officer</p>
+                          </Breadcrumbs>
+                        </div>
+                        <hr />
+                        <div className="mt-7">
+                          <p
+                            className="font-sans"
+                            style={{ color: ' #132B6B', fontSize: '18px' }}
+                          >
+                            Description
+                          </p>
+                          <p className="font-sans" style={{ fontSize: '14px' }}>
+                            Electrical Safety Officer
+                          </p>
+                        </div>
+                        <hr />
+                        <div className="mt-7">
+                          <p
+                            className="font-sans"
+                            style={{ color: ' #132B6B', fontSize: '18px' }}
+                          >
+                            Revelant Circular
+                          </p>
+                          <p className="font-sans" style={{ fontSize: '14px' }}>
+                            Electrical Safety Officer
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </Typography>

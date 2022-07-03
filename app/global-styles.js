@@ -38,29 +38,27 @@ const GlobalStyle = createGlobalStyle`
   }
   .myprofile{
     display:flex;
-    height: 89vh;
-    margin-left:250px;
+      margin-left:250px;
     border-radius: 70px 0px 0px 0px;
     background-color: #ffff;
   }
 
   .myprofile1{
     display:flex;
-    height: 100vh;
+   
     margin-left:250px;
     border-radius: 70px 0px 0px 0px;
     background-color: #ffff;
   }
   .content {
     display:flex;
-    min-height: 89vh;
+    min-height: 88.5vh;
     height: 100%;
     margin-left:250px;
     border-radius: 70px 0px 0px 0px;
     background-color: #ffff;
   }
 `;
-
 
 export default GlobalStyle;
 /** html,
