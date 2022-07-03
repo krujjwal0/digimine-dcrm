@@ -105,7 +105,7 @@ export function Employee({
   }, []);
 
   useEffect(() => {
-    showEmployee();
+    showEmployee(choosedLocationId);
     getAllDepartment();
     console.log('USers List index ===== choosedLocationId', usersList, choosedLocationId);
   }, []);
@@ -175,7 +175,7 @@ export function Employee({
     //   console.log('Inside true');
     // pass id to delete
     console.log("onDeleteUser===", deleteId);
-    deleteUser(usersList[deleteId].id);
+    deleteUser(usersList[deleteId].id, choosedLocationId);
     // }
   };
 
@@ -491,6 +491,7 @@ export function Employee({
                 getAllDepartment={getAllDepartment}
                 getAllRoles={getAllRoles}
                 handleCloseBtn={handleCloseBtn}
+                locationId={choosedLocationId}
               />
             </DialogContent>
           </Dialog>
@@ -695,7 +696,7 @@ export function mapDispatchToProps(dispatch) {
     showEmployee: data => dispatch(showEmployee(data)),
     setEmployee: data => dispatch(setEmployee(data)),
     editUser: data => dispatch(editUser(data)),
-    deleteUser: data => dispatch(deleteUser(data)),
+    deleteUser: (data, locId) => dispatch(deleteUser(data, locId)),
     onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),
     getAllDepartment: () => dispatch(getAllDepartment()),
     getAllRoles: () => dispatch(getAllRoles()),

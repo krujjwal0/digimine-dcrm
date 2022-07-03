@@ -56,7 +56,7 @@ export function EditUser(props) {
       emailId,
       departmentId, // 1
       employeeId,
-      active,
+      active
     };
     props.editUser(data);
     props.handleExit();
@@ -166,6 +166,7 @@ export function EditUser(props) {
               name="emailId"
               value={emailId}
               onChange={e => setEmailId(e.target.value)}
+              disabled
               autoComplete="off"
               placeholder="Enter Here"
               id="outlined-basic"

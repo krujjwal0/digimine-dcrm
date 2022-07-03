@@ -22,10 +22,10 @@ import {
 } from './actions';
 import { silentRenewalAction } from '../LoginPage/actions';
 
-function* getUsersList() {
-  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/user/list`;
+function* getUsersList(action) {
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/user/list/${action.payload}`;
   const awtToken = localStorage.getItem('awtToken');
-  console.log('data in saga get :', requestURL);
+  console.log('data in saga get :', requestURL, action.payload);
   let result;
 
   try {
@@ -75,7 +75,8 @@ function* saveOrUpdateUserSaga(action) {
       body: JSON.stringify(action.payload),
     });
     console.log('success in saveOrUpdateUserSaga saga', result);
-    yield put(showEmployee());
+    //Pass location id in showEmployee
+    yield put(showEmployee(action.payload.locationId));
   } catch (err) {
     console.log('Error in saveOrUpdateUserSaga saga', result, err);
     if (err.response.status == 401) {
@@ -106,7 +107,7 @@ function* getAllDepartmentSaga() {
       },
     });
     console.log('success in getAllDepartmentSaga saga', result);
-    yield put(setAllDepartment(result.data));
+    yield put(setAllDepartment(result.data.departments));
   } catch (err) {
     console.log('Error in getAllDepartmentSaga saga', result, err);
     if (err.response.status == 401) {
@@ -154,7 +155,7 @@ function* getAllRolesSaga() {
 
 function* deleteUserSaga(action) {
   const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/user/${action.payload
-    }`;
+    }/${action.locId}`;
   const awtToken = localStorage.getItem('awtToken');
   console.log('data in saga get :', requestURL, action.payload);
   let result;
@@ -167,10 +168,10 @@ function* deleteUserSaga(action) {
         Authorization: `Bearer ${awtToken}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(action.payload),
+      // body: JSON.stringify(action.payload),
     });
     console.log('success in deleteUserSaga saga', result);
-    yield put(showEmployee());
+    yield put(showEmployee(action.locId));
   } catch (err) {
     console.log('Error in deleteUserSaga saga', result, err);
     if (err.response.status == 401) {
