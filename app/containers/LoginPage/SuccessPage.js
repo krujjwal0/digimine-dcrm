@@ -36,8 +36,8 @@ export function SuccessPage(props) {
   return (
     <div className="font-sans login_page  py-">
       <div className="container h-full min-h-full relative z-10">
-        <div className="flex justify-end flex-wrap h-full  min-h-full items-center">
-          <div className="card bg-white shadow-lg rounded-3xl pt-10 pb-20 px-10 max-w-xl w-1/2">
+        <div className="flex lg:justify-end justify-center flex-wrap h-full  min-h-full items-center">
+          <div className="card bg-white shadow-lg rounded-3xl pt-10 pb-14 px-10 max-w-xl xl:w-1/2 w-full">
             <div className="userImage text-center">
               <img
                 src={userImage}
@@ -62,7 +62,7 @@ export function SuccessPage(props) {
               You have successfully signed into <br />
               your account
             </p>
-            <div className="form_box w-full">
+            <div className="form_box mt-8 w-full">
               <Button
                 className="bg_red  mx-auto   font-sans login_btn  w-60 rounded-3xl my-5"
                 onClick={() => callGetLocationAction()}
@@ -72,16 +72,20 @@ export function SuccessPage(props) {
             </div>
           </div>
         </div>
-        <div className="msg_box  flex flex-wrap pt-5">
-          <div className="w-1/2 lg:-mt-20 quote_box md:text-4xl text-2xl font-bold">
+        </div>
+        <div className="msg_box">
+      <div className="container">
+        <div className=" lg:mt-0   flex flex-wrap items-end mt-5 pt-5">
+          <div className="md:w-1/2 w-full  quote_box md:text-4xl text-2xl font-bold md:mb-0 mb-4">
             <h3 className="text-white font-sans">Smart Platform for</h3>
             <h3 className="text_blue  font-sans">Smart People</h3>
           </div>
-          <div className="copyright_text w-1/2 text-center text-xs font-sans text-white">
+          <div className="copyright_text md:w-1/2 w-full md:text-center text-left text-xs font-sans text-white">
             © 2020 MineMagma. All Rights Reserved
           </div>
+          </div>
         </div>
-      </div>
+        </div>
     </div>
   );
 }

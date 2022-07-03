@@ -191,8 +191,8 @@ export function OtpPage(props) {
   return (
     <div className="font-sans login_page  py-">
       <div className="container h-full min-h-full relative z-10">
-        <div className="flex justify-end flex-wrap h-full  min-h-full items-center">
-          <div className="card bg-white shadow-lg rounded-3xl py-10 px-10 max-w-xl w-1/2">
+        <div className="flex lg:justify-end justify-center flex-wrap h-full  min-h-full items-center">
+          <div className="card bg-white shadow-lg rounded-3xl py-8 px-8 max-w-xl xl:w-1/2 w-full">
             <div className="logo text-center">
               <img
                 src={LoginImage}
@@ -211,8 +211,8 @@ export function OtpPage(props) {
               <br /> address{' '}
               <b className="font-sans text-sky-700">{props.emailId}</b>
             </p>{' '}
-            <div className="form_box w-full">
-              <div className="flex mt-8 justify-center">
+            <div  className="form_box otp_form w-full">
+              <div className="flex mt-6 justify-center">
                 <OtpInput
                   value={code}
                   onChange={handleChange}
@@ -220,11 +220,11 @@ export function OtpPage(props) {
                   separator={<span style={{ width: '2px' }} />}
                   isInputNum={true}
                   inputStyle={{
-                    width: '45px',
-                    height: '54px',
+                    width: '40px',
+                    height: '40px',
                     fontSize: '18px',
                     borderBottom: '1px solid #EAEAEA',
-                    marginBottom: '20px',
+                    marginBottom: '12px',
                   }}
                 />
               </div>
@@ -343,14 +343,14 @@ export function OtpPage(props) {
               </p>
               {counter == 0 ? (
                 <p
-                  className="text_blue font-semibold flex mb-10 justify-center font-sans resend"
+                className="text_blue font-semibold flex mb-6 justify-center font-sans resend"
                   style={{ fontSize: '14px' }}
                   onClick={resendOtp}
                 >
                   <img className="mr-3 text-bold" src={Resend} /> Resend OTP
                 </p>
               ) : (
-                <Box className="mb-10">
+                <Box className="mb-6">
                   <Typography
                     fontWeight={500}
                     align="center"
@@ -359,7 +359,7 @@ export function OtpPage(props) {
                     {' '}
                     Resend OTP in{' '}
                     <span
-                      className="-ml-0"
+                      className="font-sans -ml-0"
                       style={{
                         fontFamily: 'font-sans',
                         color: 'black',
@@ -396,16 +396,20 @@ export function OtpPage(props) {
             </div>
           </div>
         </div>
-        <div className="msg_box  flex flex-wrap pt-5">
-          <div className="w-1/2 lg:-mt-20 quote_box md:text-4xl text-2xl font-bold">
+            </div>
+      <div className="msg_box">
+      <div className="container">
+        <div className=" lg:mt-0   flex flex-wrap items-end mt-5 pt-5">
+          <div className="md:w-1/2 w-full  quote_box md:text-4xl text-2xl font-bold md:mb-0 mb-4">
             <h3 className="text-white font-sans">Smart Platform for</h3>
             <h3 className="text_blue  font-sans">Smart People</h3>
           </div>
-          <div className="copyright_text w-1/2 text-center text-xs font-sans text-white">
+          <div className="copyright_text md:w-1/2 w-full md:text-center text-left text-xs font-sans text-white">
             © 2020 MineMagma. All Rights Reserved
           </div>
+          </div>
         </div>
-      </div>
+        </div>
       {props.showOtpErrorPopup.status ? <CustomizedDialogs goToLogin={'/'} errorMessage={props.showOtpErrorPopup.msg} showDialog={props.showOtpErrorPopup.status} showOtpErrorPopupAction={props.showOtpErrorPopupAction} /> : null}
 
     </div>

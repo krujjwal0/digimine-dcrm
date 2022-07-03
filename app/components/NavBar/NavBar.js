@@ -46,15 +46,15 @@ export function NavBar({ setNavBar, getUserLogout, setOtpAction, signOut }) {
     <>
       <IconContext.Provider value={{ color: '#F66B6B' }}>
         <div>
-          <div>
-            <div className="navbar  w-full font-sans">
+          <div className='header'>
+            <div className="  w-full font-sans">
               {/* <Link to="#" className='menu-bars'> */}
               {/* <p onClick={showSidebar} >
                     </p> */}
               {/* <img src={logo} style={{ width: '180px', height: '60px' }} />
                     </Link> */}
             </div>
-            <div className="flex justify-end mr-6 mb-6 -mt-6">
+            <div className="flex w-full justify-end mr-6 mb-6 fixed -mt-6 navbar pr-10 pt-10">
               <Badge badgeContent={4} color="primary">
                 <NotificationsNoneIcon color="action" />
               </Badge>
