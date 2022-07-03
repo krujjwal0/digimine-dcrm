@@ -11,11 +11,11 @@ import {
   SET_EDIT_USER_DATA
 } from './constants';
 
-export function showEmployee(obj) {
-  console.log('employeeList added:-', obj);
+export function showEmployee(choosedLocationId) {
+  console.log('employeeList added:-', choosedLocationId);
   return {
     type: SHOW_EMPLOYEE,
-    payload: obj,
+    payload: choosedLocationId,
   };
 }
 
@@ -42,11 +42,12 @@ export function editUser(obj) {
   };
 }
 
-export function deleteUser(data) {
-  console.log('DELETE User:-', data);
+export function deleteUser(data,locId) {
+  console.log('DELETE User:-', data,locId);
   return {
     type: DELETE_USER,
     payload: data,
+    locId
   };
 }
 
