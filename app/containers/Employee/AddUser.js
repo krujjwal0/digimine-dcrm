@@ -63,6 +63,7 @@ export function AddUser(props) {
     setEmailId('');
     setDepartmentId('');
     props.handleCloseBtn();
+    props.clearAll();
   };
   useEffect(() => {
     props.getAllDepartment();

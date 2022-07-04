@@ -11,7 +11,7 @@ import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 
 import { Redirect } from 'react-router-dom';
-import { validateOtpAction, getAdminLocationsAction, setChoosedLocationAction } from './actions';
+import { validateOtpAction, getAdminLocationsAction } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import Resend from './images/resendImage.svg';
@@ -32,6 +32,7 @@ export function ChooseLocation(props) {
   }, [props.adminLocations, props.showFeedback]);
 
   const setRedirectToFeedbackPage = () => {
+    localStorage.setItem('choosedLocation', props.adminLocations[0].id)
     setUserFeedbackStatus(props.userData.feedbackCompleted);
   }
 
@@ -53,8 +54,7 @@ export function ChooseLocation(props) {
     console.log(e.target.value);
     // setChoosedLocation(e.target.value);
     console.log("setChoosedLocation ==== ", e.target.value);
-    const id = parseInt(e.target.value);
-    props.setChoosedLocationAction(id);
+    localStorage.setItem('choosedLocation', parseInt(e.target.value))
     // Call api to show users list of particular Location
   };
 
@@ -145,7 +145,6 @@ export function mapDispatchToProps(dispatch) {
     onValidateOtp: data => dispatch(validateOtpAction(data)),
     getAdminLocationsAction: data => dispatch(getAdminLocationsAction(data)),
     setNavBar: data => dispatch(setNavBar(data)),
-    setChoosedLocationAction: data => dispatch(setChoosedLocationAction(data))
   };
 }
 

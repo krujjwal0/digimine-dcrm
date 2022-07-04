@@ -88,7 +88,6 @@ export function Employee({
   addUser,
   setEditUserData,
   editUserData,
-  choosedLocationId
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -103,6 +102,8 @@ export function Employee({
     // When initial state username is not null, submit the form to load repos
     if (username && username.trim().length > 0) onSubmitForm();
   }, []);
+
+  const choosedLocationId = localStorage.getItem('choosedLocation');
 
   useEffect(() => {
     showEmployee(choosedLocationId);
@@ -285,9 +286,10 @@ export function Employee({
     setEmployee(obj1);
   }
 
-  useEffect(() => {
-
-  }, [name])
+  // useEffect(() => {
+  //   console.log("usersList.length    =====", usersList.length, usersListreplica,usersList)
+  //   setEmployee(usersListreplica);
+  // }, [usersList.length])
 
   const orderBy = (e) => {
     sortBy = e.target.value;
@@ -300,26 +302,29 @@ export function Employee({
     };
 
     if (sortBy === 'name') {
-      const results = usersList.sort((a, b) => a.name > b.name ? 1 : -1
+      const results = usersList.sort((a, b) => { let x = a.name.toLowerCase(); let y = b.name.toLowerCase(); return (x > y) ? 1 : -1 }
       );
       console.log('SORTING result name inside filter', results);
       obj.results = results;
       setEmployee(obj);
     }
     else if (sortBy === 'employeeId') {
-      const results = usersList.sort((a, b) => a.employeeId > b.employeeId ? 1 : -1);
+      const results = usersList.sort((a, b) => { let x = a.employeeId.toLowerCase(); let y = b.employeeId.toLowerCase(); return (x > y) ? 1 : -1 }
+      );
       console.log('SORTING Id inside filter', results);
       obj.results = results;
       setEmployee(obj);
     }
     else if (sortBy === 'emailId') {
-      const results = usersList.sort((a, b) => a.emailId > b.emailId ? 1 : -1);
+      const results = usersList.sort((a, b) => { let x = a.emailId.toLowerCase(); let y = b.emailId.toLowerCase(); return (x > y) ? 1 : -1 }
+      );
       console.log('SORTING EmailId inside filter', results);
       obj.results = results;
       setEmployee(obj);
     }
     else if (sortBy === 'departmentName') {
-      const results = usersList.sort((a, b) => a.departmentName > b.departmentName ? 1 : -1);
+      const results = usersList.sort((a, b) => { let x = a.departmentName.toLowerCase(); let y = b.departmentName.toLowerCase(); return (x > y) ? 1 : -1 }
+      );
       console.log('SORTING department inside filter', results);
       obj.results = results;
       setEmployee(obj);
@@ -492,6 +497,7 @@ export function Employee({
                 getAllRoles={getAllRoles}
                 handleCloseBtn={handleCloseBtn}
                 locationId={choosedLocationId}
+                clearAll={clearAll}
               />
             </DialogContent>
           </Dialog>
@@ -688,7 +694,6 @@ const mapStateToProps = state => ({
   rolesList: state.users.rolesList.length > 0 ? state.users.rolesList : [],
   departmentList: state.users.departmentList.length > 0 ? state.users.departmentList : [],
   editUserData: state.users.editUserData,
-  choosedLocationId: state.loginReducer.choosedLocationId,
 });
 
 export function mapDispatchToProps(dispatch) {
