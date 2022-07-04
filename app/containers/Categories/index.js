@@ -11,11 +11,11 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
-import {
-  makeSelectRepos,
-  makeSelectLoading,
-  makeSelectError,
-} from 'containers/App/selectors';
+// import {
+//   makeSelectRepos,
+//   makeSelectLoading,
+//   makeSelectError,
+// } from 'containers/App/selectors';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { Card, CardContent, FormGroup, Typography } from '@material-ui/core';
@@ -30,7 +30,6 @@ import {
   makeStyles,
 } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
-
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -44,7 +43,16 @@ import ClearAllIcon from '@material-ui/icons/ClearAll';
 import AddCategory from './addCategories';
 import AddSubCategory from './subCategories';
 import './style.css';
-
+import reducer from './reducer';
+import saga from './saga';
+import {
+  getAllDepartmentInCategory,
+  getCategoryList,
+  addCategoryRule,
+  addCategorySubRule,
+  setSearchData,
+  ClearSortnSearch
+} from './actions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -77,26 +85,30 @@ const label = { inputProps: { 'aria-label': 'Switch demo' } };
 const key = 'categories';
 
 export function Categories({
-  username,
-  loading,
-  error,
-  repos,
-  onSubmitForm,
-  onChangeUsername,
+  getCategoryList,
+  getAllDepartmentInCategory,
+  departmentLisInCategory,
+  addCategoryRule,
+  categoryList,
+  addCategorySubRule,
+  setSearchData,
+  categoryListReplica,
+  ClearSortnSearch
+  
 }) {
-  // useInjectReducer({ key, reducer });
-  // useInjectSaga({ key, saga });
+  useInjectReducer({ key, reducer });
+  useInjectSaga({ key, saga });
 
   useEffect(() => {
-    // When initial state username is not null, submit the form to load repos
-    if (username && username.trim().length > 0) onSubmitForm();
+    getCategoryList();
+    getAllDepartmentInCategory();
   }, []);
 
-  const reposListProps = {
-    loading,
-    error,
-    repos,
-  };
+  // const reposListProps = {
+  //   loading,
+  //   error,
+  //   repos,
+  // };
 
   const [showAddCategory, setShowAddCategory] = useState(false);
   const openNewCategories = () => {
@@ -108,7 +120,7 @@ export function Categories({
   };
 
   const [showSubCategory, setShowSubCategory] = useState(false);
-  const openSubCategory = () => {
+  const openSubCategory = (id) => {
     setShowSubCategory(true);
   };
 
@@ -125,6 +137,45 @@ export function Categories({
     event.preventDefault();
     console.info('You clicked a breadcrumb.');
   }
+
+  const createCategory = (deptName, newRule) => {
+    const obj = {
+      id: '',
+      name: newRule,
+      deleted: false,
+      departmentId: deptName,
+    };
+    addCategoryRule(obj);
+    handleCloseBtn()
+  };
+
+  const createSubRuleInCategory = (subRuleName, ruleId, title, responsibility, description, circular) => {
+    const obj = {
+      id: '',
+      name: subRuleName,
+      deleted: false,
+      ruleId: ruleId,
+      title: title,
+      responsibility: responsibility,
+      description: description
+    };
+    addCategorySubRule(obj);
+    handleCloseBtn();
+  };
+
+  const search = e => {
+    const keyword = e.target.value;
+    console.log("Seacrh according to ====",keyword.length)
+    if (keyword !== '' && keyword.length > 2) {
+      const result = categoryListReplica.filter(value => value.name.toLowerCase().includes(keyword.toLowerCase()))
+        console.log('show result name inside filter', result);
+        setSearchData(result)
+      }
+      
+    if(keyword.length === 0){
+        ClearSortnSearch(categoryListReplica)
+      }
+    }
 
   return (
     <div className="content font-sans">
@@ -197,6 +248,8 @@ export function Categories({
               >
                 <InputBase
                   placeholder="Search by Rule"
+                  name="search"
+                  onChange={(e) => search(e)}
                   inputProps={{ 'aria-label': 'search' }}
                   className="font-sans font-normal"
                   style={{
@@ -214,6 +267,7 @@ export function Categories({
               <button
                 className="font-sans border-2 text-red-400 w-20 ml-6  h-8 rounded-[20px]"
                 style={{ boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)' }}
+                onClick = {() => ClearSortnSearch(categoryListReplica)}
               >
                 Clear
               </button>
@@ -251,11 +305,8 @@ export function Categories({
                   className="flex justify-start"
                 >
                   <AddCategory
-                    // addUser={addUser}
-                    // rolesList={rolesList}
-                    // departmentList={departmentList}
-                    // getAllDepartment={getAllDepartment}
-                    // getAllRoles={getAllRoles}
+                    departmentList={departmentLisInCategory}
+                    createCategory={createCategory}
                     handleCloseBtn={handleCloseBtn}
                   />
                 </DialogContent>
@@ -263,254 +314,312 @@ export function Categories({
             </div>
           </div>
 
-          <div className="mt-8 ml-3 w-11/12 font-sans">
-            <div className={classes.root}>
-              <Accordion
-                expanded={expanded === 'panel1'}
-                onChange={handleChange('panel1')}
-                className=" font-sans "
-                style={{borderRadius: '30px'}}
-              >
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1bh-content"
-                  id="panel1bh-header"
-                  className="flex"
+          {categoryList.map((list, index) => (
+            <div className="mt-8 ml-3 w-11/12 font-sans">
+              <div className={classes.root}>
+                <Accordion
+                  expanded={expanded === 'panel1'}
+                  onChange={handleChange('panel1')}
+                  className=" font-sans "
+                  style={{ borderRadius: '30px' }}
                 >
-                  <Typography
-                    className={classes.heading}
-                    style={{ display: 'inline-flex' }}
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1bh-content"
+                    id="panel1bh-header"
+                    className="flex"
                   >
-                    <button
-                      className="font-sans flex w-36 h-8 text-white rounded-full flex justify-center"
-                      style={{ background: '#132B6B' }}
+                    <Typography
+                      className={classes.heading}
+                      style={{ display: 'inline-flex' }}
                     >
-                      <AddIcon className="mt-1 " onClick={openSubCategory} />
-                      <p className="mt-1 font-sans">Add Sub Rule</p>
-                    </button>
-
-                    <Dialog
-                      fullWidth={fullWidth}
-                      maxWidth={maxWidth}
-                      style={{
-                        borderRadius: '50px',
-                        marginLeft: '1%',
-                        marginTop: '',
-                      }}
-                      className="w-full h-full "
-                      open={showSubCategory}
-                      onClose={handleCloseBtn}
-                    >
-                      <DialogContent
-                        // style={{
-                        //   borderRadius: '15px',
-                        //   background: '#FFFFFF',
-                        //   boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
-                        //   Width: '70%',
-                        //   Height: '80%',
-                        // }}
-                        className="flex justify-start"
+                      <button
+                        className="font-sans flex w-36 h-8 text-white rounded-full flex justify-center"
+                        style={{ background: '#132B6B' }}
                       >
-                        <AddSubCategory
-                          // addUser={addUser}
-                          // rolesList={rolesList}
-                          // departmentList={departmentList}
-                          // getAllDepartment={getAllDepartment}
-                          // getAllRoles={getAllRoles}
-                          handleCloseBtn={handleCloseBtn}
-                        />
-                      </DialogContent>
-                    </Dialog>
+                        <AddIcon className="mt-1 " onClick={()=>openSubCategory(list)} />
+                        <p className="mt-1 font-sans">Add Sub Rule</p>
+                      </button>
 
-                    <div className="flex ml-6 mt-1 font-sans">
-                      <div className="flex">
+                      <Dialog
+                        fullWidth={fullWidth}
+                        maxWidth={maxWidth}
+                        style={{
+                          borderRadius: '50px',
+                          marginLeft: '1%',
+                          marginTop: '',
+                        }}
+                        className="w-full h-full "
+                        open={showSubCategory}
+                        onClose={handleCloseBtn}
+                      >
+                        <DialogContent
+                          // style={{
+                          //   borderRadius: '15px',
+                          //   background: '#FFFFFF',
+                          //   boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
+                          //   Width: '70%',
+                          //   Height: '80%',
+                          // }}
+                          className="flex justify-start"
+                        >
+                          <AddSubCategory
+                            // addUser={addUser}
+                            // rolesList={rolesList}
+                            parentRule={list.id}
+                            departmentList={departmentLisInCategory}
+                            createSubRuleInCategory={createSubRuleInCategory}
+                            // getAllDepartment={getAllDepartment}
+                            // getAllRoles={getAllRoles}
+                            handleCloseBtn={handleCloseBtn}
+                          />
+                        </DialogContent>
+                      </Dialog>
+
+                      <div className="flex ml-6 mt-1 font-sans">
+                        <div className="flex">
+                          <p
+                            className="w-16 font-sans"
+                            style={{
+                              color: '#132B6B',
+                              fontSize: '16px',
+                              fontWeight: '700',
+                            }}
+                          >
+                            {' '}
+                            {list.name}
+                          </p>
+                          <p
+                            className="rounded-full h-6 m-1 px-1 text-white font-sans items-center "
+                            style={{
+                              background: '#F66B6B',
+                              fontSize: '12px',
+                              width: '28px',
+                            }}
+                          >
+                            25
+                          </p>
+                        </div>
+                        <div className="ml-6 flex w-full ">
+                          <ChevronLeftIcon style={{ color: '#36454F' }} />
+                          <div
+                            className="border-2 flex w-12 h-7 flex justify-center font-sans "
+                            style={{
+                              color: '#36454F',
+
+                              borderRadius: '4px',
+                            }}
+                          >
+                            5<p>(4)</p>
+                          </div>
+                          <div className="border-2 flex ml-3 w-12 h-7 flex justify-center">
+                            5<p>(4)</p>
+                          </div>
+                          <div className="border-2 flex ml-3 w-12 h-7 flex justify-center">
+                            5<p>(4)</p>
+                          </div>
+                          <div className="border-2 flex ml-3 w-12 h-7 flex justify-center">
+                            5<p>(4)</p>
+                          </div>
+                          <ChevronRightIcon />
+                        </div>
+                      </div>
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>
+                      <div className="">
                         <p
-                          className="w-16 font-sans"
-                          style={{
-                            color: '#132B6B',
-                            fontSize: '16px',
-                            fontWeight: '700',
-                          }}
+                          className="font-sans h-9 px-4 py-1 flex justify-start -ml-4"
+                          style={{ backgroundColor: '#F5F5F5', width: '248%' }}
                         >
                           {' '}
-                          Rule A{' '}
-                        </p>
-                        <p
-                          className="rounded-full h-6 m-1 px-1 text-white font-sans items-center "
-                          style={{
-                            background: '#F66B6B',
-                            fontSize: '12px',
-                            width: '28px',
-                          }}
-                        >
-                          25
-                        </p>
-                      </div>
-                      <div className="ml-6 flex w-full ">
-                        <ChevronLeftIcon style={{ color: '#36454F' }} />
-                        <div
-                          className="border-2 flex w-12 h-7 flex justify-center font-sans "
-                          style={{
-                            color: '#36454F',
-                          
-                            borderRadius: '4px',
-                          }}
-                        >
-                          5<p>(4)</p>
-                        </div>
-                        <div className="border-2 flex ml-3 w-12 h-7 flex justify-center">
-                          5<p>(4)</p>
-                        </div>
-                        <div className="border-2 flex ml-3 w-12 h-7 flex justify-center">
-                          5<p>(4)</p>
-                        </div>
-                        <div className="border-2 flex ml-3 w-12 h-7 flex justify-center">
-                          5<p>(4)</p>
-                        </div>
-                        <ChevronRightIcon />
-                      </div>
-                    </div>
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography>
-                    <div className=''>
-                      <p
-                        className="font-sans h-9 px-4 py-1 flex justify-start -ml-4"
-                        style={{ backgroundColor: '#F5F5F5', width: '248%' }}
-                      >
-                        {' '}
-                        <Breadcrumbs
-                          aria-label="breadcrumb"
-                          style={{ color: '#132B6B', fontWeight: '600', fontSize: '14px' }}
-                          className="font-sans "
-                        >
-                          <Link
-                            color="inherit"
-                            href="/"
-                            onClick={handleClick}
+                          <Breadcrumbs
+                            aria-label="breadcrumb"
+                            style={{
+                              color: '#132B6B',
+                              fontWeight: '600',
+                              fontSize: '14px',
+                            }}
                             className="font-sans "
                           >
-                            Section
-                          </Link>
-                          <Link
-                            color="inherit"
-                            href="/getting-started/installation/"
-                            onClick={handleClick}
-                            className="font-sans"
-                          >
-                            Rules
-                          </Link>
-                          <Link
-                            color="inherit"
-                            href="/getting-started/installation/"
-                            onClick={handleClick}
-                            className="font-sans"
-                          >
-                            Clause
-                          </Link>
-                          <Typography color="textPrimary" className="font-sans">
-                            SubClause No.
-                          </Typography>
-                        </Breadcrumbs>
-                        <p
-                          className="w-10 h-6 px-1  ml-2 font-sans"
-                          style={{
-                            background: '#8EF4D2',
-                            color: '#36454F',
-                            borderRadius: '4px',
-                          }}
-                        >
-                          5(4)
-                        </p>
-                      </p>
-
-                      <div className="m-4">
-                        <div className="mt-7">
-                          <p
-                            className="font-sans"
-                            style={{ color: ' #132B6B', fontSize: '18px', fontWeight: '600' }}
-                          >
-                            Title of the Rules and Regulations
-                          </p>
-                          <p className="font-sans" style={{ fontSize: '14px',color: '#000000', fontWeight: '400' }}>
-                            Electrical Safety Officer
-                          </p>
-                        </div>
-                        <hr />
-                        <div className="mt-7 font-sans">
-                          <p
-                            className="font-sans"
-                            style={{ color: ' #132B6B', fontSize: '18px', fontWeight: '600' }}
-                          >
-                            Responsibility
-                          </p>
-                          <Breadcrumbs aria-label="breadcrumb">
                             <Link
                               color="inherit"
                               href="/"
                               onClick={handleClick}
-                              className="font-sans"
-                              style={{ fontSize: '14px',color: '#000000', fontWeight: '400' }}
+                              className="font-sans "
                             >
-                              Owner
+                              Section
                             </Link>
                             <Link
                               color="inherit"
                               href="/getting-started/installation/"
                               onClick={handleClick}
                               className="font-sans"
-                              style={{ fontSize: '14px', color: '#000000', fontWeight: '400' }}
                             >
-                              Agent
+                              Rules
                             </Link>
                             <Link
                               color="inherit"
                               href="/getting-started/installation/"
                               onClick={handleClick}
                               className="font-sans"
-                              style={{ fontSize: '14px' , color: '#000000', fontWeight: '400'}}
                             >
-                              Manager
+                              Clause
                             </Link>
-                            {/* <Typography color="textPrimary">
+                            <Typography
+                              color="textPrimary"
+                              className="font-sans"
+                            >
+                              SubClause No.
+                            </Typography>
+                          </Breadcrumbs>
+                          <p
+                            className="w-10 h-6 px-1  ml-2 font-sans"
+                            style={{
+                              background: '#8EF4D2',
+                              color: '#36454F',
+                              borderRadius: '4px',
+                            }}
+                          >
+                            5(4)
+                          </p>
+                        </p>
+
+                        <div className="m-4">
+                          <div className="mt-7">
+                            <p
+                              className="font-sans"
+                              style={{
+                                color: ' #132B6B',
+                                fontSize: '18px',
+                                fontWeight: '600',
+                              }}
+                            >
+                              Title of the Rules and Regulations
+                            </p>
+                            <p
+                              className="font-sans"
+                              style={{
+                                fontSize: '14px',
+                                color: '#000000',
+                                fontWeight: '400',
+                              }}
+                            >
+                              Electrical Safety Officer
+                            </p>
+                          </div>
+                          <hr />
+                          <div className="mt-7 font-sans">
+                            <p
+                              className="font-sans"
+                              style={{
+                                color: ' #132B6B',
+                                fontSize: '18px',
+                                fontWeight: '600',
+                              }}
+                            >
+                              Responsibility
+                            </p>
+                            <Breadcrumbs aria-label="breadcrumb">
+                              <Link
+                                color="inherit"
+                                href="/"
+                                onClick={handleClick}
+                                className="font-sans"
+                                style={{
+                                  fontSize: '14px',
+                                  color: '#000000',
+                                  fontWeight: '400',
+                                }}
+                              >
+                                Owner
+                              </Link>
+                              <Link
+                                color="inherit"
+                                href="/getting-started/installation/"
+                                onClick={handleClick}
+                                className="font-sans"
+                                style={{
+                                  fontSize: '14px',
+                                  color: '#000000',
+                                  fontWeight: '400',
+                                }}
+                              >
+                                Agent
+                              </Link>
+                              <Link
+                                color="inherit"
+                                href="/getting-started/installation/"
+                                onClick={handleClick}
+                                className="font-sans"
+                                style={{
+                                  fontSize: '14px',
+                                  color: '#000000',
+                                  fontWeight: '400',
+                                }}
+                              >
+                                Manager
+                              </Link>
+                              {/* <Typography color="textPrimary">
                             Sub Clause
                           </Typography> */}
-                          </Breadcrumbs>
-                        </div>
-                        <hr />
-                        <div className="mt-7">
-                          <p
-                            className="font-sans"
-                            style={{ color: ' #132B6B', fontSize: '18px', fontWeight: '600' }}
-                          >
-                            Description
-                          </p>
-                          <p className="font-sans" style={{ fontSize: '14px',color: '#000000', fontWeight: '400' }}>
-                            Electrical Safety Officer
-                          </p>
-                        </div>
-                        <hr />
-                        <div className="mt-7">
-                          <p
-                            className="font-sans"
-                            style={{ color: ' #132B6B', fontSize: '18px', fontWeight: '600' }}
-                          >
-                            Revelant Circular
-                          </p>
-                          <p className="font-sans" style={{ fontSize: '14px', color: '#000000', fontWeight: '400' }}>
-                            Electrical Safety Officer
-                          </p>
+                            </Breadcrumbs>
+                          </div>
+                          <hr />
+                          <div className="mt-7">
+                            <p
+                              className="font-sans"
+                              style={{
+                                color: ' #132B6B',
+                                fontSize: '18px',
+                                fontWeight: '600',
+                              }}
+                            >
+                              Description
+                            </p>
+                            <p
+                              className="font-sans"
+                              style={{
+                                fontSize: '14px',
+                                color: '#000000',
+                                fontWeight: '400',
+                              }}
+                            >
+                              Electrical Safety Officer
+                            </p>
+                          </div>
+                          <hr />
+                          <div className="mt-7">
+                            <p
+                              className="font-sans"
+                              style={{
+                                color: ' #132B6B',
+                                fontSize: '18px',
+                                fontWeight: '600',
+                              }}
+                            >
+                              Revelant Circular
+                            </p>
+                            <p
+                              className="font-sans"
+                              style={{
+                                fontSize: '14px',
+                                color: '#000000',
+                                fontWeight: '400',
+                              }}
+                            >
+                              Electrical Safety Officer
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Typography>
-                </AccordionDetails>
-              </Accordion>
-
-           
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
@@ -518,31 +627,39 @@ export function Categories({
 }
 
 Categories.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  repos: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
-  onSubmitForm: PropTypes.func,
-  username: PropTypes.string,
-  onChangeUsername: PropTypes.func,
+  // loading: PropTypes.bool,
+  // error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  // repos: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
+  // onSubmitForm: PropTypes.func,
+  // username: PropTypes.string,
+  // onChangeUsername: PropTypes.func,
 };
-
-const mapStateToProps = createStructuredSelector({
-  repos: makeSelectRepos(),
-  // username: makeSelectUsername(),
-  loading: makeSelectLoading(),
-  error: makeSelectError(),
-});
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),
-    onSubmitForm: evt => {
-      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-      dispatch(loadRepos());
-    },
+    getCategoryList: () => dispatch(getCategoryList()),
+    getAllDepartmentInCategory: () => dispatch(getAllDepartmentInCategory()),
+    addCategoryRule: (obj) => dispatch(addCategoryRule(obj)),
+    addCategorySubRule: (obj) => dispatch(addCategorySubRule(obj)),
+    setSearchData:(obj)=> dispatch(setSearchData(obj)),
+    ClearSortnSearch:(obj)=> dispatch(ClearSortnSearch(obj))
   };
 }
 
+const mapStateToProps = state => ({
+  categoryList:
+    state.categories.categoryList.length > 0
+      ? state.categories.categoryList
+      : [],
+  categoryListReplica:
+    state.categories.categoryListReplica.length > 0
+      ? state.categories.categoryListReplica
+      : [],
+  departmentLisInCategory:
+    state.categories.departmentLisInCategory.length > 0
+      ? state.categories.departmentLisInCategory
+      : [],
+});
 const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,

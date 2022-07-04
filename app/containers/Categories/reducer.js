@@ -1,29 +1,44 @@
-/*
- * HomeReducer
- *
- * The reducer takes care of our data. Using actions, we can
- * update our application state. To add a new action,
- * add it to the switch statement in the reducer function
- *
- */
-
 import produce from 'immer';
-import { CHANGE_USERNAME } from './constants';
+import { v4 as uuidv4 } from 'uuid';
+import { SET_CATEGORY, SET_ALL_DEPARTMENTS_CATEGORY, SET_SEARCH_DATA, CLEAR_SORT_SEARCH  } from './constants';
 
-// The initial state of the App
 export const initialState = {
-  username: '',
+  categoryList: [],
+  categoryListReplica: [],
+  departmentLisInCategory: [],
+  editData: {},
 };
 
 /* eslint-disable default-case, no-param-reassign */
-const homeReducer = (state = initialState, action) =>
+const CategoryReducer = (state = initialState, action) =>
   produce(state, draft => {
+    const { type } = action;
     switch (action.type) {
-      case CHANGE_USERNAME:
-        // Delete prefixed '@' from the github username
-        draft.username = action.username.replace(/@/gi, '');
-        break;
+      case SET_CATEGORY:
+        return {
+          ...state,
+          categoryList: action.payload,
+          categoryListReplica:action.payload
+        };
+      case SET_ALL_DEPARTMENTS_CATEGORY:
+        return {
+          ...state,
+          departmentLisInCategory: action.payload,
+        };
+        case SET_SEARCH_DATA:
+        return {
+          ...state,
+          categoryList: action.payload,
+        };
+
+        case CLEAR_SORT_SEARCH:
+          return{
+            ...state,
+            categoryList : action.payload
+          }
+      default:
+        return state;
     }
   });
 
-export default homeReducer;
+export default CategoryReducer;

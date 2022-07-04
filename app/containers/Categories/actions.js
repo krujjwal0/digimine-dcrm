@@ -1,32 +1,87 @@
-/*
- * Home Actions
- *
- * Actions change things in your application
- * Since this boilerplate uses a uni-directional data flow, specifically redux,
- * we have these actions which are the only way your application interacts with
- * your application state. This guarantees that your state is up to date and nobody
- * messes it up weirdly somewhere.
- *
- * To add a new Action:
- * 1) Import your constant
- * 2) Add a function like this:
- *    export function yourAction(var) {
- *        return { type: YOUR_ACTION_CONSTANT, var: var }
- *    }
- */
+import {
+  GET_CATEGORY,
+  SET_CATEGORY,
+  ADD_CATEGORY_RULE,
+  EDIT_CATEGORY_RULE,
+  ADD_CATEGORY_SUB_RULE,
+  EDIT_CATEGORY_SUB_RULE,
+  GET_ALL_DEPARTMENTS_CATEGORY,
+  SET_ALL_DEPARTMENTS_CATEGORY,
+  SET_SEARCH_DATA,
+  CLEAR_SORT_SEARCH
+} from './constants';
 
-import { CHANGE_USERNAME } from './constants';
-
-/**
- * Changes the input field of the form
- *
- * @param  {string} username The new text of the input field
- *
- * @return {object} An action object with a type of CHANGE_USERNAME
- */
-export function changeUsername(username) {
+export function getCategoryList() {
+  console.log('categorylist:-');
   return {
-    type: CHANGE_USERNAME,
-    username,
+    type: GET_CATEGORY,
+  };
+}
+
+export function setCategoryList(obj) {
+  console.log('set category list:-', obj);
+  return {
+    type: SET_CATEGORY,
+    payload: obj,
+  };
+}
+export function addCategoryRule(obj) {
+  console.log('Add category rule:-', obj);
+  return {
+    type: ADD_CATEGORY_RULE,
+    payload: obj,
+  };
+}
+
+export function editCategoryRule(obj) {
+  console.log('EDIT category rule:-', obj);
+  return {
+    type: EDIT_CATEGORY_RULE,
+    payload: obj,
+  };
+}
+
+export function addCategorySubRule(data) {
+  console.log('add sub rule:-', data);
+  return {
+    type: ADD_CATEGORY_SUB_RULE,
+    payload: data,
+  };
+}
+
+export function editCategorySubRule(subrule) {
+  console.log('edit sub rule:-', subrule);
+  return {
+    type: EDIT_CATEGORY_SUB_RULE,
+    payload: subrule,
+  };
+}
+
+export function getAllDepartmentInCategory() {
+  console.log('Get all depts:-');
+  return {
+    type: GET_ALL_DEPARTMENTS_CATEGORY,
+  };
+}
+
+export function setAllDepartmentInCategory(data) {
+  console.log('Set all depts:-');
+  return {
+    type: SET_ALL_DEPARTMENTS_CATEGORY,
+    payload: data,
+  };
+}
+
+export function setSearchData(data) {
+  return {
+    type: SET_SEARCH_DATA,
+    payload: data,
+  };
+}
+
+export function ClearSortnSearch(data) {
+  return {
+    type: CLEAR_SORT_SEARCH,
+    payload: data,
   };
 }
