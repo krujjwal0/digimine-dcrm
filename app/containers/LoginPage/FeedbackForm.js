@@ -190,8 +190,10 @@ function FeedbackForm({
   // console.log("Col A and Col b===", colA, colB);
 
   return (
-    <div className="bg-white w-full min-h-screen font-sans fixed">
-      <div className="font-sans ml-28 flex justify-between">
+   
+    <div className=" bg-white w-full min-h-screen font-sans relative">
+       <div className='container' style={{maxWidth:'1100px'}}>
+      <div className="font-sans flex justify-between">
         <div className="mt-22">
           <img
             src={logo}
@@ -215,7 +217,7 @@ function FeedbackForm({
         </div>
       </div>
 
-      <div className="flex ml-32">
+      <div className="flex ">
         <div
           className="mt-20"
           style={{
@@ -373,16 +375,25 @@ function FeedbackForm({
           </Box> */}
         </div>
       </div>
-      <div className="">
+      </div>
+      <div className="container fixed w-full py-8 " style={{bottom: '0', zIndex:'99', left: '50%', transform: 'translateX(-50%)'}} >
+      <div className="flex flex-wrap py-9  relative" style={{}}>
         <div
-          className="flex"
-          // onClick={() => {
+           className="w-1/2"
           //   helpPageCall();
           // }}
-          style={{marginTop: '50px'}}
+         
         >
+           <p
+            className="font-sans mt-4 font-semibold "
+            style={{ color: '#132B6B' }}
+            onClick={() => {
+              helpPageCall();
+            }}
+          >
+           
           <HelpOutlineIcon
-            className="ml-28"
+            className=""
             // onClick={()=>{history.push({pathname: '/help'})}}
             style={{
               backgroundColor: '#FFFFFF',
@@ -394,32 +405,13 @@ function FeedbackForm({
               helpPageCall();
             }}
           />
-          <p
-            className="font-sans mt-4 font-semibold "
-            style={{ color: '#132B6B' }}
-            onClick={() => {
-              helpPageCall();
-            }}
-          >
-            Help
+          Help
           </p>
-          <div>
-            <img
-              src={FormImg}
-              style={{
-                position: 'absolute',
-                backgroundSize: '100% auto',
-                width: '100%',
-                height: '15%',
-                content: '',
-                left: '0',
-                bottom: '0',
-                // top: '612px',
-              }}
-            /></div>
+          </div>
+                 
             <div
-              className="flex justify-end "
-              style={{ marginLeft: '960px' }}
+              className="flex justify-end w-1/2 "
+              style={{}}
             >
               <div>
                 <button
@@ -429,9 +421,9 @@ function FeedbackForm({
                     color: 'white',
                     width: '115px',
                     height: '40px',
-                    marginLeft: '-90px',
+                   
                   }}
-                  className="font-sans absolute"
+                  className="font-sans"
                   onClick={handleSkip}
                 >
                   Skip
@@ -451,7 +443,7 @@ function FeedbackForm({
                       width: '115px',
                       height: '40px',
                     }}
-                    className="font-sans absolute ml-12"
+                    className="font-sans ml-4 mr-8"
                     onClick={handleNext}
                   >
                     NEXT
@@ -461,7 +453,23 @@ function FeedbackForm({
             </div>
         </div>
       </div>
+     
+            <img
+              src={FormImg}
+              style={{
+                position: 'absolute',
+                backgroundSize: '100% auto',
+                width: '100%',
+                height: '15%',
+                content: '',
+                left: '0',
+                bottom: '0',
+                // top: '612px',
+              }}
+            />
+             
     </div>
+  
   );
 }
 

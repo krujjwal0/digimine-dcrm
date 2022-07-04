@@ -52,8 +52,8 @@ const GlobalStyle = createGlobalStyle`
   }
   .content {
     display:flex;
-    min-height: 88.5vh;
-    height: 100%;
+   
+    height: calc(100vh - 80px);
     margin-left:250px;
     border-radius: 70px 0px 0px 0px;
     background-color: #ffff;

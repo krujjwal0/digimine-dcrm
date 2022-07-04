@@ -47,7 +47,7 @@ export function Categories({
   };
 
   return (
-    <div className="myprofile">
+    <div className="content">
       <div className="w-full">
         <div className="ml-8 pt-1">
           <div className="mt-5 ml-10 text-xl text-[#151F63]">
@@ -72,33 +72,38 @@ export function Categories({
             </div>
           </div>
         </div>
-        <div className="bg-white h-screen">
-          <div className="flex">
-            <div>
+        <hr />
+          <div className="flex w-11/12">
+            <div className='w-1/2'>
               <form>
                 <div className="ml-9 mt-8 font-sans font-semibold flex">
-                  <p className='font-sans'>Select Department</p>
+                  <p className='font-sans text-black' style={{fontSize: '13px', fontWeight: '700'}}>Select Department</p>
                   <p className='text-[red]'>*</p>
                 </div>
-
-                <select className="w-96 font-sans ml-9 mt-3 border-2 rounded-[20px] h-9">
-                  <option className="ml-2 font-sans">Select</option>
+<div className="ml-9 font-sans font-semibold ">
+                <select className="w-96 font-sans mt-4 border-2 rounded-[20px] h-9" style={{color: '#66737E', fontSize: '13px', fontWeight: '400'}}>
+                  <option className="ml-2 font-sans" style={{color: '#66737E'}}>Select OTC</option>
                 </select>
+                <p className="flex justify-end font-sans mr-10" style={{color: ' #FF0000', fontWeight: '400'}}>Error Message</p>
+                </div>
 
-                <p className="ml-9 mt-7 font-sans font-semibold">Select</p>
-
-                <select className="w-96 ml-9 mt-3 border-2 rounded-[20px] h-9">
-                  <option className="ml-2 font-sans">Select OTC</option>
+                <div className="ml-9 font-sans font-semibold ">
+                <p className='font-sans text-black' style={{fontSize: '13px', fontWeight: '700'}}>Select</p>
+                <select className="w-96 font-sans mt-4 border-2 rounded-[20px] h-9" style={{color: '#66737E', fontSize: '13px', fontWeight: '400'}}>
+                  <option className="ml-2 font-sans" style={{color: '#66737E'}}>Select OTC</option>
                 </select>
+                </div>
 
-                <p className="ml-9 mt-11 font-sans font-semibold">Date</p>
+                <div className="ml-9 mt-5 font-sans font-semibold w-full ">
 
-                <select className="w-96 ml-9 mt-3 border-2 rounded-[20px] h-9">
-                  <option className="ml-2 font-sans">Select Your Date </option>
-                </select>
+
+              
+                </div>
               </form>
             </div>
-            <div className="bg-[#E5E5E5] ml-6 rounded-lg mt-8">
+
+            <div className=" w-1/2 bg-[#D8DCE5] rounded-lg  mt-8 mr-36">
+             
               <form className="mr-6 mb-6">
                 <p className="ml-9 mt-8 font-sans font-semibold flex">
                   <p>Select Assign Person</p>
@@ -122,7 +127,10 @@ export function Categories({
                   <option className="ml-2">Select</option>
                 </select>
               </form>
+             
             </div>
+
+
           </div>
           <div className="pt-10 ml-9">
             <button
@@ -136,7 +144,7 @@ export function Categories({
               NEXT
             </button>
           </div>
-        </div>
+     
       </div>
     </div>
   );
