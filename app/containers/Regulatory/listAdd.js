@@ -21,10 +21,11 @@ import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import { useHistory } from 'react-router-dom';
 
-const key = 'categories';
+const key = 'listadd';
 
-export function Categories({
+export function ListAdd({
   username,
   loading,
   error,
@@ -45,7 +46,11 @@ export function Categories({
     error,
     repos,
   };
-
+const history = useHistory();
+const listAddSubRule = () => {
+    const path = `/listadd2`;
+    history.push(path);
+  }
   return (
     <div className="content">
       <div className="w-full">
@@ -140,6 +145,7 @@ export function Categories({
                 color: 'white',
                 borderRadius: '50px',
               }}
+              onClick={listAddSubRule}
             >
               NEXT
             </button>
@@ -150,7 +156,7 @@ export function Categories({
   );
 }
 
-Categories.propTypes = {
+ListAdd.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   repos: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
@@ -184,4 +190,4 @@ const withConnect = connect(
 export default compose(
   withConnect,
   memo,
-)(Categories);
+)(ListAdd);
