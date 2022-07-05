@@ -1,12 +1,10 @@
-/*
- * HomeConstants
- * Each action has a corresponding type, which the reducer knows and picks up on.
- * To avoid weird typos between the reducer and the actions, we save them as
- * constants here. We prefix them with 'yourproject/YourComponent' so we avoid
- * reducers accidentally picking up actions they shouldn't.
- *
- * Follow this format:
- * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
- */
-
-export const CHANGE_USERNAME = 'boilerplate/Home/CHANGE_USERNAME';
+export const GET_CATEGORY = 'GET_CATEGORY';
+export const SET_CATEGORY = 'SET_CATEGORY';
+export const ADD_CATEGORY_RULE = 'ADD_CATEGORY_RULE';
+export const EDIT_CATEGORY_RULE = 'EDIT_CATEGORY_RULE';
+export const ADD_CATEGORY_SUB_RULE = 'ADD_CATEGORY_SUB_RULE';
+export const EDIT_CATEGORY_SUB_RULE = 'EDIT_CATEGORY_SUB_RULE';
+export const GET_ALL_DEPARTMENTS_CATEGORY = 'GET_ALL_DEPARTMENTS_CATEGORY';
+export const SET_ALL_DEPARTMENTS_CATEGORY = 'SET_ALL_DEPARTMENTS_CATEGORY';
+export const SET_SEARCH_DATA = 'SET_SEARCH_DATA';
+export const CLEAR_SORT_SEARCH ='CLEAR_SORT_SEARCH'
