@@ -1,22 +1,30 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-export default function Add() {
+import { useHistory } from 'react-router-dom';
+
+export default function ListAdd2() {
   // const [checkedState, setCheckedState] = useState(
   //   new Array(rules.length).fill(false)
   // );
 
+  const history = useHistory();
+  const toListPage = () => {
+    const path = `/regulatory`;
+    history.push(path);
+  }
+
   return (
-    <div style={{ backgroundColor: '#E5E5E5' }} className="w-full h-screen ">
-      <div className="h-8"> </div>
-      <div className="bg-white ml-64 rounded-tl-[80px] h-[87%]">
-        <div className="bg-white h-16 mt-16 rounded-tl-full">
-          <div className="flex ml-8">
-            <i className="fa-solid fa-chevron-left m-4" />
-            <div className="mt-2">
-              <p
-                style={{ color: '#132B6B' }}
-                className="font-sans font-semibold"
-              >
+    <div className="content">
+      <div className="w-full">
+        <div className="ml-8 pt-1">
+          <div className="mt-5 ml-10 text-xl text-[#151F63]">
+            <i class="fa-solid fa-chevron-left" />
+          </div>
+          <div className="ml-4 mt-4 text-xl ">
+            <p
+              style={{ color: '#151F63', fontSize: '18px' }}
+              className="font-sans font-semibold"
+            >
                 Add
               </p>
               <p
@@ -27,7 +35,7 @@ export default function Add() {
               </p>
             </div>
           </div>
-        </div>
+        
         <div
           style={{ backgroundColor: '#F7F8FA', height: '102px' }}
           className=""
@@ -94,12 +102,13 @@ export default function Add() {
                 borderRadius: '50px',
               }}
               className="w-28 h-10"
+              onClick={toListPage}
             >
               ASSIGN
             </button>
           </div>
         </div>
       </div>
-    </div>
+      </div>
   );
 }

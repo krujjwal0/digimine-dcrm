@@ -190,7 +190,7 @@ const getDetailOfSubRule = (subruleId) => {
 
   return (
     <div className="content font-sans">
-      <div className="w-full h-full">
+      <div className="w-full ">
         <div className="ml-8 ">
           <div className="mt-3 text-xl ">
             <Breadcrumbs

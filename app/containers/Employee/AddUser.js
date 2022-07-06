@@ -43,7 +43,7 @@ export function AddUser(props) {
   const [employeeId, setEmployeeId] = useState('');
   const [emailId, setEmailId] = useState('');
   const [departmentId, setDepartmentId] = useState('');
-  const [roleId, setRoleId] = useState('');
+  const [roleId, setRoleId] = useState(0);
   const insertUser = () => {
     // Add condition for blank
     const data = {
@@ -52,7 +52,8 @@ export function AddUser(props) {
       mobileNumber: mobileNumber,
       emailId: emailId,
       departmentId: departmentId, // 1
-      employeeId: employeeId,
+      locationId: props.locationId,
+      employeeId: employeeId
     };
     props.addUser(data);
     setRoleId('');
@@ -62,6 +63,7 @@ export function AddUser(props) {
     setEmailId('');
     setDepartmentId('');
     props.handleCloseBtn();
+    props.clearAll();
   };
   useEffect(() => {
     props.getAllDepartment();

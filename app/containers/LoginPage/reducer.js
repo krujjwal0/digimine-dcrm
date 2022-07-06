@@ -22,15 +22,13 @@ import {
   EMAIL_ERROR,
   SET_SHOW_FEEDBACK_FORM_RADIO_DATA,
   OTP_ERROR,
-  SHOW_OTP_ERROR_POPUP,
-  SET_CHOOSED_LOCATION
+  SHOW_OTP_ERROR_POPUP
 } from './constants';
 
 // The initial state of the App
 export const initialState = {
   ROLE_TYPE: '',
   userIsAuthenticated: false,
-  choosedLocationId: 0,
   userData: {},
   otp: '',
   otpError: '',
@@ -42,7 +40,6 @@ export const initialState = {
   adminLocations: [],
   feedbackFormData: [{ question: "", options: [{ description: '' }] }],
   feedbackRadioCheck: [],
-  // feedbackFormData: ['check question'],
   emailError: '',
   showOtpErrorPopup: { status: false, msg: "" }
 };
@@ -51,12 +48,6 @@ export const initialState = {
 const loginReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
-      case SET_CHOOSED_LOCATION:
-        console.log("choosedLocationId in reducer === ", action.payload)
-        return {
-          ...state,
-          choosedLocationId: action.payload
-        }
       case SHOW_OTP_ERROR_POPUP:
         console.log('Show OTP Error Popup', action.payload)
         return {
@@ -82,11 +73,7 @@ const loginReducer = (state = initialState, action) =>
           feedbackRadioCheck: [...state.feedbackRadioCheck, {
             questionId: action.questionId,
             selectedOptionId: action.selectedOptionId
-          }],
-          // feedbackRadioCheck: {
-          //   questionId: action.questionId,
-          //   selectedOptionId: action.selectedOptionId
-          // }
+          }]
         }
       case SET_INITIAL_STATE:
         return {
@@ -96,19 +83,14 @@ const loginReducer = (state = initialState, action) =>
         console.log(action.payload);
         return {
           ...state,
-          adminLocations: action.payload.locations,
-          choosedLocationId: action.payload.locations[0].id
+          adminLocations: action.payload.locations
         };
       case SET_EMAIL_ID:
-        // console.log(action.payload);
-
-        // state.loginReducer.showOtpPage=true;
         return {
           ...state,
           emailId: action.payload,
         };
       case SET_ROLE_TYPE:
-        // Delete prefixed '@' from the github username
         return {
           ...state,
           ROLE_TYPE: action.payload,
@@ -153,16 +135,8 @@ const loginReducer = (state = initialState, action) =>
         );
         return {
           ...state,
-          // showTableMain: true,
           feedbackFormData: [...state.feedbackFormData, action.payload],
         };
-      // case SEARCH_FILTER:
-      //   console.log('inside reducer Employee data list ===', state.EmployeeData)
-      //   return {
-      //     ...state,
-      //     EmployeeData: action.EmployeeData.filter
-
-      //   }
       default:
         return state;
     }
