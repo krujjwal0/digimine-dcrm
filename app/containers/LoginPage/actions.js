@@ -187,9 +187,10 @@ export function showOtpErrorPopupAction(data) {
   }
 }
 
-export function downloadProfileImageAction() {
+export function downloadProfileImageAction(awtToken) {
   return {
-    type: DOWNLOAD_PROFILE_IMAGE
+    type: DOWNLOAD_PROFILE_IMAGE,
+    payload:awtToken
   }
 }
 

@@ -148,12 +148,14 @@ function* postSignIn(action) {
       body: JSON.stringify(action.payload),
     });
     console.log('success in saga', result, result.data);
-    yield put(downloadProfileImageAction());
+
     yield put(setUserData(result.data));
 
     localStorage.setItem('awtToken', result.data.awtToken);
     localStorage.setItem('refreshToken', result.data.jwtRefreshToken);
     localStorage.setItem('isAuthorized', true);
+    yield put(downloadProfileImageAction(result.data.awtToken));
+    // yield put(downloadProfileImageSaga())
   } catch (err) {
     if (result) {
       console.log(result.status.message);
@@ -275,11 +277,12 @@ function* postFeedbackSaga(action) {
     } else console.log('Error while saving feedbAck', err);
   }
 }
-function* downloadProfileImageSaga() {
+function* downloadProfileImageSaga(action) {
   const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/download`;
   console.log(' downloadProfileImageSaga URL:', requestURL);
-  const awtToken = localStorage.getItem('awtToken');
-  console.log("PRofile image ====", awtToken)
+  // const awtToken = localStorage.getItem('awtToken');
+  const awtToken= action.payload;
+  console.log("PRofile image awt token ====", awtToken)
   let result;
   try {
     console.log('generatorFunction downloadProfileImageSaga ');
@@ -287,10 +290,11 @@ function* downloadProfileImageSaga() {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${awtToken}`,
-        'Content-Type': 'image/jpeg',
+        'Content-Type': 'application/json',
+        responseType: 'blob'
       }
     });
-    console.log('downloadProfileImageSaga success in saga', result, result.data);
+    console.log('downloadProfileImageSaga success in saga', result.blob());
   } catch (err) {
     if (err.response.status == 401) {
       console.log(" Unauthorised access");

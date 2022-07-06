@@ -78,26 +78,6 @@ const GreenSwitch = styled(Switch)(({ theme }) => ({
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 export function Employee({
-  username,
-  usersList,
-  usersListreplica,
-  deleteUser,
-  loading,
-  error,
-  repos,
-  onSubmitForm,
-  onChangeUsername,
-  showEmployee,
-  editUser,
-  rolesList,
-  departmentList,
-  getAllDepartment,
-  getAllRoles,
-  setEmployee,
-  addUser,
-  setEditUserData,
-  editUserData,
-  choosedLocationId,
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -110,7 +90,7 @@ export function Employee({
 
   useEffect(() => {
     // When initial state username is not null, submit the form to load repos
-    if (username && username.trim().length > 0) onSubmitForm();
+    // if (username && username.trim().length > 0) onSubmitForm();
   }, []);
 
   // useEffect(() => {
