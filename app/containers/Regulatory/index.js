@@ -61,6 +61,7 @@ import userImage from '../LoginPage/images/addImage.png';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import Link from '@material-ui/core/Link';
+import { useHistory } from 'react-router-dom';
 
 const key = 'users';
 
@@ -358,6 +359,12 @@ export function Employee({
       {...props}
     />
   ));
+  const history = useHistory();
+
+  const listAddRule = () => {
+    const path = `/listadd`;
+    history.push(path);
+  }
 
   return (
     <div className="content">
@@ -460,6 +467,7 @@ export function Employee({
           <div
             className="font-sans w-56 h-9 ml-3  border-2 rounded-full flex justify-center "
             style={{ background: '#132B6B' }}
+            onClick={listAddRule}
           >
             {/* <AddIcon className="text-white mt-1 " /> */}
             <button className="text-white ml-2 ">ADD NEW REGULATORY</button>
