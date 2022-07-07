@@ -36,6 +36,14 @@ const GlobalStyle = createGlobalStyle`
     background-color: #F3F3F9;
     
   }
+  .maindash2{
+    display:flex;
+  
+    margin-left:250px;
+    border-radius: 70px 0px 0px 0px;
+    background-color: #ffff;
+    
+  }
   .myprofile{
     display:flex;
       margin-left:250px;

@@ -101,7 +101,7 @@ export function App(props) {
               <Route path="/users" component={Employee} />
               <Route path="/myprofile" component={MyProfile} />
               <Route path="/history" component={History} />
-              <Route path="/regulatory/details" component={DetailsPage} />
+              <Route path="/details" component={DetailsPage} />
 
             </>
             {/* : */}
