@@ -41,7 +41,8 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import ClearAllIcon from '@material-ui/icons/ClearAll';
 import AddCategory from './addCategories';
-import AddSubCategory from './subCategories';
+
+import CategoryListPage from './categoryListPage';
 import './style.css';
 import reducer from './reducer';
 import saga from './saga';
@@ -94,13 +95,13 @@ export function Categories({
   setSearchData,
   categoryListReplica,
   ClearSortnSearch
-  
+
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
   useEffect(() => {
-    getCategoryList();
+    // getCategoryList();
     getAllDepartmentInCategory();
   }, []);
 
@@ -121,6 +122,7 @@ export function Categories({
 
   const [showSubCategory, setShowSubCategory] = useState(false);
   const openSubCategory = (id) => {
+    console.log("here for sub open==",id)
     setShowSubCategory(true);
   };
 
@@ -128,6 +130,7 @@ export function Categories({
   const [expanded, setExpanded] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState('sm');
+  const [searchText, setSearch] = React.useState('');
 
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -151,7 +154,6 @@ export function Categories({
 
   const createSubRuleInCategory = (subRuleName, ruleId, title, responsibility, description, circular) => {
     const obj = {
-      id: '',
       name: subRuleName,
       deleted: false,
       ruleId: ruleId,
@@ -165,17 +167,26 @@ export function Categories({
 
   const search = e => {
     const keyword = e.target.value;
-    console.log("Seacrh according to ====",keyword.length)
+    console.log("Seacrh according to ====", keyword.length)
     if (keyword !== '' && keyword.length > 2) {
       const result = categoryListReplica.filter(value => value.name.toLowerCase().includes(keyword.toLowerCase()))
-        console.log('show result name inside filter', result);
-        setSearchData(result)
-      }
-      
-    if(keyword.length === 0){
-        ClearSortnSearch(categoryListReplica)
-      }
+      console.log('show result name inside filter', result);
+      setSearchData(result)
     }
+
+    if (keyword.length === 0) {
+      ClearSortnSearch(categoryListReplica)
+    }
+  }
+
+  const ClearSortnSearchFnc = () => {
+    setSearch('');
+    ClearSortnSearch(categoryListReplica)
+  }
+
+const getDetailOfSubRule = (subruleId) => {
+  
+}
 
   return (
     <div className="content font-sans">
@@ -248,7 +259,8 @@ export function Categories({
               >
                 <InputBase
                   placeholder="Search by Rule"
-                  name="search"
+                  name="searchText"
+                  value={searchText}
                   onChange={(e) => search(e)}
                   inputProps={{ 'aria-label': 'search' }}
                   className="font-sans font-normal"
@@ -267,7 +279,7 @@ export function Categories({
               <button
                 className="font-sans border-2 text-red-400 w-20 ml-6  h-8 rounded-[20px]"
                 style={{ boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)' }}
-                onClick = {() => ClearSortnSearch(categoryListReplica)}
+                onClick={() => ClearSortnSearchFnc()}
               >
                 Clear
               </button>
@@ -313,8 +325,26 @@ export function Categories({
               </Dialog>
             </div>
           </div>
-
-          {categoryList.map((list, index) => (
+          
+          { categoryList.map((list, index) => (
+            <div>
+              <CategoryListPage list={list} index={index} openSubCategory={openSubCategory}
+              handleChange={handleChange}
+              handleCloseBtn={handleCloseBtn}
+              showSubCategory={showSubCategory}
+              handleClick={handleClick}
+              departmentList={departmentLisInCategory}
+              createSubRuleInCategory={createSubRuleInCategory}
+              classes={classes}
+              fullWidth={fullWidth}
+              maxWidth={maxWidth}
+              expanded={expanded}
+              searchText={searchText}
+              
+              />
+            </div>
+          ))}
+          {/* {categoryList.map((list, index) => (
             <div className="mt-8 ml-3 w-11/12 font-sans">
               <div className={classes.root}>
                 <Accordion
@@ -337,7 +367,7 @@ export function Categories({
                         className="font-sans flex w-36 h-8 text-white rounded-full flex justify-center"
                         style={{ background: '#132B6B' }}
                       >
-                        <AddIcon className="mt-1 " onClick={()=>openSubCategory(list)} />
+                        <AddIcon className="mt-1 " onClick={() => openSubCategory(list)} />
                         <p className="mt-1 font-sans">Add Sub Rule</p>
                       </button>
 
@@ -354,23 +384,12 @@ export function Categories({
                         onClose={handleCloseBtn}
                       >
                         <DialogContent
-                          // style={{
-                          //   borderRadius: '15px',
-                          //   background: '#FFFFFF',
-                          //   boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
-                          //   Width: '70%',
-                          //   Height: '80%',
-                          // }}
                           className="flex justify-start"
                         >
                           <AddSubCategory
-                            // addUser={addUser}
-                            // rolesList={rolesList}
                             parentRule={list.id}
                             departmentList={departmentLisInCategory}
                             createSubRuleInCategory={createSubRuleInCategory}
-                            // getAllDepartment={getAllDepartment}
-                            // getAllRoles={getAllRoles}
                             handleCloseBtn={handleCloseBtn}
                           />
                         </DialogContent>
@@ -410,7 +429,7 @@ export function Categories({
                               borderRadius: '4px',
                             }}
                           >
-                            5<p>(4)</p>
+                            {subRuleList}
                           </div>
                           <div className="border-2 flex ml-3 w-12 h-7 flex justify-center">
                             5<p>(4)</p>
@@ -561,9 +580,7 @@ export function Categories({
                               >
                                 Manager
                               </Link>
-                              {/* <Typography color="textPrimary">
-                            Sub Clause
-                          </Typography> */}
+                             
                             </Breadcrumbs>
                           </div>
                           <hr />
@@ -619,7 +636,7 @@ export function Categories({
                 </Accordion>
               </div>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
     </div>
@@ -641,8 +658,8 @@ export function mapDispatchToProps(dispatch) {
     getAllDepartmentInCategory: () => dispatch(getAllDepartmentInCategory()),
     addCategoryRule: (obj) => dispatch(addCategoryRule(obj)),
     addCategorySubRule: (obj) => dispatch(addCategorySubRule(obj)),
-    setSearchData:(obj)=> dispatch(setSearchData(obj)),
-    ClearSortnSearch:(obj)=> dispatch(ClearSortnSearch(obj))
+    setSearchData: (obj) => dispatch(setSearchData(obj)),
+    ClearSortnSearch: (obj) => dispatch(ClearSortnSearch(obj))
   };
 }
 
