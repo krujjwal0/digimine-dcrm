@@ -10,7 +10,11 @@ import {
   SET_SEARCH_DATA,
   CLEAR_SORT_SEARCH,
   GET_SUB_RULE_DETAIL,
-  SET_SUB_RULE_DETAIL
+  SET_SUB_RULE_DETAIL,
+  SET_DIALOG_ERR_MSG,
+  CLOSE_ADD_SUBRULE_DIALOG,
+  OPEN_ADD_SUBRULE_DIALOG,
+  SET_DATA_IN_SUBRULE_DIALOG
 } from './constants';
 
 export function getCategoryList() {
@@ -100,4 +104,30 @@ export function SetSubRuleDetail(data) {
     type: SET_SUB_RULE_DETAIL,
     payload: data,
   };
+}
+
+export function setDialogMsg(data) {
+  return {
+    type: SET_DIALOG_ERR_MSG,
+    payload: data,
+  };
+}
+export function openSubRuleDialog(data) {
+  return {
+      type: OPEN_ADD_SUBRULE_DIALOG,
+      payload: data
+  }
+}
+
+export function closeSubRuleDialog() {
+  return {
+      type: CLOSE_ADD_SUBRULE_DIALOG
+  }
+}
+
+export function setDataInSubRuleDialog(obj){
+  return{
+    type: SET_DATA_IN_SUBRULE_DIALOG,
+    payload:obj
+  }
 }

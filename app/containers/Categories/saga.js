@@ -176,7 +176,7 @@ function* editCategorySubRuleSaga() {
 
 
 function* getSubRuleDetailSaga(action) {
-  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/suRules/get/${action.payload.ruleId}/${action.payload.subruleId}`;
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/subRules/get/${action.payload.ruleId}/${action.payload.subruleId}`;
   const awtToken = localStorage.getItem('awtToken');
   console.log('data in saga get :', requestURL);
   let result;
