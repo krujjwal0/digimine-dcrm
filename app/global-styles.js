@@ -36,6 +36,14 @@ const GlobalStyle = createGlobalStyle`
     background-color: #F3F3F9;
     
   }
+  .maindash2{
+    display:flex;
+  
+    margin-left:250px;
+    border-radius: 70px 0px 0px 0px;
+    background-color: #ffff;
+    
+  }
   .myprofile{
     display:flex;
       margin-left:250px;
@@ -52,8 +60,8 @@ const GlobalStyle = createGlobalStyle`
   }
   .content {
     display:flex;
-   
-    height: calc(100vh - 80px);
+    min-height: calc(100vh - 80px);;
+    height: 100%;
     margin-left:250px;
     border-radius: 70px 0px 0px 0px;
     background-color: #ffff;
