@@ -8,7 +8,9 @@ import {
   GET_ALL_DEPARTMENTS_CATEGORY,
   SET_ALL_DEPARTMENTS_CATEGORY,
   SET_SEARCH_DATA,
-  CLEAR_SORT_SEARCH
+  CLEAR_SORT_SEARCH,
+  GET_SUB_RULE_DETAIL,
+  SET_SUB_RULE_DETAIL
 } from './constants';
 
 export function getCategoryList() {
@@ -82,6 +84,20 @@ export function setSearchData(data) {
 export function ClearSortnSearch(data) {
   return {
     type: CLEAR_SORT_SEARCH,
+    payload: data,
+  };
+}
+
+export function getSubRuleDetail(data) {
+  return {
+    type: GET_SUB_RULE_DETAIL,
+    payload: data,
+  };
+}
+
+export function SetSubRuleDetail(data) {
+  return {
+    type: SET_SUB_RULE_DETAIL,
     payload: data,
   };
 }

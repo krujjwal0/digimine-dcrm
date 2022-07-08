@@ -12,18 +12,20 @@ import {
   ADD_CATEGORY_SUB_RULE,
   EDIT_CATEGORY_SUB_RULE,
   GET_ALL_DEPARTMENTS_CATEGORY,
+  GET_SUB_RULE_DETAIL
 } from './constants';
 
 import {
   setCategoryList,
   setAllDepartmentInCategory,
   getCategoryList,
+  SetSubRuleDetail
 } from './actions';
 
 import { silentRenewalAction } from '../LoginPage/actions';
 
 function* getCategorySaga() {
-  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/rule/list`;
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/ruleAndSubRule/list`;
   const awtToken = localStorage.getItem('awtToken');
   console.log('data in saga get :', requestURL);
   let result;
@@ -37,7 +39,7 @@ function* getCategorySaga() {
       },
     });
     console.log('success in categorylist saga', result);
-    yield put(setCategoryList(result.data.rules));
+    yield put(setCategoryList(result.data));
   } catch (err) {
     console.log('Error in getUsersList saga', result, err, err.response.status);
     if (err.response.status == 401) {
@@ -123,7 +125,7 @@ function* editCategoryRuleSaga() {
 }
 
 function* addCategorySubRuleSaga(action) {
-  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/`;
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/subRule/saveOrUpdate`;
   const awtToken = localStorage.getItem('awtToken');
   console.log('data in saga get :', requestURL, action.payload);
   let result;
@@ -171,6 +173,32 @@ function* editCategorySubRuleSaga() {
     } else console.log(err);
   }
 }
+
+
+function* getSubRuleDetailSaga(action) {
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/suRules/get/${action.payload.ruleId}/${action.payload.subruleId}`;
+  const awtToken = localStorage.getItem('awtToken');
+  console.log('data in saga get :', requestURL);
+  let result;
+  try {
+    result = yield call(request, requestURL, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${awtToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log('success in saga', result);
+    yield put(SetSubRuleDetail(result));
+  } catch (err) {
+    if (err.response.status == 401) {
+      yield put(silentRenewalAction());
+    } else if (result) {
+      console.log(result.status.message);
+    } else console.log(err);
+  }
+}
+
 /**
  * Root saga manages watcher lifecycle
  */
@@ -184,4 +212,5 @@ export default function* CategoryDataSaga() {
   );
   yield takeLatest(ADD_CATEGORY_SUB_RULE, addCategorySubRuleSaga);
   yield takeLatest(EDIT_CATEGORY_SUB_RULE, editCategorySubRuleSaga);
+  yield takeLatest(GET_SUB_RULE_DETAIL, getSubRuleDetailSaga);
 }
