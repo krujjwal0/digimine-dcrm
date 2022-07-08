@@ -54,7 +54,7 @@ export function Categories({
   };
 
   return (
-    <div className="myprofile">
+    <div className="content">
       <div className='w-full'>
       <div className="ml-8 pt-1 ">
         <div className="mt-5 ml-10 text-xl text-[#151F63]">
