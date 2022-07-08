@@ -17,6 +17,8 @@ import saga from './saga';
 import Resend from './images/resendImage.svg';
 import LoginImage from './images/logo.svg';
 import { setNavBar } from '../App/actions';
+import './style.css';
+
 
 const key = 'loginReducer';
 
@@ -110,6 +112,7 @@ export function ChooseLocation(props) {
                     </p>
                   </Button>
                 </div>
+                
               </div>
             </div>
           </div>

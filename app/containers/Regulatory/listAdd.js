@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 200,
+    width: 500,
   },
 }));
 
@@ -207,35 +207,13 @@ export function ListAdd({
                 </select>
               </div>
 
-              <div className=" mt-8 font-sans font-semibold w-full flex flex justify-start">
+              <div className=" mt-8 font-sans font-semibold ">
 
                 <div className='flex flex-col'>
                   <  label className='font-sans ml-9' style={{fontSize: '13px', fontWeight: '700'}}>Select Your Date</label>
                
-                <div className="w-1/2 ml-9 mt-6 border-2 rounded-full h-10 w-52">
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <KeyboardDatePicker
-                      disableToolbar
-                      // variant="outlined"
-                      format="MM/dd/yyyy"
-                     
-                      margin="normal"
-                      id="date-picker-inline"
-                      value={selectedDate}
-                      onChange={handleDateChange}
-                      KeyboardButtonProps={{
-                        'aria-label': 'change date',
-                      }}
-                       className="w-40 "
-                      style={{ marginTop: '5px', marginLeft: '11px'}}
-                    />
-                  </MuiPickersUtilsProvider>
-                </div>
-                </div>
-                <div className='flex flex-col ml-6'>
-              <label className='font-sans text-sm ml-7' style={{fontSize: '13px', fontWeight: '700'}}>Pick Date</label>
-                <div className="w-1/2 ml-5 mt-5 border-2 rounded-full h-10 w-52">
-                  <form className={classes.container} noValidate>
+                <div className=" ml-9 mt-6 border-2 rounded-full h-10 ">
+                <form className={classes.container} noValidate>
                     <TextField
                     //  variant="outlined"
                       id="date"
@@ -252,6 +230,26 @@ export function ListAdd({
                   </form>
                 </div>
                 </div>
+                {/* <div className='flex flex-col ml-6'>
+              <label className='font-sans text-sm ml-7' style={{fontSize: '13px', fontWeight: '700'}}>Pick Date</label>
+                <div className="w-1/2 ml-5 mt-5 ">
+                <select
+                className='border-2 rounded-full h-10 w-52 font-sans'
+                    style={{
+                    color: '#66737E',
+                    fontSize: '13px',
+                    fontWeight: '400',
+                  }}
+                >
+                  <option
+                    className="ml-2 font-sans px-3"
+                    style={{ color: '#66737E' }}
+                  >
+                    Weekely
+                  </option>
+                </select>
+                </div>
+                </div> */}
               </div>
             </form>
           </div>
