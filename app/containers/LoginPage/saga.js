@@ -291,13 +291,13 @@ function* downloadProfileImageSaga(action) {
       headers: {
         Authorization: `Bearer ${awtToken}`,
         'Content-Type': 'application/json',
-        responseType: 'blob'
-      }
+      },
+      responseType: 'blob'
     });
-    console.log('downloadProfileImageSaga success in saga', result.blob());
+    console.log('downloadProfileImageSaga success in saga', result);
   } catch (err) {
-    if (err.response.status == 401) {
-      console.log(" Unauthorised access");
+    if (err) {
+      console.log(" Unauthorised access",err);
 
       //call silentRenewal with refresh token
       yield put(silentRenewalAction());

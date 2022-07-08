@@ -15,39 +15,26 @@ import { HOST, BASE_PATH, SCHEMES, URL } from '../config.json';
 
 export default function AddSubCategories(props) {
 
-  const hiddenFileInput = React.useRef(null);
+  const [filename, setfilename] = useState('')
+  const inputRef = React.useRef(null);
 
   const handleClick = event => {
-    hiddenFileInput.current.click();
+    inputRef.current.click();
   };
-  const handleChangeFile = event => {
-    const fileUploaded = event.target.files[0];
+  const handleFileChange = event => {
+    let tempArray = [];
+    const fileObj = event.target.files;
+    if (!fileObj) {
+      return;
+    }
+    console.log('fileObj is', fileObj);
+    for (let i = 0; i < fileObj.length; i++) {
+      console.log('fileObj name is', fileObj[i].name, fileObj[i]);
+      props.setFileInDialog(fileObj[i])
+      tempArray.push(fileObj[i].name)
+    }
+    setfilename(tempArray.join())
   };
-  // const uploadAction = (e) => {
-  //   var data = new FormData();
-  //   var imagedata = document.querySelector('input[type="file"]').files[0];
-  //   data.append("data", imagedata);
-  //   console.log("image part===", data);
-  //   console.log(data.get('inputname'))
-
-  //   fetch(`${SCHEMES}://${BASE_PATH}${HOST}/admin/subRule/v1/saveOrUpdate`, {
-  //     method: "PUT",
-  //     headers: {
-  //       "Content-Type": "multipart/form-data",
-  //       "Accept": "application/json",
-  //       "type": "formData"
-  //     },
-  //     body: data
-  //   }).then(function (res) {
-  //     if (res.ok) {
-  //       alert("Perfect! ");
-  //     } else if (res.status == 401) {
-  //       alert("Oops! ");
-  //     }
-  //   }, function (e) {
-  //     alert("Error submitting form!");
-  //   });
-  // }
 
 
   return (
@@ -147,19 +134,33 @@ export default function AddSubCategories(props) {
 
               <div className="flex flex-col mt-7 font-sans">
                 <label className="font-sans font-semibold" style={{ color: '#66737E', fontSize: '12px', textTransform: "uppercase" }}>Relevant Circulars</label>
-                <TextField fullWidth
+                {/* <TextField fullWidth
                   id="standard-basic"
                   // label="Standard"
                   variant="standard"
-                  name="circular"
-                  onChange={(e) => props.setDataInSubRule(e)}
-                  value={props.subRuleDialog.data.circular}
+                  name="filename"
+                  //onChange={(e) => props.setDataInSubRule(e)}
+                  value={filename}
                   className="font-sans"
                   style={{ marginTop: '3px', placeholder: '#66737E' }}
-                />
-                {/* <form encType="multipart/form-data" action="">
-                  <input type="file" name="fileName"></input>
-                </form> */}
+                /> */}
+                {props.subRuleDialog.data.file.length > 0 ?
+                  props.subRuleDialog.data.fil.map((file, f) => {
+                    return (
+                      <div class="flex"> 
+                      <span style={{padding:'1rem'}}>{file.name}</span></div>
+                    )
+                  }) : null}
+
+                <input
+                  type="file"
+                  name="file"
+                  multiple
+                  style={{ display: 'none' }}
+                  ref={inputRef}
+                  onChange={handleFileChange}
+                ></input>
+
               </div>
 
 
@@ -169,7 +170,7 @@ export default function AddSubCategories(props) {
                   <button
                     className="font-sans mt-5 flex w-36 h-9 text-white rounded-full flex justify-center"
                     style={{ background: '#132B6B' }}
-                    // onClick={(e) => uploadAction(e)}
+                    onClick={(e) => handleClick(e)}
                   >
                     <p className="mt-2 font-sans">Browse</p>
                   </button>

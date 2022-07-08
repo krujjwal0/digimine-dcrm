@@ -6,7 +6,8 @@ import {
   SET_DIALOG_ERR_MSG,
   CLOSE_ADD_SUBRULE_DIALOG,
   OPEN_ADD_SUBRULE_DIALOG,
-  SET_DATA_IN_SUBRULE_DIALOG
+  SET_DATA_IN_SUBRULE_DIALOG,
+  SET_FILE_IN_DIALOG
 } from './constants';
 
 export const initialState = {
@@ -17,14 +18,15 @@ export const initialState = {
   subRuleDetail: [],
   subRuleDialog: {
     props: {
-        open: false
+      open: false
     },
     data: {
       name: "",
       deleted: "",
       title: "",
       responsibility: "",
-      description: ""
+      description: "",
+      file: []
     }
   }
 
@@ -82,7 +84,7 @@ const CategoryReducer = (state = initialState, action) =>
               props: {
                 open: true
               },
-              data: { ...initialState.subRuleDialog.data, ruleId: action.payload.ruleId},
+              data: { ...initialState.subRuleDialog.data, ruleId: action.payload.ruleId },
             }
           };
         }
@@ -100,27 +102,42 @@ const CategoryReducer = (state = initialState, action) =>
                 ruleId: "",
                 title: "",
                 responsibility: "",
-                description: ""
+                description: "",
+                  file: []
+                  
+                
               }
             }
           };
         }
 
-         case SET_DATA_IN_SUBRULE_DIALOG :
-          {
-            const changedElementData = {
-                ...state.subRuleDialog,
-                    data: {
-                      ...state.subRuleDialog.data,
-                        ...action.payload
-                    }
+      case SET_DATA_IN_SUBRULE_DIALOG:
+        {
+          const changedElementData = {
+            ...state.subRuleDialog,
+            data: {
+              ...state.subRuleDialog.data,
+              ...action.payload
             }
-
-            return {
-                ...state,
-                subRuleDialog: changedElementData
-            };
           }
+
+          return {
+            ...state,
+            subRuleDialog: changedElementData
+          };
+        }
+      case SET_FILE_IN_DIALOG:
+        {
+          state.subRuleDialog.data.file = [
+            ...state.subRuleDialog.data.file,
+           action.payload
+          ]
+
+          return {
+            ...state,
+          };
+        }
+
       default:
         return state;
     }

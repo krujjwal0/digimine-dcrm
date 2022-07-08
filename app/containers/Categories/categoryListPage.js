@@ -308,6 +308,7 @@ export default function CategoryListPage(props) {
       subRuleDialog={props.subRuleDialog}
       setDataInSubRule={props.setDataInSubRule}
       addSubRuleMsgErr={props.addSubRuleMsgErr}
+      setFileInDialog={props.setFileInDialog}
       />
     </div>
   );

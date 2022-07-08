@@ -57,7 +57,8 @@ import {
   getSubRuleDetail,
   openSubRuleDialog,
   closeSubRuleDialog,
-  setDataInSubRuleDialog
+  setDataInSubRuleDialog,
+  setFileInDialog
 } from './actions';
 import AddSubCategories from './subCategories';
 
@@ -107,7 +108,8 @@ export function Categories({
   openSubRuleDialog,
   closeSubRuleDialog,
   subRuleDialog,
-  setDataInSubRuleDialog
+  setDataInSubRuleDialog,
+  setFileInDialog
 
 }) {
   useInjectReducer({ key, reducer });
@@ -236,6 +238,17 @@ export function Categories({
       [event.target.name] : event.target.value
     }
     setDataInSubRuleDialog(obj)
+  }
+
+  const setFileInSubrule = (data) => {
+    console.log("here the file gooooo===", data)
+    let obj = {
+        name: data.name,
+        size: data.size,
+        type: data.type
+      
+    }
+    setFileInDialog(obj)
   }
 
   return (
@@ -398,6 +411,7 @@ export function Categories({
                 subRuleDialog={subRuleDialog}
                 setDataInSubRule={setDataInSubRule}
                 addSubRuleMsgErr={addSubRuleMsgErr}
+                setFileInDialog={setFileInSubrule}
                 
 
 
@@ -434,7 +448,8 @@ export function mapDispatchToProps(dispatch) {
     getSubRuleDetail:(data)=>dispatch(getSubRuleDetail(data)),
     openSubRuleDialog:(data) => dispatch(openSubRuleDialog(data)),
     closeSubRuleDialog:(data) => dispatch(closeSubRuleDialog(data)),
-    setDataInSubRuleDialog:(data) => dispatch(setDataInSubRuleDialog(data))
+    setDataInSubRuleDialog:(data) => dispatch(setDataInSubRuleDialog(data)),
+    setFileInDialog:(data) => dispatch(setFileInDialog(data))
 
   };
 }

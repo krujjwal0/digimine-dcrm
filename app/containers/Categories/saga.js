@@ -125,7 +125,8 @@ function* editCategoryRuleSaga() {
 }
 
 function* addCategorySubRuleSaga(action) {
-  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/subRule/saveOrUpdate`;
+  // const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/subRule/saveOrUpdate`;
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/subRule/v1/saveOrUpdate`;
   const awtToken = localStorage.getItem('awtToken');
   console.log('data in saga get :', requestURL, action.payload);
   let result;
@@ -134,7 +135,8 @@ function* addCategorySubRuleSaga(action) {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${awtToken}`,
-        'Content-Type': 'application/json',
+        "Content-Type": "multipart/form-data",
+          "Accept": "application/json",
       },
       body: JSON.stringify(action.payload),
     });

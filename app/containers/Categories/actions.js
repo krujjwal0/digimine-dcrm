@@ -14,7 +14,8 @@ import {
   SET_DIALOG_ERR_MSG,
   CLOSE_ADD_SUBRULE_DIALOG,
   OPEN_ADD_SUBRULE_DIALOG,
-  SET_DATA_IN_SUBRULE_DIALOG
+  SET_DATA_IN_SUBRULE_DIALOG,
+  SET_FILE_IN_DIALOG
 } from './constants';
 
 export function getCategoryList() {
@@ -128,6 +129,13 @@ export function closeSubRuleDialog() {
 export function setDataInSubRuleDialog(obj){
   return{
     type: SET_DATA_IN_SUBRULE_DIALOG,
+    payload:obj
+  }
+}
+
+export function setFileInDialog(obj){
+  return{
+    type: SET_FILE_IN_DIALOG,
     payload:obj
   }
 }
