@@ -51,13 +51,13 @@ export default function CategoryListPage(props) {
                 style={{ background: '#132B6B' }}
               >
                 <AddIcon className="mt-1 "
-                 onClick={() => props.handleOpenSubRuleDialog({ruleId: props.list.id, index: props.index})}
-                  />
+                  onClick={() => props.handleOpenSubRuleDialog({ ruleId: props.list.id, index: props.index })}
+                />
                 <p className="mt-1 font-sans">Add Sub Rule</p>
               </button>
-              
 
-              
+
+
 
               <div className="flex ml-6 mt-1 font-sans">
                 <div className="flex">
@@ -84,32 +84,38 @@ export default function CategoryListPage(props) {
                   </p>
                 </div>
                 <div className="ml-6 flex w-full ">
-                  <ChevronLeftIcon style={{ color: '#36454F' }} />
+                  {props.list.subRuleResponses.length > 0 ? <ChevronLeftIcon style={{ color: '#36454F' }} /> : null}
                   {props.list.subRuleResponses.map((subrule, i) => {
                     return (
-                      <div
-                        className="border-2 flex w-12 h-7 flex justify-center font-sans "
-                        style={{
-                          color: '#36454F',
+                      <div>
 
-                          borderRadius: '4px',
-                        }}
-                        onClick={() => props.getDetailOfSubRule(props.list.id, subrule.id)}
-                      >
-                        {subrule.name}
+                        <div
+                          className="border-2 flex w-12 h-7 flex justify-center font-sans "
+                          style={{
+                            color: '#36454F',
+
+                            borderRadius: '4px',
+                          }}
+                          onClick={() => props.getDetailOfSubRule(props.list.id, subrule.id,props.index)}
+                        >
+                          {subrule.name}
+                        </div>
+
+
                       </div>
                     )
                   })
                   }
+                  {props.list.subRuleResponses.length > 0 ? <ChevronRightIcon /> : null}
 
-                  <ChevronRightIcon />
                 </div>
               </div>
             </Typography>
-            
+
           </AccordionSummary>
 
-          {props.subRuleDetail ? props.subRuleDetail.length > 0 ? props.subRuleDetail[0].ruleId === props.list.id ?
+          {props.subRuleDetail ? props.subRuleDetail.length > 0 ?
+            // props.subRuleDetail[0].ruleId === props.list.id ?
 
             <AccordionDetails>
               <Typography>
@@ -274,9 +280,9 @@ export default function CategoryListPage(props) {
                 </div>
               </Typography>
             </AccordionDetails>
-            : null : null : null  }
+            : null : null}
         </Accordion>
-        <span style={{color:'red',fontSize:'1rem'}}>{props.list.errMsg ? props.list.errMsg : null}</span>
+        <span style={{ color: 'red', fontSize: '1rem' }}>{props.list.errMsg ? props.list.errMsg : null}</span>
       </div>
       {/* <Dialog
                 fullWidth={props.fullWidth}
@@ -301,14 +307,14 @@ export default function CategoryListPage(props) {
                   />
                 </DialogContent>
               </Dialog> */}
-              <AddSubCategory closeSubRuleDialog={props.closeSubRuleDialog} 
-      createSubRuleInCategory={props.createSubRuleInCategory}
-      fullWidth={props.fullWidth}
-      maxWidth={props.maxWidth}
-      subRuleDialog={props.subRuleDialog}
-      setDataInSubRule={props.setDataInSubRule}
-      addSubRuleMsgErr={props.addSubRuleMsgErr}
-      setFileInDialog={props.setFileInDialog}
+      <AddSubCategory closeSubRuleDialog={props.closeSubRuleDialog}
+        createSubRuleInCategory={props.createSubRuleInCategory}
+        fullWidth={props.fullWidth}
+        maxWidth={props.maxWidth}
+        subRuleDialog={props.subRuleDialog}
+        setDataInSubRule={props.setDataInSubRule}
+        addSubRuleMsgErr={props.addSubRuleMsgErr}
+        setFileInDialog={props.setFileInDialog}
       />
     </div>
   );

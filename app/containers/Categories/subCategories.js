@@ -145,12 +145,23 @@ export default function AddSubCategories(props) {
                   style={{ marginTop: '3px', placeholder: '#66737E' }}
                 /> */}
                 {props.subRuleDialog.data.file.length > 0 ?
-                  props.subRuleDialog.data.fil.map((file, f) => {
+                  props.subRuleDialog.data.file.map((file, f) => {
                     return (
                       <div class="flex"> 
-                      <span style={{padding:'1rem'}}>{file.name}</span></div>
+                      <span style={{fontSize:'1rem'}} className="flex">{file.name}, </span>
+                      </div>
                     )
-                  }) : null}
+                  }) : 
+                  <TextField fullWidth
+                  id="standard-basic"
+                  // label="Standard"
+                  variant="standard"
+                  name="filename"
+                  //onChange={(e) => props.setDataInSubRule(e)}
+                  //value={filename}
+                  className="font-sans"
+                  style={{ marginTop: '3px', placeholder: '#66737E' }}
+                /> }
 
                 <input
                   type="file"

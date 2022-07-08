@@ -164,6 +164,9 @@ export function Categories({
     setExpanded(isExpanded ? panel : false);
   };
 
+  const handleSubCategoryOpen = panel => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : panel);
+  }
   
   const handleOpenSubRuleDialog = (data) => {
     openSubRuleDialog(data);
@@ -224,12 +227,13 @@ export function Categories({
     ClearSortnSearch(categoryListReplica)
   }
 
-  const getDetailOfSubRule = (ruleId,subruleId) => {
+  const getDetailOfSubRule = (ruleId,subruleId,panel) => {
     let data = {
       ruleId:ruleId,
       subruleId:subruleId
     }
     getSubRuleDetail(data)
+    handleSubCategoryOpen(panel)
 
   }
 
