@@ -14,44 +14,21 @@ import {
   FormGroup,
   Typography,
   Divider,
-  Button,
 } from '@material-ui/core';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import CardActions from '@material-ui/core/CardActions';
 import Popover from '@material-ui/core/Popover';
 import Switch from '@material-ui/core/Switch';
 import MoreVert from '@material-ui/icons/MoreVert';
-import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import { alpha, styled, withStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import {
-  makeSelectRepos,
-  makeSelectLoading,
-  makeSelectError,
-} from 'containers/App/selectors';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import ClearAllIcon from '@material-ui/icons/ClearAll';
-
-import {
-  deleteUser,
-  editUser,
-  showEmployee,
-  changeUsername,
-  getAllDepartment,
-  getAllRoles,
-  setEmployee,
-  addUser,
-  setEditUserData,
-} from './actions';
-import { loadRepos } from '../App/actions';
-import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import Users from './Users';
 
 //import UsersUtility from './UsersUtility';
 import emp_image from '../../images/emp_image.png';
@@ -62,8 +39,9 @@ import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import Link from '@material-ui/core/Link';
 import { useHistory } from 'react-router-dom';
+import { getAssignedWorks } from './actions';
 
-const key = 'users';
+const key = 'regulatory';
 
 const GreenSwitch = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-switchBase.Mui-checked': {
@@ -78,29 +56,10 @@ const GreenSwitch = styled(Switch)(({ theme }) => ({
 }));
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
-export function Employee({
-  username,
-  usersList,
-  usersListreplica,
-  deleteUser,
-  loading,
-  error,
-  repos,
-  onSubmitForm,
-  onChangeUsername,
-  showEmployee,
-  editUser,
-  rolesList,
-  departmentList,
-  getAllDepartment,
-  getAllRoles,
-  setEmployee,
-  addUser,
-  setEditUserData,
-  editUserData,
-  choosedLocationId,
+export function Regulatory({
+  getAssignedWorks,
+  assignedWorkList
 }) {
-  useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
   const [state, setState] = React.useState({
@@ -110,29 +69,16 @@ export function Employee({
   });
 
   useEffect(() => {
-    // When initial state username is not null, submit the form to load repos
-    if (username && username.trim().length > 0) onSubmitForm();
+    getAssignedWorks();
+    console.log("assignedWorkList ===",assignedWorkList)
   }, []);
 
-  // useEffect(() => {
-  //   showEmployee();
-  //   getAllDepartment();
-  //   console.log('USers List index ===== choosedLocationId', usersList, choosedLocationId);
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log("editUserData =====", editUserData)
-  // }, [editUserData]);
 
   // useEffect(() => {
   //   console.log('department list', departmentList);
-  // }, [departmentList]);
+  // }, []);
 
-  const reposListProps = {
-    loading,
-    error,
-    repos,
-  };
+ 
 
   const handleChange = event => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -434,19 +380,19 @@ export function Employee({
         <div className="mt-3 mb-6 w-full">
           <Divider style={{ color: '#36454F' }} />
         </div>
-        <div className="flex font-sans flex justify-between">
-          <div className="flex  flex justify-start ml-2">
+        <div className="flex font-sans justify-between">
+          <div className="flex  justify-start ml-2">
             <form>
               <select
                 className="w-24 font-sans px-2 border-2 rounded-[20px] h-9"
                 style={{ boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)' }}
               >
-                <option className="font-sans text-black" style={{fontSize: '12px'}}>Sort by</option>
+                <option className="font-sans text-black" style={{ fontSize: '12px' }}>Sort by</option>
               </select>
             </form>
 
             <div>
-              <p className="font-sans w-24 px-4 mt-3 ml-2" style={{fontSize: '13px'}}> Search By</p>
+              <p className="font-sans w-24 px-4 mt-3 ml-2" style={{ fontSize: '13px' }}> Search By</p>
             </div>
             <div>
               <form>
@@ -454,13 +400,13 @@ export function Employee({
                   className="w-28 font-sans px-2 border-2 rounded-[20px] h-9"
                   style={{ boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)', color: '#AAAAAA', fontSize: '10px' }}
                 >
-                  <option className="font-sans " style={{color: '#AAAAAA'}}>PC</option>
+                  <option className="font-sans " style={{ color: '#AAAAAA' }}>PC</option>
                 </select>
               </form>
             </div>
 
             <div
-              className="font-sans flex justify-between ml-7 w-96 h-9 flex item-strech border-2 px-6 rounded-[20px]"
+              className="font-sans flex justify-between ml-7 w-96 h-9  item-strech border-2 px-6 rounded-[20px]"
               style={{ boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)' }}
             >
               <InputBase
@@ -504,7 +450,7 @@ export function Employee({
             <div
               className="block text-gray lg:ml-1 md:ml-7 sm:ml-9  "
 
-              // style={{border:'2px solid red', marginLeft:'6px',marginRight:'6px'}}
+            // style={{border:'2px solid red', marginLeft:'6px',marginRight:'6px'}}
             >
               <div className="my-7 w-full justify-center " />
               <div>
@@ -612,8 +558,8 @@ control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="check
                           <div>
                             <button
                               className="my-1 mx-4 font-sans"
-                              // value={list.id}
-                              // onClick={() => openEdit()}
+                            // value={list.id}
+                            // onClick={() => openEdit()}
                             >
                               Edit
                             </button>
@@ -621,8 +567,8 @@ control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="check
                           <div>
                             <button
                               className="my-1 mx-4 font-sans"
-                              // value={list.id}
-                              // onClick={() => onDeleteUser()}
+                            // value={list.id}
+                            // onClick={() => onDeleteUser()}
                             >
                               Delete
                             </button>
@@ -669,56 +615,26 @@ control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="check
   );
 }
 
-Employee.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  repos: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
-  onSubmitForm: PropTypes.func,
-  username: PropTypes.string,
-  onChangeUsername: PropTypes.func,
-};
 
-// const mapStateToProps = state => ({
-//   usersList: state.users.usersList.length > 0 ? state.users.usersList : [],
-//   usersListreplica: state.users.usersListreplica.length > 0 ? state.users.usersListreplica : [],
-//   rolesList: state.users.rolesList.length > 0 ? state.users.rolesList : [],
-//   departmentList: state.users.departmentList.length > 0 ? state.users.departmentList : [],
-//   editUserData: state.users.editUserData,
-//   choosedLocationId: state.loginReducer.choosedLocationId,
-// });
 
-// export function mapDispatchToProps(dispatch) {
-//   return {
-//     showEmployee: data => dispatch(showEmployee(data)),
-//     setEmployee: data => dispatch(setEmployee(data)),
-//     editUser: data => dispatch(editUser(data)),
-//     deleteUser: data => dispatch(deleteUser(data)),
-//     onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),
-//     getAllDepartment: () => dispatch(getAllDepartment()),
-//     getAllRoles: () => dispatch(getAllRoles()),
-//     addUser: data => dispatch(addUser(data)),
-//     setEditUserData: data => dispatch(setEditUserData(data)),
-//     onSubmitForm: evt => {
-//       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-//       dispatch(loadRepos());
-//     },
-//   };
+const mapStateToProps = state => ({
+  assignedWorkList: state.regulatoryReducer.assignedWorkList.length > 0 ? state.regulatoryReducer.assignedWorkList : [],
 
-//   // const mapStateToProps = createStructuredSelector({
-//   //   repos: makeSelectRepos(),
-//   //   username: makeSelectUsername(),
-//   //   loading: makeSelectLoading(),
-//   //   error: makeSelectError(),
-//   // });
-// }
+});
 
-// const withConnect = connect(
-//   mapStateToProps,
-//   mapDispatchToProps,
-// );
+export function mapDispatchToProps(dispatch) {
+  return {
+    getAssignedWorks: data => dispatch(getAssignedWorks(data)),
 
-export default // compose(
-//   withConnect,
-//   memo,
-// )
-Employee;
+  };
+}
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(
+  withConnect,
+  memo,
+)(Regulatory);

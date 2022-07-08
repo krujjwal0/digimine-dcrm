@@ -9,4 +9,5 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const CHANGE_USERNAME = 'boilerplate/Home/CHANGE_USERNAME';
+export const GET_ASSIGNED_WORKS = 'boilerplate/Regulatory/GET_ASSIGNED_WORKS';
+export const SET_ASSIGNED_WORKS = 'boilerplate/Regulatory/SET_ASSIGNED_WORKS';

@@ -21,11 +21,7 @@ import {
   makeSelectLoading,
   makeSelectError,
 } from 'containers/App/selectors';
-import { Card } from '@material-ui/core';
-import { loadRepos } from '../App/actions';
-import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
-import reducer from './reducer';
 import saga from './saga';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -33,9 +29,10 @@ import TextField from '@material-ui/core/TextField';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import './style.css'
+import './style.css';
+import { getAllDepartment } from '../Employee/actions';
 
-const key = 'listadd';
+const key = 'regulatory';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -49,26 +46,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export function ListAdd({
-  username,
-  loading,
-  error,
-  repos,
-  onSubmitForm,
-  onChangeUsername,
+export function ListAdd({ 
+  getAllDepartment,
+  departmentList
 }) {
-  useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
   useEffect(() => {
-    // When initial state username is not null, submit the form to load repos
-    if (username && username.trim().length > 0) onSubmitForm();
+    getAllDepartment();
+    console.log("departmentList in regulatory ===",departmentList);
   }, []);
 
   const reposListProps = {
-    loading,
-    error,
-    repos,
   };
   const history = useHistory();
   const listAddSubRule = () => {
@@ -207,7 +196,7 @@ export function ListAdd({
                 </select>
               </div>
 
-              <div className=" mt-8 font-sans font-semibold w-full flex flex justify-start">
+              <div className=" mt-8 font-sans font-semibold w-full flex  justify-start">
 
                 <div className='flex flex-col'>
                   <  label className='font-sans ml-9' style={{fontSize: '13px', fontWeight: '700'}}>Select Your Date</label>
@@ -306,28 +295,22 @@ export function ListAdd({
 }
 
 ListAdd.propTypes = {
-  loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   repos: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
-  onSubmitForm: PropTypes.func,
-  username: PropTypes.string,
-  onChangeUsername: PropTypes.func,
+  
+  getAllDepartment: PropTypes.func,
 };
 
-const mapStateToProps = createStructuredSelector({
-  repos: makeSelectRepos(),
-  username: makeSelectUsername(),
-  loading: makeSelectLoading(),
-  error: makeSelectError(),
+
+const mapStateToProps = state => ( {
+  // rolesList: state.users.rolesList.length > 0 ? state.users.rolesList : [],
+  departmentList: state.users.departmentList.length > 0 ? state.users.departmentList : [],
+
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),
-    onSubmitForm: evt => {
-      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-      dispatch(loadRepos());
-    },
+    getAllDepartment: () => dispatch(getAllDepartment()),
   };
 }
 

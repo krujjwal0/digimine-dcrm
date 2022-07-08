@@ -15,7 +15,7 @@
  *    }
  */
 
-import { CHANGE_USERNAME } from './constants';
+import { GET_ASSIGNED_WORKS, SET_ASSIGNED_WORKS } from './constants';
 
 /**
  * Changes the input field of the form
@@ -24,9 +24,15 @@ import { CHANGE_USERNAME } from './constants';
  *
  * @return {object} An action object with a type of CHANGE_USERNAME
  */
-export function changeUsername(username) {
+export function getAssignedWorks() {
+  console.log(" getAssignedWorks Action")
   return {
-    type: CHANGE_USERNAME,
-    username,
+    type: GET_ASSIGNED_WORKS
+  };
+}
+export function setAssignedWorks(data) {
+  return {
+    type: SET_ASSIGNED_WORKS,
+    payload: data
   };
 }

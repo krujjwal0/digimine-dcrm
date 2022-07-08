@@ -3,36 +3,41 @@
  */
 
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { LOAD_REPOS } from 'containers/App/constants';
-import { reposLoaded, repoLoadingError } from 'containers/App/actions';
 
 import request from 'utils/request';
-import { makeSelectUsername } from 'containers/HomePage/selectors';
+import { GET_ASSIGNED_WORKS } from './constants';
+import { HOST, BASE_PATH, SCHEMES, URL } from '../config.json';
+import { setAssignedWorks } from './actions';
 
-/**
- * Github repos request/response handler
- */
-export function* getRepos() {
-  // Select username from store
-  const username = yield select(makeSelectUsername());
-  const requestURL = `https://api.github.com/users/${username}/repos?type=all&sort=updated`;
-
+export function* getAssignedWorkSaga() {
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/getAssignedWorks`;
+  console.log(' getAssignedWorkSaga URL:', requestURL);
+  const awtToken = localStorage.getItem('awtToken');
+  let result;
   try {
-    // Call our request helper (see 'utils/request')
-    const repos = yield call(request, requestURL);
-    yield put(reposLoaded(repos, username));
+    console.log('generatorFunction getAssignedWorkSaga ');
+    result = yield call(request, requestURL, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${awtToken}`,
+        'Content-Type': 'application/json',
+      }
+    });
+    yield put(setAssignedWorks(result.data.assignedWork));
+    console.log('getAssignedWorkSaga success in saga', result, result.data,result.data.assignedWork);
   } catch (err) {
-    yield put(repoLoadingError(err));
+    if (err.response.status == 401) {
+      console.log(" Unauthorised access");
+      //call silentRenewal with refresh token
+      yield put(silentRenewalAction());
+    } else if (result) {
+      console.log('Error while saving profile', result);
+      // console.log(result.status.message);
+    } else console.log('Error while saving profile', err);
   }
 }
 
-/**
- * Root saga manages watcher lifecycle
- */
-export default function* githubData() {
-  // Watches for LOAD_REPOS actions and calls getRepos when one comes in.
-  // By using `takeLatest` only the result of the latest API call is applied.
-  // It returns task descriptor (just like fork) so we can continue execution
-  // It will be cancelled automatically on component unmount
-  yield takeLatest(LOAD_REPOS, getRepos);
+
+export default function* regulatoryData() {
+  yield takeLatest(GET_ASSIGNED_WORKS, getAssignedWorkSaga);
 }

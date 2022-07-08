@@ -8,22 +8,25 @@
  */
 
 import produce from 'immer';
-import { CHANGE_USERNAME } from './constants';
+import { SET_ASSIGNED_WORKS } from './constants';
 
 // The initial state of the App
 export const initialState = {
-  username: '',
+  assignedWorkList: '',
 };
 
 /* eslint-disable default-case, no-param-reassign */
-const homeReducer = (state = initialState, action) =>
+const regulatoryReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
-      case CHANGE_USERNAME:
-        // Delete prefixed '@' from the github username
-        draft.username = action.username.replace(/@/gi, '');
-        break;
+      case SET_ASSIGNED_WORKS:
+        return {
+          assignedWorkList: action.payload,
+          ...state
+        }      
+      default:
+        return state
     }
   });
 
-export default homeReducer;
+export default regulatoryReducer;
