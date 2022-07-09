@@ -39,7 +39,7 @@ export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmail
   const [errorInEmail, setError] = useState(emailError);
 
   useEffect(() => {
-    getUserProfileDetail();
+    // getUserProfileDetail();
     setError('');
     console.log('showOtpErrorPopup Login', showOtpErrorPopup )
   }, [])

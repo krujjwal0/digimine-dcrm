@@ -29,6 +29,7 @@ import reducer from './reducer';
 import saga from './saga';
 import photo from './image/profilepic.png';
 import axios from 'axios';
+import {getUserProfileDetail} from '../LoginPage/actions'
 
 
 const key = 'categories';
@@ -40,7 +41,8 @@ export function Categories({
   repos,
   onSubmitForm,
   onChangeUsername,
-  userData
+  userProfileData,
+  getUserProfileDetail
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -51,6 +53,7 @@ export function Categories({
   }, []);
 
   useEffect(() => {
+    getUserProfileDetail();
     let awtToken = localStorage.getItem('awtToken');
     axios({
       method: 'GET',
@@ -177,7 +180,9 @@ export function mapDispatchToProps(dispatch) {
     onSubmitForm: evt => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(loadRepos());
+      
     },
+    getUserProfileDetail:() => dispatch(getUserProfileDetail())
   };
 }
 
