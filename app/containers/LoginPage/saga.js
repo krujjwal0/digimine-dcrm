@@ -18,7 +18,8 @@ import {
   USER_LOGOUT,
   SAVE_FEEDBACK_FORM_DATA,
   DOWNLOAD_PROFILE_IMAGE,
-  SILENT_RENEWAL
+  SILENT_RENEWAL,
+  GET_USER_PROFILE_DETAIL
 } from './constants';
 import {
   setAdminLocationsAction,
@@ -34,6 +35,7 @@ import {
   showOtpErrorPopupAction,
   downloadProfileImageAction,
   silentRenewalAction,
+  setUserProfileDetails
 } from './actions';
 import { makeSelectEmailId } from './selectors';
 
@@ -281,7 +283,7 @@ function* downloadProfileImageSaga(action) {
   const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/download`;
   console.log(' downloadProfileImageSaga URL:', requestURL);
   // const awtToken = localStorage.getItem('awtToken');
-  const awtToken= action.payload;
+  const awtToken = action.payload;
   console.log("PRofile image awt token ====", awtToken)
   let result;
   try {
@@ -297,7 +299,7 @@ function* downloadProfileImageSaga(action) {
     console.log('downloadProfileImageSaga success in saga', result);
   } catch (err) {
     if (err) {
-      console.log(" Unauthorised access",err);
+      console.log(" Unauthorised access", err);
 
       //call silentRenewal with refresh token
       yield put(silentRenewalAction());
@@ -341,6 +343,30 @@ function* silentRenewal_Saga() {
   }
 }
 
+function* getUserProfileDetailSaga(action) {
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/getUserDetails`;
+  let result;
+  const awtToken = localStorage.getItem('awtToken');
+  try {
+    result = yield call(request, requestURL, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${awtToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log('success in saga user profile', result);
+    yield put(setUserProfileDetails(result.data));
+  } catch (err) {
+    console.log('Error in saga', result, err);
+    if (err.response.status == 401) {
+      yield put(silentRenewalAction());
+    }
+    else if (result) {
+      console.log(result.status.message);
+    } else console.log(err);
+  }
+}
 /**
  * Root saga manages watcher lifecycle
  */
@@ -359,5 +385,6 @@ export default function* loginData() {
   yield takeLatest(SAVE_FEEDBACK_FORM_DATA, postFeedbackSaga);
   yield takeLatest(DOWNLOAD_PROFILE_IMAGE, downloadProfileImageSaga);
   yield takeLatest(SILENT_RENEWAL, silentRenewal_Saga);
+  yield takeLatest(GET_USER_PROFILE_DETAIL, getUserProfileDetailSaga)
 
 }

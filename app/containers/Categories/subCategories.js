@@ -10,7 +10,6 @@ import FormControl from '@material-ui/core/FormControl';
 import CloseIcon from '@material-ui/icons/Close';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import MultiFormImageData from './multiImageFormData';
 import { HOST, BASE_PATH, SCHEMES, URL } from '../config.json';
 
 export default function AddSubCategories(props) {

@@ -22,7 +22,8 @@ import {
   EMAIL_ERROR,
   SET_SHOW_FEEDBACK_FORM_RADIO_DATA,
   OTP_ERROR,
-  SHOW_OTP_ERROR_POPUP
+  SHOW_OTP_ERROR_POPUP,
+  SET_USER_PROFILE_DETAIL
 } from './constants';
 
 // The initial state of the App
@@ -41,7 +42,8 @@ export const initialState = {
   feedbackFormData: [{ question: "", options: [{ description: '' }] }],
   feedbackRadioCheck: [],
   emailError: '',
-  showOtpErrorPopup: { status: false, msg: "" }
+  showOtpErrorPopup: { status: false, msg: "" },
+  userProfileData:{}
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -137,6 +139,14 @@ const loginReducer = (state = initialState, action) =>
           ...state,
           feedbackFormData: [...state.feedbackFormData, action.payload],
         };
+
+        case SET_USER_PROFILE_DETAIL:
+        console.log('inside reducer user profile ===', action.payload);
+        return {
+          ...state,
+          userProfileData: action.payload.data
+        };
+
       default:
         return state;
     }

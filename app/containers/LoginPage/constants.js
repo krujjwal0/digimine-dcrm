@@ -33,3 +33,5 @@ export const SHOW_OTP_ERROR_POPUP = 'digimine/LoginPage/SHOW_OTP_ERROR_POPUP';
 export const DOWNLOAD_PROFILE_IMAGE = 'digimine/LoginPage/DOWNLOAD_PROFILE_IMAGE';
 export const SILENT_RENEWAL = 'boilerplate/App/SILENT_RENEWAL';
 export const SET_CHOOSED_LOCATION = 'boilerplate/App/SET_CHOOSED_LOCATION';
+export const GET_USER_PROFILE_DETAIL = 'GET_USER_PROFILE_DETAIL';
+export const SET_USER_PROFILE_DETAIL = 'SET_USER_PROFILE_DETAIL';

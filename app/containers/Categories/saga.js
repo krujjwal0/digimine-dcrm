@@ -136,7 +136,7 @@ function* addCategorySubRuleSaga(action) {
       headers: {
         Authorization: `Bearer ${awtToken}`,
         "Content-Type": "multipart/form-data",
-          "Accept": "application/json",
+          // "Accept": "application/json",
       },
       body: JSON.stringify(action.payload),
     });

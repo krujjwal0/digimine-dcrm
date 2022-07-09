@@ -121,11 +121,11 @@ const [srcBase64, setsrcBase64] = useState()
                 </CardContent>
                 <CardContent className='-mt-6'>
                   <p className="flex justify-center  text-2xl font-sans font-bold">
-                   {userData.userName}
+                   {userProfileData.name}
                   </p>
                   <div className=" flex justify-center  bg-[#F66B6B] rounded-md ">
                     <p className="text-center text-sm text-white font-sans">
-                      Employee ID #0123456789
+                      Employee ID {userProfileData.employeeId}
                     </p>
                   </div>
                 </CardContent>
@@ -133,13 +133,13 @@ const [srcBase64, setsrcBase64] = useState()
                   Phone
                 </p>
                 <p className="text-[#132B6B] flex justify-center font-sans text-xl font-bold">
-                  +916532565889
+                 {userProfileData.mobileNumber}
                 </p>
                 <p className="text-[#66737E] flex justify-center mt-6 font-sans text-xs font-bold">
                   Email Address
                 </p>
                 <p className="text-[#132B6B] flex justify-center font-sans text-xl font-bold">
-                {userData.emailId}
+                {userProfileData.emailId}
                 </p>
               </CardContent>
             </Card>
@@ -167,7 +167,7 @@ Categories.propTypes = {
 // });
 
 const mapStateToProps = state => ({
-  userData: state.loginReducer,
+  userProfileData: state.loginReducer.userProfileData,
   
 });
 
