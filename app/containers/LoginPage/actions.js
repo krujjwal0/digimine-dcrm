@@ -38,6 +38,8 @@ import {
   SHOW_OTP_ERROR_POPUP,
   DOWNLOAD_PROFILE_IMAGE,
   SILENT_RENEWAL,
+  GET_USER_PROFILE_DETAIL,
+  SET_USER_PROFILE_DETAIL
 } from './constants';
 import {
   USER_LOGOUT,
@@ -187,14 +189,28 @@ export function showOtpErrorPopupAction(data) {
   }
 }
 
-export function downloadProfileImageAction() {
+export function downloadProfileImageAction(awtToken) {
   return {
-    type: DOWNLOAD_PROFILE_IMAGE
+    type: DOWNLOAD_PROFILE_IMAGE,
+    payload:awtToken
   }
 }
 
 export function silentRenewalAction() {
   return {
     type: SILENT_RENEWAL
+  }
+}
+
+export function getUserProfileDetail(){
+  return{
+    type:GET_USER_PROFILE_DETAIL
+  }
+}
+export function setUserProfileDetails(data){
+  console.log('setprofile==', data);
+  return{
+    type:SET_USER_PROFILE_DETAIL,
+    payload:data
   }
 }

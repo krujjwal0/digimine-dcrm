@@ -31,6 +31,8 @@ import reducer from './reducer';
 import saga from './saga';
 import photo from './image/profilepic.png';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import axios from 'axios';
+import { getUserProfileDetail } from '../LoginPage/actions';
 
 const key = 'categories';
 
@@ -41,6 +43,8 @@ export function Categories({
   repos,
   onSubmitForm,
   onChangeUsername,
+  userProfileData,
+  getUserProfileDetail,
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -50,13 +54,46 @@ export function Categories({
     if (username && username.trim().length > 0) onSubmitForm();
   }, []);
 
-  const reposListProps = {
-    loading,
-    error,
-    repos,
-  };
+  useEffect(() => {
+    getUserProfileDetail();
+    let awtToken = localStorage.getItem('awtToken');
+    axios({
+      method: 'GET',
+      url: 'http://13.232.217.210:15000/api/download',
+      headers: {
+        Authorization: `Bearer ${awtToken}`,
+        'Content-Type': 'application/json',
+      },
+      responseType: 'blob',
+    })
+      .then(response => {
+        console.log('here in useEffect profile1===', response);
+        var blobURL = URL.createObjectURL(response.data);
+        console.log('here in useEffect profile2===', blobURL);
+        var reader = new FileReader();
+        reader.readAsDataURL(response.data);
+        reader.onloadend = function() {
+          var base64String = reader.result;
+          console.log('Base64 String - ', base64String);
+          console.log(
+            'Base64 String without Tags- ',
+            base64String.substr(base64String.indexOf(', ') + 1),
+          );
+          setsrcBase64(base64String.substr(base64String.indexOf(', ') + 1));
+        };
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  });
 
-  
+  const [srcBase64, setsrcBase64] = useState();
+  // const reposListProps = {
+  //   loading,
+  //   error,
+  //   repos,
+  // };
+
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchor, setAnchor] = useState(null);
 
@@ -78,95 +115,117 @@ export function Categories({
 
   return (
     <div className="maindash2 ">
-      <div className='w-full'>
-      <div className="ml-8 pt-1 ">
-      <Breadcrumbs
-          aria-label="breadcrumb"
-          className="font-sans font-bold text-xl"
-          style={{ marginLeft: '0px', fontWeight: '800', fontSize: '30px' }}
-        >
-          <Typography
-            sx={{ display: 'flex', alignItems: 'center' }}
-            color="text.primary"
+      <div className="w-full">
+        <div className="ml-8 pt-1 ">
+          <Breadcrumbs
+            aria-label="breadcrumb"
             className="font-sans font-bold text-xl"
-            style={{
-              marginLeft: '30px',
-              fontWeight: '500',
-              fontSize: '25px',
-              color: '#132B6B',
-            }}
+            style={{ marginLeft: '0px', fontWeight: '800', fontSize: '30px' }}
           >
-            <ClearAllIcon sx={{ mr: 0.8 }} fontSize="inherit" />
-            Profile
-          </Typography>
-        </Breadcrumbs>
-        <p
-          style={{ color: '#F66B6B', fontSize: '13px' }}
-          className=" font-sans ml-14 -mt-1"
-        >
-          <Link
-            color="inherit"
-            href="/"
-            onClick={handleClick}
-            className="font-sans"
+            <Typography
+              sx={{ display: 'flex', alignItems: 'center' }}
+              color="text.primary"
+              className="font-sans font-bold text-xl"
+              style={{
+                marginLeft: '30px',
+                fontWeight: '500',
+                fontSize: '25px',
+                color: '#132B6B',
+              }}
+            >
+              <ClearAllIcon sx={{ mr: 0.8 }} fontSize="inherit" />
+              Profile
+            </Typography>
+          </Breadcrumbs>
+          <p
+            style={{ color: '#F66B6B', fontSize: '13px' }}
+            className=" font-sans ml-14 -mt-1"
           >
-            Dashboard /
-          </Link>
-          <Link
-            color="textPrimary"
-            href="/components/breadcrumbs/"
-            onClick={handleClick}
-            aria-current="page"
-            className="font-sans"
-          >
-            profile
-          </Link>
-        </p>
-<br />
-        <hr/>
-        <div className="flex justify-center mb-6">
-          <Card
-            className='mt-12  w-2/5 h-full flex justify-center '
-            style={{boxShadow: "0px 4px 40px rgba(108, 108, 108, 0.3)", borderRadius: '25px'}}
-          >
-            <CardContent className='mt-6'>
-              
-              <CardContent className="flex justify-center ">
-                <img className='h-24' src={photo} />
-                <div className=' absolute ml-16 mt-14 w-8 h-8  rounded-full' style={{background: '#F66B6B', }}><PhotoCameraIcon className='ml-1' style={{marginTop: '4px', color: '#fff'  }} /></div>
-              </CardContent>
-              <CardContent className=''>
-              <p className="flex justify-center text-[24px] font-sans font-bold">
-                Rajat Kapoor
-              </p>
-              <div className=" flex justify-center mt-3 ml-7 w-44  bg-[#F66B6B] rounded-md ">
-                <p className="text-center text-sm text-white font-sans font-semibold" style={{fontSize: '12px'}}>
-                  Employee ID #0123456789
+            <Link
+              color="inherit"
+              href="/"
+              onClick={handleClick}
+              className="font-sans"
+            >
+              Dashboard /
+            </Link>
+            <Link
+              color="textPrimary"
+              href="/components/breadcrumbs/"
+              onClick={handleClick}
+              aria-current="page"
+              className="font-sans"
+            >
+              profile
+            </Link>
+          </p>
+          <br />
+          <hr />
+          <div className="flex justify-center mb-6">
+            <Card
+              className="mt-12  w-2/5 h-full flex justify-center "
+              style={{
+                boxShadow: '0px 4px 40px rgba(108, 108, 108, 0.3)',
+                borderRadius: '25px',
+              }}
+            >
+              <CardContent className="mt-6">
+                <CardContent className="flex justify-center ">
+                  <img className="h-24" src={srcBase64} style={{borderRadius:'50%'}}/>
+                  <div
+                    className=" absolute ml-20 mt-14 w-8 h-8  rounded-full"
+                    style={{ background: '#F66B6B' }}
+                  >
+                    <PhotoCameraIcon
+                      className="ml-1"
+                      style={{ marginTop: '4px', color: '#fff' }}
+                    />
+                  </div>
+                </CardContent>
+                <CardContent className="">
+                  <p className="flex justify-center text-[24px] font-sans font-bold">
+                    {userProfileData.name}
+                  </p>
+                  <div className=" flex justify-center mt-3 ml-7 w-44  bg-[#F66B6B] rounded-md ">
+                    <p
+                      className="text-center text-sm text-white font-sans font-semibold"
+                      style={{ fontSize: '12px' }}
+                    >
+                      Employee ID {userProfileData.employeeId}
+                    </p>
+                  </div>
+                </CardContent>
+                <p
+                  className="text-[#66737E] flex justify-center mt-5 font-sans font-semibold"
+                  style={{ fontSize: '12px' }}
+                >
+                  Phone
                 </p>
-              </div>
+                <p className="text-[#132B6B] m-1 flex justify-center font-sans text-md font-bold">
+                  {userProfileData.mobileNumber}
+                </p>
+                <p
+                  className="text-[#66737E] flex justify-center mt-4 font-sans font-semibold"
+                  style={{ fontSize: '12px' }}
+                >
+                  Department
+                </p>
+                <p className="text-[#132B6B] m-1 flex justify-center font-sans text-md font-bold">
+                  Mining
+                </p>
+                <p
+                  className="text-[#66737E] flex justify-center mt-4 font-sans text-xs font-semibold"
+                  style={{ fontSize: '12px' }}
+                >
+                  Email Address
+                </p>
+                <p className="text-[#132B6B] m-1 flex justify-center font-sans text-md font-bold mb-10">
+                  {userProfileData.emailId}
+                </p>
               </CardContent>
-              <p className="text-[#66737E] flex justify-center mt-5 font-sans font-semibold" style={{fontSize: '12px'}}>
-                Phone
-              </p>
-              <p className="text-[#132B6B] m-1 flex justify-center font-sans text-md font-bold">
-                +916532565889
-              </p>
-              <p className="text-[#66737E] flex justify-center mt-4 font-sans font-semibold" style={{fontSize: '12px'}}>
-                Department
-              </p>
-              <p className="text-[#132B6B] m-1 flex justify-center font-sans text-md font-bold">
-                Mining
-              </p>
-              <p className="text-[#66737E] flex justify-center mt-4 font-sans text-xs font-semibold" style={{fontSize: '12px'}}>
-                Email Address
-              </p>
-              <p className="text-[#132B6B] m-1 flex justify-center font-sans text-md font-bold mb-10">
-                rajatkapoor@digimine.com
-              </p>
-            </CardContent>
-          </Card>
+            </Card>
+          </div>
         </div>
-      </div>
       </div>
     </div>
   );
@@ -181,11 +240,15 @@ Categories.propTypes = {
   onChangeUsername: PropTypes.func,
 };
 
-const mapStateToProps = createStructuredSelector({
-  repos: makeSelectRepos(),
-  username: makeSelectUsername(),
-  loading: makeSelectLoading(),
-  error: makeSelectError(),
+// const mapStateToProps = createStructuredSelector({
+//   repos: makeSelectRepos(),
+//   username: makeSelectUsername(),
+//   loading: makeSelectLoading(),
+//   error: makeSelectError(),
+// });
+
+const mapStateToProps = state => ({
+  userProfileData: state.loginReducer.userProfileData,
 });
 
 export function mapDispatchToProps(dispatch) {
@@ -195,6 +258,7 @@ export function mapDispatchToProps(dispatch) {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(loadRepos());
     },
+    getUserProfileDetail: () => dispatch(getUserProfileDetail()),
   };
 }
 

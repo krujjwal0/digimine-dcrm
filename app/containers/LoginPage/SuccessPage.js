@@ -14,6 +14,8 @@ import reducer from './reducer';
 import saga from './saga';
 // import userImage from './images/user.jpg';
 import userImage from './images/addImage.png';
+import axios from 'axios';
+import { HOST, BASE_PATH, SCHEMES, URL } from '../config.json';
 
 const key = 'loginReducer';
 
@@ -22,6 +24,23 @@ export function SuccessPage(props) {
   useInjectSaga({ key, saga });
 
   const history = useHistory();
+
+  const [img,setImg]=useState();
+
+  const awtToken = localStorage.getItem('awtToken');
+
+  useEffect(()=>{
+    // axios.get({
+    //   url:`${SCHEMES}://${BASE_PATH}${HOST}/download`,
+    //   method:'GET',
+    //   Authorization: `Bearer ${awtToken}`,
+    //   responseType:'blob'
+    // }).then((res)=>{
+    //   console.log("image response ====",res)
+    //   setImg(res.data);
+    // })
+  },[])
+
   useEffect(() => {}, [props.userName]);
   // const [redirectToChooseLocationPage, setRedirectToChooseLocationPage] = useState(false);
 

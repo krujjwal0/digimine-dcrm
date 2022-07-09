@@ -20,7 +20,7 @@ import {
   makeSelectError,
 } from 'containers/App/selectors';
 
-import { checkEmailError, generateOtpByEmailIdAction, setEmailId, showOtpErrorPopupAction } from './actions';
+import { checkEmailError, generateOtpByEmailIdAction, setEmailId, showOtpErrorPopupAction, getUserProfileDetail } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -28,7 +28,7 @@ import CustomizedDialogs from '../../components/Dialog/DialogMsg';
 
 const key = 'loginReducer';
 
-export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmailId, showOtpPage, emailError, checkEmailError, showOtpErrorPopup, showOtpErrorPopupAction }) {
+export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmailId, showOtpPage, emailError, checkEmailError, showOtpErrorPopup, showOtpErrorPopupAction, getUserProfileDetail }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
@@ -39,6 +39,7 @@ export function Login({ loading, error, onGenerateOtpByEmailIdAction, onSetEmail
   const [errorInEmail, setError] = useState(emailError);
 
   useEffect(() => {
+    // getUserProfileDetail();
     setError('');
     console.log('showOtpErrorPopup Login', showOtpErrorPopup )
   }, [])
@@ -168,7 +169,8 @@ export function mapDispatchToProps(dispatch) {
     onGenerateOtpByEmailIdAction: data => dispatch(generateOtpByEmailIdAction(data)),
     onSetEmailId: data => dispatch(setEmailId(data)),
     checkEmailError: data => dispatch(checkEmailError(data)),
-    showOtpErrorPopupAction:data=>dispatch(showOtpErrorPopupAction(data))
+    showOtpErrorPopupAction:data=>dispatch(showOtpErrorPopupAction(data)),
+    getUserProfileDetail:() => dispatch(getUserProfileDetail())
     // onSubmitForm: evt => {
     //   if (evt !== undefined && evt.preventDefault) evt.preventDefault();
     //   dispatch(loadRepos());
