@@ -24,3 +24,7 @@
 .bg_red{background: #F66B6B !important;}
 .reg_page .reg_page{border: 1px solid transparent;  border-radius: 25px !important; transition: 0.3s ease; display: block; padding: 11px 20px; margin: 0 auto; color: #fff; font-weight: bold;  }
 .reg_page .reg_page:hover{background: #fff !important; border: solid 1px #F66B6B; color: #F66B6B;}
+
+.pointer {
+  cursor: pointer;
+}

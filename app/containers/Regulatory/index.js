@@ -140,6 +140,11 @@ export function Regulatory({
     setShowExport(false);
   };
 
+  const openDetailsPage = () => {
+    const path = `/details`;
+    history.push(path);
+  }
+
   // const [name, setName] = useState('');
 
   // const filter = e => {
@@ -455,8 +460,9 @@ export function Regulatory({
               <div className="my-7 w-full justify-center " />
               <div>
                 <Card
-                  className="w-full rounded-full h-[60px]"
+                  className="w-full rounded-full h-[60px] pointer"
                   style={{ borderRadius: '50px', marginTop: '10px' }}
+                  onClick={openDetailsPage}
                 >
                   <CardContent className="justify-center">
                     <div className="flex justify-between rounded-full -mt-1">
