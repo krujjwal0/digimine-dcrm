@@ -40,7 +40,6 @@ import {
   SILENT_RENEWAL,
   GET_USER_PROFILE_DETAIL,
   SET_USER_PROFILE_DETAIL,
-,
   USER_LOGOUT,
 } from './constants';
 

@@ -549,7 +549,6 @@ export function DetailsPage({
                 marginLeft: '2%',
                 borderRadius: '60px',
               }}
-              }}
             >
               <p className='font-sans'>Next</p>
             </Button>

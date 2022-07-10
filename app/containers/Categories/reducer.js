@@ -86,8 +86,7 @@ const CategoryReducer = (state = initialState, action) =>
             },
             data: { ...initialState.subRuleDialog.data, ruleId: action.payload.ruleId },
           },
-        },
-      };
+        };
       }
       case CLOSE_ADD_SUBRULE_DIALOG: {
         return {

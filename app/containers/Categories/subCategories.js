@@ -163,7 +163,9 @@ export default function AddSubCategories(props) {
                 </label>
 
                 <textarea
-style={{ color: '#66737E', fontSize: '12px' }} className='font-sans mt-3 border-2 border-gray-300 items-center' id="review"
+                  style={{ color: '#66737E', fontSize: '12px' }}
+                  className="font-sans mt-3 border-2 border-gray-300 items-center"
+                  id="review"
                   name="description"
                   value={props.subRuleDialog.data.description}
                   rows="4"
@@ -195,10 +197,12 @@ style={{ color: '#66737E', fontSize: '12px' }} className='font-sans mt-3 border-
                 /> */}
                 {props.subRuleDialog.data.file.length > 0 ? (
                   props.subRuleDialog.data.file.map((file, f) => (
-                      <div class="flex"> 
-                      <span style={{fontSize:'1rem'}} className="flex">{file.name}, </span>
-                      </div>
-                    ))
+                    <div class="flex">
+                      <span style={{ fontSize: '1rem' }} className="flex">
+                        {file.name},{' '}
+                      </span>
+                    </div>
+                  ))
                 ) : (
                   <TextField
                     fullWidth
@@ -210,7 +214,8 @@ style={{ color: '#66737E', fontSize: '12px' }} className='font-sans mt-3 border-
                     // value={filename}
                     className="font-sans"
                     style={{ marginTop: '3px', placeholder: '#66737E' }}
-                  /> }
+                  />
+                )}
 
                 <input
                   type="file"
