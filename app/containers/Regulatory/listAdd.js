@@ -219,7 +219,7 @@ export function ListAdd({
                       id="date"
                       placeholder='Weekely'
                       type="date"
-                      defaultValue="2017-05-24"
+                      defaultValue="YYYY-MM-DD"
                       className={classes.textField}
                       InputLabelProps={{
                         shrink: true,

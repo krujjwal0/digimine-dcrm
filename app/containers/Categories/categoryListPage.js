@@ -62,7 +62,7 @@ export default function CategoryListPage(props) {
               <div className="flex ml-6 mt-1 font-sans">
                 <div className="flex">
                   <p
-                    className="w-16 font-sans"
+                    className="w-20 font-sans"
                     style={{
                       color: '#132B6B',
                       fontSize: '16px',
@@ -79,8 +79,8 @@ export default function CategoryListPage(props) {
                       fontSize: '12px',
                       width: '28px',
                     }}
-                  >
-                    {props.list.subRuleResponses.length}
+                  ><p className='mx-2 my-1 font-sans'>
+                    {props.list.subRuleResponses.length}</p>
                   </p>
                 </div>
                 <div className="ml-6 flex w-full ">

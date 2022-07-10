@@ -353,13 +353,14 @@ export function Categories({
             </div>
 
             <div
-              className="font-sans w-56 h-9 mt-5  border-2 rounded-full flex justify-center m-2"
+              className="font-sans w-56 h-9 mt-5 mr-24 border-2 rounded-full flex justify-center m-2"
               style={{ background: '#132B6B' }}
             >
               {/* <AddIcon className="text-white mt-1 " /> */}
               <button className="text-white ml-2" onClick={openNewCategories}>
                 ADD NEW CATEGORIES
               </button>
+            </div>
             </div>
             <div className="flex justify-between rounded-full ">
               <Dialog
@@ -392,7 +393,7 @@ export function Categories({
                 </DialogContent>
               </Dialog>
             </div>
-          </div>
+          
 
           {categoryList.map((list, index) => (
             <div>

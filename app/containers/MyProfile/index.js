@@ -114,7 +114,7 @@ export function Categories({
   const idAdd = openAdd ? 'simple-popover' : undefined;
 
   return (
-    <div className="maindash2 ">
+    <div className="content ">
       <div className="w-full">
         <div className="ml-8 pt-1 ">
           <Breadcrumbs

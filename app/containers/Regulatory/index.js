@@ -78,7 +78,7 @@ const GreenSwitch = styled(Switch)(({ theme }) => ({
 }));
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
-export function Employee({
+export function Employee({loading,error,repos
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
