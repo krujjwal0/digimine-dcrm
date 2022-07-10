@@ -193,7 +193,7 @@ function Dashboard({
                   color: 'white',
                   borderRadius: '50px',
                 }}
-                className="w-1/2 h-10 ml-8 mt-3"
+                className="w-1/2 h-10 ml-8 mt-3 font-sans"
               >
                 Click Me
               </button>
@@ -204,7 +204,7 @@ function Dashboard({
                   color: 'black',
                   borderRadius: '50px',
                 }}
-                className="w-1/2 h-10 ml-8 mt-3 mr-8"
+                className="w-1/2 h-10 ml-8 mt-3 mr-8 font-sans"
               >
                 Click Me
               </button>
