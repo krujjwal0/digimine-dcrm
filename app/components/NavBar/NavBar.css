@@ -88,3 +88,5 @@ span{
 .bg_white{background: #fff !important;}
 .navbar_page .login_btn{border-radius: 25px !important; display: block; padding: 12px 20px; margin: 0 auto; color: #132B6B; font-weight: bold; }
 .navbar_page .login_btn .MuiButton-label{margin: 0; font-family: 'Roboto', sans-serif;  font-weight: bold;}
+
+.pointer {cursor: pointer;}
