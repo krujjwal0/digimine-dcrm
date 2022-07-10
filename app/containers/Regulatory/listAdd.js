@@ -13,10 +13,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import MSelect from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
 
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
@@ -173,7 +169,7 @@ export function ListAdd({
                 <p className="text-[red]">*</p>
               </div>
               <div className="ml-9 font-sans font-semibold ">
-                {/* <select
+                <select
                   className="w-full font-sans mt-4 border-2 rounded-[20px] h-9"
                   style={{
                     color: '#66737E',
@@ -184,6 +180,14 @@ export function ListAdd({
                   onClick={(e) => selectDepartmentId(e)}
                   value={departmentId}
                 >
+                  {/* <option
+                    className="ml-2 font-sans"
+                    style={{ color: '#66737E' }}
+                    name="none"
+                    value="None"
+                  >
+                    None
+                  </option> */}
                   {departmentList.map((dept, index) => {
                     console.log("dept============", dept);
                     return (
@@ -196,31 +200,7 @@ export function ListAdd({
                       </option>
                     )
                   })}
-                </select> */}
-                <FormControl className={classes.formControl}>
-                  <InputLabel id="demo-simple-select-label">
-                    Department
-                  </InputLabel>
-                  <MSelect
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    name="departmentId"
-                    required={true}
-                    onClick={(e) => selectDepartmentId(e)}
-                    value={departmentId}
-                    style={{
-                      width: '263px',
-                    }}
-                  >
-                    {departmentList.map((dept, index) => {
-                      console.log("dept============", dept);
-                      return (
-                        <MenuItem key={index} name={dept.name} value={dept.id}>{dept.name}</MenuItem>
-                      )
-                    })
-                    }
-                  </MSelect>
-                </FormControl>
+                </select>
                 <p
                   className="flex justify-end font-sans mr-3"
                   style={{ color: ' #FF0000', fontWeight: '400' }}
