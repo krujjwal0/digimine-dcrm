@@ -46,21 +46,27 @@ const regulatoryReducer = (state = initialState, action) =>
           ...state
         }
       case SET_DROPDOWN_PERSON_LIST:
-        if (action.payload.purpose === "REVIWER") {
+        console.log("Reducer SETDROPDOWNLIST === ",action.payload,action.payload.purpose == "FUNCTIONAL_HEAD")
+        if (action.payload.purpose == "REVIWER") {
           return {
-            reviwerDropdownList: action.payload.result,
-            ...state
+            ...state,
+            reviwerDropdownList: action.payload.result
           }
-        } else if (action.payload.purpose === "FUNCTIONAL_HEAD") {
+        } else if (action.payload.purpose == "FUNCTIONAL_HEAD") {
+          console.log("FUNCTIONAL_HEAD=====",[...action.payload.result])
           return {
-            functionalHeadDropdownList: action.payload.result,
-            ...state
+            ...state,
+            functionalHeadDropdownList: [...action.payload.result]
+            
           }
-        } else if (action.payload.purpose === "PERSON_RESPONSIBLE") {
+        } else if (action.payload.purpose == "PERSON_RESPONSIBLE") {
           return {
-            assignPersonDropdownList: action.payload.result,
-            ...state
+            ...state,
+            assignPersonDropdownList: action.payload.result
+            
           }
+        }else{
+          return state
         }
       default:
         return state

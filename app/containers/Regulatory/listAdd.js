@@ -95,10 +95,11 @@ export function ListAdd({
   }
 
   const selectDepartmentId = e => {
-    console.log(e.target.name);
-    setDepartmentId(e.target.name);
+    console.log(e.target.value);
+    setDepartmentId(e.target.value);
     // Call api to show users list of particular Location
   };
+
   return (
     <div className="content">
       <div className="w-full">
@@ -177,36 +178,31 @@ export function ListAdd({
                     fontWeight: '400',
                   }}
                   name="departmentId"
+                  required={true}
+                  // value={departmentId}
                   onClick={(e) => selectDepartmentId(e)}
-                  value={departmentId}
+
                 >
-                  {/* <option
-                    className="ml-2 font-sans"
-                    style={{ color: '#66737E' }}
-                    name="none"
-                    value="None"
-                  >
-                    None
-                  </option> */}
+                 
                   {departmentList.map((dept, index) => {
                     console.log("dept============", dept);
                     return (
                       <option
                         className="ml-2 font-sans"
                         style={{ color: '#66737E' }}
-                        key={index} name={dept.id} value={dept.name} id={dept.id}
+                        key={index}  value={dept.id} id={dept.id}
                         >
                         {dept.name}
                       </option>
                     )
                   })}
                 </select>
-                <p
+                {/* <p
                   className="flex justify-end font-sans mr-3"
                   style={{ color: ' #FF0000', fontWeight: '400' }}
                 >
                   Error Message
-                </p>
+                </p> */}
               </div>
 
               <div className="ml-9 mt-3 font-sans font-semibold ">
@@ -368,7 +364,7 @@ const mapStateToProps = state => (
     // rolesList: state.users.rolesList.length > 0 ? state.users.rolesList : [],
     departmentList: state.regulatoryReducer.departmentList.length > 0 ? state.regulatoryReducer.departmentList : [],
     assignPersonDropdownList: state.regulatoryReducer.assignPersonDropdownList.length > 0 ? state.regulatoryReducer.assignPersonDropdownList : [],
-    reviwerDropdownList: state.regulatoryReducer.reviwerDropdownList.lenght > 0 ? state.regulatoryReducer.reviwerDropdownList : [],
+    reviwerDropdownList: state.regulatoryReducer.reviwerDropdownList.length > 0 ? state.regulatoryReducer.reviwerDropdownList : [],
     functionalHeadDropdownList: state.regulatoryReducer.functionalHeadDropdownList.length > 0 ? state.regulatoryReducer.functionalHeadDropdownList : []
   });
 
