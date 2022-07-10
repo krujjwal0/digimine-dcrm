@@ -36,7 +36,7 @@ export function NavBar({ setNavBar, getUserLogout, setOtpAction, signOut }) {
   const history = useHistory();
 
   const showAllNotifications = () => {
-    const path = `/myprofile`;
+    const path = `/notification`;
     history.push(path);
     setAnchorEl(null);
   }
