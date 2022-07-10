@@ -126,24 +126,26 @@ function* editCategoryRuleSaga() {
 
 function* addCategorySubRuleSaga(action) {
   // const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/subRule/saveOrUpdate`;
-  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/subRule/v1/saveOrUpdate`;
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/subRule/saveOrUpdate`;
   const awtToken = localStorage.getItem('awtToken');
   console.log('data in saga get :', requestURL, action.payload);
   let result;
+  // let formData = new FormData(action.payload);
   try {
     result = yield call(request, requestURL, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${awtToken}`,
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json",
           // "Accept": "application/json",
       },
-      body: JSON.stringify(action.payload),
+      
+      body: JSON.stringify(action.payload.subRule),
     });
     console.log('success in deleteUserSaga saga', result);
     yield put(getCategoryList());
   } catch (err) {
-    console.log('Error in deleteUserSaga saga', result, err);
+    console.log('Error in deleteUserSaga saga', err);
     if (err.response.status == 401) {
       yield put(silentRenewalAction());
     } else if (result) {

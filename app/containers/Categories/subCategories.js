@@ -22,14 +22,29 @@ export default function AddSubCategories(props) {
   };
   const handleFileChange = event => {
     let tempArray = [];
-    const fileObj = event.target.files;
-    if (!fileObj) {
-      return;
-    }
+    let fileObj = event.target.files;
+     let formData = new FormData();
+    // let jsonBosy = {
+    //   'someKey' : 'someValue'
+    // }
+    // for (let i = 0; i < event.target.files.length; i++){
+     
+    //     formData.append('files', event.target.files[i]);
+      
+    // }
+    // formData.append('jsonBosy', new Blob([JSON.stringify(jsonBosy)],{
+    //   type: ' application/json'
+    // }));
+    // console.log('file=====', fileObj,formData);
+
+    // if (!fileObj) {
+    //   return;
+    // }
     console.log('fileObj is', fileObj);
-    for (let i = 0; i < fileObj.length; i++) {
-      console.log('fileObj name is', fileObj[i].name, fileObj[i]);
-      props.setFileInDialog(fileObj[i])
+    for (let i = 0; i < event.target.files.length; i++) {
+      formData.append("file-" + [...formData.keys()].length, fileObj[i], fileObj[i].name)
+      console.log('fileObj name is', fileObj[i].name, fileObj[i], formData);
+      props.setFileInDialog(event.target.files[i])
       tempArray.push(fileObj[i].name)
     }
     setfilename(tempArray.join())
@@ -86,7 +101,7 @@ export default function AddSubCategories(props) {
                   // label="Standard"
                   variant="standard"
                   name="title"
-                  value={props.subRuleDialog.data.title}
+                  value={props.subRuleDialog.data.subRule.title}
                   onChange={(e) => props.setDataInSubRule(e)}
                   className="font-sans "
                   style={{ marginTop: '3px', placeholder: '#66737E' }}
@@ -100,7 +115,7 @@ export default function AddSubCategories(props) {
                   // label="Standard"
                   variant="standard"
                   name="name"
-                  value={props.subRuleDialog.data.name}
+                  value={props.subRuleDialog.data.subRule.name}
                   onChange={(e) => props.setDataInSubRule(e)}
                   className="font-sans "
                   style={{ marginTop: '3px', placeholder: '#66737E' }}
@@ -115,7 +130,7 @@ export default function AddSubCategories(props) {
                   variant="standard"
                   name="responsibility"
                   onChange={(e) => props.setDataInSubRule(e)}
-                  value={props.subRuleDialog.data.responsibility}
+                  value={props.subRuleDialog.data.subRule.responsibility}
                   style={{ marginTop: '3px', placeholder: '#66737E' }}
                 />
               </div>
@@ -124,7 +139,7 @@ export default function AddSubCategories(props) {
 
                 <textarea style={{ color: '#66737E', fontSize: '12px' }} className='font-sans mt-3 border-2 border-gray-300 items-center' id="review"
                   name="description"
-                  value={props.subRuleDialog.data.description}
+                  value={props.subRuleDialog.data.subRule.description}
                   rows="4" cols="50"
                   onChange={(e) => props.setDataInSubRule(e)}
                 >

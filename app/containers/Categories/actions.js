@@ -134,6 +134,7 @@ export function setDataInSubRuleDialog(obj){
 }
 
 export function setFileInDialog(obj){
+  console.log("file action=====", obj)
   return{
     type: SET_FILE_IN_DIALOG,
     payload:obj

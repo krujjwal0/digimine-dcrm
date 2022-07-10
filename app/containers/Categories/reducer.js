@@ -21,11 +21,14 @@ export const initialState = {
       open: false
     },
     data: {
-      name: "",
-      deleted: "",
-      title: "",
-      responsibility: "",
-      description: "",
+      subRule: {
+        name: "",
+        deleted: "",
+        title: "",
+        responsibility: "",
+        description: "",
+        ruleId:''
+      },
       file: []
     }
   }
@@ -84,7 +87,7 @@ const CategoryReducer = (state = initialState, action) =>
               props: {
                 open: true
               },
-              data: { ...initialState.subRuleDialog.data, ruleId: action.payload.ruleId },
+              data: { ...initialState.subRuleDialog.data},
             }
           };
         }
@@ -97,15 +100,17 @@ const CategoryReducer = (state = initialState, action) =>
                 open: false
               },
               data: {
-                name: "",
-                deleted: "",
-                ruleId: "",
-                title: "",
-                responsibility: "",
-                description: "",
-                  file: []
-                  
-                
+                subRule: {
+                  name: "",
+                  deleted: "",
+                  ruleId: "",
+                  title: "",
+                  responsibility: "",
+                  description: "",
+                },
+                file: []
+
+
               }
             }
           };
@@ -117,7 +122,10 @@ const CategoryReducer = (state = initialState, action) =>
             ...state.subRuleDialog,
             data: {
               ...state.subRuleDialog.data,
-              ...action.payload
+              subRule: {
+                ...state.subRuleDialog.data.subRule,
+                ...action.payload
+              }
             }
           }
 
@@ -125,12 +133,13 @@ const CategoryReducer = (state = initialState, action) =>
             ...state,
             subRuleDialog: changedElementData
           };
+
         }
       case SET_FILE_IN_DIALOG:
         {
           state.subRuleDialog.data.file = [
             ...state.subRuleDialog.data.file,
-           action.payload
+            action.payload
           ]
 
           return {

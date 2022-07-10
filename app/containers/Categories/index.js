@@ -170,6 +170,11 @@ export function Categories({
   
   const handleOpenSubRuleDialog = (data) => {
     openSubRuleDialog(data);
+    let obj ={
+      ruleId:data.ruleId
+    }
+    setDataInSubRuleDialog(obj)
+
 }
   function handleClick(event) {
     event.preventDefault();
@@ -233,8 +238,11 @@ export function Categories({
       subruleId:subruleId
     }
     getSubRuleDetail(data)
-    handleSubCategoryOpen(panel)
+    handleExpandClickOnSubrule()
 
+  }
+  const handleExpandClickOnSubrule = () => {
+    setExpandedCard(true);
   }
 
   const setDataInSubRule = (event) => {
@@ -245,7 +253,7 @@ export function Categories({
   }
 
   const setFileInSubrule = (data) => {
-    console.log("here the file gooooo===", data)
+    console.log("here the file gooooo===", data, data.File)
     let obj = {
         name: data.name,
         size: data.size,
@@ -254,6 +262,11 @@ export function Categories({
     }
     setFileInDialog(obj)
   }
+  const [expandedCard, setExpandedCard] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpandedCard(expandedCard ? false : true);
+  };
 
   return (
     <div className="content font-sans">
@@ -416,6 +429,8 @@ export function Categories({
                 setDataInSubRule={setDataInSubRule}
                 addSubRuleMsgErr={addSubRuleMsgErr}
                 setFileInDialog={setFileInSubrule}
+                expandedCard={expandedCard}
+                handleExpandClick={handleExpandClick}
                 
 
 
