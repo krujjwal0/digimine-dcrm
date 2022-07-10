@@ -15,7 +15,7 @@
  *    }
  */
 
-import { CHANGE_USERNAME } from './constants';
+import { GET_RULE_AND_SUBRULE,SET_RULE_AND_SUBRULE, GET_ASSIGNED_WORKS, SET_ASSIGNED_WORKS, GET_DROPDOWN_PERSON_LIST, SET_DROPDOWN_PERSON_LIST, SET_SUBRULES, GET_ALL_DEPARTMENTS, SET_ALL_DEPARTMENTS } from './constants';
 
 /**
  * Changes the input field of the form
@@ -24,9 +24,63 @@ import { CHANGE_USERNAME } from './constants';
  *
  * @return {object} An action object with a type of CHANGE_USERNAME
  */
-export function changeUsername(username) {
+export function getAssignedWorks() {
+  console.log(" getAssignedWorks Action")
   return {
-    type: CHANGE_USERNAME,
-    username,
+    type: GET_ASSIGNED_WORKS
   };
+}
+export function getRuleAndSubrule(){
+  console.log("GET_RULE_AND_SUBRULE Action")
+  return {
+    type: GET_RULE_AND_SUBRULE
+  }
+}
+export function setRuleAndSubrule(data){
+  console.log("GET_RULE_AND_SUBRULE Action")
+  return {
+    type: SET_RULE_AND_SUBRULE,
+    payload: data
+  }
+}
+export function getAllDepartment() {
+  console.log('Get all depts:-');
+  return {
+    type: GET_ALL_DEPARTMENTS,
+  };
+}
+export function setAllDepartment(data) {
+  console.log('Set all depts:-');
+  return {
+    type: SET_ALL_DEPARTMENTS,
+    payload: data,
+  };
+}
+export function getDropdownList(roleId, departmentId) {
+  console.log(" getDropdownList Action")
+  return {
+    type: GET_DROPDOWN_PERSON_LIST,
+    payload: { roleId, departmentId }
+  };
+}
+export function setAssignedWorks(data) {
+  return {
+    type: SET_ASSIGNED_WORKS,
+    payload: data
+  };
+}
+export function setDropdownList(purpose, result) {
+  return {
+    type: SET_DROPDOWN_PERSON_LIST,
+    payload: {
+      purpose: purpose,
+      result: result
+    }
+  }
+}
+export function setSubRules(data) {
+  return {
+    type: SET_SUBRULES,
+    payload: data
+  }
 }

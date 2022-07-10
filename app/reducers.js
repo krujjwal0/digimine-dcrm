@@ -14,6 +14,7 @@ import appReducer from 'containers/App/reducer';
 import navReducer from 'components/NavBar/reducer';
 import empReducer from './containers/Employee/reducer';
 import CategoryReducer from './containers/Categories/reducer';
+import regulatoryReducer from './containers/Regulatory/reducer';
 
 /**
  * Merges the main reducer with the router state and dynamically injected reducers
@@ -28,6 +29,7 @@ export default function createReducer(injectedReducers = {}) {
     main: appReducer,
     users: empReducer,
     categories: CategoryReducer,
+    regulatoryReducer: regulatoryReducer,
     router: connectRouter(history),
     ...injectedReducers,
   });

@@ -13,14 +13,14 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { HOST, BASE_PATH, SCHEMES, URL } from '../config.json';
 
 export default function AddSubCategories(props) {
-
-  const [filename, setfilename] = useState('')
+  const [filename, setfilename] = useState('');
   const inputRef = React.useRef(null);
 
   const handleClick = event => {
     inputRef.current.click();
   };
   const handleFileChange = event => {
+<<<<<<< HEAD
     let tempArray = [];
     let fileObj = event.target.files;
      let formData = new FormData();
@@ -46,10 +46,21 @@ export default function AddSubCategories(props) {
       console.log('fileObj name is', fileObj[i].name, fileObj[i], formData);
       props.setFileInDialog(event.target.files[i])
       tempArray.push(fileObj[i].name)
+=======
+    const tempArray = [];
+    const fileObj = event.target.files;
+    if (!fileObj) {
+      return;
     }
-    setfilename(tempArray.join())
+    console.log('fileObj is', fileObj);
+    for (let i = 0; i < fileObj.length; i++) {
+      console.log('fileObj name is', fileObj[i].name, fileObj[i]);
+      props.setFileInDialog(fileObj[i]);
+      tempArray.push(fileObj[i].name);
+>>>>>>> 5d0f32018156d72ebb60dedcb18378580c40185c
+    }
+    setfilename(tempArray.join());
   };
-
 
   return (
     <div>
@@ -66,17 +77,16 @@ export default function AddSubCategories(props) {
         onClose={props.closeSubRuleDialog}
       >
         <DialogContent>
-
           <div className="ml-8 mt-2 w-full mb-12 px-2">
             <div className="flex w-full mt-6">
-              <div className='w-11/12'>
+              <div className="w-11/12">
                 <label
                   style={{
                     fontWeight: '500',
                     fontSize: '24px',
                     lineHeight: '1px',
                     color: ' #000000',
-                    fontWeight: '700'
+                    fontWeight: '700',
                   }}
                   className="font-sans font-normal font-black"
                 >
@@ -94,60 +104,138 @@ export default function AddSubCategories(props) {
 
             <div className="mt-5">
               <div className="flex flex-col mt-10 font-sans ">
-                <label className="font-sans font-semibold" style={{ color: '#66737E', fontSize: '12px', textTransform: "uppercase" }}>Title of the Rules/Regulations<span style={{ color: 'red', fontSize: '1rem' }}>*</span></label>
+                <label
+                  className="font-sans font-semibold"
+                  style={{
+                    color: '#66737E',
+                    fontSize: '12px',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  Title of the Rules/Regulations
+                  <span style={{ color: 'red', fontSize: '1rem' }}>*</span>
+                </label>
 
-                <TextField fullWidth
+                <TextField
+                  fullWidth
                   id="standard-basic"
                   // label="Standard"
                   variant="standard"
                   name="title"
+<<<<<<< HEAD
                   value={props.subRuleDialog.data.subRule.title}
                   onChange={(e) => props.setDataInSubRule(e)}
+=======
+                  value={props.subRuleDialog.data.title}
+                  onChange={e => props.setDataInSubRule(e)}
+>>>>>>> 5d0f32018156d72ebb60dedcb18378580c40185c
                   className="font-sans "
                   style={{ marginTop: '3px', placeholder: '#66737E' }}
                 />
               </div>
 
               <div className="flex flex-col mt-10 font-sans ">
-                <label className="font-sans font-semibold" style={{ color: '#66737E', fontSize: '12px', textTransform: "uppercase" }}>Name of Sub Rule<span style={{ color: 'red', fontSize: '1rem' }}>*</span></label>
-                <TextField fullWidth
+                <label
+                  className="font-sans font-semibold"
+                  style={{
+                    color: '#66737E',
+                    fontSize: '12px',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  Name of Sub Rule
+                  <span style={{ color: 'red', fontSize: '1rem' }}>*</span>
+                </label>
+                <TextField
+                  fullWidth
                   id="standard-basic"
                   // label="Standard"
                   variant="standard"
                   name="name"
+<<<<<<< HEAD
                   value={props.subRuleDialog.data.subRule.name}
                   onChange={(e) => props.setDataInSubRule(e)}
+=======
+                  value={props.subRuleDialog.data.name}
+                  onChange={e => props.setDataInSubRule(e)}
+>>>>>>> 5d0f32018156d72ebb60dedcb18378580c40185c
                   className="font-sans "
                   style={{ marginTop: '3px', placeholder: '#66737E' }}
                 />
               </div>
 
               <div className="flex flex-col mt-7 font-sans">
-                <label className="font-sans font-semibold" style={{ color: '#66737E', fontSize: '12px', textTransform: "uppercase" }}>Responsibility<span style={{ color: 'red', fontSize: '1rem' }}>*</span></label>
-                <TextField fullWidth
+                <label
+                  className="font-sans font-semibold"
+                  style={{
+                    color: '#66737E',
+                    fontSize: '12px',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  Responsibility
+                  <span style={{ color: 'red', fontSize: '1rem' }}>*</span>
+                </label>
+                <TextField
+                  fullWidth
                   id="standard-basic"
                   // label="Standard"
                   variant="standard"
                   name="responsibility"
+<<<<<<< HEAD
                   onChange={(e) => props.setDataInSubRule(e)}
                   value={props.subRuleDialog.data.subRule.responsibility}
+=======
+                  onChange={e => props.setDataInSubRule(e)}
+                  value={props.subRuleDialog.data.responsibility}
+>>>>>>> 5d0f32018156d72ebb60dedcb18378580c40185c
                   style={{ marginTop: '3px', placeholder: '#66737E' }}
                 />
               </div>
-              <div className='font-sans mt-7 flex flex-col'>
-                <label className="font-sans font-semibold" style={{ color: '#66737E', fontSize: '12px', textTransform: "uppercase" }} for="review">Description</label>
+              <div className="font-sans mt-7 flex flex-col">
+                <label
+                  className="font-sans font-semibold"
+                  style={{
+                    color: '#66737E',
+                    fontSize: '12px',
+                    textTransform: 'uppercase',
+                  }}
+                  for="review"
+                >
+                  Description
+                </label>
 
-                <textarea style={{ color: '#66737E', fontSize: '12px' }} className='font-sans mt-3 border-2 border-gray-300 items-center' id="review"
+                <textarea
+                  style={{ color: '#66737E', fontSize: '12px' }}
+                  className="font-sans mt-3 border-2 border-gray-300 items-center"
+                  id="review"
                   name="description"
+<<<<<<< HEAD
                   value={props.subRuleDialog.data.subRule.description}
                   rows="4" cols="50"
                   onChange={(e) => props.setDataInSubRule(e)}
                 >
                 </textarea>
+=======
+                  value={props.subRuleDialog.data.description}
+                  rows="4"
+                  cols="50"
+                  onChange={e => props.setDataInSubRule(e)}
+                />
+>>>>>>> 5d0f32018156d72ebb60dedcb18378580c40185c
               </div>
 
               <div className="flex flex-col mt-7 font-sans">
-                <label className="font-sans font-semibold" style={{ color: '#66737E', fontSize: '12px', textTransform: "uppercase" }}>Relevant Circulars</label>
+                <label
+                  className="font-sans font-semibold"
+                  style={{
+                    color: '#66737E',
+                    fontSize: '12px',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  Relevant Circulars
+                </label>
                 {/* <TextField fullWidth
                   id="standard-basic"
                   // label="Standard"
@@ -158,24 +246,27 @@ export default function AddSubCategories(props) {
                   className="font-sans"
                   style={{ marginTop: '3px', placeholder: '#66737E' }}
                 /> */}
-                {props.subRuleDialog.data.file.length > 0 ?
-                  props.subRuleDialog.data.file.map((file, f) => {
-                    return (
-                      <div class="flex"> 
-                      <span style={{fontSize:'1rem'}} className="flex">{file.name}, </span>
-                      </div>
-                    )
-                  }) : 
-                  <TextField fullWidth
-                  id="standard-basic"
-                  // label="Standard"
-                  variant="standard"
-                  name="filename"
-                  //onChange={(e) => props.setDataInSubRule(e)}
-                  //value={filename}
-                  className="font-sans"
-                  style={{ marginTop: '3px', placeholder: '#66737E' }}
-                /> }
+                {props.subRuleDialog.data.file.length > 0 ? (
+                  props.subRuleDialog.data.file.map((file, f) => (
+                    <div class="flex">
+                      <span style={{ fontSize: '1rem' }} className="flex">
+                        {file.name},{' '}
+                      </span>
+                    </div>
+                  ))
+                ) : (
+                  <TextField
+                    fullWidth
+                    id="standard-basic"
+                    // label="Standard"
+                    variant="standard"
+                    name="filename"
+                    // onChange={(e) => props.setDataInSubRule(e)}
+                    // value={filename}
+                    className="font-sans"
+                    style={{ marginTop: '3px', placeholder: '#66737E' }}
+                  />
+                )}
 
                 <input
                   type="file"
@@ -184,18 +275,23 @@ export default function AddSubCategories(props) {
                   style={{ display: 'none' }}
                   ref={inputRef}
                   onChange={handleFileChange}
-                ></input>
-
+                />
               </div>
 
-
-              <div className='font-sans mt-9'>
-                <p className="font-sans font-semibold" style={{ color: '#66737E', fontSize: '12px', textTransform: "uppercase" }}>
+              <div className="font-sans mt-9">
+                <p
+                  className="font-sans font-semibold"
+                  style={{
+                    color: '#66737E',
+                    fontSize: '12px',
+                    textTransform: 'uppercase',
+                  }}
+                >
                   Attachment Circulars
                   <button
                     className="font-sans mt-5 flex w-36 h-9 text-white rounded-full flex justify-center"
                     style={{ background: '#132B6B' }}
-                    onClick={(e) => handleClick(e)}
+                    onClick={e => handleClick(e)}
                   >
                     <p className="mt-2 font-sans">Browse</p>
                   </button>
@@ -203,14 +299,26 @@ export default function AddSubCategories(props) {
               </div>
             </div>
             <br />
-            <span style={{ color: 'red', fontSize: '1rem' }} className="mt-12 mb-2">{props.addSubRuleMsgErr.length > 1 ? props.addSubRuleMsgErr : null}</span>
+            <span
+              style={{ color: 'red', fontSize: '1rem' }}
+              className="mt-12 mb-2"
+            >
+              {props.addSubRuleMsgErr.length > 1
+                ? props.addSubRuleMsgErr
+                : null}
+            </span>
             <div className="mt-12 mb-12 ">
               <Button
                 className="bg_red  font-bold login_btn mt-7  w-56 h-12 rounded-full   "
                 style={{ borderRadius: '50px' }}
-                onClick={() => props.createSubRuleInCategory(props.subRuleDialog.data)}
+                onClick={() =>
+                  props.createSubRuleInCategory(props.subRuleDialog.data)
+                }
               >
-                <p className="font-sans font-bold text-lg" style={{ color: '#fff' }}>
+                <p
+                  className="font-sans font-bold text-lg"
+                  style={{ color: '#fff' }}
+                >
                   Create Sub Rules
                 </p>
               </Button>

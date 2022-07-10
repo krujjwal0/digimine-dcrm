@@ -58,7 +58,7 @@ import {
   openSubRuleDialog,
   closeSubRuleDialog,
   setDataInSubRuleDialog,
-  setFileInDialog
+  setFileInDialog,
 } from './actions';
 import AddSubCategories from './subCategories';
 
@@ -109,14 +109,13 @@ export function Categories({
   closeSubRuleDialog,
   subRuleDialog,
   setDataInSubRuleDialog,
-  setFileInDialog
-
+  setFileInDialog,
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
   useEffect(() => {
-     getCategoryList();
+    getCategoryList();
     getAllDepartmentInCategory();
   }, []);
 
@@ -138,17 +137,16 @@ export function Categories({
 
   const [showSubCategory, setShowSubCategory] = useState(false);
   const openSubCategory = (parentRule, index) => {
-    console.log("here for sub open==", parentRule)
+    console.log('here for sub open==', parentRule);
     if (parentRule.editable === true) {
       setShowSubCategory(true);
     } else {
-      let obj = {
+      const obj = {
         errMsg: 'This Rule is not Editable',
-        index: index
-      }
-      setDialogMsg(obj)
+        index,
+      };
+      setDialogMsg(obj);
     }
-
   };
 
   const classes = useStyles();
@@ -159,78 +157,80 @@ export function Categories({
   const [addRuleMsgErr, setErrMsg] = React.useState('');
   const [addSubRuleMsgErr, setSubRuleErrMsg] = React.useState('');
 
-
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
   const handleSubCategoryOpen = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : panel);
-  }
-  
-  const handleOpenSubRuleDialog = (data) => {
+  };
+
+  const handleOpenSubRuleDialog = data => {
     openSubRuleDialog(data);
     let obj ={
       ruleId:data.ruleId
     }
     setDataInSubRuleDialog(obj)
 
-}
+
+  };
   function handleClick(event) {
     event.preventDefault();
     console.info('You clicked a breadcrumb.');
   }
 
   const createCategory = (deptName, newRule) => {
-    if(deptName === ""){
-      setErrMsg('Department is Required')
-    }else if(newRule === ""){
-      setErrMsg('Rule Name is Required')
-    } else if(deptName === "" && newRule === ""){
-      setErrMsg('Department & Rule Name is Required')
-    }else{
-    const obj = {
-      id: '',
-      name: newRule,
-      deleted: false,
-      departmentId: deptName,
-    };
-    addCategoryRule(obj);
-    setErrMsg('')
-    handleCloseBtn()
-  }
+    if (deptName === '') {
+      setErrMsg('Department is Required');
+    } else if (newRule === '') {
+      setErrMsg('Rule Name is Required');
+    } else if (deptName === '' && newRule === '') {
+      setErrMsg('Department & Rule Name is Required');
+    } else {
+      const obj = {
+        id: '',
+        name: newRule,
+        deleted: false,
+        departmentId: deptName,
+      };
+      addCategoryRule(obj);
+      setErrMsg('');
+      handleCloseBtn();
+    }
   };
 
-  const createSubRuleInCategory = (obj) => {
-    console.log("here the the data to add in sub rule==", obj)
-    if(obj.name === "" || obj.title === "" || obj.responsibility === ""){
-      setSubRuleErrMsg('Fill the Required Field')
-    }else{
-    addCategorySubRule(obj);
-    setSubRuleErrMsg('')
-    closeSubRuleDialog();
+  const createSubRuleInCategory = obj => {
+    console.log('here the the data to add in sub rule==', obj);
+    if (obj.name === '' || obj.title === '' || obj.responsibility === '') {
+      setSubRuleErrMsg('Fill the Required Field');
+    } else {
+      addCategorySubRule(obj);
+      setSubRuleErrMsg('');
+      closeSubRuleDialog();
     }
   };
 
   const search = e => {
-    setSearch(e.target.value)
+    setSearch(e.target.value);
     const keyword = e.target.value;
-    console.log("Seacrh according to ====", keyword.length)
+    console.log('Seacrh according to ====', keyword.length);
     if (keyword !== '' && keyword.length > 2) {
-      const result = categoryListReplica.filter(value => value.name.toLowerCase().includes(keyword.toLowerCase()))
+      const result = categoryListReplica.filter(value =>
+        value.name.toLowerCase().includes(keyword.toLowerCase()),
+      );
       console.log('show result name inside filter', result);
-      setSearchData(result)
+      setSearchData(result);
     }
 
     if (keyword.length === 0) {
-      ClearSortnSearch(categoryListReplica)
+      ClearSortnSearch(categoryListReplica);
     }
-  }
+  };
 
   const ClearSortnSearchFnc = () => {
     setSearch('');
-    ClearSortnSearch(categoryListReplica)
-  }
+    ClearSortnSearch(categoryListReplica);
+  };
 
   const getDetailOfSubRule = (ruleId,subruleId,panel) => {
     let data = {
@@ -341,7 +341,7 @@ export function Categories({
                   placeholder="Search by Rule"
                   name="searchText"
                   value={searchText}
-                  onChange={(e) => search(e)}
+                  onChange={e => search(e)}
                   inputProps={{ 'aria-label': 'search' }}
                   className="font-sans font-normal"
                   style={{
@@ -366,7 +366,7 @@ export function Categories({
             </div>
 
             <div
-              className="font-sans w-56 h-9 mt-5  border-2 rounded-full flex justify-center m-2"
+              className="font-sans w-56 h-9 mt-5 mr-24 border-2 rounded-full flex justify-center m-2"
               style={{ background: '#132B6B' }}
             >
               {/* <AddIcon className="text-white mt-1 " /> */}
@@ -374,42 +374,45 @@ export function Categories({
                 ADD NEW CATEGORIES
               </button>
             </div>
-            <div className="flex justify-between rounded-full ">
-              <Dialog
-                style={{
-                  width: '50%',
-                  borderRadius: '50px',
-                  marginLeft: '30%',
-                  marginTop: '7%',
-                }}
-                className="w-full h-3/4 "
-                open={showAddCategory}
-                onClose={handleCloseBtn}
+          </div>
+          <div className="flex justify-between rounded-full ">
+            <Dialog
+              style={{
+                width: '50%',
+                borderRadius: '50px',
+                marginLeft: '30%',
+                marginTop: '7%',
+              }}
+              className="w-full h-3/4 "
+              open={showAddCategory}
+              onClose={handleCloseBtn}
+            >
+              <DialogContent
+                // style={{
+                //   borderRadius: '15px',
+                //   background: '#FFFFFF',
+                //   boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
+                //   Width: '70%',
+                //   Height: '80%',
+                // }}
+                className="flex justify-start"
               >
-                <DialogContent
-                  // style={{
-                  //   borderRadius: '15px',
-                  //   background: '#FFFFFF',
-                  //   boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
-                  //   Width: '70%',
-                  //   Height: '80%',
-                  // }}
-                  className="flex justify-start"
-                >
-                  <AddCategory
-                    departmentList={departmentLisInCategory}
-                    createCategory={createCategory}
-                    handleCloseBtn={handleCloseBtn}
-                    addRuleMsgErr={addRuleMsgErr}
-                  />
-                </DialogContent>
-              </Dialog>
-            </div>
+                <AddCategory
+                  departmentList={departmentLisInCategory}
+                  createCategory={createCategory}
+                  handleCloseBtn={handleCloseBtn}
+                  addRuleMsgErr={addRuleMsgErr}
+                />
+              </DialogContent>
+            </Dialog>
           </div>
 
           {categoryList.map((list, index) => (
             <div>
-              <CategoryListPage list={list} index={index} openSubCategory={openSubCategory}
+              <CategoryListPage
+                list={list}
+                index={index}
+                openSubCategory={openSubCategory}
                 handleChange={handleChange}
                 handleCloseBtn={handleCloseBtn}
                 showSubCategory={showSubCategory}
@@ -459,17 +462,16 @@ export function mapDispatchToProps(dispatch) {
   return {
     getCategoryList: () => dispatch(getCategoryList()),
     getAllDepartmentInCategory: () => dispatch(getAllDepartmentInCategory()),
-    addCategoryRule: (obj) => dispatch(addCategoryRule(obj)),
-    addCategorySubRule: (obj) => dispatch(addCategorySubRule(obj)),
-    setSearchData: (obj) => dispatch(setSearchData(obj)),
-    ClearSortnSearch: (obj) => dispatch(ClearSortnSearch(obj)),
-    setDialogMsg: (err) => dispatch(setDialogMsg(err)),
-    getSubRuleDetail:(data)=>dispatch(getSubRuleDetail(data)),
-    openSubRuleDialog:(data) => dispatch(openSubRuleDialog(data)),
-    closeSubRuleDialog:(data) => dispatch(closeSubRuleDialog(data)),
-    setDataInSubRuleDialog:(data) => dispatch(setDataInSubRuleDialog(data)),
-    setFileInDialog:(data) => dispatch(setFileInDialog(data))
-
+    addCategoryRule: obj => dispatch(addCategoryRule(obj)),
+    addCategorySubRule: obj => dispatch(addCategorySubRule(obj)),
+    setSearchData: obj => dispatch(setSearchData(obj)),
+    ClearSortnSearch: obj => dispatch(ClearSortnSearch(obj)),
+    setDialogMsg: err => dispatch(setDialogMsg(err)),
+    getSubRuleDetail: data => dispatch(getSubRuleDetail(data)),
+    openSubRuleDialog: data => dispatch(openSubRuleDialog(data)),
+    closeSubRuleDialog: data => dispatch(closeSubRuleDialog(data)),
+    setDataInSubRuleDialog: data => dispatch(setDataInSubRuleDialog(data)),
+    setFileInDialog: data => dispatch(setFileInDialog(data)),
   };
 }
 
@@ -488,7 +490,7 @@ const mapStateToProps = state => ({
       : [],
 
   subRuleDetail: state.categories.subRuleDetail,
-  subRuleDialog:state.categories.subRuleDialog,
+  subRuleDialog: state.categories.subRuleDialog,
 });
 const withConnect = connect(
   mapStateToProps,

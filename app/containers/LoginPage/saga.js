@@ -19,7 +19,7 @@ import {
   SAVE_FEEDBACK_FORM_DATA,
   DOWNLOAD_PROFILE_IMAGE,
   SILENT_RENEWAL,
-  GET_USER_PROFILE_DETAIL
+  GET_USER_PROFILE_DETAIL,
 } from './constants';
 import {
   setAdminLocationsAction,
@@ -35,7 +35,7 @@ import {
   showOtpErrorPopupAction,
   downloadProfileImageAction,
   silentRenewalAction,
-  setUserProfileDetails
+  setUserProfileDetails,
 } from './actions';
 import { makeSelectEmailId } from './selectors';
 
@@ -44,8 +44,9 @@ import { makeSelectEmailId } from './selectors';
  */
 
 function* generateOtpByEmailIdSaga(action) {
-  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/generateOtpByEmailId?emailId=${action.payload
-    }`;
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/generateOtpByEmailId?emailId=${
+    action.payload
+  }`;
   console.log(
     'data in saga generateOtpByEmailIdSaga :',
     action.payload,
@@ -63,7 +64,9 @@ function* generateOtpByEmailIdSaga(action) {
 
     console.log('success in saga', result);
     if (result.status.status == 422) {
-      yield put(showOtpErrorPopupAction({ status: true, msg: result.status.message }))
+      yield put(
+        showOtpErrorPopupAction({ status: true, msg: result.status.message }),
+      );
     }
     yield put(setOtpAction(result.data.otp));
     if (result.data) {
@@ -185,12 +188,11 @@ function* getAdminLocations(action) {
   } catch (err) {
     console.log('Error in saga', result, err);
     if (err.response.status == 401) {
-      console.log(" Unauthorised access");
+      console.log(' Unauthorised access');
 
-      //call silentRenewal with refresh token
+      // call silentRenewal with refresh token
       yield put(silentRenewalAction());
-    }
-    else if (result) {
+    } else if (result) {
       console.log(result.status.message);
     } else console.log(err);
   }
@@ -215,9 +217,9 @@ function* getFeedbackFormSaga(action) {
     yield put(setFeedbackFormData(result.data));
   } catch (err) {
     if (err.response.status == 401) {
-      console.log(" Unauthorised access");
+      console.log(' Unauthorised access');
 
-      //call silentRenewal with refresh token
+      // call silentRenewal with refresh token
       yield put(silentRenewalAction());
     }
 
@@ -269,9 +271,9 @@ function* postFeedbackSaga(action) {
     console.log('postFeedbackSaga success in saga', result, result.data);
   } catch (err) {
     if (err.response.status == 401) {
-      console.log(" Unauthorised access");
+      console.log(' Unauthorised access');
 
-      //call silentRenewal with refresh token
+      // call silentRenewal with refresh token
       yield put(silentRenewalAction());
     } else if (result) {
       console.log('Error while saving feedbAck', result);
@@ -284,7 +286,7 @@ function* downloadProfileImageSaga(action) {
   console.log(' downloadProfileImageSaga URL:', requestURL);
   // const awtToken = localStorage.getItem('awtToken');
   const awtToken = action.payload;
-  console.log("PRofile image awt token ====", awtToken)
+  console.log('PRofile image awt token ====', awtToken);
   let result;
   try {
     console.log('generatorFunction downloadProfileImageSaga ');
@@ -294,14 +296,14 @@ function* downloadProfileImageSaga(action) {
         Authorization: `Bearer ${awtToken}`,
         'Content-Type': 'application/json',
       },
-      responseType: 'blob'
+      responseType: 'blob',
     });
     console.log('downloadProfileImageSaga success in saga', result);
   } catch (err) {
     if (err) {
-      console.log(" Unauthorised access", err);
+      console.log(' Unauthorised access', err);
 
-      //call silentRenewal with refresh token
+      // call silentRenewal with refresh token
       yield put(silentRenewalAction());
     } else if (result) {
       console.log('Error while saving profile', result);
@@ -324,22 +326,21 @@ function* silentRenewal_Saga() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "refreshToken": refreshToken })
+      body: JSON.stringify({ refreshToken }),
     });
     console.log('success in silentRenewal_Saga ', result);
 
     localStorage.setItem('awtToken', result.data.token);
     localStorage.setItem('refreshToken', result.data.refreshToken);
     localStorage.setItem('isAuthorized', true);
-
   } catch (err) {
     console.log('Error in silentRenewal_Saga saga', result, err);
     if (err.response.status === 422) {
-      //Stay logged in ...Token not expired
+      // Stay logged in ...Token not expired
     } else if (result) {
       console.log(result.status.message);
     } else console.log(err);
-    //session out and logout
+    // session out and logout
   }
 }
 
@@ -361,8 +362,7 @@ function* getUserProfileDetailSaga(action) {
     console.log('Error in saga', result, err);
     if (err.response.status == 401) {
       yield put(silentRenewalAction());
-    }
-    else if (result) {
+    } else if (result) {
       console.log(result.status.message);
     } else console.log(err);
   }
@@ -385,6 +385,5 @@ export default function* loginData() {
   yield takeLatest(SAVE_FEEDBACK_FORM_DATA, postFeedbackSaga);
   yield takeLatest(DOWNLOAD_PROFILE_IMAGE, downloadProfileImageSaga);
   yield takeLatest(SILENT_RENEWAL, silentRenewal_Saga);
-  yield takeLatest(GET_USER_PROFILE_DETAIL, getUserProfileDetailSaga)
-
+  yield takeLatest(GET_USER_PROFILE_DETAIL, getUserProfileDetailSaga);
 }

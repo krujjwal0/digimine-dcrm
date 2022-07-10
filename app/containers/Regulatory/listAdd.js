@@ -16,26 +16,17 @@ import { createStructuredSelector } from 'reselect';
 
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
-import {
-  makeSelectRepos,
-  makeSelectLoading,
-  makeSelectError,
-} from 'containers/App/selectors';
-import { Card } from '@material-ui/core';
-import { loadRepos } from '../App/actions';
-import { changeUsername } from './actions';
-import { makeSelectUsername } from './selectors';
-import reducer from './reducer';
-import saga from './saga';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import './style.css'
+import saga from './saga';
+import './style.css';
+import { getAllDepartment, getDropdownList } from './actions';
 
-const key = 'listadd';
+const key = 'regulatory';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -45,31 +36,47 @@ const useStyles = makeStyles(theme => ({
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 200,
+    width: 500,
   },
 }));
 
 export function ListAdd({
-  username,
-  loading,
-  error,
-  repos,
-  onSubmitForm,
-  onChangeUsername,
+  getAllDepartment,
+  departmentList,
+  getDropdownList,
+  assignPersonDropdownList,
+  reviwerDropdownList,
+  functionalHeadDropdownList,
 }) {
-  useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
+  const [departmentId, setDepartmentId] = useState(0);
+  const [selectOTCorPC, setSelectOTCorPC] = useState('OTC');
   useEffect(() => {
-    // When initial state username is not null, submit the form to load repos
-    if (username && username.trim().length > 0) onSubmitForm();
+    getAllDepartment();
+
+    console.log('departmentList in regulatory ===', departmentList);
   }, []);
 
-  const reposListProps = {
-    loading,
-    error,
-    repos,
-  };
+  useEffect(() => {
+    console.log('department list', departmentList);
+  }, [departmentList]);
+
+  useEffect(() => {
+    // Functional Head id=3
+    getDropdownList(3, departmentId);
+    // id= 4 "Reviewer"
+    getDropdownList(4, departmentId);
+    // id= 5 Person Responsible
+    getDropdownList(5, departmentId);
+    console.log(
+      'assignPersonDropdownList  reviwerDropdownList  functionalHeadDropdownList',
+      assignPersonDropdownList,
+      reviwerDropdownList,
+      functionalHeadDropdownList,
+    );
+  }, [departmentId]);
+
   const history = useHistory();
   const listAddSubRule = () => {
     const path = `/listadd2`;
@@ -90,11 +97,19 @@ export function ListAdd({
     console.info('You clicked a breadcrumb.');
   }
 
+  const selectDepartmentId = e => {
+    console.log(e.target.value);
+    setDepartmentId(e.target.value);
+    // Call api to show users list of particular Location
+  };
+
+
+
   return (
     <div className="content">
       <div className="w-full">
         <div className="ml-3 pt-1">
-        <div className="mt-3 text-xl ">
+          <div className="mt-3 text-xl ">
             <Breadcrumbs
               aria-label="breadcrumb"
               className="font-sans font-bold text-xl"
@@ -131,14 +146,14 @@ export function ListAdd({
               >
                 Regulatory |
               </Link>
-              
+
               <Link
                 color="textPrimary"
                 href="/components/breadcrumbs/"
                 onClick={handleClick}
                 aria-current="page"
                 className="font-sans "
-                style={{marginLeft: '5px'}}
+                style={{ marginLeft: '5px' }}
               >
                 Add
               </Link>
@@ -167,20 +182,32 @@ export function ListAdd({
                     fontSize: '13px',
                     fontWeight: '400',
                   }}
+                  name="departmentId"
+                  required={true}
+                  // value={departmentId}
+                  onClick={(e) => selectDepartmentId(e)}
+
                 >
-                  <option
-                    className="ml-2 font-sans"
-                    style={{ color: '#66737E' }}
-                  >
-                    Select OTC
-                  </option>
+
+                  {departmentList.map((dept, index) => {
+                    console.log('dept============', dept);
+                    return (
+                      <option
+                        className="ml-2 font-sans"
+                        style={{ color: '#66737E' }}
+                        key={index} value={dept.id} id={dept.id}
+                      >
+                        {dept.name}
+                      </option>
+                    );
+                  })}
                 </select>
-                <p
+                {/* <p
                   className="flex justify-end font-sans mr-3"
                   style={{ color: ' #FF0000', fontWeight: '400' }}
                 >
                   Error Message
-                </p>
+                </p> */}
               </div>
 
               <div className="ml-9 mt-3 font-sans font-semibold ">
@@ -197,74 +224,131 @@ export function ListAdd({
                     fontSize: '13px',
                     fontWeight: '400',
                   }}
+                  onClick={(e) => setSelectOTCorPC(e.target.value)}
                 >
                   <option
                     className="ml-2 font-sans"
                     style={{ color: '#66737E' }}
                   >
-                    Select OTC
+                    None
+                  </option>
+                  <option
+                    className="ml-2 font-sans"
+                    style={{ color: '#66737E' }}
+                    value="OTC"
+                  >
+                    OTC
+                  </option>
+                  <option
+                    className="ml-2 font-sans"
+                    style={{ color: '#66737E' }}
+                    value="PC"
+                  >
+                    PC
                   </option>
                 </select>
               </div>
 
-              <div className=" mt-8 font-sans font-semibold w-full flex flex justify-start">
-
-                <div className='flex flex-col'>
-                  <  label className='font-sans ml-9' style={{fontSize: '13px', fontWeight: '700'}}>Select Your Date</label>
-               
-                <div className="w-1/2 ml-9 mt-6 border-2 rounded-full h-10 w-52">
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <KeyboardDatePicker
-                      disableToolbar
-                      // variant="outlined"
-                      format="MM/dd/yyyy"
-                     
-                      margin="normal"
-                      id="date-picker-inline"
-                      value={selectedDate}
-                      onChange={handleDateChange}
-                      KeyboardButtonProps={{
-                        'aria-label': 'change date',
-                      }}
-                       className="w-40 "
-                      style={{ marginTop: '5px', marginLeft: '11px'}}
-                    />
-                  </MuiPickersUtilsProvider>
+              <div className=" mt-8 font-sans font-semibold ">
+                <div className="flex flex-col">
+                  <label
+                    className="font-sans ml-9"
+                    style={{ fontSize: '13px', fontWeight: '700' }}
+                  >
+                    Select Your Date
+                  </label>
+                  {selectOTCorPC == "OTC"?
+                  <div className=" ml-9 mt-6 border-2 rounded-full h-10 ">
+                    <form className={classes.container} noValidate>
+                      <TextField
+                        //  variant="outlined"
+                        id="date"
+                        // placeholder="Weekely"
+                        type="date"
+                        defaultValue="YYYY-MM-DD"
+                        className={classes.textField}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        style={{ marginTop: '4.3px', marginLeft: '13px' }}
+                      />
+                    </form>
+                  </div>
+                  :
+                    <select
+                  className=" ml-9 mt-6 border-2 rounded-full h-10"
+                  style={{
+                    color: '#66737E',
+                    fontSize: '13px',
+                    fontWeight: '400',
+                  }}
+                  // onClick={(e) => setSelectOTCorPC(e.target.value)}
+                >
+                  {/* <option
+                    className="ml-2 font-sans"
+                    style={{ color: '#66737E' }}
+                  >
+                    None
+                  </option> */}
+                  <option
+                    className="ml-2 font-sans"
+                    style={{ color: '#66737E' }}
+                    value="Weekly"
+                  >
+                    Weekly
+                  </option>
+                  <option
+                    className="ml-2 font-sans"
+                    style={{ color: '#66737E' }}
+                    value="Yearly"
+                  >
+                    Yearly
+                  </option>
+                </select>
+                  }
+                  
                 </div>
-                </div>
-                <div className='flex flex-col ml-6'>
+                {/* <div className='flex flex-col ml-6'>
               <label className='font-sans text-sm ml-7' style={{fontSize: '13px', fontWeight: '700'}}>Pick Date</label>
-                <div className="w-1/2 ml-5 mt-5 border-2 rounded-full h-10 w-52">
-                  <form className={classes.container} noValidate>
-                    <TextField
-                    //  variant="outlined"
-                      id="date"
-                      placeholder='Weekely'
-                      type="date"
-                      defaultValue="2017-05-24"
-                      className={classes.textField}
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                      style={{ marginTop: '4.3px',marginLeft: '13px'}}
-                    />
-                    
-                  </form>
+                <div className="w-1/2 ml-5 mt-5 ">
+                <select
+                className='border-2 rounded-full h-10 w-52 font-sans'
+                    style={{
+                    color: '#66737E',
+                    fontSize: '13px',
+                    fontWeight: '400',
+                  }}
+                >
+                  <option
+                    className="ml-2 font-sans px-3"
+                    style={{ color: '#66737E' }}
+                  >
+                    Weekely
+                  </option>
+                </select>
                 </div>
-                </div>
+                </div> */}
               </div>
             </form>
           </div>
 
           <div className=" w-1/2 bg-[#F7F8FA] rounded-lg  mt-8 mr-20 ml-12">
-
             <form className=" mb-6 -ml-3">
               <p className="ml-9 mt-3 font-sans font-semibold flex">
                 <p className="font-sans">Select Assign Person</p>
                 <p className="text-[red]">*</p>
               </p>
               <select className="font-sans w-10/12 ml-7 mt-3 border-2 rounded-[20px] h-10">
-                <option className="ml-5 font-sans">Select</option>
+                {assignPersonDropdownList.map((person, index) => (
+                  <option
+                    className="ml-5 font-sans"
+                    key={index}
+                    value={person.id}
+                  >
+                    {' '}
+                    {person.name}{' '}
+                  </option>
+                ))}
               </select>
 
               <p className="ml-9 mt-6 font-sans font-semibold">
@@ -272,28 +356,46 @@ export function ListAdd({
               </p>
 
               <select className="font-sans w-10/12 ml-7 mt-3 border-2 rounded-[20px] h-10">
-                <option className="ml-2 font-sans">Select </option>
+                {reviwerDropdownList.map((reviewer, index) => (
+                  <option
+                    className="ml-5 font-sans"
+                    key={index}
+                    value={reviewer.id}
+                  >
+                    {' '}
+                    {reviewer.name}{' '}
+                  </option>
+                ))}
               </select>
 
               <p className="ml-9 mt-6 font-sans font-semibold">
-              Select Slot 2 Senior
+                Select Slot 2 Senior
               </p>
 
               <select className="w-10/12 ml-7 mt-3 border-2 rounded-[20px] h-10 font-sans">
-                <option className="ml-2 font-sans">Select</option>
+                {functionalHeadDropdownList.map((person, index) => (
+                  <option
+                    className="ml-2 font-sans"
+                    key={index}
+                    value={person.id}
+                  >
+                    {' '}
+                    {person.name}{' '}
+                  </option>
+                ))}
               </select>
             </form>
           </div>
         </div>
         <div className="-pt-3 ml-9">
           <button
-           className="bg_red mx-auto font-sans text-white font-semibold reg_page w-32 h-10 rounded-3xl my-5"
+            className="bg_red mx-auto font-sans text-white font-semibold reg_page w-32 h-10 rounded-3xl my-5"
             // className="w-28 h-10 font-sans"
             // style={{
             //   backgroundColor: 'rgb(246, 107, 107)',
             //   color: 'white',
             //   borderRadius: '50px',
-            
+
             // }}
             onClick={listAddSubRule}
           >
@@ -305,29 +407,20 @@ export function ListAdd({
   );
 }
 
-ListAdd.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  repos: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
-  onSubmitForm: PropTypes.func,
-  username: PropTypes.string,
-  onChangeUsername: PropTypes.func,
-};
-
-const mapStateToProps = createStructuredSelector({
-  repos: makeSelectRepos(),
-  username: makeSelectUsername(),
-  loading: makeSelectLoading(),
-  error: makeSelectError(),
-});
+const mapStateToProps = state => (
+  console.log('STATE===', state),
+  {
+    departmentList: state.regulatoryReducer.departmentList.length > 0 ? state.regulatoryReducer.departmentList : [],
+    assignPersonDropdownList: state.regulatoryReducer.assignPersonDropdownList.length > 0 ? state.regulatoryReducer.assignPersonDropdownList : [],
+    reviwerDropdownList: state.regulatoryReducer.reviwerDropdownList.length > 0 ? state.regulatoryReducer.reviwerDropdownList : [],
+    functionalHeadDropdownList: state.regulatoryReducer.functionalHeadDropdownList.length > 0 ? state.regulatoryReducer.functionalHeadDropdownList : []
+  });
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),
-    onSubmitForm: evt => {
-      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-      dispatch(loadRepos());
-    },
+    getAllDepartment: () => dispatch(getAllDepartment()),
+    getDropdownList: (roleId, departmentId) =>
+      dispatch(getDropdownList(roleId, departmentId)),
   };
 }
 

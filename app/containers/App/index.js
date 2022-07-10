@@ -48,6 +48,9 @@ import { setNavBar } from './actions';
 import { getUserLogout, setOtpAction, setShowOtpPage } from '../LoginPage/actions';
 import GeekStepper from '../LoginPage/GeekStepper'
 import { DetailsPage } from '../Regulatory/DetailsPage';
+import ContactUs from '../Help/ContactUs';
+import Notification from '../Notification';
+
 
 const key = 'main';
 
@@ -102,6 +105,8 @@ export function App(props) {
               <Route path="/myprofile" component={MyProfile} />
               <Route path="/history" component={History} />
               <Route path="/details" component={DetailsPage} />
+              <Route path="/ContactUs" component={ContactUs } />
+              <Route path= "/notification" component={Notification} />
 
             </>
             {/* : */}

@@ -29,7 +29,7 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, styled, alpha } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -43,6 +43,7 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
+import { green } from '@material-ui/core/colors';
 import map from './image/map.png';
 import photo from './image/profilepic.png';
 import Users from './Users';
@@ -51,6 +52,18 @@ import reducer from './reducer';
 import { makeSelectUsername } from './selectors';
 import { changeUsername } from './actions';
 import { loadRepos } from '../App/actions';
+
+const GreenSwitch = styled(Switch)(({ theme }) => ({
+  '& .MuiSwitch-switchBase.Mui-checked': {
+    color: green[600],
+    '&:hover': {
+      backgroundColor: alpha(green[600], theme.palette.action.hoverOpacity),
+    },
+  },
+  '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+    backgroundColor: green[600],
+  },
+}));
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -102,27 +115,34 @@ function MangRemark({}) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
   return (
     <div>
       <div className=" mt-8   w-[100%] ">
         <div className="flex  mt-2 mb-6">
-          <Typography className="text-[18px] w-full font-sans font-bold  text-[#132B6B] pl-9">
+          <Typography
+            className="text-[18px] w-full font-sans font-bold  text-[#132B6B] pl-9"
+            style={{ fontWeight: '500' }}
+          >
             Management Remarks
           </Typography>
-          <div className='flex  w-full mr-7'>
-          <Typography
-            className="text-[18px] w-full font-sans font-bold  text-[#132B6B] flex justify-end  "
-            // style={{ paddingLeft: '46rem' }}
-          >
-            Status Of The Conformity
-            <Switch className="" style={{ textAlign: 'center' }} />
-          </Typography>
-         
+          <div className="flex  w-full mr-7">
+            <Typography
+              className="text-[18px] w-full font-sans font-bold  text-[#132B6B] flex justify-end  "
+              // style={{ paddingLeft: '46rem' }}
+              style={{ fontWeight: '500' }}
+            >
+              Status Of The Conformity
+              {/* <Switch className="" style={{ textAlign: 'center' }} /> */}
+              <GreenSwitch {...label} defaultChecked />
+            </Typography>
           </div>
-         
         </div>
-        <Grid className="ml-3 mr-9" style={{ border: '1px solid #EAEAEA' }}>
+        <Grid
+          className="ml-10 w-11/12"
+          style={{ border: '2px solid #EAEAEA', borderRadius: '10px' }}
+        >
           <div className="flex ml-2 mt-4 mb-4">
             <Card
               className=" ml-1"
@@ -188,33 +208,55 @@ function MangRemark({}) {
             />
           </div>
         </Grid>
-        <div className="flex justify-between mt-5 mr-12 ">
-          <Typography className="text-[18px] font-sans font extrabold  text-[#132B6B] pl-9">
+
+        <div className="flex justify-between mt-8 mr-12 ">
+          <Typography
+            className="text-[18px] font-sans  text-[#132B6B] pl-9"
+            style={{ fontWeight: '600' }}
+          >
             Level of Non-conformity
           </Typography>
           <Typography
-            className=" text-[14px] font-sans font-normal font bold text-[#000000] "
-           
+            className=" text-[14px] font-sans  text-[#132B6B] "
+            style={{ fontWeight: '400' }}
           >
-            Owner/Agent/Manager
+            Major
           </Typography>
         </div>
-        <div className="mt-10">
-          <Typography className="text-[18px] font-sans font-bold text-[#132B6B]  pl-10">
+        <div className="mt-16">
+          <Typography
+            className="text-[18px] font-sans text-[#132B6B] pl-10  "
+            style={{ fontWeight: '500' }}
+          >
             Remarks
           </Typography>
-          <p className="tracking-wide text-[15px] font-sans font-normal text-[#000000] mt-[8px]  pl-10 pb-4">
+          <p
+            className=" text-[14px] font-sans text-[#000000] mt-[12px] pl-10  pb-4"
+            style={{ lineHeight: '24px', fontWeight: '400' }}
+          >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
             tincidunt velit vel nisl eleifend suscipit. Pellentesque nisl
             sapien, commodo vitae mollis quis, auctor vitae massa.In enim sem,
             aliquet vel elementum ornare, venenatis eget turpis. Cras egestas
             sodales fermentum.
           </p>
+
+          <p
+            className=" pl-10 text-[11px] font-sans"
+            style={{
+              color: '#9FA1A1',
+              fontWeight: '600',
+              lineHeight: '14.3px',
+              textTransform: 'capitalize',
+            }}
+          >
+            Oct 24, 2019
+          </p>
         </div>
 
-        <Card
-          className=" ml-9 mr-9 mb-6"
-          style={{ backgroundColor: '#F4F4F4' }}
+        <div
+          className="mt-14 ml-10 w-11/12 h-72 rounded-lg mb-10 font-sans"
+          style={{ backgroundColor: '#F7F8FA' }}
         >
           <Tabs
             value={value}
@@ -224,40 +266,77 @@ function MangRemark({}) {
             indicatorColor="primary"
             textColor="primary"
             aria-label="scrollable force tabs example"
+            className="font-sans "
           >
-            <Tab label="Reviewer Feedback" {...a11yProps(0)} />
-            <Tab label="Lead Reviewer Feedback" {...a11yProps(1)} />
+            <Tab
+              className="font-sans "
+              style={{
+                color: '#132B6B',
+                fontWeight: '600',
+                fontFamily: 'sans-serif',
+              }}
+              label="Reviewer Feedback"
+              {...a11yProps(0)}
+            />
+            <Tab
+              className="font-sans"
+              style={{ color: '#132B6B', fontWeight: '600' }}
+              label="Lead Reviewer Feedback"
+              {...a11yProps(1)}
+            />
           </Tabs>
 
-          <TabPanel value={value} index={0} className="ml-10">
-            <div className="mt-8">
-              <Typography className="text-[18px] font-sans font-bold text-[#132B6B]  pl-4">
-                Reviewer Remarks
-              </Typography>
-              <p className="text-[14px] font-sans font-normal text-[#000000] mt-[8px] pl-4 pb-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                tincidunt velit vel nisl eleifend suscipit. Pellentesque nisl
-                sapien, commodo vitae mollis quis, auctor vitae massa.In enim
-                sem, aliquet vel elementum ornare, venenatis eget turpis. Cras
-                egestas sodales fermentum.
-              </p>
-            </div>
-          </TabPanel>
-          <TabPanel value={value} index={1} className="ml-10">
-            <div className="mt-8">
-              <Typography className="text-[18px] font-sans font-bold text-[#132B6B]  pl-4">
-                Reviewer
-              </Typography>
-              <p className="text-[14px] font-sans font-normal text-[#000000] mt-[8px] pl-4 pb-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                tincidunt velit vel nisl eleifend suscipit. Pellentesque nisl
-                sapien, commodo vitae mollis quis, auctor vitae massa.In enim
-                sem, aliquet vel elementum ornare, venenatis eget turpis. Cras
-                egestas sodales fermentum.
-              </p>
-            </div>
-          </TabPanel>
-        </Card>
+          <Card
+            className=" ml-9 mr-9 mb-6"
+            style={{ backgroundColor: '#F7F8FA' }}
+          >
+            <TabPanel value={value} index={0} className="ml-2 mt-6">
+              <div className="mt-8">
+                <Typography className="text-[18px] font-sans font-bold text-[#132B6B]  ">
+                  Reviewer Remarks
+                </Typography>
+                <p
+                  className="text-[14px] font-sans text-[#000000] mt-[8px] pb-4"
+                  style={{ lineHeight: '24px', fontWeight: '400' }}
+                >
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                  tincidunt velit vel nisl eleifend suscipit. Pellentesque nisl
+                  sapien, commodo vitae mollis quis, auctor vitae massa.In enim
+                  sem, aliquet vel elementum ornare, venenatis eget turpis. Cras
+                  egestas sodales fermentum.
+                </p>
+
+                <p
+                  className="text-[11px] font-sans"
+                  style={{
+                    color: '#9FA1A1',
+                    fontWeight: '600',
+                    lineHeight: '14.3px',
+                    textTransform: 'capitalize',
+                  }}
+                >
+                  Oct 24, 2019
+                </p>
+              </div>
+            </TabPanel>
+            <TabPanel value={value} index={1} className="ml-10">
+              <div className="mt-8">
+                <Typography className="text-[18px] font-sans font-bold text-[#132B6B]  pl-4">
+                  Reviewer
+                </Typography>
+                <p className="text-[14px] font-sans font-normal text-[#000000] mt-[8px] pl-4 pb-4">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                  tincidunt velit vel nisl eleifend suscipit. Pellentesque nisl
+                  sapien, commodo vitae mollis quis, auctor vitae massa.In enim
+                  sem, aliquet vel elementum ornare, venenatis eget turpis. Cras
+                  egestas sodales fermentum.
+                </p>
+
+                <p className="  font-sans">Oct 24, 2019</p>
+              </div>
+            </TabPanel>
+          </Card>
+        </div>
       </div>
     </div>
   );

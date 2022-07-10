@@ -68,6 +68,8 @@ const GreenSwitch = styled(Switch)(({ theme }) => ({
 }));
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
+
+
 export function Employee({
   username,
   usersList,
@@ -479,6 +481,7 @@ export function Employee({
               </div>
             </div>
           </Popover>
+
           <Dialog className='w-full h-full' open={showExport} onClose={handleCloseBtn}>
             <DialogContent
             // style={{
@@ -688,7 +691,8 @@ Employee.propTypes = {
   onChangeUsername: PropTypes.func,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = state => ( {
+  
   usersList: state.users.usersList.length > 0 ? state.users.usersList : [],
   usersListreplica: state.users.usersListreplica.length > 0 ? state.users.usersListreplica : [],
   rolesList: state.users.rolesList.length > 0 ? state.users.rolesList : [],
@@ -697,7 +701,9 @@ const mapStateToProps = state => ({
 });
 
 export function mapDispatchToProps(dispatch) {
+  
   return {
+
     showEmployee: data => dispatch(showEmployee(data)),
     setEmployee: data => dispatch(setEmployee(data)),
     editUser: data => dispatch(editUser(data)),

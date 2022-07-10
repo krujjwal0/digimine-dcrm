@@ -71,7 +71,7 @@ export function AddUser(props) {
   }, []);
 
   const selectDepartmentId = e => {
-    // console.log(value);
+    console.log(e.target.value);
     setDepartmentId(e.target.value);
     // Call api to show users list of particular Location
   };

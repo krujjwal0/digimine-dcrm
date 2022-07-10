@@ -80,8 +80,10 @@ export default function AddCategories(props) {
           </div>
         </FormControl>
       </div>
-      <br/>
-      <span style={{color:'red', fontSize:'1rem'}} className="mt-12 mb-2">{props.addRuleMsgErr.length > 1 ? props.addRuleMsgErr : null }</span>
+      <br />
+      <span style={{ color: 'red', fontSize: '1rem' }} className="mt-12 mb-2">
+        {props.addRuleMsgErr.length > 1 ? props.addRuleMsgErr : null}
+      </span>
       <div className="mt-12 mb-12 ">
         <Button
           className="bg_red  font-bold login_btn mt-7  w-52 h-12 rounded-full   "

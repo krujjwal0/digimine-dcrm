@@ -15,7 +15,7 @@ import {
   CLOSE_ADD_SUBRULE_DIALOG,
   OPEN_ADD_SUBRULE_DIALOG,
   SET_DATA_IN_SUBRULE_DIALOG,
-  SET_FILE_IN_DIALOG
+  SET_FILE_IN_DIALOG,
 } from './constants';
 
 export function getCategoryList() {
@@ -115,28 +115,33 @@ export function setDialogMsg(data) {
 }
 export function openSubRuleDialog(data) {
   return {
-      type: OPEN_ADD_SUBRULE_DIALOG,
-      payload: data
-  }
+    type: OPEN_ADD_SUBRULE_DIALOG,
+    payload: data,
+  };
 }
 
 export function closeSubRuleDialog() {
   return {
-      type: CLOSE_ADD_SUBRULE_DIALOG
-  }
+    type: CLOSE_ADD_SUBRULE_DIALOG,
+  };
 }
 
-export function setDataInSubRuleDialog(obj){
-  return{
+export function setDataInSubRuleDialog(obj) {
+  return {
     type: SET_DATA_IN_SUBRULE_DIALOG,
-    payload:obj
-  }
+    payload: obj,
+  };
 }
 
+<<<<<<< HEAD
 export function setFileInDialog(obj){
   console.log("file action=====", obj)
   return{
+=======
+export function setFileInDialog(obj) {
+  return {
+>>>>>>> 5d0f32018156d72ebb60dedcb18378580c40185c
     type: SET_FILE_IN_DIALOG,
-    payload:obj
-  }
+    payload: obj,
+  };
 }
