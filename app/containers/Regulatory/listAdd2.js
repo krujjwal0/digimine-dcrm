@@ -34,6 +34,7 @@ export function ListAdd2({ getRuleAndSubrule, ruleAndSubRuleList, setSubRules, s
   useEffect(() => {
     console.log("subRulesList", subRulesList)
   }, [subRulesList]);
+  
   useEffect(()=>{
     console.log("addSelectedSubRuleData",addSelectedSubRuleData)
   },[addSelectedSubRuleData])
