@@ -22,7 +22,7 @@ import {
 // import ArrowBackIosIcon from '@material-ui/core/AccordionActions/ArrowBackIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Divider from '@material-ui/core/Divider';
-import { alpha, styled, withStyles } from '@material-ui/core/styles';
+import { alpha, styled, withStyles , makeStyles } from '@material-ui/core/styles';
 import {
   Card,
   CardContent,
@@ -31,7 +31,7 @@ import {
   FormControlLabel,
 } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
-import { makeStyles } from '@material-ui/core/styles';
+
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -41,8 +41,9 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import { Redirect, useHistory } from 'react-router-dom';
 import ManageRemark from './ManagRema';
-import map from './image/profilepic.png';
+import map from './image/new.png';
 import photo from './image/profilepic.png';
 import Users from './Users';
 import saga from './saga';
@@ -50,12 +51,25 @@ import reducer from './reducer';
 import { makeSelectUsername } from './selectors';
 import { changeUsername } from './actions';
 import { loadRepos } from '../App/actions';
-import { Redirect, useHistory } from 'react-router-dom';
 import { setNavBar } from '../App/actions';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import MoreVert from '@material-ui/icons/MoreVert';
+// import { makeStyles, styled, alpha } from '@material-ui/core/styles';
+import { green } from '@material-ui/core/colors';
+
+const GreenSwitch = styled(Switch)(({ theme }) => ({
+  '& .MuiSwitch-switchBase.Mui-checked': {
+    color: green[600],
+    '&:hover': {
+      backgroundColor: alpha(green[600], theme.palette.action.hoverOpacity),
+    },
+  },
+  '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+    backgroundColor: green[600],
+  },
+}));
 
 const key = 'regulatory';
 
@@ -167,6 +181,8 @@ export function DetailsPage({
     checkedC: true,
   });
 
+  const label = { inputProps: { 'aria-label': 'Switch demo' } };
+
   return (
     <div className="maindash2">
       <div className=" mt-4  w-full">
@@ -238,8 +254,9 @@ export function DetailsPage({
                 </div>
               </div>
               <div />
-              <div className="flex ">
-                <FormGroup>
+              <div className="flex mr-36 ">
+                <GreenSwitch {...label} defaultChecked />
+                {/* <FormGroup>
                   <FormControlLabel
                     control={
                       <IOSSwitch
@@ -253,7 +270,7 @@ export function DetailsPage({
 
                 <div className="mt-2 mr-3 ">
                   <MoreVert />
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -293,85 +310,128 @@ export function DetailsPage({
             </div>
           </div>
         </div>
-        <div className="flex justify-start w-10/12 mt-7 ml-14" style={{}}>
-          <Typography className="font-sans">Select Rule</Typography>
-          <div className="rounded-full ml-4 w-40">
-            <select
-              className="w-full font-sans border-2 rounded-[20px] h-9 "
-              style={{
-                color: '#66737E',
-                fontSize: '13px',
-                fontWeight: '400',
-              }}
-            >
-              <option className="ml-2 font-sans" style={{ color: '#66737E' }}>
-                Rule A
-              </option>
+        <div className="flex justify-between w-full mt-9 " style={{}}>
+          <div className="ml-9">
+            <Typography className="font-sans flex px-3 mt-3 " style={{color: '#132B6B', fontWeight: '400',}}>
+              Select Rule
+              <div className="rounded-full ml-4 w-40">
+                <select
+                  className="w-full font-sans border-2 border-[#0F4C4F] rounded-[20px] h-9 px-3 "
+                  style={{
+                    color: '#132B6B',
+                    fontSize: '18px',
+                    fontWeight: '700',
+                  }}
+                >
+                  <option className="ml-2 font-sans" style={{ color: '#132B6B' }}>
+                    Rule A
+                  </option>
+                </select>
+                <p
+                  className=" absolute rounded-xl w-12 h-5 -mt-7 ml-24 text-white font-sans  px-1"
+                  style={{
+                    background: '#F66B6B',
+                    fontSize: '13px',
+                    width: '28px',
+                  }}
+                >
+                  25
+                </p>
+              </div>
+            </Typography>
+          </div>
 
-             
-            </select>
-            <p
-                className=" absolute rounded-xl w-12 h-5 -mt-7 ml-24 text-white font-sans  px-1"
+          <div className="mt-3 mr-24">
+            <div className="">
+              <ArrowBackIosIcon className="ml-2" style={{ fontSize: '1rem' }} />
+              <span
+                className="ml-4 p-0.5 rounded font-sans"
                 style={{
-                  background: '#F66B6B',
-                  fontSize: '13px',
-                  width: '28px',
-              
+                  backgroundColor: '#ECEDEF',
+                  fontSize: '14px',
+                  borderRadius: '4px', }}
+              >
+                5(4)
+              </span>
+
+              <span
+                className="ml-4 p-0.5 rounded font-sans"
+                style={{
+                  backgroundColor: '#8EF4D2',
+                  fontSize: '14px',
+                  borderRadius: '4px',
                 }}
               >
-                25
-              </p>
-          </div>
-          <div className="mt-3 ml-6">
-            <ArrowBackIosIcon className="ml-2" style={{ fontSize: '1rem' }} />
-            <span
-              className="ml-4 p-0.5 rounded font-sans"
-              style={{ backgroundColor: '#ECEDEF' }}
-            >
-              5(4)
-            </span>
+                5(4)
+              </span>
+              <span
+                className="ml-4 p-0.5  rounded font-sans "
+                style={{
+                  backgroundColor: '#CCFF7D',
+                  fontSize: '14px',
+                  borderRadius: '4px',
+                }}
+              >
+                5(4)
+              </span>
+              <span
+                className="ml-4 p-0.5 rounded font-sans"
+                style={{
+                  backgroundColor: '#ECEDEF',
+                  fontSize: '14px',
+                  borderRadius: '4px',
+                }}
+              >
+                5(4)
+              </span>
 
-            <span
-              className="ml-4 p-0.5 rounded font-sans"
-              style={{ backgroundColor: '#8EF4D2', fontSize: '14px',borderRadius: '4px' }}
-            >
-              5(4)
-            </span>
-            <span
-              className="ml-4 p-1  rounded font-sans "
-              style={{ backgroundColor: '#CCFF7D',  fontSize: '14px', borderRadius: '4px', }}
-            >
-              5(4)
-            </span>
-            <span
-              className="ml-4 p-0.5 rounded font-sans"
-              style={{ backgroundColor: '#ECEDEF',  fontSize: '14px', borderRadius: '4px' }}
-            >
-              5(4)
-            </span>
-
-            <ArrowForwardIosIcon
-              className="ml-5"
-              style={{ fontSize: '1rem' }}
-            />
+              <ArrowForwardIosIcon
+                className="ml-5"
+                style={{ fontSize: '1rem' }}
+              />
+            </div>
           </div>
         </div>
-        <div className="flex justify-end mt-8 mr-24">
-          <span className='flex'>
-            <FiberManualRecordIcon className='font-sans ' style={{ fontSize: '1rem', color: '8EF4D2' }} />
-            <p className='font-sans'>Selected</p>
+        <div className="flex justify-end mt-3 mr-28">
+          <span className="flex">
+            <FiberManualRecordIcon
+              className="font-sans "
+              style={{ fontSize: '10px', color: '8EF4D2' }}
+            />
+            <p
+              className="font-sans"
+              style={{ fontWeight: '500', fontSize: '10px' }}
+            >
+              Selected
+            </p>
           </span>
-          <span className='flex'>
-            <FiberManualRecordIcon className='font-sans' style={{ fontSize: '1rem',  color: 'ECEDEF' }} />
-            <p className='font-sans'>Completed</p> 
+          <span className="flex">
+            <FiberManualRecordIcon
+              className="font-sans"
+              style={{ fontSize: '10px', color: 'ECEDEF' }}
+            />
+            <p
+              className="font-sans"
+              style={{ fontWeight: '500', fontSize: '10px' }}
+            >
+              Completed
+            </p>
           </span>
-          <span className='flex'>
-            <FiberManualRecordIcon className='font-sans' style={{ fontSize: '1rem', color: 'CCFF7D'  }} />
-            <p className='font-sans'>Incomplete</p> 
+          <span className="flex">
+            <FiberManualRecordIcon
+              className="font-sans"
+              style={{ fontSize: '10px', color: 'CCFF7D' }}
+            />
+            <p
+              className="font-sans"
+              style={{ fontWeight: '500', fontSize: '10px' }}
+            >
+              Incomplete
+            </p>
           </span>
         </div>
         <Grid
-          className="mt-8 ml-6 rounded-t-3xl mr-4"
+          className="mt-3 ml-6 rounded-t-3xl rounded-b-3xl rounded-lg mr-4"
           style={{ border: '1px solid #EAEAEA' }}
         >
           <div
@@ -380,18 +440,29 @@ export function DetailsPage({
               backgroundColor: '#EAEAEA',
               height: '40px',
               borderRadius: '19px 19px 2px 2px',
-              opacity: '0.5'
+              opacity: '0.5',
             }}
           >
             <Typography className="text-[14px] font-sans font-semibold text-[#132B6B] ">
               Section/Rules/ Clause/ Subclause No.{' '}
-              <span className="ml-2 p-2 font-sans" style={{ backgroundColor: '#8EF4D2', borderRadius: '4px' }}>
+              <span
+                className="ml-2 p-2 font-sans"
+                style={{
+                  backgroundColor: '#8EF4D2',
+                  borderRadius: '4px',
+                  width: '10px',
+                  height: '1px',
+                }}
+              >
                 5(4)
               </span>
             </Typography>
           </div>
           <div className="mt-4">
-            <Typography className="text-[18px] font-sans font-extrabold text-[#132B6B]  pl-10">
+            <Typography
+              className="text-[18px] font-sans  text-[#132B6B]  pl-10"
+              style={{ fontWeight: '500' }}
+            >
               Title of the Rules/Regulations
             </Typography>
             <p className="text-[14px] font-sans font-normal text-[#000000] mt-[8px] pl-10 pb-4">
@@ -400,7 +471,10 @@ export function DetailsPage({
           </div>
           <Divider className="mt-2" />
           <div className="mt-4">
-            <Typography className="text-[18px] font-sans font-extrabold  text-[#132B6B]  pl-10">
+            <Typography
+              className="text-[18px] font-sans font-extrabold  text-[#132B6B]  pl-10"
+              style={{ fontWeight: '500' }}
+            >
               Responsibility
             </Typography>
             <p className="text-[14px] font-sans font-normal text-[#000000] mt-[8px] pl-10 pb-4">
@@ -410,7 +484,10 @@ export function DetailsPage({
           <Divider className="mt-2" />
 
           <div className="mt-4">
-            <Typography className="text-[18px] font-sans font-extrabold  text-[#132B6B]  pl-10">
+            <Typography
+              className="text-[18px] font-sans font-extrabold  text-[#132B6B]  pl-10"
+              style={{ fontWeight: '500' }}
+            >
               Description
             </Typography>
             <p className="text-[14px] font-sans font-normal text-[#000000] mt-[8px] pl-10 pb-4">
@@ -426,7 +503,10 @@ export function DetailsPage({
           </div>
           <Divider className="mt-2" />
           <div className="mt-4">
-            <Typography className="text-[18px] font-sans font-extrabold  text-[#132B6B]  pl-10">
+            <Typography
+              className="text-[18px] font-sans font-extrabold  text-[#132B6B]  pl-10"
+              style={{ fontWeight: '500' }}
+            >
               Relevant Circulars
             </Typography>
             <p className="text-[14px] font-sans font-normal text-[#000000] mt-[8px] pl-10 pb-4">
@@ -438,25 +518,45 @@ export function DetailsPage({
             <ManageRemark style={{ border: '1px solid green' }} />
           </div>
         </Grid>
-        <div className="mt-4">
-          <Typography className="text-[14px] font-sans font-normal text-[#000000]  pl-10 pb-4">
+        <div className="mt-16">
+          <Typography
+            className="text-[10px] font-sans text-[#000000]  pl-10 pb-0"
+            style={{ fontWeight: '400' }}
+          >
             File Submit by : Rajat Kapoor 24 July, 2020 at 10:30 PM
           </Typography>
-          <Button
-            className="rounded-full "
-            style={{
-              background: '#F66B6B',
-              marginLeft: '34px',
-              height: '40px',
-              width: '190px',
-              borderRadius: '60px',
-            }}
-          >
-            Generate Report
-          </Button>
+
+          <div className="flex  mb-12 mt-5 ">
+            <Button
+              className="rounded-full font-sans font-semibold w-56 h-10"
+              style={{
+                background: '#F66B6B',
+                marginLeft: '34px',
+                fontSize: '18px',
+                borderRadius: '60px',
+                color: '#fff'
+              }}
+            >
+              <p className='font-sans'>Generate Report</p>
+            </Button>
+
+            <Button
+              className="rounded-full font-sans font-semibold w-24"
+              style={{
+                background: '#F66B6B',
+                fontSize: '18px',
+                color: '#fff',
+                marginLeft: '2%',
+                borderRadius: '60px',
+              }}
+              }}
+            >
+              <p className='font-sans'>Next</p>
+            </Button>
+          </div>
         </div>
 
-        <div className="flex mt-6">
+        {/* <div className="flex mt-6">
           <Button
             className="rounded-full "
             style={{
@@ -469,18 +569,7 @@ export function DetailsPage({
           >
             Preview
           </Button>
-          <Button
-            className="rounded-full "
-            style={{
-              background: '#F66B6B',
-              marginLeft: '34px',
-              height: '40px',
-              width: '190px',
-              borderRadius: '60px',
-            }}
-          >
-            Next
-          </Button>
+         
           <Button
             className="rounded-full "
             style={{
@@ -493,7 +582,7 @@ export function DetailsPage({
           >
             Submit & Preview
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

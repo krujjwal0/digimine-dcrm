@@ -38,22 +38,22 @@ import {
   SHOW_OTP_ERROR_POPUP,
   DOWNLOAD_PROFILE_IMAGE,
   SILENT_RENEWAL,
-} from './constants';
-import {
+  GET_USER_PROFILE_DETAIL,
+  SET_USER_PROFILE_DETAIL,
+,
   USER_LOGOUT,
 } from './constants';
 
-export const setFeedbackRadioCheck = (questionId, selectedOptionId) => {
-  return {
+
+export const setFeedbackRadioCheck = (questionId, selectedOptionId) => ({
     type: SET_SHOW_FEEDBACK_FORM_RADIO_DATA,
     questionId: questionId,
     selectedOptionId: selectedOptionId
-  }
-}
+  })
 export function setInitialState() {
   return {
-    type: SET_INITIAL_STATE
-  }
+    type: SET_INITIAL_STATE,
+  };
 }
 export function getUserLogout() {
   return {
@@ -167,7 +167,7 @@ export function checkEmailError(data) {
   console.log('Email validating', data);
   return {
     type: EMAIL_ERROR,
-    payload: data
+    payload: data,
   };
 }
 
@@ -175,26 +175,40 @@ export function onOtpError(data) {
   console.log('OTP Error', data);
   return {
     type: OTP_ERROR,
-    payload: data
-  }
+    payload: data,
+  };
 }
 
 export function showOtpErrorPopupAction(data) {
   console.log('OtpErrorPopup', data);
   return {
     type: SHOW_OTP_ERROR_POPUP,
-    payload: data
-  }
+    payload: data,
+  };
 }
 
-export function downloadProfileImageAction() {
+export function downloadProfileImageAction(awtToken) {
   return {
-    type: DOWNLOAD_PROFILE_IMAGE
-  }
+    type: DOWNLOAD_PROFILE_IMAGE,
+    payload: awtToken,
+  };
 }
 
 export function silentRenewalAction() {
   return {
-    type: SILENT_RENEWAL
-  }
+    type: SILENT_RENEWAL,
+  };
+}
+
+export function getUserProfileDetail() {
+  return {
+    type: GET_USER_PROFILE_DETAIL,
+  };
+}
+export function setUserProfileDetails(data) {
+  console.log('setprofile==', data);
+  return {
+    type: SET_USER_PROFILE_DETAIL,
+    payload: data,
+  };
 }

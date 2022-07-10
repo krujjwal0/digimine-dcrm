@@ -22,7 +22,8 @@ import {
   EMAIL_ERROR,
   SET_SHOW_FEEDBACK_FORM_RADIO_DATA,
   OTP_ERROR,
-  SHOW_OTP_ERROR_POPUP
+  SHOW_OTP_ERROR_POPUP,
+  SET_USER_PROFILE_DETAIL,
 } from './constants';
 
 // The initial state of the App
@@ -38,10 +39,11 @@ export const initialState = {
   showSuccessPage: false,
   showFeedback: false,
   adminLocations: [],
-  feedbackFormData: [{ question: "", options: [{ description: '' }] }],
+  feedbackFormData: [{ question: '', options: [{ description: '' }] }],
   feedbackRadioCheck: [],
   emailError: '',
-  showOtpErrorPopup: { status: false, msg: "" }
+  showOtpErrorPopup: { status: false, msg: '' },
+  userProfileData: {},
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -49,41 +51,44 @@ const loginReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
       case SHOW_OTP_ERROR_POPUP:
-        console.log('Show OTP Error Popup', action.payload)
+        console.log('Show OTP Error Popup', action.payload);
         return {
           ...state,
-          showOtpErrorPopup: action.payload
-        }
+          showOtpErrorPopup: action.payload,
+        };
       case OTP_ERROR:
-        console.log('OTP Error', action.payload)
+        console.log('OTP Error', action.payload);
         return {
           ...state,
-          otpError: action.payload
-        }
+          otpError: action.payload,
+        };
       case EMAIL_ERROR:
-        console.log('email Error', action.payload)
+        console.log('email Error', action.payload);
         return {
           ...state,
-          emailError: action.payload
-        }
+          emailError: action.payload,
+        };
       case SET_SHOW_FEEDBACK_FORM_RADIO_DATA:
-        console.log("hey===", action)
+        console.log('hey===', action);
         return {
           ...state,
-          feedbackRadioCheck: [...state.feedbackRadioCheck, {
-            questionId: action.questionId,
-            selectedOptionId: action.selectedOptionId
-          }]
-        }
+          feedbackRadioCheck: [
+            ...state.feedbackRadioCheck,
+            {
+              questionId: action.questionId,
+              selectedOptionId: action.selectedOptionId,
+            },
+          ],
+        };
       case SET_INITIAL_STATE:
         return {
-          state: initialState
-        }
+          state: initialState,
+        };
       case SET_ADMIN_LOCATIONS:
         console.log(action.payload);
         return {
           ...state,
-          adminLocations: action.payload.locations
+          adminLocations: action.payload.locations,
         };
       case SET_EMAIL_ID:
         return {
@@ -125,7 +130,7 @@ const loginReducer = (state = initialState, action) =>
         console.log('inside reducer of feedback form data ===', action.payload);
         return {
           ...state,
-          feedbackFormData: action.payload.qNo
+          feedbackFormData: action.payload.qNo,
         };
 
       case SET_SHOW_FEEDBACK_FORM_DATA:
@@ -137,6 +142,14 @@ const loginReducer = (state = initialState, action) =>
           ...state,
           feedbackFormData: [...state.feedbackFormData, action.payload],
         };
+
+      case SET_USER_PROFILE_DETAIL:
+        console.log('inside reducer user profile ===', action.payload);
+        return {
+          ...state,
+          userProfileData: action.payload.data,
+        };
+
       default:
         return state;
     }

@@ -12,14 +12,14 @@ import {
   ADD_CATEGORY_SUB_RULE,
   EDIT_CATEGORY_SUB_RULE,
   GET_ALL_DEPARTMENTS_CATEGORY,
-  GET_SUB_RULE_DETAIL
+  GET_SUB_RULE_DETAIL,
 } from './constants';
 
 import {
   setCategoryList,
   setAllDepartmentInCategory,
   getCategoryList,
-  SetSubRuleDetail
+  SetSubRuleDetail,
 } from './actions';
 
 import { silentRenewalAction } from '../LoginPage/actions';
@@ -125,7 +125,8 @@ function* editCategoryRuleSaga() {
 }
 
 function* addCategorySubRuleSaga(action) {
-  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/subRule/saveOrUpdate`;
+  // const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/subRule/saveOrUpdate`;
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/admin/subRule/v1/saveOrUpdate`;
   const awtToken = localStorage.getItem('awtToken');
   console.log('data in saga get :', requestURL, action.payload);
   let result;
@@ -134,7 +135,8 @@ function* addCategorySubRuleSaga(action) {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${awtToken}`,
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
+        // "Accept": "application/json",
       },
       body: JSON.stringify(action.payload),
     });
@@ -174,9 +176,10 @@ function* editCategorySubRuleSaga() {
   }
 }
 
-
 function* getSubRuleDetailSaga(action) {
-  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/suRules/get/${action.payload.ruleId}/${action.payload.subruleId}`;
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/subRules/get/${
+    action.payload.ruleId
+  }/${action.payload.subruleId}`;
   const awtToken = localStorage.getItem('awtToken');
   console.log('data in saga get :', requestURL);
   let result;
