@@ -51,6 +51,7 @@ export function ListAdd({
   useInjectSaga({ key, saga });
 
   const [departmentId, setDepartmentId] = useState(0);
+  const [selectOTCorPC, setSelectOTCorPC] = useState('OTC');
   useEffect(() => {
     getAllDepartment();
 
@@ -101,6 +102,8 @@ export function ListAdd({
     setDepartmentId(e.target.value);
     // Call api to show users list of particular Location
   };
+
+
 
   return (
     <div className="content">
@@ -185,15 +188,15 @@ export function ListAdd({
                   onClick={(e) => selectDepartmentId(e)}
 
                 >
-                 
+
                   {departmentList.map((dept, index) => {
                     console.log('dept============', dept);
                     return (
                       <option
                         className="ml-2 font-sans"
                         style={{ color: '#66737E' }}
-                        key={index}  value={dept.id} id={dept.id}
-                        >
+                        key={index} value={dept.id} id={dept.id}
+                      >
                         {dept.name}
                       </option>
                     );
@@ -221,6 +224,7 @@ export function ListAdd({
                     fontSize: '13px',
                     fontWeight: '400',
                   }}
+                  onClick={(e) => setSelectOTCorPC(e.target.value)}
                 >
                   <option
                     className="ml-2 font-sans"
@@ -253,13 +257,13 @@ export function ListAdd({
                   >
                     Select Your Date
                   </label>
-
+                  {selectOTCorPC == "OTC"?
                   <div className=" ml-9 mt-6 border-2 rounded-full h-10 ">
                     <form className={classes.container} noValidate>
                       <TextField
                         //  variant="outlined"
                         id="date"
-                        placeholder="Weekely"
+                        // placeholder="Weekely"
                         type="date"
                         defaultValue="YYYY-MM-DD"
                         className={classes.textField}
@@ -270,6 +274,39 @@ export function ListAdd({
                       />
                     </form>
                   </div>
+                  :
+                    <select
+                  className=" ml-9 mt-6 border-2 rounded-full h-10"
+                  style={{
+                    color: '#66737E',
+                    fontSize: '13px',
+                    fontWeight: '400',
+                  }}
+                  // onClick={(e) => setSelectOTCorPC(e.target.value)}
+                >
+                  {/* <option
+                    className="ml-2 font-sans"
+                    style={{ color: '#66737E' }}
+                  >
+                    None
+                  </option> */}
+                  <option
+                    className="ml-2 font-sans"
+                    style={{ color: '#66737E' }}
+                    value="Weekly"
+                  >
+                    Weekly
+                  </option>
+                  <option
+                    className="ml-2 font-sans"
+                    style={{ color: '#66737E' }}
+                    value="Yearly"
+                  >
+                    Yearly
+                  </option>
+                </select>
+                  }
+                  
                 </div>
                 {/* <div className='flex flex-col ml-6'>
               <label className='font-sans text-sm ml-7' style={{fontSize: '13px', fontWeight: '700'}}>Pick Date</label>
@@ -370,14 +407,9 @@ export function ListAdd({
   );
 }
 
-// ListAdd.propTypes = {
-// getAllDepartment: PropTypes.func,
-// };
-
 const mapStateToProps = state => (
   console.log('STATE===', state),
   {
-    // rolesList: state.users.rolesList.length > 0 ? state.users.rolesList : [],
     departmentList: state.regulatoryReducer.departmentList.length > 0 ? state.regulatoryReducer.departmentList : [],
     assignPersonDropdownList: state.regulatoryReducer.assignPersonDropdownList.length > 0 ? state.regulatoryReducer.assignPersonDropdownList : [],
     reviwerDropdownList: state.regulatoryReducer.reviwerDropdownList.length > 0 ? state.regulatoryReducer.reviwerDropdownList : [],

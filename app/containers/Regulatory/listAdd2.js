@@ -28,9 +28,9 @@ export function ListAdd2({ getRuleAndSubrule, ruleAndSubRuleList, setSubRules, s
   useEffect(() => {
     getRuleAndSubrule();
     console.log("ruleAndSubRuleList", ruleAndSubRuleList)
-    setSelectedRule(ruleAndSubRuleList[0].name)
   }, [])
 
+  
   useEffect(() => {
     console.log("subRulesList", subRulesList)
   }, [subRulesList]);
