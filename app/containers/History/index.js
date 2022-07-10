@@ -1,9 +1,3 @@
-/*
- * Categories
- *
- * This is the first thing users see of our App, at the '/' route
- */
-
 import React, { useEffect, memo } from 'react';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
