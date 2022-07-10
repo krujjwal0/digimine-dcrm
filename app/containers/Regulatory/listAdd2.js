@@ -166,7 +166,7 @@ export function ListAdd2({ getRuleAndSubrule, ruleAndSubRuleList, setSubRules, s
         <div className="ml-8 mr-16 ">
           <div className="pt-4 text-sm font-semibold flex justify-between font-sans">
             <div className='font-sans font-bold text-black'>Choose No. of Rules</div>
-            <button className='border-2 w-28 h-11 font-semibold rounded-full font-sans' style={{ color: '#F66B6B' }}>Reset All</button>
+            <button className='border-2 w-28 h-11 font-semibold rounded-full font-sans'style={{color: '#F66B6B',boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.15)"}}>Reset All</button>
           </div>
 
           <div className="flex mt-2 ">

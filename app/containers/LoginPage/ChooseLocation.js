@@ -24,28 +24,37 @@ export function ChooseLocation(props) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
-  const [choosedLocation, setChoosedLocation] = useState(props.adminLocations[0]);
+  const [choosedLocation, setChoosedLocation] = useState(
+    props.adminLocations[0],
+  );
   const [userFeedbackStatus, setUserFeedbackStatus] = useState();
 
   useEffect(() => {
-    console.log('admin Locations', props.adminLocations, props.feedbackCompleted);
+    console.log(
+      'admin Locations',
+      props.adminLocations,
+      props.feedbackCompleted,
+    );
   }, [props.adminLocations, props.showFeedback]);
 
   const setRedirectToFeedbackPage = () => {
-    localStorage.setItem('choosedLocation', props.adminLocations[0].id)
+    localStorage.setItem('choosedLocation', props.adminLocations[0].id);
     setUserFeedbackStatus(props.userData.feedbackCompleted);
-  }
+  };
 
   useEffect(() => {
-    console.log('callGetLocationAction Send data in Action', props.feedbackCompleted);
+    console.log(
+      'callGetLocationAction Send data in Action',
+      props.feedbackCompleted,
+    );
     // const data='';
     props.getAdminLocationsAction();
   }, []);
 
-
   if (userFeedbackStatus == false) {
     return <Redirect to={{ pathname: '/form' }} />;
-  } else if (userFeedbackStatus == true) {
+  }
+  if (userFeedbackStatus == true) {
     // props.setNavBar(true);
     return <Redirect to={{ pathname: '/dashboard' }} />;
   }
@@ -53,8 +62,8 @@ export function ChooseLocation(props) {
   const selectLocation = e => {
     console.log(e.target.value);
     // setChoosedLocation(e.target.value);
-    console.log("setChoosedLocation ==== ", e.target.value);
-    localStorage.setItem('choosedLocation', parseInt(e.target.value))
+    console.log('setChoosedLocation ==== ', e.target.value);
+    localStorage.setItem('choosedLocation', parseInt(e.target.value));
     // Call api to show users list of particular Location
   };
 
@@ -83,7 +92,12 @@ export function ChooseLocation(props) {
                   {props.adminLocations.map((data, index) => {
                     console.log(data);
                     return (
-                      <option className='font-sans p-3' key={index} name={data} value={data.id}>
+                      <option
+                        className="font-sans p-3"
+                        key={index}
+                        name={data}
+                        value={data.id}
+                      >
                         {data.name}
                       </option>
                     );
@@ -113,8 +127,6 @@ export function ChooseLocation(props) {
               </div>
             </div>
           </div>
-
-
         </div>
 
         {/* <div className="msg_box  flex flex-wrap pt-5">
@@ -137,7 +149,7 @@ const mapStateToProps = state => ({
       : [],
   showFeedback: state.loginReducer.showFeedback,
   feedbackCompleted: state.loginReducer.userData.feedbackCompleted,
-  userData: state.loginReducer.userData
+  userData: state.loginReducer.userData,
 });
 
 export function mapDispatchToProps(dispatch) {

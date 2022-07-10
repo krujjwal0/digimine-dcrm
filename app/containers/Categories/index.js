@@ -41,7 +41,7 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import ClearAllIcon from '@material-ui/icons/ClearAll';
 import AddCategory from './addCategories';
-
+import AddSubCategory from './subCategories';
 import CategoryListPage from './categoryListPage';
 import './style.css';
 import reducer from './reducer';
@@ -52,8 +52,15 @@ import {
   addCategoryRule,
   addCategorySubRule,
   setSearchData,
-  ClearSortnSearch
+  ClearSortnSearch,
+  setDialogMsg,
+  getSubRuleDetail,
+  openSubRuleDialog,
+  closeSubRuleDialog,
+  setDataInSubRuleDialog,
+  setFileInDialog,
 } from './actions';
+import AddSubCategories from './subCategories';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -94,14 +101,21 @@ export function Categories({
   addCategorySubRule,
   setSearchData,
   categoryListReplica,
-  ClearSortnSearch
-
+  ClearSortnSearch,
+  subRuleDetail,
+  setDialogMsg,
+  getSubRuleDetail,
+  openSubRuleDialog,
+  closeSubRuleDialog,
+  subRuleDialog,
+  setDataInSubRuleDialog,
+  setFileInDialog,
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
   useEffect(() => {
-    // getCategoryList();
+    getCategoryList();
     getAllDepartmentInCategory();
   }, []);
 
@@ -112,6 +126,7 @@ export function Categories({
   // };
 
   const [showAddCategory, setShowAddCategory] = useState(false);
+
   const openNewCategories = () => {
     setShowAddCategory(true);
   };
@@ -121,9 +136,17 @@ export function Categories({
   };
 
   const [showSubCategory, setShowSubCategory] = useState(false);
-  const openSubCategory = (id) => {
-    console.log("here for sub open==",id)
-    setShowSubCategory(true);
+  const openSubCategory = (parentRule, index) => {
+    console.log('here for sub open==', parentRule);
+    if (parentRule.editable === true) {
+      setShowSubCategory(true);
+    } else {
+      const obj = {
+        errMsg: 'This Rule is not Editable',
+        index,
+      };
+      setDialogMsg(obj);
+    }
   };
 
   const classes = useStyles();
@@ -131,62 +154,103 @@ export function Categories({
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState('sm');
   const [searchText, setSearch] = React.useState('');
+  const [addRuleMsgErr, setErrMsg] = React.useState('');
+  const [addSubRuleMsgErr, setSubRuleErrMsg] = React.useState('');
 
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
+  const handleSubCategoryOpen = panel => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : panel);
+  };
+
+  const handleOpenSubRuleDialog = data => {
+    openSubRuleDialog(data);
+  };
   function handleClick(event) {
     event.preventDefault();
     console.info('You clicked a breadcrumb.');
   }
 
   const createCategory = (deptName, newRule) => {
-    const obj = {
-      id: '',
-      name: newRule,
-      deleted: false,
-      departmentId: deptName,
-    };
-    addCategoryRule(obj);
-    handleCloseBtn()
+    if (deptName === '') {
+      setErrMsg('Department is Required');
+    } else if (newRule === '') {
+      setErrMsg('Rule Name is Required');
+    } else if (deptName === '' && newRule === '') {
+      setErrMsg('Department & Rule Name is Required');
+    } else {
+      const obj = {
+        id: '',
+        name: newRule,
+        deleted: false,
+        departmentId: deptName,
+      };
+      addCategoryRule(obj);
+      setErrMsg('');
+      handleCloseBtn();
+    }
   };
 
-  const createSubRuleInCategory = (subRuleName, ruleId, title, responsibility, description, circular) => {
-    const obj = {
-      name: subRuleName,
-      deleted: false,
-      ruleId: ruleId,
-      title: title,
-      responsibility: responsibility,
-      description: description
-    };
-    addCategorySubRule(obj);
-    handleCloseBtn();
+  const createSubRuleInCategory = obj => {
+    console.log('here the the data to add in sub rule==', obj);
+    if (obj.name === '' || obj.title === '' || obj.responsibility === '') {
+      setSubRuleErrMsg('Fill the Required Field');
+    } else {
+      addCategorySubRule(obj);
+      setSubRuleErrMsg('');
+      closeSubRuleDialog();
+    }
   };
 
   const search = e => {
+    setSearch(e.target.value);
     const keyword = e.target.value;
-    console.log("Seacrh according to ====", keyword.length)
+    console.log('Seacrh according to ====', keyword.length);
     if (keyword !== '' && keyword.length > 2) {
-      const result = categoryListReplica.filter(value => value.name.toLowerCase().includes(keyword.toLowerCase()))
+      const result = categoryListReplica.filter(value =>
+        value.name.toLowerCase().includes(keyword.toLowerCase()),
+      );
       console.log('show result name inside filter', result);
-      setSearchData(result)
+      setSearchData(result);
     }
 
     if (keyword.length === 0) {
-      ClearSortnSearch(categoryListReplica)
+      ClearSortnSearch(categoryListReplica);
     }
-  }
+  };
 
   const ClearSortnSearchFnc = () => {
     setSearch('');
-    ClearSortnSearch(categoryListReplica)
-  }
+    ClearSortnSearch(categoryListReplica);
+  };
 
-const getDetailOfSubRule = (subruleId) => {
-  
-}
+  const getDetailOfSubRule = (ruleId, subruleId, panel) => {
+    const data = {
+      ruleId,
+      subruleId,
+    };
+    getSubRuleDetail(data);
+    handleSubCategoryOpen(panel);
+  };
+
+  const setDataInSubRule = event => {
+    const obj = {
+      [event.target.name]: event.target.value,
+    };
+    setDataInSubRuleDialog(obj);
+  };
+
+  const setFileInSubrule = data => {
+    console.log('here the file gooooo===', data);
+    const obj = {
+      name: data.name,
+      size: data.size,
+      type: data.type,
+    };
+    setFileInDialog(obj);
+  };
 
   return (
     <div className="content font-sans">
@@ -261,7 +325,7 @@ const getDetailOfSubRule = (subruleId) => {
                   placeholder="Search by Rule"
                   name="searchText"
                   value={searchText}
-                  onChange={(e) => search(e)}
+                  onChange={e => search(e)}
                   inputProps={{ 'aria-label': 'search' }}
                   className="font-sans font-normal"
                   style={{
@@ -286,7 +350,7 @@ const getDetailOfSubRule = (subruleId) => {
             </div>
 
             <div
-              className="font-sans w-56 h-9 mt-5  border-2 rounded-full flex justify-center m-2"
+              className="font-sans w-56 h-9 mt-5 mr-24 border-2 rounded-full flex justify-center m-2"
               style={{ background: '#132B6B' }}
             >
               {/* <AddIcon className="text-white mt-1 " /> */}
@@ -294,351 +358,72 @@ const getDetailOfSubRule = (subruleId) => {
                 ADD NEW CATEGORIES
               </button>
             </div>
-            <div className="flex justify-between rounded-full ">
-              <Dialog
-                style={{
-                  width: '50%',
-                  borderRadius: '50px',
-                  marginLeft: '30%',
-                  marginTop: '7%',
-                }}
-                className="w-full h-3/4 "
-                open={showAddCategory}
-                onClose={handleCloseBtn}
-              >
-                <DialogContent
-                  // style={{
-                  //   borderRadius: '15px',
-                  //   background: '#FFFFFF',
-                  //   boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
-                  //   Width: '70%',
-                  //   Height: '80%',
-                  // }}
-                  className="flex justify-start"
-                >
-                  <AddCategory
-                    departmentList={departmentLisInCategory}
-                    createCategory={createCategory}
-                    handleCloseBtn={handleCloseBtn}
-                  />
-                </DialogContent>
-              </Dialog>
-            </div>
           </div>
-          
-          { categoryList.map((list, index) => (
+          <div className="flex justify-between rounded-full ">
+            <Dialog
+              style={{
+                width: '50%',
+                borderRadius: '50px',
+                marginLeft: '30%',
+                marginTop: '7%',
+              }}
+              className="w-full h-3/4 "
+              open={showAddCategory}
+              onClose={handleCloseBtn}
+            >
+              <DialogContent
+                // style={{
+                //   borderRadius: '15px',
+                //   background: '#FFFFFF',
+                //   boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
+                //   Width: '70%',
+                //   Height: '80%',
+                // }}
+                className="flex justify-start"
+              >
+                <AddCategory
+                  departmentList={departmentLisInCategory}
+                  createCategory={createCategory}
+                  handleCloseBtn={handleCloseBtn}
+                  addRuleMsgErr={addRuleMsgErr}
+                />
+              </DialogContent>
+            </Dialog>
+          </div>
+
+          {categoryList.map((list, index) => (
             <div>
-              <CategoryListPage list={list} index={index} openSubCategory={openSubCategory}
-              handleChange={handleChange}
-              handleCloseBtn={handleCloseBtn}
-              showSubCategory={showSubCategory}
-              handleClick={handleClick}
-              departmentList={departmentLisInCategory}
-              createSubRuleInCategory={createSubRuleInCategory}
-              classes={classes}
-              fullWidth={fullWidth}
-              maxWidth={maxWidth}
-              expanded={expanded}
-              searchText={searchText}
-              
+              <CategoryListPage
+                list={list}
+                index={index}
+                openSubCategory={openSubCategory}
+                handleChange={handleChange}
+                handleCloseBtn={handleCloseBtn}
+                showSubCategory={showSubCategory}
+                handleClick={handleClick}
+                departmentList={departmentLisInCategory}
+                createSubRuleInCategory={createSubRuleInCategory}
+                classes={classes}
+                fullWidth={fullWidth}
+                maxWidth={maxWidth}
+                expanded={expanded}
+                searchText={searchText}
+                subRuleDetail={subRuleDetail}
+                getDetailOfSubRule={getDetailOfSubRule}
+                handleOpenSubRuleDialog={handleOpenSubRuleDialog}
+                closeSubRuleDialog={closeSubRuleDialog}
+                subRuleDialog={subRuleDialog}
+                setDataInSubRule={setDataInSubRule}
+                addSubRuleMsgErr={addSubRuleMsgErr}
+                setFileInDialog={setFileInSubrule}
               />
             </div>
           ))}
-          {/* {categoryList.map((list, index) => (
-            <div className="mt-8 ml-3 w-11/12 font-sans">
-              <div className={classes.root}>
-                <Accordion
-                  expanded={expanded === 'panel1'}
-                  onChange={handleChange('panel1')}
-                  className=" font-sans "
-                  style={{ borderRadius: '30px' }}
-                >
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1bh-content"
-                    id="panel1bh-header"
-                    className="flex"
-                  >
-                    <Typography
-                      className={classes.heading}
-                      style={{ display: 'inline-flex' }}
-                    >
-                      <button
-                        className="font-sans flex w-36 h-8 text-white rounded-full flex justify-center"
-                        style={{ background: '#132B6B' }}
-                      >
-                        <AddIcon className="mt-1 " onClick={() => openSubCategory(list)} />
-                        <p className="mt-1 font-sans">Add Sub Rule</p>
-                      </button>
-
-                      <Dialog
-                        fullWidth={fullWidth}
-                        maxWidth={maxWidth}
-                        style={{
-                          borderRadius: '50px',
-                          marginLeft: '1%',
-                          marginTop: '',
-                        }}
-                        className="w-full h-full "
-                        open={showSubCategory}
-                        onClose={handleCloseBtn}
-                      >
-                        <DialogContent
-                          className="flex justify-start"
-                        >
-                          <AddSubCategory
-                            parentRule={list.id}
-                            departmentList={departmentLisInCategory}
-                            createSubRuleInCategory={createSubRuleInCategory}
-                            handleCloseBtn={handleCloseBtn}
-                          />
-                        </DialogContent>
-                      </Dialog>
-
-                      <div className="flex ml-6 mt-1 font-sans">
-                        <div className="flex">
-                          <p
-                            className="w-16 font-sans"
-                            style={{
-                              color: '#132B6B',
-                              fontSize: '16px',
-                              fontWeight: '700',
-                            }}
-                          >
-                            {' '}
-                            {list.name}
-                          </p>
-                          <p
-                            className="rounded-full h-6 m-1 px-1 text-white font-sans items-center "
-                            style={{
-                              background: '#F66B6B',
-                              fontSize: '12px',
-                              width: '28px',
-                            }}
-                          >
-                            25
-                          </p>
-                        </div>
-                        <div className="ml-6 flex w-full ">
-                          <ChevronLeftIcon style={{ color: '#36454F' }} />
-                          <div
-                            className="border-2 flex w-12 h-7 flex justify-center font-sans "
-                            style={{
-                              color: '#36454F',
-
-                              borderRadius: '4px',
-                            }}
-                          >
-                            {subRuleList}
-                          </div>
-                          <div className="border-2 flex ml-3 w-12 h-7 flex justify-center">
-                            5<p>(4)</p>
-                          </div>
-                          <div className="border-2 flex ml-3 w-12 h-7 flex justify-center">
-                            5<p>(4)</p>
-                          </div>
-                          <div className="border-2 flex ml-3 w-12 h-7 flex justify-center">
-                            5<p>(4)</p>
-                          </div>
-                          <ChevronRightIcon />
-                        </div>
-                      </div>
-                    </Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>
-                      <div className="">
-                        <p
-                          className="font-sans h-9 px-4 py-1 flex justify-start -ml-4"
-                          style={{ backgroundColor: '#F5F5F5', width: '248%' }}
-                        >
-                          {' '}
-                          <Breadcrumbs
-                            aria-label="breadcrumb"
-                            style={{
-                              color: '#132B6B',
-                              fontWeight: '600',
-                              fontSize: '14px',
-                            }}
-                            className="font-sans "
-                          >
-                            <Link
-                              color="inherit"
-                              href="/"
-                              onClick={handleClick}
-                              className="font-sans "
-                            >
-                              Section
-                            </Link>
-                            <Link
-                              color="inherit"
-                              href="/getting-started/installation/"
-                              onClick={handleClick}
-                              className="font-sans"
-                            >
-                              Rules
-                            </Link>
-                            <Link
-                              color="inherit"
-                              href="/getting-started/installation/"
-                              onClick={handleClick}
-                              className="font-sans"
-                            >
-                              Clause
-                            </Link>
-                            <Typography
-                              color="textPrimary"
-                              className="font-sans"
-                            >
-                              SubClause No.
-                            </Typography>
-                          </Breadcrumbs>
-                          <p
-                            className="w-10 h-6 px-1  ml-2 font-sans"
-                            style={{
-                              background: '#8EF4D2',
-                              color: '#36454F',
-                              borderRadius: '4px',
-                            }}
-                          >
-                            5(4)
-                          </p>
-                        </p>
-
-                        <div className="m-4">
-                          <div className="mt-7">
-                            <p
-                              className="font-sans"
-                              style={{
-                                color: ' #132B6B',
-                                fontSize: '18px',
-                                fontWeight: '600',
-                              }}
-                            >
-                              Title of the Rules and Regulations
-                            </p>
-                            <p
-                              className="font-sans"
-                              style={{
-                                fontSize: '14px',
-                                color: '#000000',
-                                fontWeight: '400',
-                              }}
-                            >
-                              Electrical Safety Officer
-                            </p>
-                          </div>
-                          <hr />
-                          <div className="mt-7 font-sans">
-                            <p
-                              className="font-sans"
-                              style={{
-                                color: ' #132B6B',
-                                fontSize: '18px',
-                                fontWeight: '600',
-                              }}
-                            >
-                              Responsibility
-                            </p>
-                            <Breadcrumbs aria-label="breadcrumb">
-                              <Link
-                                color="inherit"
-                                href="/"
-                                onClick={handleClick}
-                                className="font-sans"
-                                style={{
-                                  fontSize: '14px',
-                                  color: '#000000',
-                                  fontWeight: '400',
-                                }}
-                              >
-                                Owner
-                              </Link>
-                              <Link
-                                color="inherit"
-                                href="/getting-started/installation/"
-                                onClick={handleClick}
-                                className="font-sans"
-                                style={{
-                                  fontSize: '14px',
-                                  color: '#000000',
-                                  fontWeight: '400',
-                                }}
-                              >
-                                Agent
-                              </Link>
-                              <Link
-                                color="inherit"
-                                href="/getting-started/installation/"
-                                onClick={handleClick}
-                                className="font-sans"
-                                style={{
-                                  fontSize: '14px',
-                                  color: '#000000',
-                                  fontWeight: '400',
-                                }}
-                              >
-                                Manager
-                              </Link>
-                             
-                            </Breadcrumbs>
-                          </div>
-                          <hr />
-                          <div className="mt-7">
-                            <p
-                              className="font-sans"
-                              style={{
-                                color: ' #132B6B',
-                                fontSize: '18px',
-                                fontWeight: '600',
-                              }}
-                            >
-                              Description
-                            </p>
-                            <p
-                              className="font-sans"
-                              style={{
-                                fontSize: '14px',
-                                color: '#000000',
-                                fontWeight: '400',
-                              }}
-                            >
-                              Electrical Safety Officer
-                            </p>
-                          </div>
-                          <hr />
-                          <div className="mt-7">
-                            <p
-                              className="font-sans"
-                              style={{
-                                color: ' #132B6B',
-                                fontSize: '18px',
-                                fontWeight: '600',
-                              }}
-                            >
-                              Revelant Circular
-                            </p>
-                            <p
-                              className="font-sans"
-                              style={{
-                                fontSize: '14px',
-                                color: '#000000',
-                                fontWeight: '400',
-                              }}
-                            >
-                              Electrical Safety Officer
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
-              </div>
-            </div>
-          ))} */}
         </div>
       </div>
+      {/* <AddSubCategory closeSubRuleDialog={closeSubRuleDialog} 
+      createSubRuleInCategory={createSubRuleInCategory}
+      /> */}
     </div>
   );
 }
@@ -656,10 +441,16 @@ export function mapDispatchToProps(dispatch) {
   return {
     getCategoryList: () => dispatch(getCategoryList()),
     getAllDepartmentInCategory: () => dispatch(getAllDepartmentInCategory()),
-    addCategoryRule: (obj) => dispatch(addCategoryRule(obj)),
-    addCategorySubRule: (obj) => dispatch(addCategorySubRule(obj)),
-    setSearchData: (obj) => dispatch(setSearchData(obj)),
-    ClearSortnSearch: (obj) => dispatch(ClearSortnSearch(obj))
+    addCategoryRule: obj => dispatch(addCategoryRule(obj)),
+    addCategorySubRule: obj => dispatch(addCategorySubRule(obj)),
+    setSearchData: obj => dispatch(setSearchData(obj)),
+    ClearSortnSearch: obj => dispatch(ClearSortnSearch(obj)),
+    setDialogMsg: err => dispatch(setDialogMsg(err)),
+    getSubRuleDetail: data => dispatch(getSubRuleDetail(data)),
+    openSubRuleDialog: data => dispatch(openSubRuleDialog(data)),
+    closeSubRuleDialog: data => dispatch(closeSubRuleDialog(data)),
+    setDataInSubRuleDialog: data => dispatch(setDataInSubRuleDialog(data)),
+    setFileInDialog: data => dispatch(setFileInDialog(data)),
   };
 }
 
@@ -676,6 +467,9 @@ const mapStateToProps = state => ({
     state.categories.departmentLisInCategory.length > 0
       ? state.categories.departmentLisInCategory
       : [],
+
+  subRuleDetail: state.categories.subRuleDetail,
+  subRuleDialog: state.categories.subRuleDialog,
 });
 const withConnect = connect(
   mapStateToProps,

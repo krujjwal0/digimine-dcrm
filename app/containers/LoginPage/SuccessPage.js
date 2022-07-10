@@ -9,11 +9,13 @@ import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import { getAdminLocationsAction, validateOtpAction } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 // import userImage from './images/user.jpg';
 import userImage from './images/addImage.png';
+import { HOST, BASE_PATH, SCHEMES, URL } from '../config.json';
 
 const key = 'loginReducer';
 
@@ -22,6 +24,23 @@ export function SuccessPage(props) {
   useInjectSaga({ key, saga });
 
   const history = useHistory();
+
+  const [img, setImg] = useState();
+
+  const awtToken = localStorage.getItem('awtToken');
+
+  useEffect(() => {
+    // axios.get({
+    //   url:`${SCHEMES}://${BASE_PATH}${HOST}/download`,
+    //   method:'GET',
+    //   Authorization: `Bearer ${awtToken}`,
+    //   responseType:'blob'
+    // }).then((res)=>{
+    //   console.log("image response ====",res)
+    //   setImg(res.data);
+    // })
+  }, []);
+
   useEffect(() => {}, [props.userName]);
   // const [redirectToChooseLocationPage, setRedirectToChooseLocationPage] = useState(false);
 
@@ -72,20 +91,20 @@ export function SuccessPage(props) {
             </div>
           </div>
         </div>
-        </div>
-        <div className="msg_box">
-      <div className="container">
-        <div className=" lg:mt-0   flex flex-wrap items-end mt-5 pt-5">
-          <div className="md:w-1/2 w-full  quote_box md:text-4xl text-2xl font-bold md:mb-0 mb-4">
-            <h3 className="text-white font-sans">Smart Platform for</h3>
-            <h3 className="text_blue  font-sans">Smart People</h3>
+      </div>
+      <div className="msg_box">
+        <div className="container">
+          <div className=" lg:mt-0   flex flex-wrap items-end mt-5 pt-5">
+            <div className="md:w-1/2 w-full  quote_box md:text-4xl text-2xl font-bold md:mb-0 mb-4">
+              <h3 className="text-white font-sans">Smart Platform for</h3>
+              <h3 className="text_blue  font-sans">Smart People</h3>
+            </div>
+            <div className="copyright_text md:w-1/2 w-full md:text-center text-left text-xs font-sans text-white">
+              © 2020 MineMagma. All Rights Reserved
+            </div>
           </div>
-          <div className="copyright_text md:w-1/2 w-full md:text-center text-left text-xs font-sans text-white">
-            © 2020 MineMagma. All Rights Reserved
-          </div>
-          </div>
         </div>
-        </div>
+      </div>
     </div>
   );
 }

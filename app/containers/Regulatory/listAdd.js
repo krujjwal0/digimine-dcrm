@@ -16,16 +16,15 @@ import { createStructuredSelector } from 'reselect';
 
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
-import saga from './saga';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import saga from './saga';
 import './style.css';
-import { getAllDepartment } from './actions';
-import { getDropdownList } from './actions';
+import { getAllDepartment, getDropdownList } from './actions';
 
 const key = 'regulatory';
 
@@ -37,7 +36,7 @@ const useStyles = makeStyles(theme => ({
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 200,
+    width: 500,
   },
 }));
 
@@ -47,7 +46,7 @@ export function ListAdd({
   getDropdownList,
   assignPersonDropdownList,
   reviwerDropdownList,
-  functionalHeadDropdownList
+  functionalHeadDropdownList,
 }) {
   useInjectSaga({ key, saga });
 
@@ -55,7 +54,7 @@ export function ListAdd({
   useEffect(() => {
     getAllDepartment();
 
-    console.log("departmentList in regulatory ===", departmentList);
+    console.log('departmentList in regulatory ===', departmentList);
   }, []);
 
   useEffect(() => {
@@ -69,10 +68,13 @@ export function ListAdd({
     getDropdownList(4, departmentId);
     // id= 5 Person Responsible
     getDropdownList(5, departmentId);
-    console.log("assignPersonDropdownList  reviwerDropdownList  functionalHeadDropdownList", assignPersonDropdownList,
+    console.log(
+      'assignPersonDropdownList  reviwerDropdownList  functionalHeadDropdownList',
+      assignPersonDropdownList,
       reviwerDropdownList,
-      functionalHeadDropdownList);
-  }, [departmentId])
+      functionalHeadDropdownList,
+    );
+  }, [departmentId]);
 
   const history = useHistory();
   const listAddSubRule = () => {
@@ -185,7 +187,7 @@ export function ListAdd({
                 >
                  
                   {departmentList.map((dept, index) => {
-                    console.log("dept============", dept);
+                    console.log('dept============', dept);
                     return (
                       <option
                         className="ml-2 font-sans"
@@ -194,7 +196,7 @@ export function ListAdd({
                         >
                         {dept.name}
                       </option>
-                    )
+                    );
                   })}
                 </select>
                 {/* <p
@@ -220,7 +222,6 @@ export function ListAdd({
                     fontWeight: '400',
                   }}
                 >
-
                   <option
                     className="ml-2 font-sans"
                     style={{ color: '#66737E' }}
@@ -230,7 +231,7 @@ export function ListAdd({
                   <option
                     className="ml-2 font-sans"
                     style={{ color: '#66737E' }}
-                    value='OTC'
+                    value="OTC"
                   >
                     OTC
                   </option>
@@ -244,68 +245,73 @@ export function ListAdd({
                 </select>
               </div>
 
-              <div className=" mt-8 font-sans font-semibold w-full flex  justify-start">
+              <div className=" mt-8 font-sans font-semibold ">
+                <div className="flex flex-col">
+                  <label
+                    className="font-sans ml-9"
+                    style={{ fontSize: '13px', fontWeight: '700' }}
+                  >
+                    Select Your Date
+                  </label>
 
-                <div className='flex flex-col'>
-                  <  label className='font-sans ml-9' style={{ fontSize: '13px', fontWeight: '700' }}>Select Your Date</label>
-
-                  <div className="w-1/2 ml-9 mt-6 border-2 rounded-full h-10 w-52">
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                      <KeyboardDatePicker
-                        disableToolbar
-                        // variant="outlined"
-                        format="MM/dd/yyyy"
-
-                        margin="normal"
-                        id="date-picker-inline"
-                        value={selectedDate}
-                        onChange={handleDateChange}
-                        KeyboardButtonProps={{
-                          'aria-label': 'change date',
-                        }}
-                        className="w-40 "
-                        style={{ marginTop: '5px', marginLeft: '11px' }}
-                      />
-                    </MuiPickersUtilsProvider>
-                  </div>
-                </div>
-                <div className='flex flex-col ml-6'>
-                  <label className='font-sans text-sm ml-7' style={{ fontSize: '13px', fontWeight: '700' }}>Pick Date</label>
-                  <div className="w-1/2 ml-5 mt-5 border-2 rounded-full h-10 w-52">
+                  <div className=" ml-9 mt-6 border-2 rounded-full h-10 ">
                     <form className={classes.container} noValidate>
                       <TextField
                         //  variant="outlined"
                         id="date"
-                        placeholder='Weekely'
+                        placeholder="Weekely"
                         type="date"
-                        defaultValue="2017-05-24"
+                        defaultValue="YYYY-MM-DD"
                         className={classes.textField}
                         InputLabelProps={{
                           shrink: true,
                         }}
                         style={{ marginTop: '4.3px', marginLeft: '13px' }}
                       />
-
                     </form>
                   </div>
                 </div>
+                {/* <div className='flex flex-col ml-6'>
+              <label className='font-sans text-sm ml-7' style={{fontSize: '13px', fontWeight: '700'}}>Pick Date</label>
+                <div className="w-1/2 ml-5 mt-5 ">
+                <select
+                className='border-2 rounded-full h-10 w-52 font-sans'
+                    style={{
+                    color: '#66737E',
+                    fontSize: '13px',
+                    fontWeight: '400',
+                  }}
+                >
+                  <option
+                    className="ml-2 font-sans px-3"
+                    style={{ color: '#66737E' }}
+                  >
+                    Weekely
+                  </option>
+                </select>
+                </div>
+                </div> */}
               </div>
             </form>
           </div>
 
           <div className=" w-1/2 bg-[#F7F8FA] rounded-lg  mt-8 mr-20 ml-12">
-
             <form className=" mb-6 -ml-3">
               <p className="ml-9 mt-3 font-sans font-semibold flex">
                 <p className="font-sans">Select Assign Person</p>
                 <p className="text-[red]">*</p>
               </p>
               <select className="font-sans w-10/12 ml-7 mt-3 border-2 rounded-[20px] h-10">
-                {assignPersonDropdownList.map((person, index) => {
-                  return (
-                    <option className="ml-5 font-sans" key={index} value={person.id}> {person.name} </option>
-                  )
-                })}
+                {assignPersonDropdownList.map((person, index) => (
+                  <option
+                    className="ml-5 font-sans"
+                    key={index}
+                    value={person.id}
+                  >
+                    {' '}
+                    {person.name}{' '}
+                  </option>
+                ))}
               </select>
 
               <p className="ml-9 mt-6 font-sans font-semibold">
@@ -313,11 +319,16 @@ export function ListAdd({
               </p>
 
               <select className="font-sans w-10/12 ml-7 mt-3 border-2 rounded-[20px] h-10">
-                {reviwerDropdownList.map((reviewer, index) => {
-                  return (
-                    <option className="ml-5 font-sans" key={index} value={reviewer.id}> {reviewer.name} </option>
-                  )
-                })}
+                {reviwerDropdownList.map((reviewer, index) => (
+                  <option
+                    className="ml-5 font-sans"
+                    key={index}
+                    value={reviewer.id}
+                  >
+                    {' '}
+                    {reviewer.name}{' '}
+                  </option>
+                ))}
               </select>
 
               <p className="ml-9 mt-6 font-sans font-semibold">
@@ -325,11 +336,16 @@ export function ListAdd({
               </p>
 
               <select className="w-10/12 ml-7 mt-3 border-2 rounded-[20px] h-10 font-sans">
-                {functionalHeadDropdownList.map((person, index) => {
-                  return (
-                    <option className="ml-2 font-sans" key={index} value={person.id}> {person.name} </option>
-                  )
-                })}
+                {functionalHeadDropdownList.map((person, index) => (
+                  <option
+                    className="ml-2 font-sans"
+                    key={index}
+                    value={person.id}
+                  >
+                    {' '}
+                    {person.name}{' '}
+                  </option>
+                ))}
               </select>
             </form>
           </div>
@@ -358,9 +374,9 @@ export function ListAdd({
 // getAllDepartment: PropTypes.func,
 // };
 
-
 const mapStateToProps = state => (
-  console.log("STATE===", state), {
+  console.log('STATE===', state),
+  {
     // rolesList: state.users.rolesList.length > 0 ? state.users.rolesList : [],
     departmentList: state.regulatoryReducer.departmentList.length > 0 ? state.regulatoryReducer.departmentList : [],
     assignPersonDropdownList: state.regulatoryReducer.assignPersonDropdownList.length > 0 ? state.regulatoryReducer.assignPersonDropdownList : [],
@@ -371,7 +387,8 @@ const mapStateToProps = state => (
 export function mapDispatchToProps(dispatch) {
   return {
     getAllDepartment: () => dispatch(getAllDepartment()),
-    getDropdownList: (roleId, departmentId) => dispatch(getDropdownList(roleId, departmentId)),
+    getDropdownList: (roleId, departmentId) =>
+      dispatch(getDropdownList(roleId, departmentId)),
   };
 }
 

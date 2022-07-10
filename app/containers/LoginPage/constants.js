@@ -10,7 +10,7 @@
  */
 
 export const USER_LOGOUT = 'digimine/LoginPage/USER_LOGOUT';
-export const SET_INITIAL_STATE='digimine/LoginPage/SET_INITIAL_STATE'
+export const SET_INITIAL_STATE = 'digimine/LoginPage/SET_INITIAL_STATE';
 export const GENERATE_OTP = 'digimine/LoginPage/GENERATE_OTP';
 export const SET_ROLE_TYPE = 'digimine/LoginPage/SET_ROLE_TYPE';
 export const SET_OTP = 'digimine/LoginPage/SET_OTP';
@@ -27,9 +27,13 @@ export const SET_FEEDBACK_FORM = 'SET_FEEDBACK_FORM';
 export const SAVE_FEEDBACK_FORM_DATA = 'SAVE_FEEDBACK_FORM_DATA';
 export const SET_SHOW_FEEDBACK_FORM_DATA = 'SET_SHOW_FEEDBACK_FORM_DATA';
 export const EMAIL_ERROR = 'digimine/LoginPage/EMAIL_ERROR';
-export const SET_SHOW_FEEDBACK_FORM_RADIO_DATA = 'SET_SHOW_FEEDBACK_FORM_RADIO_DATA';
+export const SET_SHOW_FEEDBACK_FORM_RADIO_DATA =
+  'SET_SHOW_FEEDBACK_FORM_RADIO_DATA';
 export const OTP_ERROR = 'digimine/LoginPage/OTP_ERROR';
 export const SHOW_OTP_ERROR_POPUP = 'digimine/LoginPage/SHOW_OTP_ERROR_POPUP';
-export const DOWNLOAD_PROFILE_IMAGE = 'digimine/LoginPage/DOWNLOAD_PROFILE_IMAGE';
+export const DOWNLOAD_PROFILE_IMAGE =
+  'digimine/LoginPage/DOWNLOAD_PROFILE_IMAGE';
 export const SILENT_RENEWAL = 'boilerplate/App/SILENT_RENEWAL';
 export const SET_CHOOSED_LOCATION = 'boilerplate/App/SET_CHOOSED_LOCATION';
+export const GET_USER_PROFILE_DETAIL = 'GET_USER_PROFILE_DETAIL';
+export const SET_USER_PROFILE_DETAIL = 'SET_USER_PROFILE_DETAIL';
