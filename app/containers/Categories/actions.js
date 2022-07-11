@@ -133,14 +133,8 @@ export function setDataInSubRuleDialog(obj) {
   };
 }
 
-<<<<<<< HEAD
-export function setFileInDialog(obj){
-  console.log("file action=====", obj)
-  return{
-=======
 export function setFileInDialog(obj) {
   return {
->>>>>>> 5d0f32018156d72ebb60dedcb18378580c40185c
     type: SET_FILE_IN_DIALOG,
     payload: obj,
   };

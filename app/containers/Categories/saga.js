@@ -136,13 +136,8 @@ function* addCategorySubRuleSaga(action) {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${awtToken}`,
-<<<<<<< HEAD
-        "Content-Type": "application/json",
-          // "Accept": "application/json",
-=======
         'Content-Type': 'multipart/form-data',
         // "Accept": "application/json",
->>>>>>> 5d0f32018156d72ebb60dedcb18378580c40185c
       },
       
       body: JSON.stringify(action.payload.subRule),

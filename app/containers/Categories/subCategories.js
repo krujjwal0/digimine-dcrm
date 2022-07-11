@@ -20,33 +20,6 @@ export default function AddSubCategories(props) {
     inputRef.current.click();
   };
   const handleFileChange = event => {
-<<<<<<< HEAD
-    let tempArray = [];
-    let fileObj = event.target.files;
-     let formData = new FormData();
-    // let jsonBosy = {
-    //   'someKey' : 'someValue'
-    // }
-    // for (let i = 0; i < event.target.files.length; i++){
-     
-    //     formData.append('files', event.target.files[i]);
-      
-    // }
-    // formData.append('jsonBosy', new Blob([JSON.stringify(jsonBosy)],{
-    //   type: ' application/json'
-    // }));
-    // console.log('file=====', fileObj,formData);
-
-    // if (!fileObj) {
-    //   return;
-    // }
-    console.log('fileObj is', fileObj);
-    for (let i = 0; i < event.target.files.length; i++) {
-      formData.append("file-" + [...formData.keys()].length, fileObj[i], fileObj[i].name)
-      console.log('fileObj name is', fileObj[i].name, fileObj[i], formData);
-      props.setFileInDialog(event.target.files[i])
-      tempArray.push(fileObj[i].name)
-=======
     const tempArray = [];
     const fileObj = event.target.files;
     if (!fileObj) {
@@ -57,7 +30,6 @@ export default function AddSubCategories(props) {
       console.log('fileObj name is', fileObj[i].name, fileObj[i]);
       props.setFileInDialog(fileObj[i]);
       tempArray.push(fileObj[i].name);
->>>>>>> 5d0f32018156d72ebb60dedcb18378580c40185c
     }
     setfilename(tempArray.join());
   };
@@ -122,13 +94,8 @@ export default function AddSubCategories(props) {
                   // label="Standard"
                   variant="standard"
                   name="title"
-<<<<<<< HEAD
-                  value={props.subRuleDialog.data.subRule.title}
-                  onChange={(e) => props.setDataInSubRule(e)}
-=======
                   value={props.subRuleDialog.data.title}
                   onChange={e => props.setDataInSubRule(e)}
->>>>>>> 5d0f32018156d72ebb60dedcb18378580c40185c
                   className="font-sans "
                   style={{ marginTop: '3px', placeholder: '#66737E' }}
                 />
@@ -152,13 +119,8 @@ export default function AddSubCategories(props) {
                   // label="Standard"
                   variant="standard"
                   name="name"
-<<<<<<< HEAD
-                  value={props.subRuleDialog.data.subRule.name}
-                  onChange={(e) => props.setDataInSubRule(e)}
-=======
                   value={props.subRuleDialog.data.name}
                   onChange={e => props.setDataInSubRule(e)}
->>>>>>> 5d0f32018156d72ebb60dedcb18378580c40185c
                   className="font-sans "
                   style={{ marginTop: '3px', placeholder: '#66737E' }}
                 />
@@ -182,13 +144,8 @@ export default function AddSubCategories(props) {
                   // label="Standard"
                   variant="standard"
                   name="responsibility"
-<<<<<<< HEAD
-                  onChange={(e) => props.setDataInSubRule(e)}
-                  value={props.subRuleDialog.data.subRule.responsibility}
-=======
                   onChange={e => props.setDataInSubRule(e)}
                   value={props.subRuleDialog.data.responsibility}
->>>>>>> 5d0f32018156d72ebb60dedcb18378580c40185c
                   style={{ marginTop: '3px', placeholder: '#66737E' }}
                 />
               </div>
@@ -210,19 +167,11 @@ export default function AddSubCategories(props) {
                   className="font-sans mt-3 border-2 border-gray-300 items-center"
                   id="review"
                   name="description"
-<<<<<<< HEAD
-                  value={props.subRuleDialog.data.subRule.description}
-                  rows="4" cols="50"
-                  onChange={(e) => props.setDataInSubRule(e)}
-                >
-                </textarea>
-=======
                   value={props.subRuleDialog.data.description}
                   rows="4"
                   cols="50"
                   onChange={e => props.setDataInSubRule(e)}
                 />
->>>>>>> 5d0f32018156d72ebb60dedcb18378580c40185c
               </div>
 
               <div className="flex flex-col mt-7 font-sans">
