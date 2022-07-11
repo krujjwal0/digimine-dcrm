@@ -5,9 +5,9 @@
 import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import request from 'utils/request';
-import { GET_ALL_DEPARTMENTS, GET_ASSIGNED_WORKS, GET_DROPDOWN_PERSON_LIST, GET_RULE_AND_SUBRULE } from './constants';
+import { GET_ALL_DEPARTMENTS, GET_ASSIGNED_WORKS, GET_DROPDOWN_PERSON_LIST, GET_RULE_AND_SUBRULE, SAVE_ASSIGNED_WORK } from './constants';
 import { HOST, BASE_PATH, SCHEMES, URL } from '../config.json';
-import { setAllDepartment, setAssignedWorks, setDropdownList, setRuleAndSubrule } from './actions';
+import { getAssignedWorks, setAllDepartment, setAssignedWorks, setDropdownList, setRuleAndSubrule } from './actions';
 import { silentRenewalAction } from '../LoginPage/actions';
 
 export function* getAssignedWorkSaga() {
@@ -138,10 +138,40 @@ function* getRuleAndSubruleSaga(){
     } else console.log(err);
   }
 }
+function* postAssignedWorkSaga(action){
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/saveAssignWork`;
+  const awtToken = localStorage.getItem('awtToken');
+  console.log('postAssignedWorkSaga in saga get :', requestURL,action.payload);
+  let result;
 
+  try {
+    console.log('postAssignedWorkSaga get ');
+    result = yield call(request, requestURL, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${awtToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log('success in postAssignedWorkSaga saga', result);
+    yield put(getAssignedWorks());
+  } catch (err) {
+    console.log('Error in postAssignedWorkSaga saga', result, err);
+    if (err.response.status == 401) {
+      console.log(" Unauthorised access");
+
+      //call silentRenewal with refresh token
+      yield put(silentRenewalAction());
+    }
+    else if (result) {
+      console.log(result.status.message);
+    } else console.log(err);
+  }
+}
 export default function* regulatoryData() {
   yield takeLatest(GET_ASSIGNED_WORKS, getAssignedWorkSaga);
   yield takeEvery(GET_DROPDOWN_PERSON_LIST, getDropdownListSaga);
   yield takeLatest(GET_ALL_DEPARTMENTS, getAllDepartmentSaga);
   yield takeLatest(GET_RULE_AND_SUBRULE,getRuleAndSubruleSaga);
+  yield takeLatest(SAVE_ASSIGNED_WORK,postAssignedWorkSaga)
 }

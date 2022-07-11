@@ -18,4 +18,6 @@ export const GET_ALL_DEPARTMENTS='boilerplate/Regulatory/GET_ALL_DEPARTMENTS';
 export const SET_ALL_DEPARTMENTS = 'boilerplate/Regulatory/SET_ALL_DEPARTMENTS';
 export const GET_RULE_AND_SUBRULE='boilerplate/Regulatory/GET_RULE_AND_SUBRULE';
 export const SET_RULE_AND_SUBRULE = 'boilerplate/Regulatory/SET_RULE_AND_SUBRULE';
+export const SAVE_ASSIGNED_WORK = 'boilerplate/Regulatory/SAVE_ASSIGNED_WORK';
+// export const SAVE_ASSIGNED_WORK = 'boilerplate/Regulatory/SAVE_ASSIGNED_WORK';
 

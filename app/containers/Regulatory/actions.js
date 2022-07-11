@@ -15,7 +15,7 @@
  *    }
  */
 
-import { GET_RULE_AND_SUBRULE,SET_RULE_AND_SUBRULE, GET_ASSIGNED_WORKS, SET_ASSIGNED_WORKS, GET_DROPDOWN_PERSON_LIST, SET_DROPDOWN_PERSON_LIST, SET_SUBRULES, GET_ALL_DEPARTMENTS, SET_ALL_DEPARTMENTS } from './constants';
+import { GET_RULE_AND_SUBRULE, SET_RULE_AND_SUBRULE, GET_ASSIGNED_WORKS, SET_ASSIGNED_WORKS, GET_DROPDOWN_PERSON_LIST, SET_DROPDOWN_PERSON_LIST, SET_SUBRULES, GET_ALL_DEPARTMENTS, SET_ALL_DEPARTMENTS, SAVE_ASSIGNED_WORK } from './constants';
 
 /**
  * Changes the input field of the form
@@ -30,13 +30,13 @@ export function getAssignedWorks() {
     type: GET_ASSIGNED_WORKS
   };
 }
-export function getRuleAndSubrule(){
+export function getRuleAndSubrule() {
   console.log("GET_RULE_AND_SUBRULE Action")
   return {
     type: GET_RULE_AND_SUBRULE
   }
 }
-export function setRuleAndSubrule(data){
+export function setRuleAndSubrule(data) {
   console.log("GET_RULE_AND_SUBRULE Action")
   return {
     type: SET_RULE_AND_SUBRULE,
@@ -81,6 +81,12 @@ export function setDropdownList(purpose, result) {
 export function setSubRules(data) {
   return {
     type: SET_SUBRULES,
+    payload: data
+  }
+}
+export function postAssignedWorkAction(data) {
+  return {
+    type: SAVE_ASSIGNED_WORK,
     payload: data
   }
 }

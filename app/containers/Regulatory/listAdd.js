@@ -52,6 +52,10 @@ export function ListAdd({
 
   const [departmentId, setDepartmentId] = useState(0);
   const [selectOTCorPC, setSelectOTCorPC] = useState('OTC');
+  const [assignPersonId,setAssignPersonId] =useState(0);
+  const [reviewerId,setReviewerId] = useState(0);
+  const [functionalHeadId,setFunctionalHeadId] =useState(0);
+
   useEffect(() => {
     getAllDepartment();
 
@@ -77,15 +81,42 @@ export function ListAdd({
     );
   }, [departmentId]);
 
+  useEffect(()=>{
+
+  },[isDisabled])
+
   const history = useHistory();
   const listAddSubRule = () => {
+
+    const workData={
+      departmentId:departmentId,
+      locationId: localStorage.getItem('choosedLocation'),
+      category:selectOTCorPC,
+      assignPersonId:assignPersonId,
+      completionDate:'',
+      reviewerId:reviewerId,
+      functionalHeadId:functionalHeadId,
+      pickDateFrequency:'Weekly',
+      typeOfWork:'',
+      // rules: [
+      //   {
+      //     "ruleName": "string",
+      //     "subRuleNames": [
+      //       "string"
+      //     ]
+      //   }
+      // ]
+    }
+    console.log("Data to assign work === ",workData);
+
     const path = `/listadd2`;
     history.push(path);
   };
 
-  const [selectedDate, setSelectedDate] = useState(
-    new Date('2014-08-18T21:11:54'),
+  const [selectedDate, setSelectedDate] = useState(''
+    // new Date('2014-08-18T21:11:54'),
   );
+  const [isDisabled,setIsDisabled]=useState(true);
 
   const handleDateChange = date => {
     setSelectedDate(date);
@@ -96,14 +127,28 @@ export function ListAdd({
     event.preventDefault();
     console.info('You clicked a breadcrumb.');
   }
+  
+  const checkEnableDiv=()=>{
+    console.log("CHECK DISABKLE",isDisabled,selectedDate != '')
+    // and Date condition as well
+    if(departmentId > 0 && selectedDate != ''){
+      setIsDisabled(false);
+      console.log("CHECK DISABKLE SET TRUE",isDisabled)
+    }
+
+  }
 
   const selectDepartmentId = e => {
     console.log(e.target.value);
     setDepartmentId(e.target.value);
+    checkEnableDiv();
     // Call api to show users list of particular Location
   };
 
-
+  const handleChangeDate= (e)=>{
+    setSelectedDate(e.target.value);
+    checkEnableDiv();
+  }
 
   return (
     <div className="content">
@@ -271,6 +316,7 @@ export function ListAdd({
                           shrink: true,
                         }}
                         style={{ marginTop: '4.3px', marginLeft: '13px' }}
+                        onChange={handleChangeDate}
                       />
                     </form>
                   </div>
@@ -332,13 +378,13 @@ export function ListAdd({
             </form>
           </div>
 
-          <div className=" w-1/2 bg-[#F7F8FA] rounded-lg  mt-8 mr-20 ml-12">
+          <div className=" w-1/2 bg-[#F7F8FA] rounded-lg  mt-8 mr-20 ml-12" aria-disabled={isDisabled}>
             <form className=" mb-6 -ml-3">
               <p className="ml-9 mt-3 font-sans font-semibold flex">
                 <p className="font-sans">Select Assign Person</p>
                 <p className="text-[red]">*</p>
               </p>
-              <select className="font-sans w-10/12 ml-7 mt-3 border-2 rounded-[20px] h-10">
+              <select className="font-sans w-10/12 ml-7 mt-3 border-2 rounded-[20px] h-10" onClick={(e)=>setAssignPersonId(e.target.value)} disabled={isDisabled} >
                 {assignPersonDropdownList.map((person, index) => (
                   <option
                     className="ml-5 font-sans"
@@ -352,10 +398,10 @@ export function ListAdd({
               </select>
 
               <p className="ml-9 mt-6 font-sans font-semibold">
-                Select Slot 1 Senior
+                Select Reviewer
               </p>
 
-              <select className="font-sans w-10/12 ml-7 mt-3 border-2 rounded-[20px] h-10">
+              <select className="font-sans w-10/12 ml-7 mt-3 border-2 rounded-[20px] h-10" onClick={(e)=>setReviewerId(e.target.value)} disabled={isDisabled} >
                 {reviwerDropdownList.map((reviewer, index) => (
                   <option
                     className="ml-5 font-sans"
@@ -369,10 +415,10 @@ export function ListAdd({
               </select>
 
               <p className="ml-9 mt-6 font-sans font-semibold">
-                Select Slot 2 Senior
+                Select Lead Reviewer
               </p>
 
-              <select className="w-10/12 ml-7 mt-3 border-2 rounded-[20px] h-10 font-sans">
+              <select className="w-10/12 ml-7 mt-3 border-2 rounded-[20px] h-10 font-sans" onClick={(e)=>setFunctionalHeadId(e.target.value)} disabled={isDisabled} >
                 {functionalHeadDropdownList.map((person, index) => (
                   <option
                     className="ml-2 font-sans"

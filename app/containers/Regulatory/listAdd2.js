@@ -22,7 +22,7 @@ export function ListAdd2({ getRuleAndSubrule, ruleAndSubRuleList, setSubRules, s
   const [checkedState, setCheckedState] = useState(
     new Array(subRulesList.length).fill('')
   );
-  
+
   let addSelectedSubRuleData = [];
 
   useEffect(() => {
@@ -30,14 +30,14 @@ export function ListAdd2({ getRuleAndSubrule, ruleAndSubRuleList, setSubRules, s
     console.log("ruleAndSubRuleList", ruleAndSubRuleList)
   }, [])
 
-  
+
   useEffect(() => {
     console.log("subRulesList", subRulesList)
   }, [subRulesList]);
-  
-  useEffect(()=>{
-    console.log("addSelectedSubRuleData",addSelectedSubRuleData)
-  },[addSelectedSubRuleData])
+
+  useEffect(() => {
+    console.log("addSelectedSubRuleData", addSelectedSubRuleData)
+  }, [addSelectedSubRuleData])
 
   const history = useHistory();
   const toListPage = () => {
@@ -49,17 +49,62 @@ export function ListAdd2({ getRuleAndSubrule, ruleAndSubRuleList, setSubRules, s
     event.preventDefault();
     console.info('You clicked a breadcrumb.');
   }
+  let SelectedRuleAndSubRule = [];
 
   const handleSubRuleCheckbox = (event, subRule) => {
-    let temp = subRule;
-    if (event.target.checked === true) {
-      addSelectedSubRuleData = [...addSelectedSubRuleData, temp];
-      console.log("True")
-    } else {
-      addSelectedSubRuleData = [...addSelectedSubRuleData.filter((data, i) => data.id !== subRule.id)]
+    const found = SelectedRuleAndSubRule.find(element => element.ruleName == selectedRule);
+    console.log("MATCHED found ", found);
 
-      console.log("False", subRule, addSelectedSubRuleData)
+    if (found) {
+
+      if (event.target.checked === true) {
+        found.subRuleNames.push(subRule.name);
+        console.log(" MAtched =====", found, SelectedRuleAndSubRule)
+      } else {
+        var index = found.subRuleNames.indexOf(subRule.name);
+        if (index > -1) {
+          found.subRuleNames.splice(index, 1);
+        }
+        // found.subRuleNames.filter((data, i) => data !== subRule.name)
+        console.log("Else MAtched =====", found, SelectedRuleAndSubRule)
+      }
+      SelectedRuleAndSubRule=[
+        ...SelectedRuleAndSubRule,
+        found
+      ]
+
+    } else {
+      let temp = subRule; //SubRuleNAme Only 
+
+      if (event.target.checked === true) {
+
+        addSelectedSubRuleData.push(temp.name);
+        console.log("True")
+      } else {
+        addSelectedSubRuleData = [...addSelectedSubRuleData.filter((data, i) => data.id !== subRule.id)]
+
+        console.log("False", subRule, addSelectedSubRuleData)
+      }
+      SelectedRuleAndSubRule = [...SelectedRuleAndSubRule,
+      {
+        ruleName: selectedRule,
+        subRuleNames: addSelectedSubRuleData
+      }
+      ]
+      console.log("SELECTED RULE AND SUB RULES ARE====", SelectedRuleAndSubRule)
     }
+
+    // let temp = subRule;//SubRuleNAme Only 
+
+    // if (event.target.checked === true) {
+
+    //   addSelectedSubRuleData = [...addSelectedSubRuleData, temp];
+    //   console.log("True")
+    // } else {
+    //   addSelectedSubRuleData = [...addSelectedSubRuleData.filter((data, i) => data.id !== subRule.id)]
+
+    //   console.log("False", subRule, addSelectedSubRuleData)
+    // }
     console.log("SUbRule and selected SubRules", subRule, addSelectedSubRuleData)
   };
 
@@ -73,8 +118,16 @@ export function ListAdd2({ getRuleAndSubrule, ruleAndSubRuleList, setSubRules, s
     e.checked = true;
     //Call Action to set subrules in redux
     setSubRules(rule.subRuleResponses);
+    const ruleData = {
+      ruleName: selectedRule,
+      subRuleNames: addSelectedSubRuleData
+    }
+    console.log("ruleData ==== ", ruleData)
+    addSelectedSubRuleData = [];
   }
+  useEffect(() => {
 
+  }, [SelectedRuleAndSubRule])
 
   return (
     <div className="content">
@@ -137,36 +190,37 @@ export function ListAdd2({ getRuleAndSubrule, ruleAndSubRuleList, setSubRules, s
           style={{ backgroundColor: '#F7F8FA', height: '102px' }}
           className="-ml-2 "
         >
-          <div className="ml-8 ">
-            <div className="pt-3 text-sm font-bold font-sans">
-              Selected Rules & Sub Rules
-            </div>
-            <div style={{ color: '#132B6B' }} className="font-semibold font-sans mt-4">
-              {selectedRule}
-            </div>
-            <div className="flex text-sm font-normal">
-
-              {/* <div className='font-sans'>Sub Rule 1</div> */}
-              <ul className='flex '>
-                {
-                  addSelectedSubRuleData.length > 0 ?
-                    addSelectedSubRuleData.map((selectedSubRule, i) => { 
-                      return (<li className="ml-3 font-sans">{selectedSubRule.name}</li>) 
-                    })
-                    : <li className="ml-3 font-sans">Select Sub Rules</li>
-                }
-
-
-              </ul>
-
-            </div>
-          </div>
+          {
+            SelectedRuleAndSubRule.length > 0 ?
+              SelectedRuleAndSubRule.map((ruleNsubRule, i) => {
+                console.log("Hey====",ruleNsubRule),
+                <div className="ml-8 " key={i} >
+                  <div className="pt-3 text-sm font-bold font-sans">
+                    Selected Rules and  Sub Rules
+                  </div>
+                  <div style={{ color: '#132B6B' }} className="font-semibold font-sans mt-4">
+                    {ruleNsubRule.ruleName}
+                  </div>
+                  {/* <div className="flex text-sm font-normal">
+                    <ul className='flex '>
+                      {
+                        ruleNsubRule.subRuleNames.length > 0 ?
+                          ruleNsubRule.subRuleNames.map((selectedSubRule, i) => {
+                            return (<li className="ml-3 font-sans">{selectedSubRule}</li>)
+                          })
+                          : <li className="ml-3 font-sans">Select Sub Rules</li>
+                      }
+                    </ul>
+                  </div> */}
+                </div>
+              })
+              : <p>Select Rules and Sub Rules</p>
+          }
         </div>
-
         <div className="ml-8 mr-16 ">
           <div className="pt-4 text-sm font-semibold flex justify-between font-sans">
             <div className='font-sans font-bold text-black'>Choose No. of Rules</div>
-            <button className='border-2 w-28 h-11 font-semibold rounded-full font-sans'style={{color: '#F66B6B',boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.15)"}}>Reset All</button>
+            <button className='border-2 w-28 h-11 font-semibold rounded-full font-sans' style={{ color: '#F66B6B', boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.15)" }}>Reset All</button>
           </div>
 
           <div className="flex mt-2 ">
