@@ -11,8 +11,8 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import { withStyles } from '@material-ui/core/styles';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-
+// import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MoreVert from '@material-ui/icons/MoreVert';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import {
@@ -129,20 +129,20 @@ function Dashboard({
 
   return (
     <div className="maindash">
-      <div className="mx-9 mt-4 w-[95%]">
+      <div className="mx-4 mt-3 w-[95%]">
         <Breadcrumbs
           aria-label="breadcrumb"
-          className="font-sans font-bold text-xl"
-          style={{ marginLeft: '0px', fontWeight: '800', fontSize: '30px' }}
+          className="font-sans font-bold text-lg"
+          style={{ marginLeft: '0px', fontWeight: '600', fontSize: '30px' }}
         >
           <Typography
             sx={{ display: 'flex', alignItems: 'center' }}
             color="text.primary"
-            className="font-sans font-bold text-xl"
+            className="font-sans font-bold text-lg"
             style={{
               marginLeft: '30px',
               fontWeight: '500',
-              fontSize: '25px',
+              fontSize: '20px',
               color: '#132B6B',
             }}
           >
@@ -152,7 +152,7 @@ function Dashboard({
         </Breadcrumbs>
         <p
           style={{ color: '#F66B6B', fontSize: '11px' }}
-          className=" font-sans ml-16"
+          className=" font-sans ml-12"
         >
           Dashboard |{' '}
           <span className=" font-sans" style={{ color: '#151F63' }}>
@@ -222,64 +222,64 @@ function Dashboard({
         </div>
         <Card
           className="w-full h-[72px] mt-[41px]"
-          style={{ borderRadius: '20px' }}
+          style={{ borderRadius: '50px' }}
         >
           <CardContent>
-            <div className="flex">
-              <div className="rounded-full h-[41px] w-[41px] ml-3 bg-[#132B6B]">
-                <p className="text-white ml-[11px] mt-[11px] font-sans">RK</p>
+            <div className="flex justify-between">
+              <div className="rounded-full h-[36px] w-[36px] ml-3 bg-[#132B6B]">
+                <p className="text-white px-2 py-2 font-sans">RK</p>
               </div>
-              <div className="ml-10">
-                <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
+              <div className="">
+                <p className="text-[10px] font-sans font-normal text-[#66737E] ">
                   Department
                 </p>
-                <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
+                <p className="text-[12px] font-sans font-bold text-[#132B6B] mt-[8px]">
                   Mining
                 </p>
               </div>
-              <div className="ml-10">
-                <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
+              <div className="">
+                <p className="text-[10px] font-sans font-normal text-[#66737E]">
                   Assign Person
                 </p>
                 <div className="flex">
                   <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
                     Rajat Kapoor
                   </p>
-                  <div className="flex justify-center w-20 bg-[#F66B6B] ml-1 mt-[6px] rounded-md h-4">
-                    <p className="text-center text-[11px] mt-[2px] text-white font-sans">
+                  <div className="flex justify-center w-20 bg-[#F66B6B] ml-1 mt-[10px] rounded-md h-4">
+                    <p className="text-center text-[10px] mt-[2px] text-white font-sans">
                       #0123456789
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="ml-16">
-                <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
+              <div className="">
+                <p className="text-[10px] font-sans font-normal text-[#66737E] ">
                   Reviewer
                 </p>
                 <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
                   Abhinandan Banerjee
                 </p>
               </div>
-              <div className="ml-12">
-                <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
+              <div className="">
+                <p className="text-[10px] font-sans font-normal text-[#66737E] ">
                   Lead Reviewer
                 </p>
                 <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
                   Rupesh Bansal
                 </p>
               </div>
-              <div className="ml-12">
-                <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
+              <div className="">
+                <p className="text-[10px] font-sans font-normal text-[#66737E] ">
                   Category
                 </p>
                 <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
                   OTC
                 </p>
               </div>
-              <div className="ml-12">
-                <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
+              <div className="flex">
+                {/* <p className="text-[11px] font-sans font-semibold text-[#66737E] ">
                   Category
-                </p>
+                </p> */}
                 <FormGroup>
                   <FormControlLabel
                     control={
@@ -291,153 +291,175 @@ function Dashboard({
                     }
                   />
                 </FormGroup>
+                <div className="mt-2 ">
+                              <MoreVert  />
+                            </div>
               </div>
+             
             </div>
           </CardContent>
         </Card>
-        <Card className="w-full h-[72px] mt-[10px]">
-          <CardContent>
-            <div className="flex">
-              <div className="rounded-full h-[41px] w-[41px] ml-3 bg-[#132B6B]">
-                <p className="text-white ml-[11px] mt-[11px] font-sans">RK</p>
-              </div>
-              <div className="ml-10">
-                <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
-                  Department
-                </p>
-                <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
-                  Mining
-                </p>
-              </div>
-              <div className="ml-10">
-                <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
-                  Assign Person
-                </p>
-                <div className="flex">
-                  <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
-                    Rajat Kapoor
-                  </p>
-                  <div className="flex justify-center w-20 bg-[#F66B6B] ml-1 mt-[6px] rounded-md h-4">
-                    <p className="text-center text-[11px] mt-[2px] text-white font-sans">
-                      #0123456789
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="ml-16">
-                <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
-                  Reviewer
-                </p>
-                <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
-                  Abhinandan Banerjee
-                </p>
-              </div>
-              <div className="ml-12">
-                <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
-                  Lead Reviewer
-                </p>
-                <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
-                  Rupesh Bansal
-                </p>
-              </div>
-              <div className="ml-12">
-                <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
-                  Category
-                </p>
-                <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
-                  OTC
-                </p>
-              </div>
-              <div className="ml-12">
-                <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
-                  Category
-                </p>
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <IOSSwitch
-                        checked={state.checkedB}
-                        onChange={handleChange}
-                        name="checkedB"
-                      />
-                    }
-                  />
-                </FormGroup>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="w-full h-[72px] mt-[10px]">
-          <CardContent>
-            <div className="flex">
-              <div className="rounded-full h-[41px] w-[41px] ml-3 bg-[#132B6B]">
-                <p className="text-white ml-[11px] mt-[11px] font-sans">RK</p>
-              </div>
-              <div className="ml-10">
-                <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
-                  Department
-                </p>
-                <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
-                  Mining
-                </p>
-              </div>
-              <div className="ml-10">
-                <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
-                  Assign Person
-                </p>
-                <div className="flex">
-                  <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
-                    Rajat Kapoor
-                  </p>
-                  <div className="flex justify-center w-20 bg-[#F66B6B] ml-1 mt-[6px] rounded-md h-4">
-                    <p className="text-center text-[11px] mt-[2px] text-white font-sans">
-                      #0123456789
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="ml-16">
-                <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
-                  Reviewer
-                </p>
-                <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
-                  Abhinandan Banerjee
-                </p>
-              </div>
-              <div className="ml-12">
-                <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
-                  Lead Reviewer
-                </p>
-                <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
-                  Rupesh Bansal
-                </p>
-              </div>
-              <div className="ml-12">
-                <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
-                  Category
-                </p>
-                <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
-                  OTC
-                </p>
-              </div>
-              <div className="ml-12">
-                <p className="text-[11px] font-sans font-semibold text-[#66737E] mt-[2px]">
-                  Category
-                </p>
 
-                <FormControlLabel
-                  control={
-                    <IOSSwitch
-                      checked={state.checkedB}
-                      onChange={handleChange}
-                      name="checkedB"
-                    />
-                  }
-                />
+        <Card
+          className="w-full h-[72px] mt-[8px]"
+          style={{ borderRadius: '50px' }}
+        >
+          <CardContent>
+            <div className="flex justify-between">
+              <div className="rounded-full h-[36px] w-[36px] ml-3 bg-[#132B6B]">
+                <p className="text-white px-2 py-2 font-sans">RK</p>
               </div>
+              <div className="">
+                <p className="text-[10px] font-sans font-normal text-[#66737E] ">
+                  Department
+                </p>
+                <p className="text-[12px] font-sans font-bold text-[#132B6B] mt-[8px]">
+                  Mining
+                </p>
+              </div>
+              <div className="">
+                <p className="text-[10px] font-sans font-normal text-[#66737E]">
+                  Assign Person
+                </p>
+                <div className="flex">
+                  <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
+                    Rajat Kapoor
+                  </p>
+                  <div className="flex justify-center w-20 bg-[#F66B6B] ml-1 mt-[10px] rounded-md h-4">
+                    <p className="text-center text-[10px] mt-[2px] text-white font-sans">
+                      #0123456789
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="">
+                <p className="text-[10px] font-sans font-normal text-[#66737E] ">
+                  Reviewer
+                </p>
+                <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
+                  Abhinandan Banerjee
+                </p>
+              </div>
+              <div className="">
+                <p className="text-[10px] font-sans font-normal text-[#66737E] ">
+                  Lead Reviewer
+                </p>
+                <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
+                  Rupesh Bansal
+                </p>
+              </div>
+              <div className="">
+                <p className="text-[10px] font-sans font-normal text-[#66737E] ">
+                  Category
+                </p>
+                <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
+                  OTC
+                </p>
+              </div>
+              <div className="flex">
+                {/* <p className="text-[11px] font-sans font-semibold text-[#66737E] ">
+                  Category
+                </p> */}
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <IOSSwitch
+                        checked={state.checkedB}
+                        onChange={handleChange}
+                        name="checkedB"
+                      />
+                    }
+                  />
+                </FormGroup>
+                <div className="mt-2 ">
+                              <MoreVert  />
+                            </div>
+              </div>
+             
             </div>
           </CardContent>
         </Card>
+
+        <Card
+          className="w-full h-[72px] mt-[8px]"
+          style={{ borderRadius: '50px' }}
+        >
+          <CardContent>
+            <div className="flex justify-between">
+              <div className="rounded-full h-[36px] w-[36px] ml-3 bg-[#132B6B]">
+                <p className="text-white px-2 py-2 font-sans">RK</p>
+              </div>
+              <div className="">
+                <p className="text-[10px] font-sans font-normal text-[#66737E] ">
+                  Department
+                </p>
+                <p className="text-[12px] font-sans font-bold text-[#132B6B] mt-[8px]">
+                  Mining
+                </p>
+              </div>
+              <div className="">
+                <p className="text-[10px] font-sans font-normal text-[#66737E]">
+                  Assign Person
+                </p>
+                <div className="flex">
+                  <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
+                    Rajat Kapoor
+                  </p>
+                  <div className="flex justify-center w-20 bg-[#F66B6B] ml-1 mt-[8px] rounded-md h-4">
+                    <p className="text-center text-[10px] mt-[2px] text-white font-sans">
+                      #0123456789
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="">
+                <p className="text-[10px] font-sans font-normal text-[#66737E] ">
+                  Reviewer
+                </p>
+                <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
+                  Abhinandan Banerjee
+                </p>
+              </div>
+              <div className="">
+                <p className="text-[10px] font-sans font-normal text-[#66737E] ">
+                  Lead Reviewer
+                </p>
+                <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
+                  Rupesh Bansal
+                </p>
+              </div>
+              <div className="">
+                <p className="text-[10px] font-sans font-normal text-[#66737E] ">
+                  Category
+                </p>
+                <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
+                  OTC
+                </p>
+              </div>
+              <div className="flex">
+                {/* <p className="text-[11px] font-sans font-semibold text-[#66737E] ">
+                  Category
+                </p> */}
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <IOSSwitch
+                        checked={state.checkedB}
+                        onChange={handleChange}
+                        name="checkedB"
+                      />
+                    }
+                  />
+                </FormGroup>
+                <div className="mt-2 ">
+                              <MoreVert  />
+                            </div>
+              </div>
+             
+            </div>
+          </CardContent>
+        </Card>
+
       </div>
     </div>
   );

@@ -40,7 +40,7 @@
     display: flex;
     justify-content: start;
     align-items: center;
-    padding: 10px 0px 10px 7px;
+    padding: 10px 0px 7px 2px;
     list-style: none;
     /* height: 40px; */
     
@@ -52,25 +52,24 @@
     font-size: 14px;
     line-height: 19px;
     width: 95%;
-    height: 80%;
+    /* height: 80%; */
     display: flex;
-    font-weight: 500;
+    font-weight: 600;
     font-family: 'Nunito';
     font-style: normal;
     border-radius: 4px;
     align-items: center;
-    padding: 0 16px;
+    padding: 0 28px;
 }
 .nav-text a:hover {
-    background-color: #f5f5f5;
-    
+      background: #f5f5f5 !important; border: solid 0px #F66B6B; color: #F66B6B;
 }
 
 .nav-menu-items{
     width:100%;
     background-image: url('../../images/blue-navbar.svg');
     display: block;
-    max-height: calc(100vh - 190px);
+    max-height: calc(100vh - 100px);
     overflow: auto;
 }
 .navbar-toggle{
@@ -90,3 +89,7 @@ span{
 .navbar_page .login_btn .MuiButton-label{margin: 0; font-family: 'Roboto', sans-serif;  font-weight: bold;}
 
 .pointer {cursor: pointer;}
+
+.dash .dashboard_btn :hover {
+    background: #f5f5f5 !important; border: solid 0px #F66B6B; color: #F66B6B;
+}

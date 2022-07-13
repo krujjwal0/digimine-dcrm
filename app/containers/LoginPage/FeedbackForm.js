@@ -379,13 +379,13 @@ function FeedbackForm({
       <div className="container fixed w-full py-8 " style={{bottom: '0', zIndex:'99', left: '50%', transform: 'translateX(-50%)'}} >
       <div className="flex flex-wrap py-9  relative" style={{}}>
         <div
-           className="w-1/2"
+           className="w-1/2  "
           //   helpPageCall();
           // }}
          
         >
            <p
-            className="font-sans mt-4 font-semibold "
+            className="font-sans mt-4 font-semibold form_page  "
             style={{ color: '#132B6B' }}
             onClick={() => {
               helpPageCall();
@@ -393,7 +393,7 @@ function FeedbackForm({
           >
            
           <HelpOutlineIcon
-            className=""
+            className="form_btn"
             // onClick={()=>{history.push({pathname: '/help'})}}
             style={{
               backgroundColor: '#FFFFFF',
@@ -410,20 +410,20 @@ function FeedbackForm({
           </div>
                  
             <div
-              className="flex justify-end w-1/2 "
+              className="flex justify-end w-1/2  "
               style={{}}
             >
-              <div>
+              <div className='form_page '>
                 <button
                   style={{
                     background: '#132B6B',
-                    borderRadius: '60px',
-                    color: 'white',
-                    width: '115px',
-                    height: '40px',
+                    // borderRadius: '60px',
+                    // color: 'white',
+                    // width: '115px',
+                     height: '40px',
                    
                   }}
-                  className="font-sans"
+                  className="font-sans w-28 form_btn "
                   onClick={handleSkip}
                 >
                   Skip
@@ -438,12 +438,12 @@ function FeedbackForm({
                   <button
                     style={{
                       background: '#132B6B',
-                      borderRadius: '60px',
-                      color: 'white',
-                      width: '115px',
+                      // borderRadius: '60px',
+                      // color: 'white',
+                      // width: '115px',
                       height: '40px',
                     }}
-                    className="font-sans ml-4 mr-8"
+                    className="font-sans  w-28 form_btn"
                     onClick={handleNext}
                   >
                     NEXT
