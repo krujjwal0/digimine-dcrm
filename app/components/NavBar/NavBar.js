@@ -244,9 +244,9 @@ export function NavBar({ setNavBar, getUserLogout, setOtpAction, signOut }) {
                     </div> */}
 
             <ul className="nav-menu-items font-sans ">
-              <li className="navbar-toggle font-sans mb-1 mt-8">
+              <li className="navbar-toggle font-sans mb-5 mt-8">
                 <Link to="#" className="menu-bars   font-sans">
-                  <div className="-mt-3 -ml-6 mb-4">
+                  <div className="-mt-3 -ml-6 mb-2">
                     <img src={nav} />
                   </div>
                   <img
@@ -279,7 +279,7 @@ export function NavBar({ setNavBar, getUserLogout, setOtpAction, signOut }) {
               className=" font-sans fixed "
               style={{
                 // top: '425px',
-                height: '180px',
+                height: '150px',
                 width: '210px',
                 // right: '13px',
 
@@ -298,47 +298,51 @@ export function NavBar({ setNavBar, getUserLogout, setOtpAction, signOut }) {
                   justifyItems: 'center',
                 }}
               >
-                <div className="flex">
+                <div className="flex mb-1">
                   <div
-                    className=" mt-3 h-[30px] w-[30px] ml-3 bg-[#132B6B]"
+                    className=" mt-3 h-[30px] w-[40px] ml-3 bg-[#132B6B]"
                     style={{ borderRadius: '40px' }}
                     onClick={routeChange}
                   >
-                    <p className="text-white ml-[6px] mt-[7px] font-sans">RK</p>
+                    <p className="text-white px-2 py-1 font-sans">RK</p>
                   </div>
                   <Button
                     className=" font-sans "
                     style={{
-                      color: '#132B6B',
-                      alignContent: 'center',
-                      justifyItems: 'center',
+                      color: '#000000',
+                      // alignContent: 'center',
+                      // justifyItems: 'center',
+                      fontWeight: '700',
+                      fontSize: '11px'
                     }}
                     onClick={routeChange}
                   >
                     <p
-                      className="font-sans font-normal text-sm -ml-4 "
-                      style={{ marginTop: '5px' }}
+                      className="font-sans font-normal -ml-4 py-2 dashboard_btn  "
+                      style={{ color: '#000000',   fontWeight: '700',
+                      fontSize: '11px'}}
                     >
                       My Profile
                     </p>
                   </Button>
                 </div>
-                <div className="-mt-10 rounded-full h-[45px] w-[49px] ml-40 bg-[#fff]">
+                <div className="-mt-12 rounded-full h-[45px] w-[49px] ml-40 bg-[#fff]  pointer ">
                   <PowerSettingsNewIcon
-                    className="mt-2 ml-3"
+                    className="mt-2 ml-3 "
+                    style={{color: '#F66B6B'}}
                     onClick={() => userLogout()}
                   />
                 </div>
-                <div className=" font-sans ">
+                <div className=" font-sans px-1 ">
                   <p
-                    className="font-sans font-semibold text-sm ml-2  mt-1"
+                    className="font-sans font-normal text-sm   mt-1"
                     style={{ color: '#fff' }}
                   >
                     © minemagma 2020.
                     <br />
                     <span
-                      className="font-sans font-normal "
-                      style={{ color: '#fff' }}
+                      className="font-sans  "
+                      style={{ color: '#fff', fontSize: '12px', fontWeight: '300' }}
                     >
                       {' '}
                       All Rights Reserved
