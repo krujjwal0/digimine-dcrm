@@ -96,7 +96,7 @@ export function ListAdd({
 
     const workData = {
       departmentId: parseInt(departmentId),
-      locationId: localStorage.getItem('choosedLocation'),
+      locationId: parseInt(localStorage.getItem('choosedLocation')),
       category: selectOTCorPC,
       assignPersonId: parseInt(assignPersonId),
       completionDate: selectedDate,
