@@ -59,6 +59,7 @@ export function App(props) {
 
   const history = createBrowserHistory();
   const [nav, setNav] = useState(props.navBar);
+  const isAuthorized = localStorage.getItem('isAuthorized');
   useEffect(() => {
     console.log('Nav bar ===', props.navBar);
     setNav(props.navBar);
@@ -82,6 +83,12 @@ export function App(props) {
             <Route path="/otp" component={OtpPage} />
             <Route path="/stepper" component={GeekStepper} />
 
+            {/* {isAuthorized ?
+              <>
+
+              </> :
+              <>session out Popup</>
+            } */}
             <Route path="/success" component={Success} />
             <Route path="/location" component={Location} />
             <Route path="/form" component={FeedbackForm} />

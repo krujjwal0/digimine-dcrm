@@ -39,7 +39,7 @@ import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import Link from '@material-ui/core/Link';
 import { useHistory } from 'react-router-dom';
-import { getAssignedWorks } from './actions';
+import { getAssignedWorks, getViewAssignWorkAction } from './actions';
 
 const key = 'regulatory';
 
@@ -58,7 +58,8 @@ const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 export function Regulatory({
   getAssignedWorks,
-  assignedWorkList
+  assignedWorkList,
+  getViewAssignWorkAction
 }) {
   useInjectSaga({ key, saga });
 
@@ -70,7 +71,7 @@ export function Regulatory({
 
   useEffect(() => {
     getAssignedWorks();
-    console.log("assignedWorkList ===",assignedWorkList)
+    console.log("assignedWorkList ===", assignedWorkList)
   }, []);
 
 
@@ -78,7 +79,7 @@ export function Regulatory({
   //   console.log('department list', departmentList);
   // }, []);
 
- 
+
 
   const handleChange = event => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -337,6 +338,15 @@ export function Regulatory({
     history.push(path);
   }
 
+  const goToDetailsPage = (id) => {
+    const path = '/details';
+    getViewAssignWorkAction(id);
+    history.push({
+      pathname: path
+    });
+  }
+
+
   return (
     <div className="content">
       <div className="mx-5 mt-1 w-[95%]">
@@ -459,143 +469,157 @@ export function Regulatory({
             >
               <div className="my-7 w-full justify-center " />
               <div>
-                <Card
-                  className="w-full rounded-full h-[60px] pointer"
-                  style={{ borderRadius: '50px', marginTop: '10px' }}
-                  onClick={openDetailsPage}
-                >
-                  <CardContent className="justify-center">
-                    <div className="flex justify-between rounded-full -mt-1">
-                      <div className="flex">
-                        <div className="rounded-full h-[41px] w-[41px] ml-3 bg-[#132B6B]">
-                          <p className="text-white ml-[11px] mt-[11px] font-sans">
-                            RK
-                          </p>
-                        </div>
-                      </div>
-                      <div className="">
-                        <p className="text-[11px] font-sans font-semibold text-[#66737E] ">
-                          Department
-                        </p>
-                        <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
-                          Mining
-                        </p>
-                      </div>
-                      <div className="">
-                        <p className="text-[11px] font-sans font-semibold text-[#66737E] ">
-                          Assign Person
-                        </p>
-                        <div className="flex font-sans text-[13px]  font-bold text-[#132B6B] mt-[8px]">
-                          Rajat Kumar
-                          <div className="flex justify-center w-24 bg-[#F66B6B] ml-1 mt-[1px] rounded-md h-4">
-                            <p className="text-center m-2 text-[11px] mt-[2px] text-white font-sans">
-                              #0123456789
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="">
-                        <p className="text-[11px] font-sans font-semibold text-[#66737E] ">
-                          Slot 1 Senior
-                        </p>
-                        <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
-                          Rupal Banarjee
-                        </p>
-                      </div>
-                      <div className="">
-                        <p className="text-[11px] font-sans font-semibold text-[#66737E] ">
-                          Slot 2 Senior
-                        </p>
-                        <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
-                          Abhirupa Majumdar
-                        </p>
-                      </div>
-                      <div className="">
-                        <p className="text-[11px] font-sans font-semibold text-[#66737E] ">
-                          Categories
-                        </p>
-                        <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
-                          PC
-                        </p>
-                      </div>
-                      <div className="ml-5">
-                        <p className="text-[11px] font-sans font-semibold text-[#66737E] ">
-                          Status
-                        </p>
-                        {/* <FormControlLabel
+                {
+                  assignedWorkList.length > 0 ?
+                    assignedWorkList.map((work, i) => {
+                      // console.log("assignedWorkList HEy=======", work),
+                      return (<Card
+                        className="w-full rounded-full h-[60px]"
+                        style={{ borderRadius: '50px', marginTop: '10px' }}
+                        key={i}
+
+                      >
+                        <CardContent className="justify-center">
+                          <div className="flex justify-between rounded-full -mt-1" onClick={() => goToDetailsPage(work.id)}>
+                            <div className="flex">
+                              <div className="rounded-full h-[41px] w-[41px] ml-3 bg-[#132B6B]">
+                                <p className="text-white ml-[11px] mt-[11px] font-sans">
+                                  RK
+                                </p>
+                              </div>
+                            </div>
+                            <div className="">
+                              <p className="text-[11px] font-sans font-semibold text-[#66737E] ">
+                                Department
+                              </p>
+                              <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
+                                {work.departmentName}
+                                {console.log("work.departmentName===", work.departmentName)}
+                              </p>
+                            </div>
+                            <div className="">
+                              <p className="text-[11px] font-sans font-semibold text-[#66737E] ">
+                                Assign Person
+                              </p>
+                              <div className="flex font-sans text-[13px]  font-bold text-[#132B6B] mt-[8px]">
+                                {work.assignedPersonName}
+                                {console.log("work.assignedPersonName===", work.assignedPersonName)}
+                                <div className="flex justify-center w-24 bg-[#F66B6B] ml-1 mt-[1px] rounded-md h-4">
+                                  <p className="text-center m-2 text-[11px] mt-[2px] text-white font-sans">
+                                    {work.assignedPersonId}
+                                    {console.log("work.assignedPersonId", work.assignedPersonId)}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="">
+                              <p className="text-[11px] font-sans font-semibold text-[#66737E] ">
+                                Reviewer
+                                {/* Reviewer */}
+                              </p>
+                              <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
+                                {work.reviewerName}
+                                {console.log("work.reviewerName", work.reviewerName)}
+                              </p>
+                            </div>
+                            <div className="">
+                              <p className="text-[11px] font-sans font-semibold text-[#66737E] ">
+                                Functional Head
+                              </p>
+                              <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
+                                {work.functionalHeadName}
+                                {console.log("work.functionalHeadName", work.functionalHeadName)}
+                              </p>
+                            </div>
+                            <div className="">
+                              <p className="text-[11px] font-sans font-semibold text-[#66737E] ">
+                                Categories
+                              </p>
+                              <p className="text-[13px] font-sans font-bold text-[#132B6B] mt-[8px]">
+                                {work.category}
+                                {
+                                  console.log("work.category", work.category)
+                                }
+                              </p>
+                            </div>
+                            <div className="ml-5">
+                              <p className="text-[11px] font-sans font-semibold text-[#66737E] ">
+                                Status
+                              </p>
+                              {/* <FormControlLabel
 control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="checkedB" />}
 
 /> */}
-                        <FormGroup>
-                          <FormControlLabel
-                            control={
-                              <IOSSwitch
-                                checked={state.checkedB}
-                                onChange={handleChange}
-                                name="checkedB"
-                              />
-                            }
-                          />
-                        </FormGroup>
-                      </div>
-                      <div className="mt-2 mr-3 ">
-                        <MoreVert />
-                      </div>
-                      <Popover
-                        id={idAdd}
-                        open={openAdd}
-                        anchorEl={anchor}
-                        // onClose={handleCloseAdd}
-                        style={{
-                          borderRadius: '15px',
-                          // background: '#FFFFFF',
-                          // boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)'
-                        }}
-                        anchorOrigin={{
-                          vertical: 'top',
-                          horizontal: 'right',
-                        }}
-                        transformOrigin={{
-                          vertical: 'top',
-                          horizontal: 'left',
-                        }}
-                      >
-                        <div className="p-2 m-2">
-                          <div>
-                            <button
-                              className="my-1 mx-4 font-sans"
-                            // value={list.id}
-                            // onClick={() => openEdit()}
+                              <FormGroup>
+                                <FormControlLabel
+                                  control={
+                                    <IOSSwitch
+                                      checked={state.checkedB}
+                                      onChange={handleChange}
+                                      name="checkedB"
+                                    />
+                                  }
+                                />
+                              </FormGroup>
+                            </div>
+                            <div className="mt-2 mr-3 ">
+                              <MoreVert />
+                            </div>
+                            <Popover
+                              id={idAdd}
+                              open={openAdd}
+                              anchorEl={anchor}
+                              // onClose={handleCloseAdd}
+                              style={{
+                                borderRadius: '15px',
+                                // background: '#FFFFFF',
+                                // boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)'
+                              }}
+                              anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                              }}
+                              transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'left',
+                              }}
                             >
-                              Edit
-                            </button>
-                          </div>
-                          <div>
-                            <button
-                              className="my-1 mx-4 font-sans"
-                            // value={list.id}
-                            // onClick={() => onDeleteUser()}
+                              <div className="p-2 m-2">
+                                <div>
+                                  <button
+                                    className="my-1 mx-4 font-sans"
+                                  // value={list.id}
+                                  // onClick={() => openEdit()}
+                                  >
+                                    Edit
+                                  </button>
+                                </div>
+                                <div>
+                                  <button
+                                    className="my-1 mx-4 font-sans"
+                                  // value={list.id}
+                                  // onClick={() => onDeleteUser()}
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                              </div>
+                            </Popover>
+                            <Dialog
+                              // open={showEdit}
+                              // onClose={handleExit}
+                              className="w-50 h-50"
                             >
-                              Delete
-                            </button>
-                          </div>
-                        </div>
-                      </Popover>
-                      <Dialog
-                        // open={showEdit}
-                        // onClose={handleExit}
-                        className="w-50 h-50"
-                      >
-                        <DialogContent
-                          style={{
-                            borderRadius: '15px',
-                            background: '#FFFFFF',
-                            boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
-                            Width: '604px',
-                            Height: '494px',
-                          }}
-                        >
-                          {/* <EditUser
+                              <DialogContent
+                                style={{
+                                  borderRadius: '15px',
+                                  background: '#FFFFFF',
+                                  boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
+                                  Width: '604px',
+                                  Height: '494px',
+                                }}
+                              >
+                                {/* <EditUser
                                   list={editUserData}
                                   editUser={editUser}
                                   rolesList={rolesList}
@@ -604,12 +628,14 @@ control={<IOSSwitch checked={state.checkedB} onChange={handleChange} name="check
                                   getAllRoles={getAllRoles}
                                   handleExit={handleExit}
                                 /> */}
-                        </DialogContent>
-                      </Dialog>
-                    </div>
-                  </CardContent>
-                  <CardActions />
-                </Card>
+                              </DialogContent>
+                            </Dialog>
+                          </div>
+                        </CardContent><CardActions />
+                      </Card>)
+                    })
+                    : <p>No Assigned Work</p>
+                }
               </div>
             </div>
             {/* )
@@ -631,7 +657,7 @@ const mapStateToProps = state => ({
 export function mapDispatchToProps(dispatch) {
   return {
     getAssignedWorks: data => dispatch(getAssignedWorks(data)),
-
+    getViewAssignWorkAction: (data) => dispatch(getViewAssignWorkAction(data))
   };
 }
 
