@@ -12,11 +12,11 @@ import { compose } from 'redux';
 import { useInjectSaga } from 'utils/injectSaga';
 import saga from './saga';
 import { getAllDepartment } from '../Employee/actions';
-import { getRuleAnd, getRuleAndSubrule, setSubRules } from './actions';
+import { getRuleAnd, getRuleAndSubrule, onChangeRule, postAssignedWorkAction, setDataAssignWork, setSubRules } from './actions';
 
 const key = 'regulatory';
 
-export function ListAdd2({ getRuleAndSubrule, ruleAndSubRuleList, setSubRules, subRulesList }) {
+export function ListAdd2({ onChangeRule, getRuleAndSubrule, ruleAndSubRuleList, setSubRules, subRulesList, assignWorkData, postAssignedWorkAction, setDataAssignWork }) {
   useInjectSaga({ key, saga });
   const [selectedRule, setSelectedRule] = useState('');
   const [checkedState, setCheckedState] = useState(
@@ -28,6 +28,7 @@ export function ListAdd2({ getRuleAndSubrule, ruleAndSubRuleList, setSubRules, s
   useEffect(() => {
     getRuleAndSubrule();
     console.log("ruleAndSubRuleList", ruleAndSubRuleList)
+
   }, [])
 
 
@@ -41,6 +42,15 @@ export function ListAdd2({ getRuleAndSubrule, ruleAndSubRuleList, setSubRules, s
 
   const history = useHistory();
   const toListPage = () => {
+    const data = {
+      ...assignWorkData,
+      rules: SelectedRuleAndSubRule,
+    }
+    console.log("Data === Assign work ====", data)
+    //Set data in reducer
+    setDataAssignWork(data);
+    //Saga Call
+    postAssignedWorkAction(data);
     const path = `/regulatory`;
     history.push(path);
   }
@@ -68,7 +78,7 @@ export function ListAdd2({ getRuleAndSubrule, ruleAndSubRuleList, setSubRules, s
         // found.subRuleNames.filter((data, i) => data !== subRule.name)
         console.log("Else MAtched =====", found, SelectedRuleAndSubRule)
       }
-      SelectedRuleAndSubRule=[
+      SelectedRuleAndSubRule = [
         ...SelectedRuleAndSubRule,
         found
       ]
@@ -109,7 +119,14 @@ export function ListAdd2({ getRuleAndSubrule, ruleAndSubRuleList, setSubRules, s
   };
 
   const onSelectRule = (e, rule) => {
-    console.log("onSelectRule===", e.target.value)
+    console.log("onSelectRule===", e.target.value, rule)
+    // let object = {
+    //   ruleName: rule.name,
+    //   status:"",
+    //   subRuleNames: []
+    // }
+
+    // onChangeRule(object)
     setSelectedRule(rule.name);
     var ruleCheckbox = document.getElementsByName("ruleCheckbox");
     Array.prototype.forEach.call(ruleCheckbox, function (el) {
@@ -193,8 +210,7 @@ export function ListAdd2({ getRuleAndSubrule, ruleAndSubRuleList, setSubRules, s
           {
             SelectedRuleAndSubRule.length > 0 ?
               SelectedRuleAndSubRule.map((ruleNsubRule, i) => {
-                console.log("Hey====",ruleNsubRule),
-                <div className="ml-8 " key={i} >
+                return (<div className="ml-8 " key={i} >
                   <div className="pt-3 text-sm font-bold font-sans">
                     Selected Rules and  Sub Rules
                   </div>
@@ -212,7 +228,7 @@ export function ListAdd2({ getRuleAndSubrule, ruleAndSubRuleList, setSubRules, s
                       }
                     </ul>
                   </div> */}
-                </div>
+                </div>)
               })
               : <p>Select Rules and Sub Rules</p>
           }
@@ -227,7 +243,12 @@ export function ListAdd2({ getRuleAndSubrule, ruleAndSubRuleList, setSubRules, s
 
             {ruleAndSubRuleList.map((rule, index) => {
               return (<form className='flex' key={index}>
-                <input type="checkbox" name="ruleCheckbox" value={rule.id} checked={selectedRule == rule.name} onClick={(e) => onSelectRule(e, rule)} />
+                <input type="checkbox"
+                  name="ruleName"
+                  value={rule.id}
+                  checked={selectedRule == rule.name}
+                  onChange={(e) => onSelectRule(e, rule)}
+                />
                 <label className="ml-1 font-sans text-sm text-black font-normal">{rule.name}</label>
               </form>
               )
@@ -305,7 +326,8 @@ const mapStateToProps = state => (
   console.log("STATE===", state), {
     // rolesList: state.users.rolesList.length > 0 ? state.users.rolesList : [],
     ruleAndSubRuleList: state.regulatoryReducer.ruleAndSubRuleList.length > 0 ? state.regulatoryReducer.ruleAndSubRuleList : [],
-    subRulesList: state.regulatoryReducer.subRulesList.length > 0 ? state.regulatoryReducer.subRulesList : []
+    subRulesList: state.regulatoryReducer.subRulesList.length > 0 ? state.regulatoryReducer.subRulesList : [],
+    assignWorkData: state.regulatoryReducer.assignWorkData
   });
 
 export function mapDispatchToProps(dispatch) {
@@ -313,6 +335,9 @@ export function mapDispatchToProps(dispatch) {
     getAllDepartment: () => dispatch(getAllDepartment()),
     getRuleAndSubrule: () => dispatch(getRuleAndSubrule()),
     setSubRules: (data) => dispatch(setSubRules(data)),
+    postAssignedWorkAction: (data) => dispatch(postAssignedWorkAction(data)),
+    setDataAssignWork: (data) => dispatch(setDataAssignWork(data)),
+    onChangeRule: (data) => dispatch(onChangeRule(data))
   };
 }
 

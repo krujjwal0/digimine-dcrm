@@ -24,7 +24,7 @@ import Link from '@material-ui/core/Link';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import saga from './saga';
 import './style.css';
-import { getAllDepartment, getDropdownList } from './actions';
+import { getAllDepartment, getDropdownList, getRuleAndSubrule, setDataAssignWork } from './actions';
 
 const key = 'regulatory';
 
@@ -47,19 +47,23 @@ export function ListAdd({
   assignPersonDropdownList,
   reviwerDropdownList,
   functionalHeadDropdownList,
+  setDataAssignWork,
+  getRuleAndSubrule
 }) {
   useInjectSaga({ key, saga });
 
-  const [departmentId, setDepartmentId] = useState(0);
+  const [departmentId, setDepartmentId] = useState(1);
   const [selectOTCorPC, setSelectOTCorPC] = useState('OTC');
-  const [assignPersonId,setAssignPersonId] =useState(0);
-  const [reviewerId,setReviewerId] = useState(0);
-  const [functionalHeadId,setFunctionalHeadId] =useState(0);
+  const [assignPersonId, setAssignPersonId] = useState(0);
+  const [reviewerId, setReviewerId] = useState(0);
+  const [functionalHeadId, setFunctionalHeadId] = useState(0);
 
   useEffect(() => {
     getAllDepartment();
+    getRuleAndSubrule();
 
     console.log('departmentList in regulatory ===', departmentList);
+
   }, []);
 
   useEffect(() => {
@@ -79,35 +83,38 @@ export function ListAdd({
       reviwerDropdownList,
       functionalHeadDropdownList,
     );
+    setDepartmentId
+
   }, [departmentId]);
 
-  useEffect(()=>{
+  useEffect(() => {
 
-  },[isDisabled])
+  }, [isDisabled])
 
   const history = useHistory();
   const listAddSubRule = () => {
 
-    const workData={
-      departmentId:departmentId,
+    const workData = {
+      departmentId: departmentId,
       locationId: localStorage.getItem('choosedLocation'),
-      category:selectOTCorPC,
-      assignPersonId:assignPersonId,
-      completionDate:'',
-      reviewerId:reviewerId,
-      functionalHeadId:functionalHeadId,
-      pickDateFrequency:'Weekly',
-      typeOfWork:'',
+      category: selectOTCorPC,
+      assignPersonId: assignPersonId,
+      completionDate: selectedDate,
+      reviewerId: reviewerId,
+      functionalHeadId: functionalHeadId,
+      pickDateFrequency: 'Weekly',
+      typeOfWork: 'regulatory',
       // rules: [
       //   {
-      //     "ruleName": "string",
+      //    "ruleName": "string",
       //     "subRuleNames": [
       //       "string"
       //     ]
       //   }
       // ]
     }
-    console.log("Data to assign work === ",workData);
+    setDataAssignWork(workData);
+    console.log("Data to assign work === ", workData);
 
     const path = `/listadd2`;
     history.push(path);
@@ -116,24 +123,21 @@ export function ListAdd({
   const [selectedDate, setSelectedDate] = useState(''
     // new Date('2014-08-18T21:11:54'),
   );
-  const [isDisabled,setIsDisabled]=useState(true);
+  const [isDisabled, setIsDisabled] = useState(true);
 
-  const handleDateChange = date => {
-    setSelectedDate(date);
-  };
   const classes = useStyles();
 
   function handleClick(event) {
     event.preventDefault();
     console.info('You clicked a breadcrumb.');
   }
-  
-  const checkEnableDiv=()=>{
-    console.log("CHECK DISABKLE",isDisabled,selectedDate != '')
+
+  const checkEnableDiv = () => {
+    console.log("CHECK DISABKLE", isDisabled, selectedDate == '')
     // and Date condition as well
-    if(departmentId > 0 && selectedDate != ''){
+    if (selectedDate == '') {
       setIsDisabled(false);
-      console.log("CHECK DISABKLE SET TRUE",isDisabled)
+      console.log("CHECK DISABKLE SET TRUE", isDisabled)
     }
 
   }
@@ -145,7 +149,8 @@ export function ListAdd({
     // Call api to show users list of particular Location
   };
 
-  const handleChangeDate= (e)=>{
+  const handleChangeDate = (e) => {
+    console.log("handleDateChange === ", e.target.value)
     setSelectedDate(e.target.value);
     checkEnableDiv();
   }
@@ -231,9 +236,7 @@ export function ListAdd({
                   required={true}
                   // value={departmentId}
                   onClick={(e) => selectDepartmentId(e)}
-
                 >
-
                   {departmentList.map((dept, index) => {
                     console.log('dept============', dept);
                     return (
@@ -302,57 +305,57 @@ export function ListAdd({
                   >
                     Select Your Date
                   </label>
-                  {selectOTCorPC == "OTC"?
-                  <div className=" ml-9 mt-6 border-2 rounded-full h-10 ">
-                    <form className={classes.container} noValidate>
-                      <TextField
-                        //  variant="outlined"
-                        id="date"
-                        // placeholder="Weekely"
-                        type="date"
-                        defaultValue="YYYY-MM-DD"
-                        className={classes.textField}
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        style={{ marginTop: '4.3px', marginLeft: '13px' }}
-                        onChange={handleChangeDate}
-                      />
-                    </form>
-                  </div>
-                  :
+                  {selectOTCorPC == "OTC" ?
+                    <div className=" ml-9 mt-6 border-2 rounded-full h-10 ">
+                      <form className={classes.container} noValidate>
+                        <TextField
+                          //  variant="outlined"
+                          id="date"
+                          // placeholder="Weekely"
+                          type="date"
+                          defaultValue="YYYY-MM-DD"
+                          className={classes.textField}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          style={{ marginTop: '4.3px', marginLeft: '13px' }}
+                          onChange={handleChangeDate}
+                        />
+                      </form>
+                    </div>
+                    :
                     <select
-                  className=" ml-9 mt-6 border-2 rounded-full h-10"
-                  style={{
-                    color: '#66737E',
-                    fontSize: '13px',
-                    fontWeight: '400',
-                  }}
-                  // onClick={(e) => setSelectOTCorPC(e.target.value)}
-                >
-                  {/* <option
+                      className=" ml-9 mt-6 border-2 rounded-full h-10"
+                      style={{
+                        color: '#66737E',
+                        fontSize: '13px',
+                        fontWeight: '400',
+                      }}
+                    // onClick={(e) => setSelectOTCorPC(e.target.value)}
+                    >
+                      {/* <option
                     className="ml-2 font-sans"
                     style={{ color: '#66737E' }}
                   >
                     None
                   </option> */}
-                  <option
-                    className="ml-2 font-sans"
-                    style={{ color: '#66737E' }}
-                    value="Weekly"
-                  >
-                    Weekly
-                  </option>
-                  <option
-                    className="ml-2 font-sans"
-                    style={{ color: '#66737E' }}
-                    value="Yearly"
-                  >
-                    Yearly
-                  </option>
-                </select>
+                      <option
+                        className="ml-2 font-sans"
+                        style={{ color: '#66737E' }}
+                        value="Weekly"
+                      >
+                        Weekly
+                      </option>
+                      <option
+                        className="ml-2 font-sans"
+                        style={{ color: '#66737E' }}
+                        value="Yearly"
+                      >
+                        Yearly
+                      </option>
+                    </select>
                   }
-                  
+
                 </div>
                 {/* <div className='flex flex-col ml-6'>
               <label className='font-sans text-sm ml-7' style={{fontSize: '13px', fontWeight: '700'}}>Pick Date</label>
@@ -384,7 +387,7 @@ export function ListAdd({
                 <p className="font-sans">Select Assign Person</p>
                 <p className="text-[red]">*</p>
               </p>
-              <select className="font-sans w-10/12 ml-7 mt-3 border-2 rounded-[20px] h-10" onClick={(e)=>setAssignPersonId(e.target.value)} disabled={isDisabled} >
+              <select className="font-sans w-10/12 ml-7 mt-3 border-2 rounded-[20px] h-10" onClick={(e) => setAssignPersonId(parseInt(e.target.value))} disabled={isDisabled} >
                 {assignPersonDropdownList.map((person, index) => (
                   <option
                     className="ml-5 font-sans"
@@ -401,7 +404,7 @@ export function ListAdd({
                 Select Reviewer
               </p>
 
-              <select className="font-sans w-10/12 ml-7 mt-3 border-2 rounded-[20px] h-10" onClick={(e)=>setReviewerId(e.target.value)} disabled={isDisabled} >
+              <select className="font-sans w-10/12 ml-7 mt-3 border-2 rounded-[20px] h-10" onClick={(e) => setReviewerId(e.target.value)} disabled={isDisabled} >
                 {reviwerDropdownList.map((reviewer, index) => (
                   <option
                     className="ml-5 font-sans"
@@ -418,7 +421,7 @@ export function ListAdd({
                 Select Lead Reviewer
               </p>
 
-              <select className="w-10/12 ml-7 mt-3 border-2 rounded-[20px] h-10 font-sans" onClick={(e)=>setFunctionalHeadId(e.target.value)} disabled={isDisabled} >
+              <select className="w-10/12 ml-7 mt-3 border-2 rounded-[20px] h-10 font-sans" onClick={(e) => setFunctionalHeadId(e.target.value)} disabled={isDisabled} >
                 {functionalHeadDropdownList.map((person, index) => (
                   <option
                     className="ml-2 font-sans"
@@ -460,13 +463,17 @@ const mapStateToProps = state => (
     assignPersonDropdownList: state.regulatoryReducer.assignPersonDropdownList.length > 0 ? state.regulatoryReducer.assignPersonDropdownList : [],
     reviwerDropdownList: state.regulatoryReducer.reviwerDropdownList.length > 0 ? state.regulatoryReducer.reviwerDropdownList : [],
     functionalHeadDropdownList: state.regulatoryReducer.functionalHeadDropdownList.length > 0 ? state.regulatoryReducer.functionalHeadDropdownList : []
-  });
+  }
+);
 
 export function mapDispatchToProps(dispatch) {
   return {
     getAllDepartment: () => dispatch(getAllDepartment()),
     getDropdownList: (roleId, departmentId) =>
       dispatch(getDropdownList(roleId, departmentId)),
+    setDataAssignWork: (data) => dispatch(setDataAssignWork(data)),
+    getRuleAndSubrule: (data) => dispatch(getRuleAndSubrule(data))
+
   };
 }
 

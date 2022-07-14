@@ -15,7 +15,7 @@
  *    }
  */
 
-import { GET_RULE_AND_SUBRULE, SET_RULE_AND_SUBRULE, GET_ASSIGNED_WORKS, SET_ASSIGNED_WORKS, GET_DROPDOWN_PERSON_LIST, SET_DROPDOWN_PERSON_LIST, SET_SUBRULES, GET_ALL_DEPARTMENTS, SET_ALL_DEPARTMENTS, SAVE_ASSIGNED_WORK } from './constants';
+import { GET_RULE_AND_SUBRULE, SET_RULE_AND_SUBRULE, GET_ASSIGNED_WORKS, SET_ASSIGNED_WORKS, GET_DROPDOWN_PERSON_LIST, SET_DROPDOWN_PERSON_LIST, SET_SUBRULES, GET_ALL_DEPARTMENTS, SET_ALL_DEPARTMENTS, SAVE_ASSIGNED_WORK, SET_DATA_ASSIGN_WORK, VIEW_ASSIGN_WORK, SET_VIEW_ASSIGN_WORK, ON_RULE_CHANGE, ON_SUB_RULE_CHANGE } from './constants';
 
 /**
  * Changes the input field of the form
@@ -37,7 +37,7 @@ export function getRuleAndSubrule() {
   }
 }
 export function setRuleAndSubrule(data) {
-  console.log("GET_RULE_AND_SUBRULE Action")
+  console.log("SET_RULE_AND_SUBRULE Action")
   return {
     type: SET_RULE_AND_SUBRULE,
     payload: data
@@ -85,8 +85,39 @@ export function setSubRules(data) {
   }
 }
 export function postAssignedWorkAction(data) {
+  console.log("HHHHHHHHHHHHH POST Work", data)
   return {
     type: SAVE_ASSIGNED_WORK,
+    payload: data
+  }
+}
+export function setDataAssignWork(data) {
+  return {
+    type: SET_DATA_ASSIGN_WORK,
+    payload: data
+  }
+}
+export function getViewAssignWorkAction(data) {
+  return {
+    type: VIEW_ASSIGN_WORK,
+    payload: data
+  }
+}
+export function setViewAssignWorkAction(data) {
+  return {
+    type: SET_VIEW_ASSIGN_WORK,
+    payload: data
+  }
+}
+export function onChangeRule(data) {
+  return {
+    type: ON_RULE_CHANGE,
+    payload: data
+  }
+}
+export function onChangeSubRule(data) {
+  return {
+    type: ON_SUB_RULE_CHANGE,
     payload: data
   }
 }

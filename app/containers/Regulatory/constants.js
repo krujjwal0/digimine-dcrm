@@ -19,5 +19,9 @@ export const SET_ALL_DEPARTMENTS = 'boilerplate/Regulatory/SET_ALL_DEPARTMENTS';
 export const GET_RULE_AND_SUBRULE='boilerplate/Regulatory/GET_RULE_AND_SUBRULE';
 export const SET_RULE_AND_SUBRULE = 'boilerplate/Regulatory/SET_RULE_AND_SUBRULE';
 export const SAVE_ASSIGNED_WORK = 'boilerplate/Regulatory/SAVE_ASSIGNED_WORK';
-// export const SAVE_ASSIGNED_WORK = 'boilerplate/Regulatory/SAVE_ASSIGNED_WORK';
+export const SET_DATA_ASSIGN_WORK = 'boilerplate/Regulatory/SET_DATA_ASSIGN_WORK';
+export const VIEW_ASSIGN_WORK = 'boilerplate/Regulatory/VIEW_ASSIGN_WORK';
+export const SET_VIEW_ASSIGN_WORK = 'boilerplate/Regulatory/SET_VIEW_ASSIGN_WORK';
+export const ON_RULE_CHANGE="boilerplate/Regulatory/ON_RULE_CHANGE";
+export const ON_SUB_RULE_CHANGE="boilerplate/Regulatory/ON_SUB_RULE_CHANGE";
 

@@ -5,9 +5,9 @@
 import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import request from 'utils/request';
-import { GET_ALL_DEPARTMENTS, GET_ASSIGNED_WORKS, GET_DROPDOWN_PERSON_LIST, GET_RULE_AND_SUBRULE, SAVE_ASSIGNED_WORK } from './constants';
+import { GET_ALL_DEPARTMENTS, GET_ASSIGNED_WORKS, GET_DROPDOWN_PERSON_LIST, GET_RULE_AND_SUBRULE, SAVE_ASSIGNED_WORK, VIEW_ASSIGN_WORK } from './constants';
 import { HOST, BASE_PATH, SCHEMES, URL } from '../config.json';
-import { getAssignedWorks, setAllDepartment, setAssignedWorks, setDropdownList, setRuleAndSubrule } from './actions';
+import { getAssignedWorks, setAllDepartment, setAssignedWorks, setDropdownList, setRuleAndSubrule, setViewAssignWorkAction } from './actions';
 import { silentRenewalAction } from '../LoginPage/actions';
 
 export function* getAssignedWorkSaga() {
@@ -108,7 +108,7 @@ function* getAllDepartmentSaga() {
     } else console.log(err);
   }
 }
-function* getRuleAndSubruleSaga(){
+function* getRuleAndSubruleSaga() {
   const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/ruleAndSubRule/list`;
   const awtToken = localStorage.getItem('awtToken');
   console.log('getRuleAndSubruleSaga in saga get :', requestURL);
@@ -138,10 +138,11 @@ function* getRuleAndSubruleSaga(){
     } else console.log(err);
   }
 }
-function* postAssignedWorkSaga(action){
+function* postAssignedWorkSaga(action) {
+  console.log("HHHHHHHHHHHHH POST Work Saga", action.payload)
   const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/saveAssignWork`;
   const awtToken = localStorage.getItem('awtToken');
-  console.log('postAssignedWorkSaga in saga get :', requestURL,action.payload);
+  console.log('postAssignedWorkSaga in saga get :', requestURL, action.payload);
   let result;
 
   try {
@@ -152,6 +153,7 @@ function* postAssignedWorkSaga(action){
         Authorization: `Bearer ${awtToken}`,
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify(action.payload)
     });
     console.log('success in postAssignedWorkSaga saga', result);
     yield put(getAssignedWorks());
@@ -168,10 +170,42 @@ function* postAssignedWorkSaga(action){
     } else console.log(err);
   }
 }
+function* getViewAssignWorkByIdSaga(action) {
+  console.log("getViewAssignWorkByIdSaga====", action.payload);
+  const requestURL = `${SCHEMES}://${BASE_PATH}${HOST}/viewAssignWork/${action.payload}`;
+  const awtToken = localStorage.getItem('awtToken');
+  console.log('getViewAssignWorkByIdSaga in saga get :', requestURL, action.payload);
+  let result;
+
+  try {
+    console.log('getViewAssignWorkByIdSaga get ')
+    result = yield call(request, requestURL, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${awtToken}`,
+        'Content-Type': 'application/json',
+      }
+    });
+    console.log('success in getViewAssignWorkByIdSaga saga', result);
+    yield put(setViewAssignWorkAction(result.data));
+  } catch (err) {
+    console.log('Error in getViewAssignWorkByIdSaga saga', result, err);
+    if (err.response.status == 401) {
+      console.log(" Unauthorised access");
+
+      //call silentRenewal with refresh token
+      yield put(silentRenewalAction());
+    }
+    else if (result) {
+      console.log(result.status.message);
+    } else console.log(err);
+  }
+}
 export default function* regulatoryData() {
   yield takeLatest(GET_ASSIGNED_WORKS, getAssignedWorkSaga);
   yield takeEvery(GET_DROPDOWN_PERSON_LIST, getDropdownListSaga);
   yield takeLatest(GET_ALL_DEPARTMENTS, getAllDepartmentSaga);
-  yield takeLatest(GET_RULE_AND_SUBRULE,getRuleAndSubruleSaga);
-  yield takeLatest(SAVE_ASSIGNED_WORK,postAssignedWorkSaga)
+  yield takeLatest(GET_RULE_AND_SUBRULE, getRuleAndSubruleSaga);
+  yield takeLatest(SAVE_ASSIGNED_WORK, postAssignedWorkSaga);
+  yield takeLatest(VIEW_ASSIGN_WORK, getViewAssignWorkByIdSaga)
 }

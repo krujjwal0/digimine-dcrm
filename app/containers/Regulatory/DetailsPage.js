@@ -1,25 +1,13 @@
 /*
- * Regulatory
+ * Regulatory Details
  *
  * This is the first thing users see of our App, at the '/' route
  */
 
 import React, { useEffect, memo } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { createStructuredSelector } from 'reselect';
-
-import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
-import {
-  makeSelectRepos,
-  makeSelectLoading,
-  makeSelectError,
-} from 'containers/App/selectors';
-// import { Card, CardContent } from '@material-ui/core';
-// import Typography from '@material-ui/core/Typography';
-// import ArrowBackIosIcon from '@material-ui/core/AccordionActions/ArrowBackIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Divider from '@material-ui/core/Divider';
 import { alpha, styled, withStyles , makeStyles } from '@material-ui/core/styles';
@@ -32,11 +20,6 @@ import {
 } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
 
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-// import { makeStyles } from '@material-ui/core/styles';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import Grid from '@material-ui/core/Grid';
@@ -44,20 +27,12 @@ import Button from '@material-ui/core/Button';
 import { Redirect, useHistory } from 'react-router-dom';
 import ManageRemark from './ManagRema';
 import map from './image/new.png';
-import photo from './image/profilepic.png';
-import Users from './Users';
 import saga from './saga';
-import reducer from './reducer';
-import { makeSelectUsername } from './selectors';
-import { changeUsername } from './actions';
-import { loadRepos } from '../App/actions';
-import { setNavBar } from '../App/actions';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import MoreVert from '@material-ui/icons/MoreVert';
-// import { makeStyles, styled, alpha } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
+import { getViewAssignWorkAction } from './actions';
 
 const GreenSwitch = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-switchBase.Mui-checked': {
@@ -83,30 +58,15 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export function DetailsPage({
-  username,
-  loading,
-  error,
-  repos,
-  onSubmitForm,
-  onChangeUsername,
-  setNavBar,
-}) {
-  useInjectReducer({ key, reducer });
+export function DetailsPage({getViewAssignWorkAction}) {
   useInjectSaga({ key, saga });
   const history = useHistory();
 
   useEffect(() => {
-    // When initial state username is not null, submit the form to load repos
-    if (username && username.trim().length > 0) onSubmitForm();
   }, []);
-  const classes = useStyles();
+  // const classes = useStyles();
 
-  const reposListProps = {
-    loading,
-    error,
-    repos,
-  };
+
 
   const [age, setAge] = React.useState('RuleA');
 
@@ -116,7 +76,6 @@ export function DetailsPage({
 
   function toDetails() {
     history.push('/regulatory/details');
-    setNavBar(true);
   }
 
   function handleClick(event) {
@@ -175,14 +134,19 @@ export function DetailsPage({
     />
   ));
 
-  const [state, setState] = React.useState({
-    checkedA: true,
-    checkedB: true,
-    checkedC: true,
-  });
+  // const [state, setState] = React.useState({
+  //   checkedA: true,
+  //   checkedB: true,
+  //   checkedC: true,
+  // });
 
   const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
+  useEffect(()=>{
+    console.log(" State ")
+  })
+
+    // getViewAssignWorkAction(props.location.id);
   return (
     <div className="maindash2">
       <div className=" mt-4  w-full">
@@ -256,21 +220,6 @@ export function DetailsPage({
               <div />
               <div className="flex mr-36 ">
                 <GreenSwitch {...label} defaultChecked />
-                {/* <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <IOSSwitch
-                        checked={state.checkedB}
-                        onChange={handleChange}
-                        name="checkedB"
-                      />
-                    }
-                  />
-                </FormGroup>
-
-                <div className="mt-2 mr-3 ">
-                  <MoreVert />
-                </div> */}
               </div>
             </div>
 
@@ -555,61 +504,25 @@ export function DetailsPage({
           </div>
         </div>
 
-        {/* <div className="flex mt-6">
-          <Button
-            className="rounded-full "
-            style={{
-              background: '#F66B6B',
-              marginLeft: '34px',
-              height: '40px',
-              width: '190px',
-              borderRadius: '60px',
-            }}
-          >
-            Preview
-          </Button>
-         
-          <Button
-            className="rounded-full "
-            style={{
-              background: '#F66B6B',
-              marginLeft: '34px',
-              height: '40px',
-              width: '190px',
-              borderRadius: '60px',
-            }}
-          >
-            Submit & Preview
-          </Button>
-        </div> */}
-      </div>
+             </div>
     </div>
   );
 }
 
-DetailsPage.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  repos: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
-  onSubmitForm: PropTypes.func,
-  username: PropTypes.string,
-  onChangeUsername: PropTypes.func,
-};
 
-const mapStateToProps = createStructuredSelector({
-  repos: makeSelectRepos(),
-  username: makeSelectUsername(),
-  loading: makeSelectLoading(),
-  error: makeSelectError(),
-});
+const mapStateToProps = state => (
+  console.log("STATE===", state), {
+    // rolesList: state.users.rolesList.length > 0 ? state.users.rolesList : [],
+    ruleAndSubRuleList: state.regulatoryReducer.ruleAndSubRuleList.length > 0 ? state.regulatoryReducer.ruleAndSubRuleList : [],
+    subRulesList: state.regulatoryReducer.subRulesList.length > 0 ? state.regulatoryReducer.subRulesList : [],
+    assignWorkData: state.regulatoryReducer.assignWorkData
+  });
+
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),
-    onSubmitForm: evt => {
-      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-      dispatch(loadRepos());
-    },
+    // onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),
+    getViewAssignWorkAction:data=> dispatch(getViewAssignWorkAction(data))
   };
 }
 
