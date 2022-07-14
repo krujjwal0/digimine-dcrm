@@ -95,13 +95,13 @@ export function ListAdd({
   const listAddSubRule = () => {
 
     const workData = {
-      departmentId: departmentId,
+      departmentId: parseInt(departmentId),
       locationId: localStorage.getItem('choosedLocation'),
       category: selectOTCorPC,
-      assignPersonId: assignPersonId,
+      assignPersonId: parseInt(assignPersonId),
       completionDate: selectedDate,
-      reviewerId: reviewerId,
-      functionalHeadId: functionalHeadId,
+      reviewerId: parseInt(reviewerId),
+      functionalHeadId: parseInt(functionalHeadId),
       pickDateFrequency: 'Weekly',
       typeOfWork: 'regulatory',
       // rules: [
