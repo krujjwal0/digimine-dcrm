@@ -148,7 +148,7 @@ function* postAssignedWorkSaga(action) {
   try {
     console.log('postAssignedWorkSaga get ');
     result = yield call(request, requestURL, {
-      method: 'PUT',
+      method: 'POST',
       headers: {
         Authorization: `Bearer ${awtToken}`,
         'Content-Type': 'application/json',

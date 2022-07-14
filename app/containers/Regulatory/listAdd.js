@@ -102,7 +102,7 @@ export function ListAdd({
       completionDate: selectedDate,
       reviewerId: parseInt(reviewerId),
       functionalHeadId: parseInt(functionalHeadId),
-      pickDateFrequency: 'Weekly',
+      // pickDateFrequency: 'Weekly',
       typeOfWork: 'regulatory',
       // rules: [
       //   {

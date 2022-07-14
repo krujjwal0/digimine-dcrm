@@ -15,33 +15,7 @@ import {
 
 // The initial state of the App
 export const initialState = {
-  assignedWorkList: [
-    {
-      id: 0,
-      departmentName: "string",
-      reviewerName: "string",
-      assignedPersonId: 0,
-      submit: true,
-      functionalHeadName: "string",
-      employeeId: 0,
-      category: "string",
-      assignedPersonName: "string",
-      status: "notStarted"
-    }
-    // ,
-    // {
-    //   "id": 0,
-    //   "departmentName": "string",
-    //   "reviewerName": "string",
-    //   "assignedPersonId": 0,
-    //   "submit": true,
-    //   "functionalHeadName": "string",
-    //   "employeeId": 0,
-    //   "category": "string",
-    //   "assignedPersonName": "string",
-    //   "status": "notStarted"
-    // }
-  ],
+  assignedWorkList: [ ],
   assignPersonDropdownList: [],
   reviwerDropdownList: [],
   functionalHeadDropdownList: [],
@@ -57,7 +31,7 @@ export const initialState = {
     completionDate: "",
     reviewerId: 0,
     functionalHeadId: 0,
-    pickDateFrequency: "Weekly",
+    // pickDateFrequency: "Weekly",
     typeOfWork: "regulatory",
     rules: [
 
@@ -117,8 +91,9 @@ const regulatoryReducer = (state = initialState, action) =>
         };
       case SET_ASSIGNED_WORKS:
         return {
-          assignedWorkList: action.payload,
-          ...state
+          ...state,
+          assignedWorkList: action.payload
+          
         }
       case SET_DROPDOWN_PERSON_LIST:
         console.log("Reducer SETDROPDOWNLIST === ", action.payload, action.payload.purpose == "FUNCTIONAL_HEAD")
