@@ -36,6 +36,7 @@ import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import saga from './saga';
 import reducer from './reducer';
 import { getQ_A, setQ_A } from './action';
+import { useHistory } from 'react-router-dom';
 
 const key = 'helpReducer';
 
@@ -79,6 +80,13 @@ function Help(props) {
     }
     setQuestion(keyword);
   };
+
+  const history = useHistory();
+  const showContactUs = () => {
+    const path = `/ContactUs`;
+    history.push(path);
+
+  }
   return (
     <div className="content">
       <div className="mx-9 mt-4  w-[95%] h-full">
@@ -174,7 +182,7 @@ function Help(props) {
           <Button
             className="bg_red mx-auto  font-bold login_btn  w-60 h-14 rounded-full my-5 "
             style={{ borderRadius: '50px' }}
-            onClick={e => login(e)}
+            onClick={showContactUs}
           >
             <p
               className="font-sans font-bold text-lg"

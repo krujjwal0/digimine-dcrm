@@ -141,6 +141,11 @@ export function Regulatory({
     setShowExport(false);
   };
 
+  const openDetailsPage = () => {
+    const path = `/details`;
+    history.push(path);
+  }
+
   // const [name, setName] = useState('');
 
   // const filter = e => {

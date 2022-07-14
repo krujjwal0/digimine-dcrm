@@ -113,10 +113,10 @@ export function ChooseLocation(props) {
                   <Divider />
                 </div>
 
-                <div className="form_box w-full mt-40 ml-24  ">
+                <div className="form_box w-full mt-40   ">
                   <Button
-                    className="bg_red  mx-auto   font-sans login_btn  w-60 h-14 rounded-4xl my-5"
-                    style={{ borderRadius: '30px' }}
+                    className="bg_red mx-auto  font-bold login_btn  w-60 h-14 rounded-3xl my-5 "
+                    style={{ borderRadius: '30px', alignItems: 'center' }}
                     onClick={() => setRedirectToFeedbackPage()}
                   >
                     <p className="font-sans " style={{ color: '#fff' }}>
